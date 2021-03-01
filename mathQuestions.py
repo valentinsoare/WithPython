@@ -44,7 +44,7 @@ def input_catching(operation_type, first_number, second_number):
             answer = input(f"\n - How much is {first_number} {op_type[i]} {second_number} ? (q to quit, chd for difficulty level,"
                            f" cht for type of operation) -> ")
 
-            if re.match("[a-z]+", answer):
+            if answer.isalpha():
                 option = answer
             else:
                 answer = int(answer)
