@@ -223,7 +223,7 @@ def pc_player_check(*args):
 
     table[choosen_row, choosen_column] = '[ O ]'
     numeric[choosen_row, choosen_column] = 2
-    print(f'\n*Computer chosen {available_moves[0]}\n')
+    print(f'\n*Computer has chosen {available_moves[0]}\n')
     check_winner(table, given_name, numeric)
     time.sleep(1)
     pc += 1
