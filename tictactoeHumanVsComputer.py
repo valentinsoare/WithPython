@@ -133,7 +133,7 @@ def colorized_winner_diags(diag, table, given_name):
         print_second_diag(table)
 
     lines(18)
-    print(f'\nWINNER WINNER CHICKEN DINNER !!\nDiag with same values, {given_name} is the winner.')
+    print(f'\nWINNER WINNER CHICKEN DINNER !!\nDiag with same values, {given_name} is the winner.\n')
     exit()
 
 
@@ -174,19 +174,19 @@ def check_winner(*args):
     for i in range(len(table)):
         if list(numeric[i, :].flatten()).count(1) == 3:
             colorized_winner_rows_col(table, i, 0)
-            print(f'\nWINNER WINNER CHICKEN DINNER !!\n Row number {i}, {given_name} is the winner.')
+            print(f'\nWINNER WINNER CHICKEN DINNER !!\n Row number {i}, {given_name} is the winner.\n')
             exit()
         elif list(numeric[i, :].flatten()).count(2) == 3:
             colorized_winner_rows_col(table, i, 0)
-            print(f'\nWINNER WINNER CHICKEN DINNER !!\n Row number {i}, Computer is the winner.')
+            print(f'\nWINNER WINNER CHICKEN DINNER !!\n Row number {i}, Computer is the winner.\n')
             exit()
         elif list(numeric[:, i].flatten()).count(1) == 3:
             colorized_winner_rows_col(table, i, 1)
-            print(f'\nWINNER WINNER CHICKEN DINNER !!\n Column number {i}, {given_name} is the winner.')
+            print(f'\nWINNER WINNER CHICKEN DINNER !!\n Column number {i}, {given_name} is the winner.\n')
             exit()
         elif list(numeric[:, i].flatten()).count(2) == 3:
             colorized_winner_rows_col(table, i, 1)
-            print(f'\nWINNER WINNER CHICKEN DINNER !!\n Column number {i}, Computer is the winner.')
+            print(f'\nWINNER WINNER CHICKEN DINNER !!\n Column number {i}, Computer is the winner.\n')
             exit()
         else:
             check_diagonals(numeric, given_name, table)
@@ -295,5 +295,3 @@ def main():
 
 
 main()
-
-
