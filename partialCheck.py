@@ -27,3 +27,5 @@ value, value_length, name = catch_dollar_amount_input()
 define_printing(value, name)
 
 
+
+
