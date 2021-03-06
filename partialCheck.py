@@ -17,7 +17,7 @@ def define_printing(input_value, person_name):
         if final_length < 10:
             return f'\t\033[1m$ {value_to_print:*>10}\033[0m'
         else:
-            return f'\t\033[1m$ {value_to_print:>10}\033[0m'
+            return f'\t\033[1m$ {value_to_print}\033[0m'
 
     print(f'\n---PARTIAL CHECK---')
     print(f"\n\tPAY TO THE \033[1;31m\t{person_name}\033[0m{to_print()}\n\tORDER OF\t{'':-<{final_name_length}}")
