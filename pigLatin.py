@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
 import re
-import string
+
+
 
 def check_if_punctuation(given_word):
     checking = re.search(r'(([a-z]{1,})(\W))', given_word)
@@ -43,21 +44,30 @@ def generate_pig_latin_word(given_word):
     return final_piglatin_word
 
 
+def create_phrase(input_word):
+    phrase = ''
+
+    check = re.search(r'\w', input_word)
+    if check:
+        check_if_digit = re.search(r'\d', input_word)
+        if check_if_digit:
+            phrase += input_word + ' '
+        else:
+            phrase += generate_pig_latin_word(input_word) + ' '
+    else:
+        phrase += input_word
+
+    return phrase
+
+
 def running_main(list_of_words):
     phrase = ''
 
     for i in range(len(list_of_words)):
-        check = re.search(r'\w', list_of_words[i])
-        if check:
-            check_if_digit = re.search(r'\d', list_of_words[i])
-            if check_if_digit:
-                phrase += list_of_words[i] + ' '
-            else:
-                phrase += generate_pig_latin_word(list_of_words[i]) + ' '
-        else:
-            phrase += list_of_words[i]
+        phrase += create_phrase(list_of_words[i])
 
     print(f'\n\033[1m-> Coded Phrase:\033[0m \033[1;34m{phrase}\033[0m\n')
+
 
 given_text = input('\n\033[1m*Please enter your phrase: \033[0m')
 list_of_words = given_text.split()
