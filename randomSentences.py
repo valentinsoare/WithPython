@@ -25,8 +25,6 @@ working with locals and friends, borrowing the manner and tone of personal docum
 they revealed and spotlighted, such as Greta Gerwig, Helena Howard, and Adam Driver, all of whom displayed astonishing new emotional range and realms. (The rapidity of changes in American 
 film production, and of independents’ response to them, is part of why my list features predominantly actors in American movies."""
 
-punc = '''!()-[]{};:'"\, <>./?@#$%^&*_~'''
-
 
 def processed_text(text):
     pattern = r'[^\w]'
