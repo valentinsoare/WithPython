@@ -3,7 +3,6 @@
 import re
 
 
-
 def check_if_punctuation(given_word):
     checking = re.search(r'(([a-z]{1,})(\W))', given_word)
     if checking:
@@ -70,5 +69,4 @@ def running_main(list_of_words):
 
 
 given_text = input('\n\033[1m*Please enter your phrase: \033[0m')
-list_of_words = given_text.split()
-running_main(list_of_words)
+running_main(given_text.split())
