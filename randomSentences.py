@@ -48,7 +48,7 @@ def analysing_given_text(given_text):
 
             counting_prints += 1
 
-            if counting_commas == 5:
+            if counting_commas == 11:
                 print(f'{list_was_analyzed[i][0]}: {list_was_analyzed[i][1]}', end='')
             elif list_was_analyzed[i] == list_was_analyzed[len(list_was_analyzed) - 1]:
                 print(f'{list_was_analyzed[i][0]}: {list_was_analyzed[i][1]}', end='')
