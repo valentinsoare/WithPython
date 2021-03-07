@@ -3,6 +3,7 @@
 import itertools
 import sys
 
+
 def digits_and_letters(letters):
     number = 3
     traverse = 0
@@ -59,7 +60,7 @@ def main(given_string):
     if given_string.isnumeric():
         return from_numbers_to_words(given_string)
     else:
-        return from_word_to_numbers(given_string)
+        from_word_to_numbers(given_string)
 
 
 main(sys.argv[1])
