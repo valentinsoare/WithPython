@@ -7,10 +7,6 @@ phrase and then the qty of negative and positive words and then calculating the 
 import pandas as pd
 import re
 
-phrase = input(f'\n*\033[1mEnter your desired phrase:\033[0m ')
-sentimentWords = {i: j for i, j in pd.read_csv('wordsWithScoring.csv', index_col=False,
-                                               engine='c', sep=r',').to_records(index=False)}
-
 
 def printing_lines(number):
     i = 0
@@ -134,23 +130,27 @@ def existing_negatives(list_of_negatives_and_counter, processed_phrase):
 
 
 def main():
+
+    phrase = input(f'\n*\033[1mEnter your desired phrase:\033[0m ')
+    sentiment_words = {i: j for i, j in pd.read_csv('wordsWithScoring.csv', index_col=False,
+                       engine='c', sep=r',').to_records(index=False)}
     processed_phrase = phrase_processing_remove_punctuation_and_splitting(phrase)
     number_of_positives, list_of_positives_and_counter, number_of_negatives, list_of_negatives_and_counter \
-        = text_analysis(processed_phrase, sentimentWords)
+        = text_analysis(processed_phrase, sentiment_words)
 
-    output = calculating_scoring(processed_phrase, sentimentWords)
+    output = calculating_scoring(processed_phrase, sentiment_words)
 
     if output < 0:
         output_to_print = (output * 100) / (-3 * len(processed_phrase))
         print(f'\n\033[1m*Given phrase:\033[0m\n\033[1;32m[ \033[0m{phrase}\033[1;32m ]\033[0m')
-        print(f'\n\033[1m*Possibility expressed in percentages that the sentiment deduced from the phrase '
-              f'is a negative one calculating from a score on each word:\033[0m '
+        print(f'\n\033[1m*Possibility expressed in percentages that the sentiment deduced from the phrase\n'
+              f' is a negative one calculating from a score on each word:\033[0m '
               f'\033[1;31m{output_to_print:.1f}%\033[0m')
     elif output > 0:
         output_to_print = (output * 100) / (3 * len(processed_phrase))
         print(f'\n\033[1m*Given phrase:\033[0m\n\033[1;32m[ \033[0m{phrase}\033[1;32m ]\033[0m')
-        print(f'\n\033[1m*Possibility expressed in percentages that the sentiment deduced from the phrase is '
-              f'a positive one calculating from a score on each word:\033[0m '
+        print(f'\n\033[1m*Possibility expressed in percentages that the sentiment deduced from the phrase is\n'
+              f' a positive one calculating from a score on each word:\033[0m '
               f'\033[1;34m{output_to_print:.1f}%\033[0m')
     else:
         print(f'\n\033[1m*There is an equality of chances between positive and negative'
