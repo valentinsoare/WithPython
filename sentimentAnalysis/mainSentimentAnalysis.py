@@ -76,25 +76,25 @@ def statistics_printing(words_given_counter, processed_phrase, type_of_words):
 
     words_appearances_within_entire_phrase = words_given_counter.values.sum() * 100 / len(processed_phrase)
 
-    if len(words_given_counter) > 3:
+    if len(words_given_counter) >= 5:
         print(f'\033[1;34m*Three most used {type_of_words.lower()} words:\033[0m')
         k = 0
 
         for i, j in words_given_counter.items():
-            if k == 3:
+            if k == 5:
                 break
             print(f'\033[1m{i:<20}{j}\033[0m')
             k += 1
 
         print(f'\n\033[1;35m*Number of appearances of {type_of_words.lower()}\033[0m \n'
-              f'\033[1;35mwords compare to entire phrase length: \033[0m'
+              f'\033[1;35mwords compare to entire text length: \033[0m'
               f'\033[1m{words_appearances_within_entire_phrase:.1f}%\033[0m')
     else:
         print(f'\033[1;34m*Most used {type_of_words.lower()} words:\033[0m')
         for i, j in words_given_counter.items():
             print(f'\033[1m{i:<20}{j}\033[0m')
         print(f'\n\033[1;35m*Number of appearances of {type_of_words.lower()}\033[0m \n'
-              f'\033[1;35mwords compare to entire phrase length:\033[0m '
+              f'\033[1;35mwords compare to entire text length:\033[0m '
               f'\033[1m{words_appearances_within_entire_phrase:.1f}%\033[0m')
 
 
@@ -103,10 +103,10 @@ def printing_words(type_words, message, type_of_color, processed_phrase):
 
     if type_of_color == 1:
         print(f'\n\033[1;42m {message} words stats from the given \033[0m\n'
-              f'\033[1;42m phrase(words/number of appearances): \033[0m')
+              f'\033[1;42m text(words/number of appearances): \033[0m')
     elif type_of_color == 0:
         print(f'\n\033[1;41m {message} words stats from the given \033[0m\n'
-              f'\033[1;41m phrase(words/number of appearances): \033[0m')
+              f'\033[1;41m text(words/number of appearances): \033[0m')
 
     printing_lines(45)
 
@@ -119,19 +119,21 @@ def existing_positives(list_of_positives_and_counter, processed_phrase):
     if len(list_of_positives_and_counter) > 0:
         printing_words(list_of_positives_and_counter, 'POSITIVE', 1, processed_phrase)
     else:
-        print(f'\n\033[1;42m No positive words in the given phrase. \033[0m\n')
+        print(f'\n\033[1;42m No positive words in the given text. \033[0m\n')
 
 
 def existing_negatives(list_of_negatives_and_counter, processed_phrase):
     if len(list_of_negatives_and_counter) > 0:
         printing_words(list_of_negatives_and_counter, 'NEGATIVE', 0, processed_phrase)
     else:
-        print(f'\n\033[1;41m No negative words in the given phrase. \033[0m\n')
+        print(f'\n\033[1;41m No negative words in the given text. \033[0m\n')
 
 
 def main():
 
-    phrase = input(f'\n*\033[1mEnter your desired phrase:\033[0m ')
+    file = open(input(f'\n*\033[1mEnter your desired file (entire path is needed):\033[0m '), "r")
+    phrase = file.read()
+
     sentiment_words = {i: j for i, j in pd.read_csv('wordsWithScoring.csv', index_col=False,
                        engine='c', sep=r',').to_records(index=False)}
     processed_phrase = phrase_processing_remove_punctuation_and_splitting(phrase)
@@ -142,19 +144,19 @@ def main():
 
     if output < 0:
         output_to_print = (output * 100) / (-3 * len(processed_phrase))
-        print(f'\n\033[1m*Given phrase:\033[0m\n\033[1;32m[ \033[0m{phrase}\033[1;32m ]\033[0m')
-        print(f'\n\033[1m*Possibility expressed in percentages that the sentiment deduced from the phrase\n'
+        print(f'\n\033[1m*Given text:\033[0m\n\033[1;32m[ \033[0m{phrase}\033[1;32m ]\033[0m')
+        print(f'\n\033[1m*Possibility expressed in percentages that the sentiment deduced from the text\n'
               f' is a negative one calculating from the score on each word:\033[0m '
               f'\033[1;31m{output_to_print:.1f}%\033[0m')
     elif output > 0:
         output_to_print = (output * 100) / (3 * len(processed_phrase))
-        print(f'\n\033[1m*Given phrase:\033[0m\n\033[1;32m[ \033[0m{phrase}\033[1;32m ]\033[0m')
-        print(f'\n\033[1m*Possibility expressed in percentages that the sentiment deduced from the phrase is\n'
+        print(f'\n\033[1m*Given text:\033[0m\n\033[1;32m[ \033[0m{phrase}\033[1;32m ]\033[0m')
+        print(f'\n\033[1m*Possibility expressed in percentages that the sentiment deduced from the text is\n'
               f' a positive one calculating from the score on each word:\033[0m '
               f'\033[1;34m{output_to_print:.1f}%\033[0m')
     else:
         print(f'\n\033[1m*There is an equality of chances between positive and negative'
-              f'sentiment for the given phrase, taking into consideration the score on each word.\033[0m ')
+              f'sentiment for the given text, taking into consideration the score on each word.\033[0m ')
 
     existing_positives(list_of_positives_and_counter, processed_phrase)
     existing_negatives(list_of_negatives_and_counter, processed_phrase)
