@@ -108,11 +108,11 @@ def printing_words(type_words, message, type_of_color, processed_phrase):
         print(f'\n\033[1;41m {message} words stats from the given \033[0m\n'
               f'\033[1;41m phrase(words/number of appearances): \033[0m')
 
-    printing_lines(37)
+    printing_lines(45)
 
     statistics_printing(sorted_series_by_values, processed_phrase, message)
 
-    printing_lines(37)
+    printing_lines(45)
 
 
 def existing_positives(list_of_positives_and_counter, processed_phrase):
@@ -123,7 +123,7 @@ def existing_positives(list_of_positives_and_counter, processed_phrase):
 
 
 def existing_negatives(list_of_negatives_and_counter, processed_phrase):
-    if len(list_of_negatives_and_counter )> 0:
+    if len(list_of_negatives_and_counter) > 0:
         printing_words(list_of_negatives_and_counter, 'NEGATIVE', 0, processed_phrase)
     else:
         print(f'\n\033[1;41m No negative words in the given phrase. \033[0m\n')
@@ -144,13 +144,13 @@ def main():
         output_to_print = (output * 100) / (-3 * len(processed_phrase))
         print(f'\n\033[1m*Given phrase:\033[0m\n\033[1;32m[ \033[0m{phrase}\033[1;32m ]\033[0m')
         print(f'\n\033[1m*Possibility expressed in percentages that the sentiment deduced from the phrase\n'
-              f' is a negative one calculating from a score on each word:\033[0m '
+              f' is a negative one calculating from the score on each word:\033[0m '
               f'\033[1;31m{output_to_print:.1f}%\033[0m')
     elif output > 0:
         output_to_print = (output * 100) / (3 * len(processed_phrase))
         print(f'\n\033[1m*Given phrase:\033[0m\n\033[1;32m[ \033[0m{phrase}\033[1;32m ]\033[0m')
         print(f'\n\033[1m*Possibility expressed in percentages that the sentiment deduced from the phrase is\n'
-              f' a positive one calculating from a score on each word:\033[0m '
+              f' a positive one calculating from the score on each word:\033[0m '
               f'\033[1;34m{output_to_print:.1f}%\033[0m')
     else:
         print(f'\n\033[1m*There is an equality of chances between positive and negative'
