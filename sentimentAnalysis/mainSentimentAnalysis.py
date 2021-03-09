@@ -25,9 +25,11 @@ def phrase_processing_remove_punctuation_and_splitting(given_phrase):
 
 def calculating_scoring(phrase_to_use, sentiment_words_to_use):
     scoring = 0
+    sentiment_words = sentiment_words_to_use.items()
     for i in phrase_to_use:
-        for j, k in sentiment_words_to_use.items():
-            if i.lower() == j:
+        i = i.lower()
+        for j, k in sentiment_words:
+            if i == j:
                 scoring += k
 
     return scoring
@@ -59,8 +61,9 @@ def text_analysis(phrase_for_using, list_of_sentiments):
     dict_of_pos = {}
     dict_of_negs = {}
 
+    items_sentiments = list_of_sentiments.items()
     for k in phrase_for_using:
-        for i, j in list_of_sentiments.items():
+        for i, j in items_sentiments:
             if k.lower() == i:
                 if j > 0:
                     number_of_positives += 1
@@ -80,7 +83,8 @@ def statistics_printing(words_given_counter, processed_phrase, type_of_words):
         print(f'\033[1;34m*Five most used {type_of_words.lower()} words:\033[0m')
         k = 0
 
-        for i, j in words_given_counter.items():
+        dict_items = words_given_counter.items()
+        for i, j in dict_items:
             if k == 5:
                 break
             print(f'\033[1m{i:<20}{j}\033[0m')
