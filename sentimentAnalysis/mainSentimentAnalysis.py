@@ -63,8 +63,9 @@ def text_analysis(phrase_for_using, list_of_sentiments):
 
     items_sentiments = list_of_sentiments.items()
     for k in phrase_for_using:
+        k = k.lower()
         for i, j in items_sentiments:
-            if k.lower() == i:
+            if k == i:
                 if j > 0:
                     number_of_positives += 1
                     dict_of_pos.update(add_items_pos(i, dict_of_pos))
@@ -113,9 +114,7 @@ def printing_words(type_words, message, type_of_color, processed_phrase):
               f'\033[1;41m text(words/number of appearances): \033[0m')
 
     printing_lines(45)
-
     statistics_printing(sorted_series_by_values, processed_phrase, message)
-
     printing_lines(45)
 
 
