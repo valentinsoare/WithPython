@@ -81,7 +81,8 @@ def statistics_printing(words_given_counter, processed_phrase, type_of_words):
     words_appearances_within_entire_phrase = words_given_counter.values.sum() * 100 / len(processed_phrase)
 
     if len(words_given_counter) >= 5:
-        print(f'\033[1;34m*Five most used {type_of_words.lower()} words:\033[0m')
+        print(f'\033[1;34m*Number of {type_of_words.lower()} words: {len(words_given_counter)}\033[0m')
+        print(f'\033[1;34m**Five most used {type_of_words.lower()} words:\033[0m')
         k = 0
 
         dict_items = words_given_counter.items()
