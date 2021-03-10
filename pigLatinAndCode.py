@@ -16,10 +16,10 @@ def check_if_punctuation(given_word):
     checking = re.search(r'(([a-z]{1,})(\W))', given_word)
     if checking:
         punctuation_checking = 1
-        return (punctuation_checking, checking.group(1), checking.group(2), checking.group(3))
+        return punctuation_checking, checking.group(1), checking.group(2), checking.group(3)
     else:
         punctuation_checking = 0
-        return (punctuation_checking, given_word)
+        return punctuation_checking, given_word
 
 
 def check_word_with_capitalized_letter(given_word):
@@ -30,7 +30,7 @@ def check_word_with_capitalized_letter(given_word):
 
 
 def prepare_for_commas(given_word):
-    tuple_of_running_function = check_if_punctuation(given_word.lower())
+    tuple_of_running_function = (check_if_punctuation(given_word.lower()))
 
     if len(tuple_of_running_function) == 4:
         comma_condition, entire_word, word, punctuation = tuple_of_running_function
