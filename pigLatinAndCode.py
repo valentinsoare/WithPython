@@ -29,20 +29,31 @@ def check_word_with_capitalized_letter(given_word):
         return False
 
 
+def regarding_word_length(word, punctuation):
+    word_length = len(word)
+
+    if word_length >= 3:
+        final_word_second = word[1] + word[2:word_length] + word[0] + 'ay' + punctuation
+    elif word_length == 2:
+        final_word_second = word[1] + word[0] + 'ay' + punctuation
+    elif word_length == 1:
+        final_word_second = word[0] + 'ay' + punctuation
+
+
+    return final_word_second
+
 def prepare_for_commas(given_word):
     tuple_of_running_function = (check_if_punctuation(given_word.lower()))
 
     if len(tuple_of_running_function) == 4:
         comma_condition, entire_word, word, punctuation = tuple_of_running_function
-        word_length = len(word)
     else:
         comma_condition, word = tuple_of_running_function
-        word_length = len(word)
 
     if comma_condition == 1:
-        final_word = word[1] + word[2:word_length] + word[0] + 'ay' + punctuation
+        final_word = regarding_word_length(word, punctuation)
     else:
-        final_word = word[1] + word[2:word_length] + word[0] + 'ay'
+        final_word = regarding_word_length(word, '')
 
     return final_word
 
