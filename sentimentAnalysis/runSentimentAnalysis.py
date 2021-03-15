@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 
-"""Best way to do this is using NLTK library or using a scoring point
-and each word (negative, positive) to have a given score. Here we gonna use how many words we have in the entire
-phrase and then the qty of negative and positive words and then calculating the percent."""
+"""Best way to do this is using NLTK library but here we are using scoring to implement this analysis."""
 
 import pandas as pd
 import re
