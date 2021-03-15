@@ -29,21 +29,11 @@ def catch_input():
 
 
 def define_fields(given_string):
-    given_string = given_string.split()
-    operation_pattern = re.compile(r'plus|minus|times|divided')
+    type_of_operations = ['plus', 'minus', 'times', 'divided by']
 
-    for i in range(len(given_string)):
-        result = re.search(operation_pattern, given_string[i])
-        if result:
-            operator = ''.join(result.group())
-            first_number = ' '.join(given_string[0:i])
-
-            if operator == 'divided':
-                second_number = ' '.join(given_string[(i + 2):])
-            else:
-                second_number = ' '.join(given_string[(i + 1):])
-
-            return [first_number, operator, second_number]
+    for i in type_of_operations:
+        if i in given_string:
+            return given_string.partition(i)
 
 
 def determine_integer_from_string(given_number, output_integers):
@@ -77,25 +67,19 @@ def determine_integer_from_string(given_number, output_integers):
 
 
 def main():
-    given_equation = catch_input()
-    processed_fields = define_fields(given_equation)
-
-    first_number = 0
-    second_number = 0
     output_integers = []
+    given_equation = catch_input()
+    first, operator, second = define_fields(given_equation)
 
-    for i in range(len(processed_fields)):
-        if i == 0:
-            first_number = determine_integer_from_string(processed_fields[i], output_integers)
-        elif i == 2:
-            output_integers = []
-            second_number = determine_integer_from_string(processed_fields[i], output_integers)
+    first_number = determine_integer_from_string(first, output_integers)
+    output_integers.clear()
+    second_number = determine_integer_from_string(second, output_integers)
 
     processed_results_operations = {'plus': first_number + second_number, 'minus': first_number - second_number,
-                                    'times': first_number * second_number, 'divided': first_number / second_number}
+                                    'times': first_number * second_number, 'divided by': first_number / second_number}
 
-    if processed_fields[1] in processed_results_operations:
-        print(f'\n\033[1m RESULT FROM THE EQUATION: {processed_results_operations.get(processed_fields[1])}')
+    if operator in processed_results_operations:
+        print(f'\n\033[1m RESULT FROM THE EQUATION: {processed_results_operations.get(operator)}')
 
 
 main()
