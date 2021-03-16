@@ -80,6 +80,9 @@ def main():
 
     if operator in processed_results_operations:
         print(f'\n\033[1m RESULT FROM THE EQUATION: {processed_results_operations.get(operator)}')
+    else:
+        print(f'\n\033[1;31m ERROR - operation not in the list of accepted calculations'
+              f' (plus, minus, times or divided by): ')
 
 
 main()
