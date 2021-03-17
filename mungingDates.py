@@ -4,11 +4,13 @@ import re
 
 
 def ask_for_input_string():
-    given_string = input(f'\n\033[1m**Enter the desired text to analyze the dates and convert the format for these dates:\033[0m ')
+    given_string = input(f'\n\033[1m**Enter the desired text to analyze the dates and '
+                         f'convert the format for these dates:\033[0m ')
     return given_string
 
+
 def detect_first_type_of_date(giving_text, multi=False):
-    pattern = re.compile(r"(0[1-9]|[1-2][0-9]|3[0-2])(0[1-9]|1[0-2])(19[0-9][0-9]|20[0-9][0-9])")
+    pattern = re.compile(r"(0[1-9]|[1-2][0-9]|3[0-2])(0[1-9]|1[0-2])(1[0-9][0-9][0-9]|20[0-9][0-9])")
     checking_pattern = re.search(pattern, giving_text)
 
     if multi:
@@ -18,7 +20,7 @@ def detect_first_type_of_date(giving_text, multi=False):
 
 
 def detect_second_type_of_date(giving_text, multi=False):
-    pattern = re.compile(r"(0[1-9]|[1-2][0-9]|3[0-2])/(0[1-9]|1[0-2])/(19[0-9][0-9]|20[0-9][0-9])")
+    pattern = re.compile(r"(0[1-9]|[1-2][0-9]|3[0-2])/(0[1-9]|1[0-2])/(1[0-9][0-9][0-9]|20[0-9][0-9])")
     checking_pattern = re.search(pattern, giving_text)
     if multi:
         return (2, checking_pattern.groups()) if checking_pattern else (0, None)
@@ -27,7 +29,7 @@ def detect_second_type_of_date(giving_text, multi=False):
 
 
 def detect_third_type_if_date(giving_text, multi=False):
-    pattern = re.compile(r'([A-Z][a-z]{,8})\s(0[1-9]|[1-2][0-9]|3[0-2]),\s(19[0-9][0-9]|20[0-9][0-9])')
+    pattern = re.compile(r'([A-Z][a-z]{,8})\s(0[1-9]|[1-2][0-9]|3[0-2]),\s(1[0-9][0-9][0-9]|20[0-9][0-9])')
     checking_pattern = re.search(pattern, giving_text)
     if multi:
         return (3, checking_pattern.groups()) if checking_pattern else (0, None)
