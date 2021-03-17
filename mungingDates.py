@@ -3,6 +3,10 @@
 import re
 
 
+def ask_for_input_string():
+    given_string = input(f'\n\033[1m**Enter the desired text to analyze the dates and convert the format for these dates:\033[0m ')
+    return given_string
+
 def detect_first_type_of_date(giving_text, multi=False):
     pattern = re.compile(r"(0[1-9]|[1-2][0-9]|3[0-2])(0[1-9]|1[0-2])(19[0-9][0-9]|20[0-9][0-9])")
     checking_pattern = re.search(pattern, giving_text)
@@ -85,8 +89,7 @@ def converting_detected_formats(our_string, months, functions_detect_dict):
 
 
 def main():
-    our_string = 'Today is 17/03/2021 and we have to keep in mind that what we have in 17032021 is ' \
-                 'possible to own in March 17, 2021.'
+    our_string = ask_for_input_string()
 
     months = {'01': 'January', '02': 'February', '03': 'March', '04': 'April', '05': 'May', '06': 'June',
               '07': 'July', '08': 'August', '09': 'September', '10': 'October', '11': 'November', '12': 'December'
