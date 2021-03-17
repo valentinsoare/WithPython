@@ -98,7 +98,6 @@ def main():
         'detect_third_type_if_date(our_string)': 3
     }
 
-
     printing_detected_format(our_string, functions_detect_dict)
     converting_detected_formats(our_string, months, functions_detect_dict)
 
