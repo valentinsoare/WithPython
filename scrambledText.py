@@ -12,11 +12,14 @@ def scramble_letters(given_word):
     word_as_list = list(given_word)
     list_for_shuffle = word_as_list[1:len(word_as_list)-1]
     random.shuffle(list_for_shuffle)
-    shuffled_word = ''.join(list_for_shuffle)
 
+    if len(word_as_list) > 3:
+        while list_for_shuffle == word_as_list[1:len(word_as_list)-1]:
+            random.shuffle(list_for_shuffle)
+
+    shuffled_word = ''.join(list_for_shuffle)
     to_processed = [i for i in [word_as_list[0], shuffled_word, word_as_list[-1]]]
     final = ''.join(to_processed)
-
     return final
 
 
