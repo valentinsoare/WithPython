@@ -112,28 +112,34 @@ def pretty_print_rows_col(table, given_opt, location):
 
 
 def colorized_winner_rows_col(table, given_opt, is_row):
-    print(f'\nPlaying board:')
-    lines(18)
 
     if is_row == 0:
+        print(f'\nEnding...')
+        lines(18)
         pretty_print_rows_col(table, given_opt, 0)
     elif is_row == 1:
+        print(f'\nEnding...')
+        lines(18)
         pretty_print_rows_col(table, given_opt, 1)
 
     lines(18)
+    exit()
 
 
 def colorized_winner_diags(diag, table, given_name):
-    print(f'\nPlaying board:')
-    lines(18)
 
     if diag == 1:
+        print(f'\nWINNER WINNER CHICKEN DINNER !!\nDiag with same values, {given_name} is the winner.')
+        print(f'\nEnding...')
+        lines(18)
         print_first_diag(table)
     elif diag == 2:
+        print(f'\nWINNER WINNER CHICKEN DINNER !!\nDiag with same values, {given_name} is the winner.')
+        print(f'\nEnding...')
+        lines(18)
         print_second_diag(table)
 
     lines(18)
-    print(f'\nWINNER WINNER CHICKEN DINNER !!\nDiag with same values, {given_name} is the winner.\n')
     exit()
 
 
@@ -171,25 +177,29 @@ def check_diagonals(numeric, given_name, table):
 def check_winner(*args):
     table, given_name, numeric = args
 
+    def select_winner(i, given_name, table, numeric):
+        given_dict = {
+            'list(numeric[i, :].flatten()).count(1)': ['colorized_winner_rows_col(table, i, 0)',
+                                                       f"\nWINNER WINNER CHICKEN DINNER !!\n Row number {i}, "
+                                                       f"{given_name} is the winner."],
+            'list(numeric[i, :].flatten()).count(2)': ['colorized_winner_rows_col(table, i, 0)',
+                                                       f"\nWINNER WINNER CHICKEN DINNER !!\n Row number {i},"
+                                                       f" Computer is the winner."],
+            'list(numeric[:, i].flatten()).count(1)': ['colorized_winner_rows_col(table, i, 1)', f"\nWINNER WINNER CHICKEN DINNER !!\n "
+                                                       f"Column number {i}, {given_name} is the winner."],
+            'list(numeric[:, i].flatten()).count(2)': ['colorized_winner_rows_col(table, i, 1)', f"\nWINNER WINNER CHICKEN DINNER !!\n "
+                                                       f"Column number {i}, Computer is the winner."]
+        }
+
+        for j, k in given_dict.items():
+            if eval(j) == 3:
+                print(k[1])
+                return eval(k[0])
+            else:
+                check_diagonals(numeric, given_name, table)
+
     for i in range(len(table)):
-        if list(numeric[i, :].flatten()).count(1) == 3:
-            colorized_winner_rows_col(table, i, 0)
-            print(f'\nWINNER WINNER CHICKEN DINNER !!\n Row number {i}, {given_name} is the winner.\n')
-            exit()
-        elif list(numeric[i, :].flatten()).count(2) == 3:
-            colorized_winner_rows_col(table, i, 0)
-            print(f'\nWINNER WINNER CHICKEN DINNER !!\n Row number {i}, Computer is the winner.\n')
-            exit()
-        elif list(numeric[:, i].flatten()).count(1) == 3:
-            colorized_winner_rows_col(table, i, 1)
-            print(f'\nWINNER WINNER CHICKEN DINNER !!\n Column number {i}, {given_name} is the winner.\n')
-            exit()
-        elif list(numeric[:, i].flatten()).count(2) == 3:
-            colorized_winner_rows_col(table, i, 1)
-            print(f'\nWINNER WINNER CHICKEN DINNER !!\n Column number {i}, Computer is the winner.\n')
-            exit()
-        else:
-            check_diagonals(numeric, given_name, table)
+        select_winner(i, given_name, table, numeric)
 
 
 def human_player_check(*args):
