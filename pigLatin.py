@@ -5,6 +5,7 @@ import re
 
 def check_if_punctuation(given_word):
     checking = re.search(r'(([a-z]{1,})(\W))', given_word)
+
     if checking:
         punctuation_checking = 1
         return punctuation_checking, checking.group(1), checking.group(2), checking.group(3)
@@ -14,6 +15,7 @@ def check_if_punctuation(given_word):
 
 
 def check_word_with_capitalized_letter(given_word):
+
     if given_word[0].isupper():
         return True
     else:
@@ -23,6 +25,7 @@ def check_word_with_capitalized_letter(given_word):
 def prepare_for_commas(given_word):
     comma_condition, entire_word, word, punctuation = check_if_punctuation(given_word.lower())
     word_length = len(word)
+
     if comma_condition == 1:
         final_word = word[1] + word[2:word_length] + word[0] + 'ay' + punctuation
     else:
@@ -62,7 +65,8 @@ def create_phrase(input_word):
 def running_main(list_of_words):
     phrase = ''
 
-    for i in range(len(list_of_words)):
+    list_of_words_length = len(list_of_words)
+    for i in range(list_of_words_length):
         phrase += create_phrase(list_of_words[i])
 
     print(f'\n\033[1m-> Coded Phrase:\033[0m \033[1;34m{phrase}\033[0m\n')

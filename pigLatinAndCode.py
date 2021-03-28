@@ -89,7 +89,8 @@ def create_phrase(input_word):
 def running_main(list_of_words):
     phrase = ''
 
-    for i in range(len(list_of_words)):
+    word_length = len(list_of_words)
+    for i in range(word_length):
         phrase += create_phrase(list_of_words[i])
 
     print(f'\n\033[1m-> Coded Phrase:\033[0m \033[1;34m{phrase}\033[0m\n')
@@ -100,7 +101,8 @@ def digits_and_letters(letters):
     traverse = 0
     group_letters = []
 
-    while number <= len(letters):
+    letters_length = len(letters)
+    while number <= letters_length:
         group_letters.append([])
         for i in range(number - 3, number):
             group_letters[traverse].append(letters[i])
@@ -117,7 +119,8 @@ def from_word_to_numbers(given_string):
     to_be_processed = digits_and_letters(letters)
     output_string = []
 
-    for i in range(len(list_for_processed)):
+    list_for_processed_length = len(list_for_processed)
+    for i in range(list_for_processed_length):
         for value, letters in to_be_processed:
             if list_for_processed[i] in letters:
                 output_string.append(value)
@@ -134,8 +137,9 @@ def from_numbers_to_words(given_string):
     numbers_letters = digits_and_letters(letters)
     count = 0
 
+    numbers_letters_length = len(numbers_letters)
     for i in processed_string:
-        for j in range(len(numbers_letters)):
+        for j in range(numbers_letters_length):
             if int(i) == numbers_letters[j][0]:
                 final_version.append(numbers_letters[j][1])
 
@@ -181,7 +185,8 @@ def main():
 
     phrase = ''
 
-    for i in range(len(splitting_text)):
+    splitting_text_length = len(splitting_text)
+    for i in range(splitting_text_length):
         if splitting_text[i] in list_words_to_convert:
             phrase += from_word_to_numbers(splitting_text[i]) + ' '
         else:
