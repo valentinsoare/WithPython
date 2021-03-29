@@ -14,7 +14,8 @@ def detect_first_type_of_date(giving_text, multi=False):
     checking_pattern = re.search(pattern, giving_text)
 
     if multi:
-        return (1, checking_pattern.groups()) if checking_pattern else (0, None)
+        return (1, checking_pattern.groups()) \
+            if checking_pattern else (0, None)
     else:
         return 1 if checking_pattern else 0
 
@@ -23,7 +24,8 @@ def detect_second_type_of_date(giving_text, multi=False):
     pattern = re.compile(r"(0[1-9]|[1-2][0-9]|3[0-2])/(0[1-9]|1[0-2])/(1[0-9][0-9][0-9]|20[0-9][0-9])")
     checking_pattern = re.search(pattern, giving_text)
     if multi:
-        return (2, checking_pattern.groups()) if checking_pattern else (0, None)
+        return (2, checking_pattern.groups()) \
+            if checking_pattern else (0, None)
     else:
         return 2 if checking_pattern else 0
 
@@ -32,7 +34,8 @@ def detect_third_type_if_date(giving_text, multi=False):
     pattern = re.compile(r'([A-Z][a-z]{,8})\s(0[1-9]|[1-2][0-9]|3[0-2]),\s(1[0-9][0-9][0-9]|20[0-9][0-9])')
     checking_pattern = re.search(pattern, giving_text)
     if multi:
-        return (3, checking_pattern.groups()) if checking_pattern else (0, None)
+        return (3, checking_pattern.groups()) \
+            if checking_pattern else (0, None)
     else:
         return 3 if checking_pattern else 0
 
