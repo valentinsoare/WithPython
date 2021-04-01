@@ -59,7 +59,8 @@ def collect_possible_moves(table):
     available_options = []
     options_to_print = []
 
-    for row in range(len(table)):
+    length_table = len(table)
+    for row in range(length_table):
         for column in range(len(table[row])):
             if np.any(table[row][column] != '[ X ]' and table[row][column] != '[ O ]'):
                 options_to_print.append((row, column))
@@ -80,7 +81,8 @@ def print_possible_moves(options_to_print):
 
 
 def print_first_diag(table):
-    for i in range(len(table)):
+    length_table = len(table)
+    for i in range(length_table):
         for j in range(len(table[i])):
             if j == i:
                 print(f'\033[31m{table[i][j]}\033[0m', end=' ')
@@ -90,9 +92,10 @@ def print_first_diag(table):
 
 
 def print_second_diag(table):
-    for i in range(len(table)):
+    length_table = len(table)
+    for i in range(length_table):
         for j in range(len(table[i])):
-            if i == len(table) - 1 - j:
+            if i == length_table - 1 - j:
                 print(f'\033[31m{table[i][j]}\033[0m', end=' ')
             else:
                 print(f'{table[i][j]}', end=' ')
@@ -100,7 +103,8 @@ def print_second_diag(table):
 
 
 def pretty_print_rows_col(table, given_opt, location):
-    for i in range(len(table)):
+    length_table = len(table)
+    for i in range(length_table):
         for j in range(len(table[i])):
             if location == 0 and i == given_opt:
                 print(f'\033[31m{table[i][j]}\033[0m', end=' ')
@@ -155,7 +159,8 @@ def check_diagonals(numeric, given_name, table):
     first_diag = 0
     second_diag = 0
 
-    for i in range(len(numeric)):
+    length_numeric = len(numeric)
+    for i in range(length_numeric):
         for j in range(len(numeric[i])):
             if j == i:
                 list_check.append(numeric[i][j])
@@ -165,9 +170,9 @@ def check_diagonals(numeric, given_name, table):
 
     list_check.clear()
 
-    for i in range(len(numeric) - 1, -1, -1):
+    for i in range(length_numeric - 1, -1, -1):
         for j in range(len(numeric[i])):
-            if j == (len(numeric) - 1 - i):
+            if j == (length_numeric - 1 - i):
                 list_check.append(numeric[i][j])
                 second_diag = 2
 
@@ -191,14 +196,16 @@ def check_winner(*args):
                                                        f"Column number {i}, Computer is the winner."]
         }
 
-        for j, k in given_dict.items():
+        given_dict_items = given_dict.items()
+        for j, k in given_dict_items:
             if eval(j) == 3:
                 print(k[1])
                 return eval(k[0])
             else:
                 check_diagonals(numeric, given_name, table)
 
-    for i in range(len(table)):
+    table_length = len(table)
+    for i in range(table_length):
         select_winner(i, given_name, table, numeric)
 
 
