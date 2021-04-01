@@ -8,14 +8,10 @@ def catch_input():
     return password
 
 
-def password_validator_basic_rule(given_password):
-    pattern = re.search(r'([A-Za-z0-9].*[\-\s.,_]){5,}', given_password)
+def password_validator_rules(input_rule, given_password):
+    rules = re.compile(input_rule)
+    pattern = re.search(rules, given_password)
     return True if pattern else False
-
-
-def password_validator_eight_chars_rule(given_password):
-    texting = re.search(r'(?=.{8,})([A-Z].*)([a-z].*)([0-9].*)([@#$%^&+=].*)', given_password)
-    return True if texting else False
 
 
 def main():
@@ -23,10 +19,10 @@ def main():
     checking = False
 
     while not checking:
-        if password_validator_basic_rule(password_to_check):
+        if password_validator_rules(r'([A-Za-z0-9].*[\-\s.,_]){5,}', password_to_check):
             print(f'\n\033[1;34m **Basic rule applies here, looks ok.\033[0m\n')
             checking = True
-        elif password_validator_eight_chars_rule(password_to_check):
+        elif password_validator_rules(r'(?=.{8,})([A-Z].*)([a-z].*)([0-9].*)([@#$%^&+=].*)', password_to_check):
             print(f'\n\033[1;34m **Eight characters rule applies here, we good to go.\033[0m\n')
             checking = True
         else:
