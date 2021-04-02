@@ -95,7 +95,8 @@ def statistics_printing(words_given_counter, processed_phrase, type_of_words):
               f'\033[1m{words_appearances_within_entire_phrase:.1f}%\033[0m')
     else:
         print(f'\033[1;34m*Most used {type_of_words.lower()} words:\033[0m')
-        for i, j in words_given_counter.items():
+        words_given_counter_items = words_given_counter.items()
+        for i, j in words_given_counter_items:
             print(f'\033[1m{i:<20}{j}\033[0m')
         print(f'\n\033[1;35m*Number of appearances of {type_of_words.lower()}\033[0m \n'
               f'\033[1;35mwords compare to entire text length:\033[0m '
@@ -146,13 +147,13 @@ def main():
 
     if output < 0:
         output_to_print = (output * 100) / (-3 * len(processed_phrase))
-        print(f'\n\033[1m*Given text:\033[0m\n\033[1;32m[ \033[0m{phrase}\033[1;32m ]\033[0m')
+        print(f'\n\033[1m*Given text:\033[0m\n\033[1;32m[ \033[0m{file}\033[1;32m ]\033[0m')
         print(f'\n\033[1m*Possibility expressed in percentages that the sentiment deduced from the text\n'
               f' is a negative one calculating from the score on each word:\033[0m '
               f'\033[1;31m{output_to_print:.1f}%\033[0m')
     elif output > 0:
         output_to_print = (output * 100) / (3 * len(processed_phrase))
-        print(f'\n\033[1m*Given text:\033[0m\n\033[1;32m[ \033[0m{phrase}\033[1;32m ]\033[0m')
+        print(f'\n\033[1m*Given file:\033[0m\n\033[1;32m[ \033[0m{phrase}\033[1;32m ]\033[0m')
         print(f'\n\033[1m*Possibility expressed in percentages that the sentiment deduced from the text is\n'
               f' a positive one calculating from the score on each word:\033[0m '
               f'\033[1;34m{output_to_print:.1f}%\033[0m')
