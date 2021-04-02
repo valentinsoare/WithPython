@@ -69,18 +69,22 @@ def convert_third_type(type_string, months):
 
 
 def printing_detected_format(our_string, functions_detect_dict):
+    checking = 0
     date_format_dict = {
         'DDMMYY': 1,
         'DD/MM/YY': 2,
         'January DD, YY': 3
     }
 
-    print(f'\n\033[1m**We have the following date formats in the given string:\033[0m\n \"{our_string}\"\n')
+    print(f'\n\033[1m**We have the following string to analyze:\033[0m\n \"{our_string}\"\n')
     for i, j in functions_detect_dict.items():
         if eval(i) != 0:
+            checking += 1
             for k, l in date_format_dict.items():
                 if eval(i) == l:
                     print(f'   - {k}')
+    if checking == 0:
+        print(f'\033[1;41m **No date patterns detected inside given text. \033[0m')
 
 
 def converting_detected_formats(our_string, months, functions_detect_dict):
