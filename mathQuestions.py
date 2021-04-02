@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import random
-import re
 
 
 def to_exit(input_value):
@@ -39,7 +38,8 @@ def generate_digit_numbers(level_difficulty):
 def input_catching(operation_type, first_number, second_number):
     op_type = ['+', '-', '*', '/']
 
-    for i in range(len(op_type)):
+    length_op_type = len(op_type)
+    for i in range(length_op_type):
         if (i+1) == operation_type:
             answer = input(f"\n - How much is {first_number} {op_type[i]} {second_number} ? (q to quit, chd for difficulty level,"
                            f" cht for type of operation) -> ")
@@ -85,7 +85,8 @@ def operation(operation_type, first_number, second_number):
     operations_to_execute = [(1, first_number + second_number), (2, first_number - second_number), (3, first_number * second_number),
                              (4, first_number / second_number)]
 
-    for i in range(len(operations_to_execute)):
+    length_operations_to_execute = len(operations_to_execute)
+    for i in range(length_operations_to_execute):
         if given_option == operations_to_execute[i][0]:
             operation_t = operations_to_execute[i][1]
             value_after_exec = executing(operation_t, first_number, second_number, given_option)
