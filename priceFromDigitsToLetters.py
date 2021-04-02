@@ -49,4 +49,3 @@ if len(after_point) > 0:
 final_string = ' '.join(final_answer)
 
 print(f'{final_string} dollars')
-

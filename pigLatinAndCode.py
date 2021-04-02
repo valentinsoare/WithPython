@@ -2,6 +2,7 @@
 
 import re
 import itertools
+import string
 
 
 def printing_lines(number_of_lines):
@@ -39,8 +40,8 @@ def regarding_word_length(word, punctuation):
     elif word_length == 1:
         final_word_second = word[0] + 'ay' + punctuation
 
-
     return final_word_second
+
 
 def prepare_for_commas(given_word):
     tuple_of_running_function = (check_if_punctuation(given_word.lower()))
@@ -115,7 +116,7 @@ def digits_and_letters(letters):
 
 def from_word_to_numbers(given_string):
     list_for_processed = list(filter(lambda i: i, given_string.lower()))
-    letters = list('abcdefghijklmnoprstuvwxy')
+    letters = list(string.ascii_lowercase)
     to_be_processed = digits_and_letters(letters)
     output_string = []
 
@@ -132,7 +133,7 @@ def from_word_to_numbers(given_string):
 
 def from_numbers_to_words(given_string):
     processed_string = list(filter(lambda x: x, given_string))
-    letters = list('abcdefghijklmnoprstuvwxy')
+    letters = list(string.ascii_lowercase)
     final_version = []
     numbers_letters = digits_and_letters(letters)
     count = 0
