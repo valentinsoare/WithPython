@@ -13,7 +13,8 @@ def initialize_deck(given_option):
 
     if given_option == 1:
         random.shuffle(combined)
-        for i in range(len(combined)):
+        length_combined = len(combined)
+        for i in range(length_combined):
             deck.append(combined[i])
         return deck
 
@@ -24,7 +25,8 @@ def initialize_deck(given_option):
 def print_or_hand(given_option, deck):
 
     if given_option == 1:
-        for i in range(0, len(deck)):
+        length_deck = len(deck)
+        for i in range(0, length_deck):
             print(f'{deck[i][0]} of {deck[i][1]}', end='  ')
             if (i+1) % 4 == 0:
                 print()
@@ -53,8 +55,8 @@ def is_a_one_pair_v2(given_hand):
     processed_list = [i[0] for i in given_hand]
     same_cards = []
     rtrn = False
-
-    for i in range(len(processed_list)):
+    length_pocessed_list = len(processed_list)
+    for i in range(length_pocessed_list):
         value = processed_list.count(processed_list[i])
         if value == 2:
             same_cards.append((given_hand[i][0], given_hand[i][1]))
@@ -70,7 +72,8 @@ def is_a_two_pair_v2(given_hand):
     rtrn = False
     count = 0
 
-    for i in range(len(processed_list)):
+    length_pocessed_list = len(processed_list)
+    for i in range(length_pocessed_list):
         value = processed_list.count(processed_list[i])
         if value == 2:
             same_cards.append((given_hand[i][0], given_hand[i][1]))
@@ -89,7 +92,8 @@ def is_a_three_of_a_kind_v2(given_hand):
     same_cards = []
     rtrn = False
 
-    for i in range(len(processed_list)):
+    length_processed_list = len(processed_list)
+    for i in range(length_processed_list):
         value = processed_list.count(processed_list[i])
         if value == 3:
             same_cards.append((given_hand[i][0], given_hand[i][1]))
@@ -106,7 +110,8 @@ def is_a_flush(given_hand):
     rtrn = False
 
     working_list = [j for i in given_hand for j in i]
-    for i in range(len(given_hand)):
+    length_given_hand = len(given_hand)
+    for i in range(length_given_hand):
         value = working_list.count(given_hand[i][1])
         if value == 5:
             rtrn = True
@@ -118,21 +123,25 @@ def is_a_flush(given_hand):
 def is_a_straight(given_hand):
     type_of_cards = list(initialize_deck(0))
     ranks = list(range(1, 14))
-    given_list = [given_hand[i][0] for i in range(len(given_hand))]
+    length_given_hand = len(given_hand)
+    given_list = [given_hand[i][0] for i in range(length_given_hand)]
     cards_combined = list(map(lambda x, y: (x, y), ranks, type_of_cards))
     values_we_have = []
     rtrn = False
     count = 0
 
-    for i in range(len(cards_combined)):
-        for j in range(len(given_list)):
+    length_cards_combined = len(cards_combined)
+    length_given_list = len(given_list)
+    for i in range(length_cards_combined):
+        for j in range(length_given_list):
             if cards_combined[i][1] == given_list[j]:
                 values_we_have.append(cards_combined[i][0])
 
     values_sorted = sorted(values_we_have)
 
     end = 0
-    for i in range(len(values_sorted) - 1):
+    length_values_sorted = len(values_sorted)
+    for i in range(length_values_sorted - 1):
         if values_sorted[i] == 1:
             end = 14
         elif values_sorted[i] + 2 == end:
@@ -157,10 +166,12 @@ def is_a_full_house(given_hand):
 
 
 def is_a_four_of_a_kind(given_hand):
-    given_list = [given_hand[i][0] for i in range(len(given_hand))]
+    length_given_hand = len(given_hand)
+    given_list = [given_hand[i][0] for i in range(length_given_hand)]
     rtrn = False
 
-    for i in range(len(given_list)):
+    length_given_list = len(given_list)
+    for i in range(length_given_list):
         value = given_list.count(given_list[i])
         if value == 4:
             rtrn = True
@@ -170,7 +181,8 @@ def is_a_four_of_a_kind(given_hand):
 
 
 def is_a_straight_flush(given_hand):
-    given_list = [given_hand[i][1] for i in range(len(given_hand))]
+    length_given_hand = len(given_hand)
+    given_list = [given_hand[i][1] for i in range(length_given_hand)]
     rtrn = False
 
     value = given_list.count(given_list[0])
@@ -191,7 +203,8 @@ def playing(cards):
 
     print(f'\nFirst hand: {first_hand} \nSecond hand: {second_hand}', end='\n\n')
 
-    for i in range(len(cards)):
+    length_cards = len(cards)
+    for i in range(length_cards):
         hand = cards[i]
         for value, message in winning_hands:
             if eval(value):
