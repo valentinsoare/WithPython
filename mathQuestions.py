@@ -7,9 +7,11 @@ def to_exit(input_value):
     if input_value == 'q':
         print(f'\n:( Quiting...')
         exit()
-    else:
+    elif input_value.isdecimal():
         input_value = int(input_value)
-    return input_value
+        return input_value
+    else:
+        print(f'\n\033[1;31m ERROR -> Try again\033[0m')
 
 
 def type_of_operation():
