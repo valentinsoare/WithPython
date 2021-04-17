@@ -1,5 +1,4 @@
 
-fpython:S1481 "GRemove the unused local variable "dict_of_values_metric_system_length".(ßø¦€8É¨ó‡‡/
 `python:S1481"HRemove the unused local variable "dict_of_values_english_system_length".(Şø¢÷
-Gpython:S5780 "(Change or remove duplicates of this key.(ßø¦€8Ôˆˆ‡/
+fpython:S1481 "GRemove the unused local variable "list_of_values_metric_system_length".(œĞÈØ8„¿ìš‹/
 gpython:S1481"HRemove the unused local variable "dict_of_values_for_conversion_length".(¯Œ¥Ü8¿á®‡/

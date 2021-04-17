@@ -21,12 +21,15 @@ def type_of_operation():
 
 
 def difficulty_level():
-    difficulty = input(f'\n*Please enter difficulty level (1 for single digits or 2 for double digits) or q to quit -> ')
+    difficulty = input(f'\n*Please enter difficulty level (1 for single digits or '
+                       f'2 for double digits) or q to quit -> ')
     difficulty = to_exit(difficulty)
     return difficulty
 
 
 def generate_digit_numbers(level_difficulty):
+    first_generated_number = 0
+    second_generated_number = 0
     if level_difficulty == 1:
         first_generated_number = (random.randrange(0, 9) + 1)
         second_generated_number = (random.randrange(0, 9) + 1)
@@ -34,16 +37,19 @@ def generate_digit_numbers(level_difficulty):
         first_generated_number = (random.randrange(9, 100) + 1)
         second_generated_number = (random.randrange(9, 100) + 1)
 
-    return (first_generated_number, second_generated_number)
+    return first_generated_number, second_generated_number
 
 
 def input_catching(operation_type, first_number, second_number):
     op_type = ['+', '-', '*', '/']
+    answer = ''
+    option = ''
 
     length_op_type = len(op_type)
     for i in range(length_op_type):
         if (i+1) == operation_type:
-            answer = input(f"\n - How much is {first_number} {op_type[i]} {second_number} ? (q to quit, chd for difficulty level,"
+            answer = input(f"\n - How much is {first_number} {op_type[i]} "
+                           f"{second_number} ? (q to quit, chd for difficulty level,"
                            f" cht for type of operation) -> ")
 
             if answer.isalpha():
@@ -79,13 +85,14 @@ def executing(operation_t, first_number, second_number, operation_type):
 
 
 def operation(operation_type, first_number, second_number):
+    value_after_exec = ''
     if operation_type == 5:
         given_option = random.randrange(1, 4)
     else:
         given_option = operation_type
 
-    operations_to_execute = [(1, first_number + second_number), (2, first_number - second_number), (3, first_number * second_number),
-                             (4, first_number / second_number)]
+    operations_to_execute = [(1, first_number + second_number), (2, first_number - second_number),
+                             (3, first_number * second_number), (4, first_number / second_number)]
 
     length_operations_to_execute = len(operations_to_execute)
     for i in range(length_operations_to_execute):
