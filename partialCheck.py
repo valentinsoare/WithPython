@@ -5,7 +5,7 @@ def catch_dollar_amount_input():
     given_value = input('*Please enter a dollar amount: - > ')
     given_value_length = len(given_value)
 
-    return int(given_value), given_value_length, given_name
+    return float(given_value), given_value_length, given_name
 
 
 def define_printing(input_value, person_name):

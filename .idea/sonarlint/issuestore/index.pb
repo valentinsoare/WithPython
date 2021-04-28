@@ -23,16 +23,10 @@ C
 pigLatin.py,6/f/6ff5e1047b611637943c029ca68f32b7c975a83d
 B
 pigLatinAndCode.py,2/5/2579834e89a6ab6567f555f4a76619f5960de102
-D
-passwordValidator.py,5/a/5aa39ac7b1041c899e53a46143e68c212da7b314
 ?
 playingPoker.py,8/e/8e18b56cb5913519093767b39a4cacd18a6a5c7c
 @
 scrambledText.py,f/9/f94eb5f977803b9b519fad4cf4fb95a38324b3cd
-?
-partialCheck.py,e/3/e39f9e3fcd2edd090ac914a094cc03af9995d951
-Y
-)sentimentAnalysis/runSentimentAnalysis.py,e/9/e9fbbac06cb3ef5db56cb222534397a90431b60b
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302

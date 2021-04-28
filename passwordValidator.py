@@ -11,6 +11,7 @@ def catch_input():
 def password_validator_rules(input_rule, given_password):
     rules = re.compile(input_rule)
     pattern = re.search(rules, given_password)
+
     return True if pattern else False
 
 

@@ -95,9 +95,12 @@ def statistics_printing(words_given_counter, processed_phrase, type_of_words):
               f'\033[1m{words_appearances_within_entire_phrase:.1f}%\033[0m')
     else:
         print(f'\033[1;34m*Most used {type_of_words.lower()} words:\033[0m')
+
         words_given_counter_items = words_given_counter.items()
+
         for i, j in words_given_counter_items:
             print(f'\033[1m{i:<20}{j}\033[0m')
+
         print(f'\n\033[1;35m*Number of appearances of {type_of_words.lower()}\033[0m \n'
               f'\033[1;35mwords compare to entire text length:\033[0m '
               f'\033[1m{words_appearances_within_entire_phrase:.1f}%\033[0m')
