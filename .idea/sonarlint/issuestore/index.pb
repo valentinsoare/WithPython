@@ -4,8 +4,6 @@ f
 B
 randomSentences.py,c/5/c591921e44ab7668f278fa41591bf17ba0e5d5a0
 K
-tictactoeHumanVsComputer.py,a/b/abfcf094fb0958360578ce46f3e1be5ffe595812
-K
 priceFromDigitsToLetters.py,6/8/68bbeda463776c4c79719eaaa928c7aeccb4f8d2
 B
 hareAndTortoise.py,e/6/e61e53955f79a777778702414b834f7e93932ef3
@@ -23,10 +21,6 @@ C
 pigLatin.py,6/f/6ff5e1047b611637943c029ca68f32b7c975a83d
 B
 pigLatinAndCode.py,2/5/2579834e89a6ab6567f555f4a76619f5960de102
-?
-playingPoker.py,8/e/8e18b56cb5913519093767b39a4cacd18a6a5c7c
-@
-scrambledText.py,f/9/f94eb5f977803b9b519fad4cf4fb95a38324b3cd
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
@@ -44,3 +38,15 @@ V
 &sentimentAnalysis/wordsWithScoring.csv,8/c/8c833d180cfd4af62473a42bd564207a22f2f609
 I
 phoneNumbersConversion.py,0/3/0321a09cf09b5c835292286bad3d9d183c301262
+D
+passwordValidator.py,5/a/5aa39ac7b1041c899e53a46143e68c212da7b314
+K
+tictactoeHumanVsComputer.py,a/b/abfcf094fb0958360578ce46f3e1be5ffe595812
+@
+scrambledText.py,f/9/f94eb5f977803b9b519fad4cf4fb95a38324b3cd
+?
+playingPoker.py,8/e/8e18b56cb5913519093767b39a4cacd18a6a5c7c
+Y
+)sentimentAnalysis/runSentimentAnalysis.py,e/9/e9fbbac06cb3ef5db56cb222534397a90431b60b
+?
+partialCheck.py,e/3/e39f9e3fcd2edd090ac914a094cc03af9995d951
