@@ -7,16 +7,10 @@ K
 tictactoeHumanVsComputer.py,a/b/abfcf094fb0958360578ce46f3e1be5ffe595812
 K
 priceFromDigitsToLetters.py,6/8/68bbeda463776c4c79719eaaa928c7aeccb4f8d2
-B
-hareAndTortoise.py,e/6/e61e53955f79a777778702414b834f7e93932ef3
-9
-	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 ?
 mungingDates.py,1/a/1a6ece0bcb3e804f6a4445364680917e0e91ecbc
 I
 tictactoeHumandVsHuman.py,9/e/9e6666f6dfb5523e6cf78f2b1315db37fe506b21
-C
-metricConversion.py,9/1/91c905bbf72684bddd5fb0036327260ac2e5826b
 ?
 wordProblems.py,3/8/389dcbe1b24ce63037401b09b82c64a53775a783
 ;
@@ -34,13 +28,21 @@ M
 sentimentAnalysis/article.txt,5/2/52125c06235c35a4b6815facc311666a52d87c90
 7
 LICENSE,0/3/0398ccd0f49298b10a3d76a47800d2ebecd49859
-@
-mathQuestions.py,c/1/c185c8a06112f59d354b6a4280b958ee67d9b42c
 ^
 ..idea/inspectionProfiles/profiles_settings.xml,1/e/1e9075f5bf079c01ef2c910709e91a497d262080
 \
 ,.idea/inspectionProfiles/Project_Default.xml,4/9/496a238a6afa168dbaf6efd37bb459331589579c
 V
 &sentimentAnalysis/wordsWithScoring.csv,8/c/8c833d180cfd4af62473a42bd564207a22f2f609
+B
+hareAndTortoise.py,e\6\e61e53955f79a777778702414b834f7e93932ef3
+?
+partialCheck.py,e\3\e39f9e3fcd2edd090ac914a094cc03af9995d951
+C
+metricConversion.py,9\1\91c905bbf72684bddd5fb0036327260ac2e5826b
+@
+mathQuestions.py,c\1\c185c8a06112f59d354b6a4280b958ee67d9b42c
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 I
-phoneNumbersConversion.py,0/3/0321a09cf09b5c835292286bad3d9d183c301262
+phoneNumbersConversion.py,0\3\0321a09cf09b5c835292286bad3d9d183c301262
