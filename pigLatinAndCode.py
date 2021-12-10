@@ -145,6 +145,7 @@ def from_numbers_to_words(given_string):
                 final_version.append(numbers_letters[j][1])
 
     print(f'\n-> List with possible combinations from given input ({given_string}) using phone keyboard:', end='\n\n')
+
     for i in itertools.product(*final_version):
         string_for_print = ''.join(i)
         print(f'{string_for_print}', end=' ')

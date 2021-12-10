@@ -4,7 +4,7 @@ import re
 
 
 def check_if_punctuation(given_word):
-    checking = re.search(r'(([a-z]{1,})(\W))', given_word)
+    checking = re.search(r'(([a-z]+)(\W))', given_word)
 
     if checking:
         punctuation_checking = 1

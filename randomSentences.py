@@ -93,5 +93,3 @@ def form_phrases_with_random_words(given_text):
 
 analysing_given_text(given_text)
 form_phrases_with_random_words(given_text)
-
-
