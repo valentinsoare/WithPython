@@ -74,7 +74,7 @@ def print_running(playerH, playerT, sleep_hare=0):
 def winner_determination(playerH, playerT):
 
     if playerT >= 70:
-        print(f"\n\t TORTOISE WINS!!! YAY!!!**", end="\n\n")
+        print(f"\n\t TORTOISE WINS!!! YAY!!!", end="\n\n")
     elif playerH >= 70:
         print(f"\n\t Hare wins!!", end="\n\n")
     elif playerT >= 70 and playerH >= 70:
