@@ -3,9 +3,17 @@ f
 6tableLikeInPandasMadeWithOnlyLoopsWithoutAnyModules.py,9/b/9b79b6e7b9d99dd9089842ef0e181ba54cd28042
 K
 priceFromDigitsToLetters.py,6/8/68bbeda463776c4c79719eaaa928c7aeccb4f8d2
+<<<<<<< HEAD
 9
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 ?
+=======
+?
+mungingDates.py,1/a/1a6ece0bcb3e804f6a4445364680917e0e91ecbc
+I
+tictactoeHumandVsHuman.py,9/e/9e6666f6dfb5523e6cf78f2b1315db37fe506b21
+?
+>>>>>>> 089f4de15b3b4f390e0e80e98f296f9e0faef8b3
 wordProblems.py,3/8/389dcbe1b24ce63037401b09b82c64a53775a783
 :
 
@@ -20,6 +28,24 @@ M
 ,.idea/inspectionProfiles/Project_Default.xml,4/9/496a238a6afa168dbaf6efd37bb459331589579c
 V
 &sentimentAnalysis/wordsWithScoring.csv,8/c/8c833d180cfd4af62473a42bd564207a22f2f609
+<<<<<<< HEAD
+=======
+B
+hareAndTortoise.py,e\6\e61e53955f79a777778702414b834f7e93932ef3
+?
+partialCheck.py,e\3\e39f9e3fcd2edd090ac914a094cc03af9995d951
+C
+metricConversion.py,9\1\91c905bbf72684bddd5fb0036327260ac2e5826b
+@
+mathQuestions.py,c\1\c185c8a06112f59d354b6a4280b958ee67d9b42c
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+I
+<<<<<<< HEAD
+phoneNumbersConversion.py,0\3\0321a09cf09b5c835292286bad3d9d183c301262
+=======
+phoneNumbersConversion.py,0/3/0321a09cf09b5c835292286bad3d9d183c301262
+>>>>>>> 089f4de15b3b4f390e0e80e98f296f9e0faef8b3
 D
 passwordValidator.py,5/a/5aa39ac7b1041c899e53a46143e68c212da7b314
 Y
@@ -44,3 +70,4 @@ C
 metricConversion.py,9/1/91c905bbf72684bddd5fb0036327260ac2e5826b
 ?
 partialCheck.py,e/3/e39f9e3fcd2edd090ac914a094cc03af9995d951
+>>>>>>> 582bd96755ccd5eacc69e71d7d8dbfd2bd7c0f35

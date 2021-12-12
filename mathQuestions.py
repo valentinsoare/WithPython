@@ -118,5 +118,9 @@ def main():
             type_of_o = type_of_operation()
 
 
+<<<<<<< HEAD
 main()
 
+=======
+main()
+>>>>>>> 089f4de15b3b4f390e0e80e98f296f9e0faef8b3
