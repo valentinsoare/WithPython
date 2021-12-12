@@ -7,6 +7,7 @@ import os
 
 def tortoise():
     given_rnd_number = random.randrange(1, 10)
+
     if 1 <= given_rnd_number <= 5:
         return 3
     elif 6 <= given_rnd_number <= 7:
