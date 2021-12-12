@@ -38,6 +38,7 @@ def moving_hare():
 def print_initial_track():
     x = 1
     os.system('clear')
+    os.system('tput civis')
     print(f"\n***The Tortoise and the Hare***", end="\n\n")
     print(f" - > The following track is given: ", end="\n\n")
     print(f"START: T H |", end="")
@@ -73,12 +74,13 @@ def print_running(playerH, playerT, sleep_hare=0):
 def winner_determination(playerH, playerT):
 
     if playerT >= 70:
-        print(f"\t**TORTOISE WINS!!! YAY!!!**", end="\n\n")
+        print(f"\n\t TORTOISE WINS!!! YAY!!!**", end="\n\n")
     elif playerH >= 70:
-        print(f"\n - > Hare wins!!", end="\n\n")
+        print(f"\n\t Hare wins!!", end="\n\n")
     elif playerT >= 70 and playerH >= 70:
-        print(f"\n - > It's a tie!!", end="\n\n")
+        print(f"\n\t It's a tie!!", end="\n\n")
 
+    os.system('tput cnorm')
     sys.exit(0)
 
 
@@ -89,6 +91,7 @@ def main():
 
     print_initial_track()
     os.system('sleep 1.25')
+
 
     while playerH <= 70 and playerT <= 70:
         hare_var = moving_hare()
