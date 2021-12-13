@@ -55,12 +55,10 @@ def main():
     printing_header(60)
 
     while if_right == 0:
-
         if to_gen == 1:
             num1, num2 = generate_numbers(1)
 
         answr = printing_question_and_catch_answer(num1, num2)
-
         if_right, to_gen = validate_answer(answr, num1, num2)
 
     printing_header(60)
