@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import random
+import os
 
 
 def printing_header(number_of_lines):
@@ -28,7 +29,22 @@ def generate_numbers(numbers_type=1):
 
 def printing_question_and_catch_answer(nr1, nr2):
     print(f" \033[1m- > How much is {nr1} * {nr2} ?\033[0m", end="\n")
-    answer = int(input(" \033[1m-- > Answer: \033[0m"))
+    answer = input(" \033[1m-- > Answer: \033[0m")
+
+    try:
+        answer = int(answer)
+    except ValueError:
+
+        try:
+            answer = float(answer)
+        except ValueError:
+
+            answer = answer.lower()
+
+            if answer == 'quitting':
+                print(f"\n:( Quitting...", end="\n\n")
+            elif answer == 'continue':
+                print(f"\n Continue...", end="\n\n")
 
     return answer
 
@@ -38,9 +54,14 @@ def validate_answer(answr, n1, n2):
     to_g = 0
 
     if answr == n1 * n2:
-        output_var = 1
+        output_var = 'continue'
         to_g = 1
-        print(f"\n\t\033[1;32mVery good!!\033[0m", end="\n")
+        print(f"\n\t\033[1;32mVery good!!\033[0m", end="\n\n")
+    elif answr == 'continue':
+        to_g = 1
+        output_var = answr
+    elif answr == 'quitting':
+        output_var = answr
     else:
         print(f"\n\t\033[1;31mNo. Please try again!!\033[0m", end="\n")
         printing_header(60)
@@ -51,10 +72,12 @@ def validate_answer(answr, n1, n2):
 def main():
     if_right = 0
     to_gen = 1
+    num1 = 0
+    num2 = 0
     print(f"\n\t\t\033[1;34m*** Math Questions V2 ***\033[0m")
     printing_header(60)
 
-    while if_right == 0:
+    while if_right != "quitting":
         if to_gen == 1:
             num1, num2 = generate_numbers(1)
 
@@ -64,5 +87,5 @@ def main():
     printing_header(60)
     print()
 
-main()
 
+main()
