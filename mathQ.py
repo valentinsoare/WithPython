@@ -15,11 +15,11 @@ def lines(number_of_lines):
 
 
 def print_header():
-    #lines(60)
+    lines(60)
     print(f"\033[1m {'MATH EXERCISES':>35} \033[0m", end="\n")
     print(f"\033[1m {'*add, subtract, multiplication and divide*':>49} \033[0m", end="\n")
     print(f"\033[1m {'[cht] (change operations), [chd] (change difficulty)':>54} \033[0m", end="\n")
-    #lines(60)
+    lines(60)
 
 
 def print_difficulty_levels():
