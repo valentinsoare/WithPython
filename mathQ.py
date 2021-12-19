@@ -5,6 +5,9 @@ import sys
 import random
 import time
 
+correct_answers = ["Very good!", "Nice work!", "Keep up the good work!"]
+wrong_answers = ["No. Please try again!", "Wrong. Try once more!", "No. Keep Trying!"]
+
 
 def lines(number_of_lines):
     x = 0
@@ -16,15 +19,15 @@ def lines(number_of_lines):
 
 def print_header():
     lines(60)
-    print(f"\033[1m {'MATH EXERCISES':>35} \033[0m", end="\n")
-    print(f"\033[1m {'*add, subtract, multiplication and divide*':>49} \033[0m", end="\n")
-    print(f"\033[1m {'[cht] (change operations), [chd] (change difficulty)':>54} \033[0m", end="\n")
+    print(f"\033[1m {'MATH EXERCISES':>35}\n {'*add, subtract, multiplication and divide*':>49}\n "
+          f"{'[cht] (change operations), [chd] (change difficulty)':>54}  \033[0m", end="\n")
     lines(60)
 
 
 def print_difficulty_levels():
     print(f"\n - > Difficulty Levels: ")
     given_list = [(1, 'One digit'), (2, 'Two digits')]
+    to_choose = random.randrange(3)
 
     print()
     for i in given_list:
@@ -38,7 +41,7 @@ def print_difficulty_levels():
         if req_answer in (1, 2):
             value_if_right = 1
         else:
-            print(f"\n \033[1;31m Wrong answer !!!\033[0m", end="\n\n")
+            print(f"\n \033{wrong_answers[to_choose]}\033[0m", end="\n\n")
             time.sleep(0.5)
             value_if_right = 99
     except ValueError:
@@ -50,7 +53,7 @@ def print_difficulty_levels():
         elif req_answer == 'cht':
             value_if_right = 2
         else:
-            print(f"\n\033[1;31m Wrong answer !!!\033[0m", end="\n\n")
+            print(f"\n \033[1;31m {wrong_answers[to_choose]}\033[0m", end="\n\n")
             time.sleep(0.5)
             value_if_right = 99
 
@@ -85,16 +88,17 @@ def execute_difficulty():
 
 def execute_operations_and_validate(numbering1, numbering2, answer):
     operations = [(numbering1 + numbering2), (numbering1 - numbering2), (numbering1 * numbering2), ('%.1f' % (numbering1 / numbering2))]
+    to_choose = random.randrange(3)
     var_to_exit = 1
 
     for i in range(len(operations)):
         if (i == 3 and str(operations[i]).rstrip('.0') == answer) or (str(operations[i]) == answer):
-            print(f"\033\n[1;32m Right answer, keep it going !!\033[0m", end="\n")
+            print(f"\033\n[1;32m {correct_answers[to_choose]}\033[0m", end="\n")
             var_to_exit = 0
             time.sleep(0.5)
             return var_to_exit
 
-    print(f"\n\033[1;31m Wrong answer !!!\033[0m", end="\n\n")
+    print(f"\n\033[1;31m {wrong_answers[to_choose]}\033[0m", end="\n\n")
     time.sleep(0.5)
 
     return var_to_exit
@@ -106,6 +110,7 @@ def ask_questions(nrm1, nrm2, oper_type):
     print(f"\n - > How much is {nrm1} {operations[oper_type]} {nrm2} ?", end="\n\n")
     answer = input(" -- > Answer (q, chd, cht): ")
     swap_answer = answer
+    to_choose = random.randrange(3)
 
     try:
         swap_answer = int(swap_answer.lstrip('-'))
@@ -125,7 +130,7 @@ def ask_questions(nrm1, nrm2, oper_type):
             elif swap_answer == 'cht':
                 operation_to_exit = 2
             else:
-                print(f"\n\033[1;31m Wrong answer !!!\033[0m", end="\n\n")
+                print(f"\n\033[1;31m {wrong_answers[to_choose]}\033[0m", end="\n\n")
                 time.sleep(0.5)
                 operation_to_exit = 99
 
@@ -147,6 +152,7 @@ def execute_questions(numbering1, numbering2, type_of_o):
 def print_operations():
     given_operations = [(1, "Add"), (2, "Subtract"), (3, "Multiply"), (4, "Divide")]
     value_if_ok = 0
+    to_choose = random.randrange(3)
 
     print(f"\n - > Select Operations: ", end="\n\n")
 
@@ -163,7 +169,7 @@ def print_operations():
             value_if_ok = 1
             return answer, value_if_ok
         else:
-            print(f"\n \033[1;31m Wrong answer !!!\033[0m", end="\n\n")
+            print(f"\n \033[1;31m {wrong_answers[to_choose]}\033[0m", end="\n\n")
             time.sleep(0.5)
     except ValueError:
         answer = answer.lower()
@@ -175,7 +181,7 @@ def print_operations():
         elif answer == "chd":
             value_if_ok = 3
         else:
-            print(f"\n \033[1;31m Wrong answer !!!\033[0m", end="\n\n")
+            print(f"\n \033[1;31m {wrong_answers[to_choose]}\033[0m", end="\n\n")
             time.sleep(0.5)
 
     return answer, value_if_ok
