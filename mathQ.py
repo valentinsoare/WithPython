@@ -213,7 +213,7 @@ def main():
 
         if not isinstance(return_difficulty, int):
             return_difficulty = execute_difficulty()
-            if return_difficulty == 'cht':
+            if return_difficulty == 'cht' or not isinstance(type_of_o, int):
                 type_of_o = ''
                 continue
 
