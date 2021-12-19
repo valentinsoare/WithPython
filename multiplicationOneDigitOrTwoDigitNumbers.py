@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import random
-import os
 
 
 def printing_header(number_of_lines):
