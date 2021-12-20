@@ -18,10 +18,10 @@ def lines(number_of_lines):
 
 
 def print_header():
-    #lines(60)
+    lines(60)
     print(f"\033[1m {'MATH EXERCISES':>35}\n {'*add, subtract, multiplication and divide*':>49}\n "
           f"{'[cht] (change operations), [chd] (change difficulty)':>54}  \033[0m", end="\n")
-    #lines(60)
+    lines(60)
 
 
 def print_difficulty_levels():
@@ -83,7 +83,7 @@ def execute_difficulty():
         print_header()
         answer_from_difficulty, value_to_check = print_difficulty_levels()
 
-    return answer_from_difficulty
+    return answer_from_difficulty, value_to_check
 
 
 def execute_operations_and_validate(numbering1, numbering2, answer):
@@ -196,39 +196,94 @@ def execute_print_operations():
         print_header()
         answering, value = print_operations()
 
-    return answering
+    return answering, value
+
+
+def exec_oper_diff(select_o, select_d, var_to_select=0):
+    value_operations = value_difficulty = 100
+    type_of_operation = return_difficulty = ''
+
+    while value_operations + value_difficulty != 2:
+        if select_o == 1:
+            type_of_operation, value_operations = execute_print_operations()
+            if var_to_select == 1:
+                return type_of_operation
+
+        if value_operations + value_difficulty == 2:
+            break
+
+        if select_d == 1:
+            return_difficulty, value_difficulty = execute_difficulty()
+            if var_to_select == 1:
+                return return_difficulty
+
+    return type_of_operation, return_difficulty
 
 
 def main():
+
+    nr1 = nr2 = 0
     val_to_exit = 0
-    return_difficulty = ''
-    type_of_o = ''
-    swap_type_o = 0
-    nr1 = 0
-    nr2 = 0
+    operation, difficulty = exec_oper_diff(1, 1)
 
     while True:
-        if not isinstance(type_of_o, int):
-            type_of_o = execute_print_operations()
-            swap_type_o = type_of_o
-
-        if not isinstance(return_difficulty, int):
-            return_difficulty = execute_difficulty()
-            if return_difficulty == 'cht' or not isinstance(type_of_o, int):
-                type_of_o = ''
-                continue
-
         if val_to_exit == 0:
-            nr1, nr2 = generate_numbers(return_difficulty)
+            nr1, nr2 = generate_numbers(difficulty)
 
-        answering = execute_questions(nr1, nr2, swap_type_o)
+        answering = execute_questions(nr1, nr2, operation)
 
         if answering == 'chd':
-            return_difficulty = ''
+            difficulty = exec_oper_diff(0, 1, 1)
         elif answering == 'cht':
-            type_of_o = ''
+            operation = exec_oper_diff(1, 0, 1)
         else:
             val_to_exit = execute_operations_and_validate(nr1, nr2, answering)
 
 
 main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#    def main():
+#    val_to_exit = 0
+#    return_difficulty = ''
+#    type_of_o = ''
+#    swap_type_o = 0
+#    nr1 = 0
+#    nr2 = 0
+
+#    while True:
+#        if not isinstance(type_of_o, int):
+#            type_of_o = execute_print_operations()
+#            swap_type_o = type_of_o
+
+#        if not isinstance(return_difficulty, int):
+#            return_difficulty = execute_difficulty()
+#            if return_difficulty == 'cht' or not isinstance(type_of_o, int):
+#                type_of_o = ''
+#                continue
+
+#        if val_to_exit == 0:
+#            nr1, nr2 = generate_numbers(return_difficulty)
+
+#        answering = execute_questions(nr1, nr2, swap_type_o)
+
+#        if answering == 'chd':
+#            return_difficulty = ''
+#        elif answering == 'cht':
+#            type_of_o = ''
+#        else:
+#            val_to_exit = execute_operations_and_validate(nr1, nr2, answering)
+
