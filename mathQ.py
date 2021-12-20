@@ -207,7 +207,7 @@ def exec_oper_diff(select_o, select_d, var_to_select=0):
         if select_o == 1:
             type_of_operation, value_operations = execute_print_operations()
             if var_to_select == 1:
-                return type_of_operation
+                return type_of_operation, value_operations
 
         if value_operations + value_difficulty == 2:
             break
@@ -215,29 +215,40 @@ def exec_oper_diff(select_o, select_d, var_to_select=0):
         if select_d == 1:
             return_difficulty, value_difficulty = execute_difficulty()
             if var_to_select == 1:
-                return return_difficulty
+                return return_difficulty, value_difficulty
 
-    return type_of_operation, return_difficulty
+    return type_of_operation, value_operations, return_difficulty, value_difficulty
 
 
 def main():
 
     nr1 = nr2 = 0
     val_to_exit = 0
-    operation, difficulty = exec_oper_diff(1, 1)
+    answering = 0
+    operations_value = -2
+    difficulty_value = -2
+    difficulty = 0
+    operation = 0
 
     while True:
-        if val_to_exit == 0:
-            nr1, nr2 = generate_numbers(difficulty)
-
-        answering = execute_questions(nr1, nr2, operation)
-
         if answering == 'chd':
-            difficulty = exec_oper_diff(0, 1, 1)
+            difficulty, difficulty_value = exec_oper_diff(0, 1, 1)
         elif answering == 'cht':
-            operation = exec_oper_diff(1, 0, 1)
+            operation, operations_value = exec_oper_diff(1, 0, 1)
         else:
-            val_to_exit = execute_operations_and_validate(nr1, nr2, answering)
+            operation, operations_value, difficulty, difficulty_value = exec_oper_diff(1, 1)
+
+        while operations_value + difficulty_value == 2:
+
+            if val_to_exit == 0:
+                nr1, nr2 = generate_numbers(difficulty)
+
+            answering = execute_questions(nr1, nr2, operation)
+
+            if answering == 'chd' or answering == 'cht':
+                break
+            else:
+                val_to_exit = execute_operations_and_validate(nr1, nr2, answering)
 
 
 main()
