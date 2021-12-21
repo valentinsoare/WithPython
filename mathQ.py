@@ -8,7 +8,6 @@ import time
 correct_answers = ["Very good!", "Nice work!", "Keep up the good work!"]
 wrong_answers = ["No. Please try again!", "Wrong. Try once more!", "No. Keep Trying!"]
 
-
 def lines(number_of_lines):
     x = 0
     while x <= number_of_lines:
@@ -16,13 +15,11 @@ def lines(number_of_lines):
         x += 1
     print()
 
-
 def print_header():
     lines(70)
     print(f"\033[1m {'MATH EXERCISES':>40}\n {'*add, subtract, multiplication and divide*':>55}\n "
           f"{'[cht] (change operations), [chd] (change difficulty), [q] (quit)':>66}  \033[0m", end="\n")
     lines(70)
-
 
 def print_difficulty_levels():
     print(f"\n - > Difficulty Levels: ")
@@ -59,7 +56,6 @@ def print_difficulty_levels():
 
     return req_answer, value_if_right
 
-
 def generate_numbers(difficulty_levels):
     number1 = number2 = 0
 
@@ -72,7 +68,6 @@ def generate_numbers(difficulty_levels):
 
     return number1, number2
 
-
 def execute_difficulty():
     print_header()
     answer_from_difficulty = 0
@@ -84,7 +79,6 @@ def execute_difficulty():
         answer_from_difficulty, value_to_check = print_difficulty_levels()
 
     return answer_from_difficulty, value_to_check
-
 
 def execute_operations_and_validate(numbering1, numbering2, answer):
     operations = [(numbering1 + numbering2), (numbering1 - numbering2), (numbering1 * numbering2), ('%.1f' % (numbering1 / numbering2))]
@@ -102,7 +96,6 @@ def execute_operations_and_validate(numbering1, numbering2, answer):
     time.sleep(0.5)
 
     return var_to_exit
-
 
 def ask_questions(nrm1, nrm2, oper_type):
     oper_type = oper_type - 1
@@ -136,7 +129,6 @@ def ask_questions(nrm1, nrm2, oper_type):
 
     return answer, operation_to_exit
 
-
 def execute_questions(numbering1, numbering2, type_of_o):
     value = 0
     answr = 0
@@ -147,7 +139,6 @@ def execute_questions(numbering1, numbering2, type_of_o):
         answr, value = ask_questions(numbering1, numbering2, type_of_o)
 
     return answr
-
 
 def print_operations():
     given_operations = [(1, "Add"), (2, "Subtract"), (3, "Multiply"), (4, "Divide")]
@@ -186,7 +177,6 @@ def print_operations():
 
     return answer, value_if_ok
 
-
 def execute_print_operations():
     value = 0
     answering = 0
@@ -197,7 +187,6 @@ def execute_print_operations():
         answering, value = print_operations()
 
     return answering, value
-
 
 def exec_oper_diff(select_o, select_d, var_to_select=0):
     value_operations = value_difficulty = 100
@@ -218,7 +207,6 @@ def exec_oper_diff(select_o, select_d, var_to_select=0):
                 return return_difficulty, value_difficulty
 
     return type_of_operation, value_operations, return_difficulty, value_difficulty
-
 
 def main():
 
@@ -244,6 +232,5 @@ def main():
                 break
             else:
                 val_to_exit = execute_operations_and_validate(nr1, nr2, answering)
-
 
 main()
