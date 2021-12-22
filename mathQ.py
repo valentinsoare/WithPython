@@ -154,7 +154,7 @@ def print_operations():
     value_if_ok = 0
     to_choose = random.randrange(3)
 
-    print(f"\n - > Select Operations: ", end="\n\n")
+    print(f"\n - > Select Equation: ", end="\n\n")
 
     for i in given_operations:
         print(f"  {i[0]} - {i[1]}")
