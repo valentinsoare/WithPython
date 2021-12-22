@@ -20,7 +20,7 @@ def lines(number_of_lines):
 def print_header():
     lines(70)
     print(f"\033[1m {'MATH EXERCISES':>40}\n {'*add, subtract, multiplication and divide*':>55}\n "
-          f"{'[cht] (change operations), [chd] (change difficulty), [q] (quit)':>66}  \033[0m", end="\n")
+          f"{'[cht] (change equations), [chd] (change difficulty), [q] (quit)':>66}  \033[0m", end="\n")
     lines(70)
 
 
