@@ -86,17 +86,17 @@ def execute_difficulty():
     return answer_from_difficulty, value_to_check
 
 
-def execute_operations_and_validate(numbering1, numbering2, answer):
+def execute_operations_and_validate(numbering1, numbering2, answer, operation_given):
     operations = [(numbering1 + numbering2), (numbering1 - numbering2), (numbering1 * numbering2), ('%.1f' % (numbering1 / numbering2))]
     to_choose = random.randrange(3)
     var_to_exit = 1
+    operation_given = operation_given - 1
 
-    for i in range(len(operations)):
-        if (i == 3 and str(operations[i]).rstrip('.0') == answer) or (str(operations[i]) == answer):
-            print(f"\n\033[1;32m {correct_answers[to_choose]}\033[0m", end="\n")
-            var_to_exit = 0
-            time.sleep(0.5)
-            return var_to_exit
+    if (operation_given == 3 and str(operations[operation_given]).rstrip('.0') == answer) or (str(operations[operation_given]) == answer):
+        print(f"\n\033[1;32m {correct_answers[to_choose]}\033[0m", end="\n")
+        var_to_exit = 0
+        time.sleep(0.5)
+        return var_to_exit
 
     print(f"\n\033[1;31m {wrong_answers[to_choose]}\033[0m", end="\n\n")
     time.sleep(0.5)
@@ -241,7 +241,7 @@ def main():
             if answering == 'chd' or answering == 'cht':
                 break
             else:
-                val_to_exit = execute_operations_and_validate(nr1, nr2, answering)
+                val_to_exit = execute_operations_and_validate(nr1, nr2, answering, operation)
 
 
 main()
