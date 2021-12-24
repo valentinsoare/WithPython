@@ -92,7 +92,8 @@ def execute_operations_and_validate(numbering1, numbering2, answer, operation_gi
     var_to_exit = 1
     operation_given = operation_given - 1
 
-    if (operation_given == 3 and str(operations[operation_given]).rstrip('.0') == answer) or (str(operations[operation_given]) == answer):
+    if (operation_given == 3 and str(operations[operation_given]).rstrip('.0') == answer) \
+            or (str(operations[operation_given]) == answer):
         print(f"\n\033[1;32m {correct_answers[to_choose]}\033[0m", end="\n")
         var_to_exit = 0
         time.sleep(0.5)
