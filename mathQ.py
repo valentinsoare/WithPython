@@ -228,8 +228,12 @@ def main():
     while True:
         if answering == 'chd':
             difficulty, difficulty_value = exec_oper_diff(0, 1, 1)
+            if difficulty == "cht":
+                operation, operations_value = exec_oper_diff(1, 0, 1)
         elif answering == 'cht':
             operation, operations_value = exec_oper_diff(1, 0, 1)
+            if operation == "chd":
+                difficulty, difficulty_value = exec_oper_diff(0, 1, 1)
         else:
             operation, operations_value, difficulty, difficulty_value = exec_oper_diff(1, 1)
 
