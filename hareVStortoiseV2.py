@@ -92,7 +92,6 @@ def main():
     print_initial_track()
     os.system('sleep 1.25')
 
-
     while playerH <= 70 and playerT <= 70:
         hare_var = moving_hare()
         if hare_var != 0:
