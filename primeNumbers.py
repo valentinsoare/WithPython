@@ -23,4 +23,8 @@ def extract_prime_numbers_from_list(given_list):
     print(f"\n - > Prime numbers from the given list: {prime_numbers}")
 
 
-extract_prime_numbers_from_list(given_list)
+def main():
+    extract_prime_numbers_from_list(given_list)
+
+
+main()
