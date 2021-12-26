@@ -26,7 +26,7 @@ def main():
             count = 0
             print()
         else:
-            print(f", ", end="  ")
+            print(f",  ", end="")
             count += 1
 
 
