@@ -2,7 +2,7 @@
 
 import math
 
-given_list = [i for i in range(100)]
+given_list = [i for i in range(150)]
 
 
 def check_if_prime(given_number):
