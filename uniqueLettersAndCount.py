@@ -19,7 +19,7 @@ def summarize_letters(processed_string):
     print(f'\n - > letters from the string:\n  "{processed_string}"', end="\n\n")
     print(f"{'-' * 10}")
     for i in range(len(letter)):
-        print(f" {letter[i]}\t\t{freq[i]}\n{'-' * 10}")
+        print(f" {letter[i]}\t{freq[i]}\n{'-' * 10}")
 
     if len(letter) == length_all_letters:
         print(f"\nAll letters from alphabet have been used.", end="\n\n")
