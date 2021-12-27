@@ -2,11 +2,11 @@
 
 import string
 
-punctuation_list = string.punctuation
 our_string = 'lux,Si,       opulenta@$&'
 
 
 def is_palindrome(given_string):
+    punctuation_list = string.punctuation
     processed_list = list(filter(lambda k: k not in punctuation_list and k != ' ' and k != string.whitespace,
                                  list(given_string.lower())))
     length_of_a_list = len(processed_list)
