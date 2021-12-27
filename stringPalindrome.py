@@ -8,7 +8,6 @@ our_string = 'lux,Si,       opulenta@$&'
 
 def is_palindrome(given_string):
     processed_list = list(filter(lambda k: k not in punctuation_list and k != ' ' and k != string.whitespace, list(given_string.lower())))
-    print(f"{processed_list}")
     length_of_a_list = len(processed_list)
     ranges = len(processed_list) // 2
     count = 0
