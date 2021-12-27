@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-given_list = [i for i in range(2, 1001)]
+given_list = [i for i in range(1002, 2001)]
 
 
 def check_if_prime(given_number):
