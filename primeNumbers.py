@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
-given_list = [i for i in range(1002, 2001)]
+import math
+
+given_list = [i for i in range(100)]
 
 
 def check_if_prime(given_number):
@@ -11,11 +13,11 @@ def check_if_prime(given_number):
     elif given_number % 2 == 0 or given_number % 3 == 0:
         return False
 
-    for i in range(5, (int(given_number ** 0.5) + 1)):
-        if i % given_number == 0:
+    for i in range(5, int(given_number**0.5 + 1)):
+        if given_number % i == 0:
             return False
 
-    return given_number
+    return True
 
 
 def extract_prime_numbers_from_list(given_list):

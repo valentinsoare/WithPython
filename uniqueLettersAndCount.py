@@ -3,7 +3,7 @@
 import string
 import numpy as np
 
-given_string = 'Lux si opulenta, mare BO$$ de B@R0$$ !!'
+given_string = 'Ce facem ma boss aici ? Sa imi spui ce putem face. Trebuie sa intelegem ca e lux si opulenta.'
 
 
 def summarize_letters(processed_string):
