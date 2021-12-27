@@ -3,7 +3,6 @@
 import string
 import numpy as np
 
-
 given_string = 'Sa      fie bine si sa nu fie rau !!!'
 
 
@@ -13,8 +12,8 @@ def summarize_letters(processed_string):
     all_punctuation = string.punctuation
     processed_string = processed_string.lower()
 
-    letter_without_spaces = list(filter(lambda i: i != string.whitespace and i != ' ', list(processed_string)))
-    letter_without_punctuation = [letter_without_spaces[i] for i in range(len(letter_without_spaces)) if letter_without_spaces[i] not in all_punctuation]
+    letter_without_spaces = list(filter(lambda k: k != string.whitespace and k != ' ', list(processed_string)))
+    letter_without_punctuation = list(filter(lambda j: j not in all_punctuation, letter_without_spaces))
     letter, freq = np.unique(letter_without_punctuation, return_counts=True)
 
     print(f'\n - > letters from the string:\n  "{processed_string}"', end="\n\n")
