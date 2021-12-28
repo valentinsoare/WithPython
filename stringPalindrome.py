@@ -22,9 +22,9 @@ def is_palindrome(given_string):
     print(f'\n\033[1m String to check: "{given_string}"\033[0m', end="\n")
 
     if count == length_of_a_list // 2:
-        print(f"\n\033[1;32m - > String is a palindrome.\033[0m", end="\n\n")
+        print(f"\n\033[1;32m - > Given string is a palindrome.\033[0m", end="\n\n")
     else:
-        print(f"\n\033[1;31m - > String is not a palindrome.\033[0m", end="\n\n")
+        print(f"\n\033[1;31m - > Given string is not a palindrome.\033[0m", end="\n\n")
 
 
 def main():
