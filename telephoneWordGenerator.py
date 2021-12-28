@@ -89,7 +89,7 @@ def from_number_to_letter_conversion():
 
         with_zeros_and_letter_product.append(''.join(cartesian[i]))
 
-    print(f'\n\033[1m - > Phone number: "{given_phone_number}" to letters:\033[0m', end="\n")
+    print(f'\n\033[1;1;42m - > Phone number: "{given_phone_number}" to letters: \033[0m', end="\n")
 
     for i in range(len(with_zeros_and_letter_product)):
         if i % 10 == 0:

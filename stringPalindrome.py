@@ -2,7 +2,7 @@
 
 import string
 
-our_string = 'lux,Si,       opulenta@$&'
+our_string = '123454321'
 
 
 def is_palindrome(given_string):
