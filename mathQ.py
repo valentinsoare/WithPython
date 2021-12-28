@@ -18,10 +18,10 @@ def lines(number_of_lines):
 
 
 def print_header():
-    lines(70)
+    #lines(70)
     print(f"\033[1m {'MATH EXERCISES':>40}\n {'*add, subtract, multiplication and divide*':>55}\n "
           f"{'[cht] (change equations), [chd] (change difficulty), [q] (quit)':>66}  \033[0m", end="\n")
-    lines(70)
+    #lines(70)
 
 
 def print_difficulty_levels():
@@ -228,10 +228,8 @@ def main():
     while True:
         if answering == 'chd':
             difficulty, difficulty_value = exec_oper_diff(0, 1, 1)
-            answering = ''
         elif answering == 'cht':
             operation, operations_value = exec_oper_diff(1, 0, 1)
-            answering = ''
         else:
             operation, operations_value, difficulty, difficulty_value = exec_oper_diff(1, 1)
 
