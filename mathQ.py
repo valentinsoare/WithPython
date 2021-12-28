@@ -231,7 +231,7 @@ def main():
             answering = ''
         elif answering == 'cht':
             operation, operations_value = exec_oper_diff(1, 0, 1)
-            answering=''
+            answering = ''
         else:
             operation, operations_value, difficulty, difficulty_value = exec_oper_diff(1, 1)
 
