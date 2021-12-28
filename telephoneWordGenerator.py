@@ -72,7 +72,7 @@ def combine_them():
         if only_zero_and_ones[j] in ['0', '1']:
             combine[j] = only_zero_and_ones[j]
 
-    cartesian_product = list(map(lambda k: list(k), cartesian_product))
+    cartesian_product = list(map(lambda m: list(m), cartesian_product))
 
     return cartesian_product, combine
 
@@ -94,7 +94,9 @@ def from_number_to_letter_conversion():
         if i % 6 == 0:
             print()
         else:
-            print(f"{with_zeros_and_letter_product[i]}", end=" ")
+            print(f"{with_zeros_and_letter_product[i]}", end="  ")
+
+    print("\n")
 
 
 def main():
