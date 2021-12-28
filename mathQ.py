@@ -232,7 +232,6 @@ def main():
             operation, operations_value = exec_oper_diff(1, 0, 1)
         else:
             operation, operations_value, difficulty, difficulty_value = exec_oper_diff(1, 1)
-
         while operations_value + difficulty_value == 2:
             if val_to_exit == 0:
                 nr1, nr2 = generate_numbers(difficulty)
