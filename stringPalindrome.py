@@ -2,7 +2,7 @@
 
 import string
 
-our_string = '123454321'
+our_string = 'radar'
 
 
 def is_palindrome(given_string):

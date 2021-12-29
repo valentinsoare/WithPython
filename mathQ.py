@@ -63,7 +63,7 @@ def print_difficulty_levels():
 def generate_numbers(difficulty_levels):
     number1 = number2 = 0
 
-    if 1 == difficulty_levels:
+    if difficulty_levels == 1:
         number1 = random.randrange(1, 10)
         number2 = random.randrange(1, 10)
     elif difficulty_levels == 2:
@@ -226,13 +226,20 @@ def main():
     operations_value = difficulty_value = -2
 
     while True:
+
         if answering == 'chd':
             difficulty, difficulty_value = exec_oper_diff(0, 1, 1)
+            if difficulty == 'cht':
+                operation, operations_value = exec_oper_diff(1, 0, 1)
         elif answering == 'cht':
             operation, operations_value = exec_oper_diff(1, 0, 1)
+            if operation == 'chd':
+                difficulty, difficulty_value = exec_oper_diff(0, 1, 1)
         else:
             operation, operations_value, difficulty, difficulty_value = exec_oper_diff(1, 1)
+
         while operations_value + difficulty_value == 2:
+
             if val_to_exit == 0:
                 nr1, nr2 = generate_numbers(difficulty)
 

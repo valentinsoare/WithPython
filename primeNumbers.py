@@ -9,7 +9,8 @@ def check_if_prime(given_number):
         return False
     elif given_number <= 3:
         return True
-    elif given_number % 2 == 0 or given_number % 3 == 0:
+    elif given_number % 2 == 0 \
+            or given_number % 3 == 0:
         return False
 
     for i in range(5, int(given_number**0.5 + 1)):
