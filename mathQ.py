@@ -249,11 +249,11 @@ def main():
     while True:
         operation, operations_value, difficulty, difficulty_value = generate_answering(answering)
         while operations_value + difficulty_value == 2:
+
             if val_to_exit == 0:
                 nr1, nr2 = generate_numbers(difficulty)
 
             answering = execute_questions(nr1, nr2, operation)
-
             if answering == 'chd' or answering == 'cht':
                 break
             else:
