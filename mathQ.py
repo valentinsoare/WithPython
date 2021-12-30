@@ -221,30 +221,35 @@ def exec_oper_diff(select_o, select_d, var_to_select=0):
     return type_of_operation, value_operations, return_difficulty, value_difficulty
 
 
-def main():
-    nr1 = nr2 = val_to_exit = answering = 0
-    #difficulty = operation = 0
-    #operations_value = difficulty_value = -2
+def generate_answering(answering):
 
     while True:
-
         if answering == 'chd':
             difficulty, difficulty_value = exec_oper_diff(0, 1, 1)
             if difficulty == 'cht':
                 answering = 'cht'
-                continue
             else:
                 operation, operations_value = exec_oper_diff(1, 0, 1)
+                break
         elif answering == 'cht':
             operation, operations_value = exec_oper_diff(1, 0, 1)
             if operation == 'chd':
                 answering = 'chd'
-                continue
             else:
                 difficulty, difficulty_value = exec_oper_diff(0, 1, 1)
+                break
         else:
             operation, operations_value, difficulty, difficulty_value = exec_oper_diff(1, 1)
+            break
 
+    return operation, operations_value, difficulty, difficulty_value
+
+
+def main():
+    nr1 = nr2 = val_to_exit = answering = 0
+
+    while True:
+        operation, operations_value, difficulty, difficulty_value = generate_answering(answering)
         while operations_value + difficulty_value == 2:
 
             if val_to_exit == 0:
