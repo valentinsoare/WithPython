@@ -224,7 +224,7 @@ def exec_oper_diff(select_o, select_d, var_to_select=0):
 def generate_answering(answering):
     operation = difficulty = operations_value = difficulty_value = 'default'
 
-    while isinstance(operation, str) and isinstance(difficulty, str) :
+    while isinstance(operation, str) and isinstance(difficulty, str):
         if answering == 'chd':
             difficulty, difficulty_value = exec_oper_diff(0, 1, 1)
             if difficulty == 'cht':
