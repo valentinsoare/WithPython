@@ -221,39 +221,26 @@ def exec_oper_diff(select_o, select_d, var_to_select=0):
     return type_of_operation, value_operations, return_difficulty, value_difficulty
 
 
-def generate_answering(answering):
-    operation = difficulty = operations_value = difficulty_value = 'default'
+def main():
 
-    while isinstance(operation, str) and isinstance(difficulty, str):
+    while True:
+        nr1 = nr2 = val_to_exit = answering = difficulty = operation = 0
+        operations_value = difficulty_value = -2
+
         if answering == 'chd':
             difficulty, difficulty_value = exec_oper_diff(0, 1, 1)
-            if difficulty == 'cht':
-                answering = 'cht'
-            else:
-                operation, operations_value = exec_oper_diff(1, 0, 1)
         elif answering == 'cht':
             operation, operations_value = exec_oper_diff(1, 0, 1)
-            if operation == 'chd':
-                answering = 'chd'
-            else:
-                difficulty, difficulty_value = exec_oper_diff(0, 1, 1)
         else:
             operation, operations_value, difficulty, difficulty_value = exec_oper_diff(1, 1)
 
-    return operation, operations_value, difficulty, difficulty_value
-
-
-def main():
-    nr1 = nr2 = val_to_exit = answering = 0
-
-    while True:
-        operation, operations_value, difficulty, difficulty_value = generate_answering(answering)
         while operations_value + difficulty_value == 2:
 
             if val_to_exit == 0:
                 nr1, nr2 = generate_numbers(difficulty)
 
             answering = execute_questions(nr1, nr2, operation)
+
             if answering == 'chd' or answering == 'cht':
                 break
             else:
