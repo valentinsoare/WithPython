@@ -222,8 +222,9 @@ def exec_oper_diff(select_o, select_d, var_to_select=0):
 
 
 def main():
-    nr1 = nr2 = val_to_exit = answering = difficulty = operation = 0
-    operations_value = difficulty_value = -2
+    nr1 = nr2 = val_to_exit = answering = 0
+    #difficulty = operation = 0
+    #operations_value = difficulty_value = -2
 
     while True:
 
