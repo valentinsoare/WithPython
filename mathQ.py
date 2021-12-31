@@ -221,12 +221,11 @@ def exec_oper_diff(select_o, select_d, var_to_select=0):
     return type_of_operation, value_operations, return_difficulty, value_difficulty
 
 
-def main():
-    nr1 = nr2 = val_to_exit = answering = difficulty = operation = 0
-    operations_value = difficulty_value = -2
+def implement_main():
+    nr1 = nr2 = val_to_exit = difficulty = answering = operation = \
+        difficulty_value = operations_value = 0
 
     while True:
-
         if answering == 'chd':
             difficulty, difficulty_value = exec_oper_diff(0, 1, 1)
             answering = operation
@@ -236,17 +235,25 @@ def main():
         else:
             operation, operations_value, difficulty, difficulty_value = exec_oper_diff(1, 1)
 
-        while operations_value + difficulty_value == 2:
+        if operation in [1, 2, 3, 4] and difficulty in [1, 2]:
+            operations_value = 1
+            difficulty_value = 1
 
-            if val_to_exit == 0:
-                nr1, nr2 = generate_numbers(difficulty)
+            while operations_value + difficulty_value == 2:
+                if val_to_exit == 0:
+                    nr1, nr2 = generate_numbers(difficulty)
 
-            answering = execute_questions(nr1, nr2, operation)
+                answering = execute_questions(nr1, nr2, operation)
 
-            if answering == 'chd' or answering == 'cht':
-                break
-            else:
-                val_to_exit = execute_operations_and_validate(nr1, nr2, answering, operation)
+                if answering == 'chd' or answering == 'cht':
+                    break
+                else:
+                    val_to_exit = execute_operations_and_validate(nr1, nr2, answering, operation)
 
+
+def main():
+
+    while True:
+        implement_main()
 
 main()
