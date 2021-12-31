@@ -2,7 +2,7 @@
 
 def is_sorted(given_sequence):
     given_list = list(map(lambda i: str(i), given_sequence))
-    given_list_sorted = sorted(list(map(lambda j: str(j).lower(), given_sequence)))
+    given_list_sorted = sorted(given_list)
     val_to_return = True
 
     if given_list == given_list_sorted:
