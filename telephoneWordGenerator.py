@@ -4,8 +4,6 @@ import itertools
 import string
 import time
 
-given_phone_number = '0722776491'
-
 
 def mapping_digits_letters():
     letters_alphabet = list(filter(lambda i: i not in ['q', 'z'], string.ascii_lowercase))
@@ -60,9 +58,9 @@ def phone_number_processing(phone_number):
 
 
 def combine_them():
-    extracted_digits_letters, extracted_only_letters, cartesian_product = phone_number_processing(given_phone_number)
-    only_zero_and_ones, number_processing = numeric_zero_and_ones(given_phone_number)
-    combine = ['Y'] * len(given_phone_number)
+    extracted_digits_letters, extracted_only_letters, cartesian_product = phone_number_processing(given_input)
+    only_zero_and_ones, number_processing = numeric_zero_and_ones(given_input)
+    combine = ['Y'] * len(given_input)
 
     for i in range(len(number_processing)):
         for k, j in extracted_digits_letters:
@@ -89,7 +87,7 @@ def from_number_to_letter_conversion():
 
         with_zeros_and_letter_product.append(''.join(cartesian[i]))
 
-    print(f'\n\033[1;1;42m - > Phone number: "{given_phone_number}" to letters: \033[0m', end="\n")
+    print(f'\n\033[1;1;42m - > Phone number: "{given_input}" to letters: \033[0m', end="\n")
 
     for i in range(len(with_zeros_and_letter_product)):
         if i % 10 == 0:
@@ -101,9 +99,27 @@ def from_number_to_letter_conversion():
     time.sleep(0.5)
 
 
-def main():
-    from_number_to_letter_conversion()
+def mapping_text_to_int(given_text):
+    map_digit_letters = mapping_digits_letters()
+    from_letters_to_numbers = ''
+    given_text = list(given_text)
+
+    for i in given_text:
+        for digit, letters in map_digit_letters:
+            if i in letters:
+                from_letters_to_numbers += ' '.join(digit)
+
+    return from_letters_to_numbers
 
 
-main()
+def main(input_given):
+    if input_given.isnumeric():
+        from_number_to_letter_conversion()
+    else:
+        phone_number = mapping_text_to_int(input_given)
+        print(f"\n\033[1;32m - >  From letters to numbers: {phone_number} \033[0m", end="\n\n")
+
+
+given_input = input("\n\033[1m - > Enter your phone number/text: \033[0m")
+main(given_input)
 

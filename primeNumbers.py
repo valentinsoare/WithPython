@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+import math
 
 given_list = [i for i in range(150)]
 
@@ -13,7 +13,7 @@ def check_if_prime(given_number):
             or given_number % 3 == 0:
         return False
 
-    for i in range(5, int(given_number**0.5 + 1)):
+    for i in range(5, int(math.sqrt(given_number) + 1)):
         if given_number % i == 0:
             return False
 
