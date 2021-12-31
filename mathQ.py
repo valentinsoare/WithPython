@@ -227,10 +227,10 @@ def main():
     while True:
         if answering == 'chd':
             difficulty, difficulty_value = exec_oper_diff(0, 1, 1)
-            answering = operation
+            answering = 1
         elif answering == 'cht':
             operation, operations_value = exec_oper_diff(1, 0, 1)
-            answering = difficulty
+            answering = 1
         else:
             operation, operations_value, difficulty, difficulty_value = exec_oper_diff(1, 1)
 
