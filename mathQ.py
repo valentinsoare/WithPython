@@ -41,7 +41,7 @@ def print_difficulty_levels():
         if req_answer in (1, 2):
             value_if_right = 1
         else:
-            print(f"\n \033{wrong_answers[to_choose]}\033[0m", end="\n\n")
+            print(f"\n \033[1;31m{wrong_answers[to_choose]}\033[0m", end="\n\n")
             time.sleep(0.5)
             value_if_right = 99
     except ValueError:
