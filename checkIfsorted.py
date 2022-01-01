@@ -6,9 +6,9 @@ def is_sorted(given_sequence):
     val_to_return = True
 
     if given_list == given_list_sorted:
-        print(f"\n\033[1;32m - > Given sequence is in sorted order.", end="\n")
+        print(f"\n\033[1;32m - > Given sequence is in sorted order.\033[0m", end="\n")
     else:
-        print(f"\n\033[1;31m - > Given sequence is not in sorted order.", end="\n")
+        print(f"\n\033[1;31m - > Given sequence is not in sorted order.\033[0m", end="\n")
         val_to_return = False
 
     return val_to_return
