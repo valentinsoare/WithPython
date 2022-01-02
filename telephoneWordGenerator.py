@@ -12,7 +12,11 @@ def mapping_digits_letters():
     k = 0
     j = 3
 
-    while k < len(numeric_phone_digits):
+    length_numeric_phone_digits = len(numeric_phone_digits)
+
+    # we can do something like this with zip, but it is more sexy this way :D
+
+    while k < length_numeric_phone_digits:
         number_map_letters += [(numeric_phone_digits[k], letters_alphabet[j-3:j])]
         k += 1
         j += 3
