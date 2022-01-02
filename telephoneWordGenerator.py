@@ -126,4 +126,3 @@ def main(input_given):
 
 given_input = input("\n\033[1m - > Enter your phone number/text: \033[0m")
 main(given_input)
-
