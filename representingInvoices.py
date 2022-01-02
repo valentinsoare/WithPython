@@ -85,7 +85,7 @@ def main():
     ## description and invoice value but invoice value in a given range
     mapping_to_description_invoice_value(hw_data, 0, 1000)
 
-    #given_data_invoices = mapping_to_description_invoice_value(hw_data, 0, 0)
+    given_data_invoices = mapping_to_description_invoice_value(hw_data, 0, 0)
     calculate_total_invoices(given_data_invoices)
 
 
