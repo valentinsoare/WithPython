@@ -2,7 +2,7 @@
 
 import itertools
 
-string = "VAPUP"
+string = "IUBIRE"
 
 
 def produce_anagrams(given_string):
