@@ -22,29 +22,23 @@ def freq_of_elements(answers_list):
     return elements, freq
 
 
-def printing_statistics(given_list, freq_of):
-    combine_them = list(zip(given_list, freq_of))
-    max_values = max(list(map(operator.itemgetter(1), combine_them)))
-    min_values = min(list(map(operator.itemgetter(1), combine_them)))
+def printing_statistics(given_list, freq_of, elements_given):
+    combine_them = list(zip(elements_given, freq_of))
+    values_max = max(list(map(operator.itemgetter(1), combine_them)))
+    values_min = min(list(map(operator.itemgetter(1), combine_them)))
 
     print(f"\n*Max grade: {max(given_list)}")
     print(f"*Min grade: {min(given_list)}")
 
-    def max_min(given_zipped_list, value, type_of_value):
+    def max_min(given_zipped_list, value, type_given):
         for i in given_zipped_list:
             k, m = i
             if value == m:
-                value = (k, m)
-                if type_of_value == 1:
-                    print(f"*Max grade by appearances - Grade: {k}, Freq: {m}")
-                elif type_of_value == 0:
-                    print(f"*Min grade by appearances - Grade: {k}, Freq: {m}")
-                break
+                print(f"*{type_given} of grades by appearances: {i} ")
+                return k, m
 
-        return value
-
-    max_value = max_min(combine_them, max_values, 1)
-    min_value = max_min(combine_them, min_values, 0)
+    max_value = max_min(combine_them, values_max, 'Max')
+    min_value = max_min(combine_them, values_min, 'Min')
 
     print(f"*Ranges of grades/appearances: {min_value} - {max_value}", end="\n")
     print(f"*Ranges of grades: {min(given_list)} - {max(given_list)}")
@@ -58,7 +52,7 @@ def printing_statistics(given_list, freq_of):
 def main():
     list_of_answers = generated_list(20, 5)
     elements, frequency_of_elements = freq_of_elements(list_of_answers)
-    printing_statistics(list_of_answers, frequency_of_elements)
+    printing_statistics(list_of_answers, frequency_of_elements, elements)
 
 
 main()
