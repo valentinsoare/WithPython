@@ -17,7 +17,7 @@ def freq_of_elements(answers_list):
     print(f"\n- > Grades and frequencies: ", end="\n\n")
 
     for element, count in zip(elements, freq):
-        print(f"Grade: {element}, frequency: {count}")
+        print(f"Grade: {element:<2} frequency: {count}")
 
     return elements, freq
 
@@ -50,7 +50,7 @@ def printing_statistics(given_list, freq_of, elements_given):
 
 
 def main():
-    list_of_answers = generated_list(20, 5)
+    list_of_answers = generated_list(20, 10)
     elements, frequency_of_elements = freq_of_elements(list_of_answers)
     printing_statistics(list_of_answers, frequency_of_elements, elements)
 
