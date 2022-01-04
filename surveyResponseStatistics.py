@@ -35,9 +35,9 @@ def printing_statistics(given_list, freq_of):
             if value == m:
                 value = (k, m)
                 if type_of_value == 1:
-                    print(f"*Max grade per appearances - Grade: {k}, Freq: {m}")
+                    print(f"*Max grade by appearances - Grade: {k}, Freq: {m}")
                 elif type_of_value == 0:
-                    print(f"*Min grade per appearances - Grade: {k}, Freq: {m}")
+                    print(f"*Min grade by appearances - Grade: {k}, Freq: {m}")
                 break
 
         return value
@@ -47,7 +47,7 @@ def printing_statistics(given_list, freq_of):
 
     print(f"*Ranges of grades/appearances: {min_value} - {max_value}", end="\n")
     print(f"*Ranges of grades: {min(given_list)} - {max(given_list)}")
-    print(f"*Mean of the grades: {statistics.mean(given_list)}")
+    print(f"*Grades mean: {statistics.mean(given_list)}")
     print(f"*Median: {statistics.median(given_list)}")
     print(f"*Mode: {statistics.mode(given_list)}")
     print(f"*Variance: {statistics.variance(given_list):.2f}")
