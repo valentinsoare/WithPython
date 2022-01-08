@@ -39,6 +39,7 @@ def printing_statistics(given_list, freq_of, elements_given):
             if value == m:
                 print(f"{type_given} of grades by appearances: {i} ")
                 values_to_return.append((k, m))
+
         return values_to_return
 
     print(f'{"-" * 10}')
@@ -58,7 +59,7 @@ def printing_statistics(given_list, freq_of, elements_given):
 
 
 def main():
-    list_of_answers = generated_list(20, 10)
+    list_of_answers = generated_list(50, 5)
     elements, frequency_of_elements = freq_of_elements(list_of_answers)
     printing_statistics(list_of_answers, frequency_of_elements, elements)
 
