@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import time
 
 import numpy as np
 
@@ -23,17 +24,17 @@ def check_diags_winner(given_2d_array, diag_type):
 
 
 def check_rows_columns_winner(given_array, for_row):
-    winner_row = []
+    winner_row = 100
     player = ''
 
     if for_row == 0:
         given_array = given_array.transpose()
 
     for row in range(len(given_array)):
-        if list(given_array[row]).count(1) == 3:
+        if sum(list(given_array[row])) == 3:
             winner_row = row
             player = 'first'
-        elif list(given_array[row]).count(2) == 3:
+        elif sum(list(given_array[row])) == 6:
             winner_row = row
             player = 'second'
 
@@ -80,10 +81,12 @@ def main():
     print(f"\n{given_matrix}", end="\n")
 
     column, player_column = check_rows_columns_winner(given_matrix, 0)
+    print(f"{column} and {player_column}")
+    time.sleep(5)
 
-    if column and player_column:
-        print(f"\nWinner column {column} by {player_column} player.")
-        colorize_rows_column(given_matrix, 2, 0)
+    #if column and player_column:
+    #    print(f"\nWinner column {column} by {player_column} player.")
+    #    colorize_rows_column(given_matrix, 2, 0)
 
     #row, player_row = check_rows_columns_winner(given_matrix, 1)
 

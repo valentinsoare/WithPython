@@ -7,9 +7,33 @@ import numpy as np
 
 
 def catch_names():
-    name_1 = input("\n\033[1m - > Name for the first player: \033[0m")
-    name_2 = input("\033[1m - > Name of the second player: \033[0m")
 
+    name_1 = 0
+    name_2 = 0
+
+    while not isinstance(name_1, str) or not isinstance(name_2, str):
+        print(f'\n\033[1;32m{"Tic Tac Toe":>24}\033[0m', end="\n")
+        name_1 = input("\n\033[1m - > Name for the first player (q to quit): \033[0m")
+        if not name_1.isalpha():
+            print(f"\n\033[31m ERROR, you need to try again!!", end="\n")
+            time.sleep(1)
+            os.system('clear')
+            continue
+        elif name_1[0].lower() == "q":
+            print(f"\n\033[31m Quitting.....\033[0m\n\n", end=" ")
+            sys.exit(1)
+
+        while True:
+            name_2 = input("\033[1m - > Name of the second player (q to quit): \033[0m")
+            if not name_2.isalpha():
+                print(f"\n\033[31m ERROR, you need to try again!!\033[0m", end="\n\n")
+                time.sleep(1)
+            elif name_2[0].lower() == "q":
+                print(f"\n\033[31m Quitting.....\033[0m\n\n", end=" ")
+                sys.exit(1)
+            else:
+                break
+    os.system('clear')
     return name_1, name_2
 
 
@@ -42,7 +66,7 @@ def who_goes(name_1, name_2):
     while goes_first.capitalize() not in [name_1.capitalize(), name_2.capitalize()]:
         tictactoe_given_board = draw_board(name_1, name_2, 1)
         print(f"\n\033[1m - > Who goes first, {name_1.capitalize()} or {name_2.capitalize()} "
-              f"? (q to quit) - > ", end=" ")
+              f"? (q to quit) - >", end=" ")
         goes_first = input()
 
         if goes_first.capitalize() not in [name_1.capitalize(), name_2.capitalize(), "Q"]:
@@ -150,17 +174,17 @@ def check_diags_winner(given_2d_array, diag_type):
 
 
 def check_rows_columns_winner(given_array, for_row):
-    winner_row = []
+    winner_row = 100
     player = ''
 
     if for_row == 0:
         given_array = given_array.transpose()
 
     for row in range(len(given_array)):
-        if list(given_array[row]).count(1) == 3:
+        if sum(list(given_array[row])) == 3:
             winner_row = row
             player = 'first'
-        elif list(given_array[row]).count(2) == 3:
+        elif sum(list(given_array[row])) == 6:
             winner_row = row
             player = 'second'
 
@@ -168,6 +192,9 @@ def check_rows_columns_winner(given_array, for_row):
 
 
 def colorize_rows_column(given_array, element, to_choose):
+    os.system('clear')
+    print(f"\n\n\033[1m WINNER WINNER CHICKEN DINNER!!!\033[0m", end="\n\n")
+
     for row in range(len(given_array)):
         for column in range(len(given_array[row])):
             if to_choose == 0 and element == column:
@@ -201,6 +228,49 @@ def colorize_diags(given_array, diag_type):
             print()
 
 
+def catch_winner_printing(goes_first, goes_second, digits_board_start, tictactoe_board):
+
+    def printing_winner(winner_type, player_type):
+
+        if winner_type in [0, 1, 2]:
+            colorize_rows_column(tictactoe_board, winner_type, 0)
+            if player_type == 'first':
+                print(f"\n\033[1m WINNER: {goes_first}\033[0m", end="\n\n")
+                time.sleep(2)
+                sys.exit(1)
+            elif player_type == 'second':
+                print(f"\n\033[1m WINNER: {goes_second}\033[0m", end="\n\n")
+                time.sleep(2)
+                sys.exit(1)
+
+    winner_column, player_column = check_rows_columns_winner(digits_board_start, 0)
+    printing_winner(winner_column, player_column)
+
+    winner_row, player_row = check_rows_columns_winner(digits_board_start, 1)
+    printing_winner(winner_row, player_row)
+
+
+def put_X_and_O_first_player(goes_first, goes_second, tictactoe_board, first_player, digits_board_start):
+    os.system('clear')
+    row, column = ask_for_row_column(goes_first, goes_second, tictactoe_board, first_player)
+    digits_board_start = board_digits_populate(0, digits_board_start, row, column, goes_first, goes_second,
+                                               first_player)
+    tictactoe_board = board_populate_array_signs(digits_board_start, tictactoe_board)
+    catch_winner_printing(goes_first, goes_second, digits_board_start, tictactoe_board)
+
+    return digits_board_start, tictactoe_board
+
+def put_X_and_O_second_player(goes_first, goes_second, tictactoe_board, second_player, digits_board_start):
+    os.system('clear')
+    row, column = ask_for_row_column(goes_first, goes_second, tictactoe_board, second_player)
+    digits_board_start = board_digits_populate(0, digits_board_start, row, column, goes_first, goes_second,
+                                               second_player)
+    tictactoe_board = board_populate_array_signs(digits_board_start, tictactoe_board)
+    catch_winner_printing(goes_first, goes_second, digits_board_start, tictactoe_board)
+
+    return digits_board_start, tictactoe_board
+
+
 def main():
     first_player = 1
     second_player = 2
@@ -210,19 +280,11 @@ def main():
     digits_board_start = board_digits_populate(1)
     goes_first, goes_second, tictactoe_board = who_goes(name_1, name_2)
     print(f'\n\033[1m - > {goes_first} will choose first and then {goes_second}. {goes_first} is using "X" and {goes_second} is with "0" \033[0m')
-    time.sleep(5)
+    time.sleep(1)
 
     while True:
-        os.system('clear')
-        row, column = ask_for_row_column(goes_first, goes_second, tictactoe_board, first_player)
-        digits_board_start = board_digits_populate(0, digits_board_start, row, column, goes_first, goes_second, first_player)
-        tictactoe_board = board_populate_array_signs(digits_board_start, tictactoe_board)
-
-        os.system('clear')
-        row, column = ask_for_row_column(goes_first, goes_second, tictactoe_board, second_player)
-        digits_board_start = board_digits_populate(0, digits_board_start, row, column, goes_first, goes_second, second_player)
-        tictactoe_board = board_populate_array_signs(digits_board_start, tictactoe_board)
-        #draw_board(goes_first, goes_second, 0, tictactoe_board)
+        digits_board_start, tictactoe_board = put_X_and_O_first_player(goes_first, goes_second, tictactoe_board, first_player, digits_board_start)
+        digits_board_start, tictactoe_board = put_X_and_O_second_player(goes_first, goes_second, tictactoe_board, second_player, digits_board_start)
 
 
 main()
