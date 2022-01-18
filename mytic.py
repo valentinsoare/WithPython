@@ -111,7 +111,7 @@ def ask_for_row_column(name_1, name_2, board_to_print, first_chooser):
 
         if first_chooser == 1:
             print(f'\n\n\033[1m PLAYER: {name_1} will put an "X" (q to quit).\n{"-" * 60:>16}\033[0m')
-        else:
+        elif first_chooser == 2:
             print(f'\n\n\033[1m PLAYER: {name_2} will mark the spot with "0" (q to quit).\n{"-" * 60:>16}\033[0m')
 
         row = select_row_column(1)
@@ -129,9 +129,9 @@ def ask_for_row_column(name_1, name_2, board_to_print, first_chooser):
         else:
             return row, column
 
-
 def check_diags_winner(given_2d_array, diag_type):
     count_diag = []
+    player = ''
 
     if diag_type == 2:
         given_2d_array = np.flip(given_2d_array, axis=1)
@@ -142,23 +142,87 @@ def check_diags_winner(given_2d_array, diag_type):
                 count_diag.append(given_2d_array[row][column])
 
     if count_diag.count(1) == 3:
-        return 'f'
+        player = 'first'
     if count_diag.count(2) == 3:
-        return 's'
+        player = 'second'
+
+    return player
+
+
+def check_rows_columns_winner(given_array, for_row):
+    winner_row = []
+    player = ''
+
+    if for_row == 0:
+        given_array = given_array.transpose()
+
+    for row in range(len(given_array)):
+        if list(given_array[row]).count(1) == 3:
+            winner_row = row
+            player = 'first'
+        elif list(given_array[row]).count(2) == 3:
+            winner_row = row
+            player = 'second'
+
+    return winner_row, player
+
+
+def colorize_rows_column(given_array, element, to_choose):
+    for row in range(len(given_array)):
+        for column in range(len(given_array[row])):
+            if to_choose == 0 and element == column:
+                print(f"\033[1;32m{given_array[row][column]}\033[0m", end=" ")
+            elif to_choose == 1 and element == row:
+                print(f"\033[1;34m{given_array[row][column]}\033[0m", end=" ")
+            else:
+                print(f"\033[1m{given_array[row][column]}\033[0m", end=" ")
+        print()
+
+
+def colorize_diags(given_array, diag_type):
+    if diag_type == 1:
+
+        for row in range(len(given_array)):
+            for column in range(len(given_array[row])):
+                if row == column:
+                    print(f"\033[1;31m{given_array[row][column]}\033[0m", end=" ")
+                else:
+                    print(f"{given_array[row][column]}", end=" ")
+            print()
+
+    elif diag_type == 2:
+
+        for row in range(len(given_array)):
+            for column in range(len(given_array)):
+                if row == (len(given_array) - column - 1):
+                    print(f"\033[1;31m{given_array[row][column]}\033[0m", end=" ")
+                else:
+                    print(f"{given_array[row][column]}", end=" ")
+            print()
+
 
 def main():
+    first_player = 1
+    second_player = 2
     os.system('clear')
+
     name_1, name_2 = catch_names()
     digits_board_start = board_digits_populate(1)
     goes_first, goes_second, tictactoe_board = who_goes(name_1, name_2)
-    print(f'\n\033[1m - > {goes_first} will choose first and then {goes_second}. {name_1.capitalize()} is using "X" and {name_2.capitalize()} is with "0" \033[0m')
-    os.system('clear')
-    row, column = ask_for_row_column(name_1, name_2, tictactoe_board, 2)
-    digits_board_start = board_digits_populate(0, digits_board_start, row, column, name_1, name_2, 2)
+    print(f'\n\033[1m - > {goes_first} will choose first and then {goes_second}. {goes_first} is using "X" and {goes_second} is with "0" \033[0m')
+    time.sleep(5)
 
-    tictactoe_board = board_populate_array_signs(digits_board_start, tictactoe_board)
-    draw_board(name_1, name_2, 0, tictactoe_board)
+    while True:
+        os.system('clear')
+        row, column = ask_for_row_column(goes_first, goes_second, tictactoe_board, first_player)
+        digits_board_start = board_digits_populate(0, digits_board_start, row, column, goes_first, goes_second, first_player)
+        tictactoe_board = board_populate_array_signs(digits_board_start, tictactoe_board)
+
+        os.system('clear')
+        row, column = ask_for_row_column(goes_first, goes_second, tictactoe_board, second_player)
+        digits_board_start = board_digits_populate(0, digits_board_start, row, column, goes_first, goes_second, second_player)
+        tictactoe_board = board_populate_array_signs(digits_board_start, tictactoe_board)
+        #draw_board(goes_first, goes_second, 0, tictactoe_board)
 
 
 main()
-
