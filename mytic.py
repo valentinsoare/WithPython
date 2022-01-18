@@ -200,7 +200,7 @@ def colorize_rows_column(given_array, element, to_choose):
             if to_choose == 0 and element == column:
                 print(f"\033[1;32m{given_array[row][column]}\033[0m", end=" ")
             elif to_choose == 1 and element == row:
-                print(f"\033[1;34m{given_array[row][column]}\033[0m", end=" ")
+                print(f"\033[1;33m{given_array[row][column]}\033[0m", end=" ")
             else:
                 print(f"\033[1m{given_array[row][column]}\033[0m", end=" ")
         print()
@@ -230,10 +230,13 @@ def colorize_diags(given_array, diag_type):
 
 def catch_winner_printing(goes_first, goes_second, digits_board_start, tictactoe_board):
 
-    def printing_winner(winner_type, player_type):
+    def printing_winner(winner_type, player_type, if_type):
 
         if winner_type in [0, 1, 2]:
-            colorize_rows_column(tictactoe_board, winner_type, 0)
+            if if_type == 0:
+                colorize_rows_column(tictactoe_board, winner_type, 0)
+            else:
+                colorize_rows_column(tictactoe_board, winner_type, 1)
             if player_type == 'first':
                 print(f"\n\033[1m WINNER: {goes_first}\033[0m", end="\n\n")
                 time.sleep(2)
@@ -244,10 +247,10 @@ def catch_winner_printing(goes_first, goes_second, digits_board_start, tictactoe
                 sys.exit(1)
 
     winner_column, player_column = check_rows_columns_winner(digits_board_start, 0)
-    printing_winner(winner_column, player_column)
+    printing_winner(winner_column, player_column, 0)
 
     winner_row, player_row = check_rows_columns_winner(digits_board_start, 1)
-    printing_winner(winner_row, player_row)
+    printing_winner(winner_row, player_row, 1)
 
 
 def put_X_and_O_first_player(goes_first, goes_second, tictactoe_board, first_player, digits_board_start):
