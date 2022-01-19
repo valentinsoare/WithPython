@@ -77,12 +77,12 @@ def colorize_diags(given_array, diag_type):
 
 
 def main():
-    given_matrix = np.array([[2, 4, 1], [1, 1, 1], [2, 2, 1]])
+    given_matrix = np.array([[2, 4, 1], [1, 2, 1], [2, 2, 2]])
     print(f"\n{given_matrix}", end="\n")
 
-    column, player_column = check_rows_columns_winner(given_matrix, 0)
-    print(f"{column} and {player_column}")
-    time.sleep(5)
+    #column, player_column = check_rows_columns_winner(given_matrix, 0)
+    #print(f"{column} and {player_column}")
+    #time.sleep(5)
 
     #if column and player_column:
     #    print(f"\nWinner column {column} by {player_column} player.")
@@ -94,7 +94,9 @@ def main():
     #    print(f"\nWinner row: {row} by {player_row} player.")
 
     #colorize_rows_column(given_matrix, 2, 0)
-
-    #colorize_diags(given_matrix, 1)
+    player_first_diag = check_diags_winner(given_matrix, 1)
+    print(f"{player_first_diag}")
+    time.sleep(2)
+    colorize_diags(given_matrix, 1)
 
 main()

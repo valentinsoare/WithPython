@@ -193,9 +193,10 @@ def check_rows_columns_winner(given_array, for_row):
 
 def colorize_rows_column(given_array, element, to_choose):
     os.system('clear')
-    print(f"\n\n\033[1m WINNER WINNER CHICKEN DINNER!!!\033[0m", end="\n\n")
+    print(f'\n\n\033[1m {"WINNER WINNER CHICKEN DINNER!!!":>37}\033[0m', end="\n\n")
 
     for row in range(len(given_array)):
+        print(f'{" ":>13}', end="")
         for column in range(len(given_array[row])):
             if to_choose == 0 and element == column:
                 print(f"\033[1;32m{given_array[row][column]}\033[0m", end=" ")
@@ -207,50 +208,69 @@ def colorize_rows_column(given_array, element, to_choose):
 
 
 def colorize_diags(given_array, diag_type):
+    os.system('clear')
+    print(f'\n\n\033[1m {"WINNER WINNER CHICKEN DINNER!!!":>37}\033[0m', end="\n\n")
+
     if diag_type == 1:
 
         for row in range(len(given_array)):
+            print(f'{" ":>13}', end="")
             for column in range(len(given_array[row])):
                 if row == column:
                     print(f"\033[1;31m{given_array[row][column]}\033[0m", end=" ")
                 else:
-                    print(f"{given_array[row][column]}", end=" ")
+                    print(f"\033[1m{given_array[row][column]}\033[0m", end=" ")
             print()
 
     elif diag_type == 2:
 
         for row in range(len(given_array)):
+            print(f'{" ":>13}', end="")
             for column in range(len(given_array)):
                 if row == (len(given_array) - column - 1):
                     print(f"\033[1;31m{given_array[row][column]}\033[0m", end=" ")
                 else:
-                    print(f"{given_array[row][column]}", end=" ")
+                    print(f"\033[1m{given_array[row][column]}\033[0m", end=" ")
             print()
 
 
 def catch_winner_printing(goes_first, goes_second, digits_board_start, tictactoe_board):
-
-    def printing_winner(winner_type, player_type, if_type):
+    def printing_winner_rows_column(winner_type, player_type, if_type, if_diag=0):
 
         if winner_type in [0, 1, 2]:
             if if_type == 0:
                 colorize_rows_column(tictactoe_board, winner_type, 0)
-            else:
+            elif if_type == 1:
                 colorize_rows_column(tictactoe_board, winner_type, 1)
+            else:
+                if if_diag == 1:
+                    colorize_diags(tictactoe_board, 1)
+                elif if_diag == 2:
+                    colorize_diags(tictactoe_board, 2)
+
             if player_type == 'first':
-                print(f"\n\033[1m WINNER: {goes_first}\033[0m", end="\n\n")
+                print(f'\n\033[1m {"WINNER:":>20} {goes_first}\033[0m', end="\n\n")
                 time.sleep(2)
                 sys.exit(1)
             elif player_type == 'second':
-                print(f"\n\033[1m WINNER: {goes_second}\033[0m", end="\n\n")
+                print(f'\n\033[1m {"WINNER:":>20} {goes_second}\033[0m', end="\n\n")
                 time.sleep(2)
                 sys.exit(1)
 
     winner_column, player_column = check_rows_columns_winner(digits_board_start, 0)
-    printing_winner(winner_column, player_column, 0)
+    printing_winner_rows_column(winner_column, player_column, 0)
 
     winner_row, player_row = check_rows_columns_winner(digits_board_start, 1)
-    printing_winner(winner_row, player_row, 1)
+    printing_winner_rows_column(winner_row, player_row, 1)
+
+    player_first_diag = check_diags_winner(digits_board_start, 1)
+    if player_first_diag == 'first' or player_first_diag == 'second':
+        printing_winner_rows_column(1, player_first_diag, 3, 1)
+
+    player_second_diag = check_diags_winner(digits_board_start, 2)
+    if player_second_diag == 'first' or player_second_diag == 'second':
+        printing_winner_rows_column(1, player_second_diag, 3, 2)
+
 
 
 def put_X_and_O_first_player(goes_first, goes_second, tictactoe_board, first_player, digits_board_start):
@@ -283,7 +303,7 @@ def main():
     digits_board_start = board_digits_populate(1)
     goes_first, goes_second, tictactoe_board = who_goes(name_1, name_2)
     print(f'\n\033[1m - > {goes_first} will choose first and then {goes_second}. {goes_first} is using "X" and {goes_second} is with "0" \033[0m')
-    time.sleep(1)
+    time.sleep(3)
 
     while True:
         digits_board_start, tictactoe_board = put_X_and_O_first_player(goes_first, goes_second, tictactoe_board, first_player, digits_board_start)
