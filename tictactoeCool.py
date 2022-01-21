@@ -296,8 +296,8 @@ def put_X_and_O_second_player(goes_first, goes_second, tictactoe_board, second_p
 
 def main():
     first_player = 1
-    second_player = 2
     os.system('clear')
+    second_player = 2
 
     name_1, name_2 = catch_names()
     digits_board_start = board_digits_populate(1)
