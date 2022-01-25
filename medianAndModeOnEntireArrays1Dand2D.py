@@ -58,10 +58,12 @@ def determine_mode(given_array):
     max_freq = max(freq)
     element_mode_indexes_uniq_array = np.where(freq == max_freq)[0]
 
+    print(f"\n\033[1m - > Given array:\n {arr_to_find}\033[0m")
+
     if max_freq != 1:
         print(f"\n\033[1m - > Values with the most appearances (mode): ", end="")
     else:
-        print(f"\n\033[1m - >  Only one instance from each value in the given array.\033[0m", end="")
+        print(f"\n\033[1m - >  Only one instance from each value in the given array.\033[0m", end="\n\n")
         sys.exit(1)
 
     most_freq_elements = list(map(lambda k: uniq_values[k], element_mode_indexes_uniq_array))
@@ -78,12 +80,16 @@ def determine_mode(given_array):
             indexes_from_initial = [(row[i], column[i]) for i in range(len(row))]
             print(f", Locations (row, column): {indexes_from_initial}")
 
+        print()
+
+
+
 def main():
     #### 2d array
-    #array_to_process = np.array(np.random.randint(1, 100, 18).reshape(2, 6))
+    array_to_process = np.array(np.random.randint(1, 100, 12).reshape(2, 6))
 
     #### 1d array
-    array_to_process = np.array([4, 9, 2, 2, 9, 1, 8, 5, 6, 2, 9, 10, 123, 2, 1, 9])
+    #array_to_process = np.array([4, 9, 2, 2, 9, 1, 8, 5, 6, 2, 9, 10, 123, 2, 1, 9])
     #array_to_process = np.array(np.random.randint(1, 100, 8))
 
     #### this function supports as an argument a 1d array and it will give you all possible 2d arrays
