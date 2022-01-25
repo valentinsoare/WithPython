@@ -69,9 +69,9 @@ def determine_mode(given_array):
     most_freq_elements = list(map(lambda k: uniq_values[k], element_mode_indexes_uniq_array))
 
     if len(arr_to_find.shape) == 1:
-        print(f"{most_freq_elements}", end=" ")
+        print(f"\033[1m{most_freq_elements}\033[0m", end=" ")
         locations_indexes = [i for i in range(len(arr_to_find)) for j in element_mode_indexes_uniq_array if uniq_values[j] == arr_to_find[i]]
-        print(f"with the following indexes: {locations_indexes}", end="\n\n")
+        print(f"\033[1mwith the following indexes: {locations_indexes}\033[0m", end="\n\n")
     else:
         print()
         for element in most_freq_elements:
@@ -93,23 +93,23 @@ def print_2d_arrays(return_arrays):
 
 def main():
     #### 2d array
-    #array_to_process = np.array(np.random.randint(1, 100, 12).reshape(2, 6))
+    array_to_process = np.array(np.random.randint(1, 100, 60).reshape(6, 10))
 
     #### 1d array
     #array_to_process = np.array([4, 9, 2, 2, 9, 1, 8, 5, 6, 2, 9, 10, 123, 2, 1, 9])
-    array_to_process = np.array(np.random.randint(1, 100, 40))
+    #array_to_process = np.array(np.random.randint(1, 100, 40))
 
     #### this function supports as an argument a 1d array and it will give you all possible 2d arrays
-    return_arrays = all_possible_2d_arrays(array_to_process)
+    #return_arrays = all_possible_2d_arrays(array_to_process)
 
     ### print generated 2d arrays form given 1d
-    print_2d_arrays(return_arrays)
+    #print_2d_arrays(return_arrays)
 
     ### print median for 1d and 2d arrays
     #determine_median(array_to_process)
 
     ### print mode for 1d and 2d arrays
-    #determine_mode(array_to_process)
+    determine_mode(array_to_process)
 
 
 main()
