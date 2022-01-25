@@ -37,15 +37,15 @@ def determine_median(given_array):
         element_from_that_location = given_array[location]
         location_inside_initial_array = np.where(array_for_get == element_from_that_location)
         row, column = location_inside_initial_array
-        print(f'\n\033[1m - > Median of the giving array is at the following location: Row: {row[0]}, '
-              f'Column: {column[0]}, Element: {element_from_that_location}', end="\n\n")
+        print(f'\n\033[1;31m - > Median of the giving array is at the following location:\033[0m\033[1;31m Row: {row[0]}, '
+              f'Column: {column[0]}, Element: {element_from_that_location}\033[0m', end="\n\n")
 
     else:
         length_of_array = len(given_array)
         position_of_element = (length_of_array // 2 + 1)
 
-        print(f'\n\033[1m - > Median of the giving array is at the following index: {position_of_element} '
-              f'in the 1d array with element: {given_array[position_of_element]}', end="\n\n")
+        print(f'\n\033[1;31m- > Median of the giving array is at the following index:\033[0m\033[1;31m {position_of_element} '
+              f'in the 1d array with element: {given_array[position_of_element]}\033[0m', end="\n\n")
 
 
 def determine_mode(given_array):
@@ -58,12 +58,12 @@ def determine_mode(given_array):
     max_freq = max(freq)
     element_mode_indexes_uniq_array = np.where(freq == max_freq)[0]
 
-    print(f"\n\033[1m - > Given array:\n {arr_to_find}\033[0m")
+    print(f"\n\033[1;31m- > Given array:\033[0m\n\033[1m {arr_to_find}\033[0m")
 
     if max_freq != 1:
-        print(f"\n\033[1m - > Values with the most appearances (mode): ", end="")
+        print(f"\n\033[1;31m- > Values with the most appearances (mode):\033[0m ", end="")
     else:
-        print(f"\n\033[1m - >  Only one instance from each value in the given array.\033[0m", end="\n\n")
+        print(f"\n\033[1;31m - >  Only one instance from each value in the given array.\033[0m", end="\n\n")
         sys.exit(1)
 
     most_freq_elements = list(map(lambda k: uniq_values[k], element_mode_indexes_uniq_array))
@@ -75,31 +75,41 @@ def determine_mode(given_array):
     else:
         print()
         for element in most_freq_elements:
-            print(f"\t\tElement: {element}", end="")
+            print(f"\t\033[1mElement: {element}", end="")
             row, column = np.where(arr_to_find == element)
             indexes_from_initial = [(row[i], column[i]) for i in range(len(row))]
-            print(f", Locations (row, column): {indexes_from_initial}")
+            print(f", Locations (row, column): {indexes_from_initial}\033[0m")
 
         print()
 
 
+def print_2d_arrays(return_arrays):
+    print(f"\n\033[1;31m- > All possible 2D arrays:\033[0m", end="\n\n")
+    for i in return_arrays:
+        print(f"\033[1m{i}\033[0m", end="\n")
+        print(f'{"-" * 35}')
+    print()
+
 
 def main():
     #### 2d array
-    array_to_process = np.array(np.random.randint(1, 100, 12).reshape(2, 6))
+    #array_to_process = np.array(np.random.randint(1, 100, 12).reshape(2, 6))
 
     #### 1d array
     #array_to_process = np.array([4, 9, 2, 2, 9, 1, 8, 5, 6, 2, 9, 10, 123, 2, 1, 9])
-    #array_to_process = np.array(np.random.randint(1, 100, 8))
+    array_to_process = np.array(np.random.randint(1, 100, 40))
 
     #### this function supports as an argument a 1d array and it will give you all possible 2d arrays
-    #return_arrays = all_possible_2d_arrays(array_to_process)
+    return_arrays = all_possible_2d_arrays(array_to_process)
+
+    ### print generated 2d arrays form given 1d
+    print_2d_arrays(return_arrays)
 
     ### print median for 1d and 2d arrays
     #determine_median(array_to_process)
 
     ### print mode for 1d and 2d arrays
-    determine_mode(array_to_process)
+    #determine_mode(array_to_process)
 
 
 main()
