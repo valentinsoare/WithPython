@@ -40,6 +40,7 @@ def printing_dict_counting(given_dict):
 def main():
     given_array = np.array(np.random.randint(0, 99, 25).reshape(5, 5))
     given_array_reshaped = np.bincount(given_array.reshape(25))
+    print(f"{given_array_reshaped}")
     length_given_array_reshaped = len(given_array_reshaped)
     dict_after_process = {}
 
