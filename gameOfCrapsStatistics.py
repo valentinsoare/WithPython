@@ -118,7 +118,6 @@ def main():
         games += 1
 
     generate_statistics(wins, losses, games)
-    #printing_output(wins, losses)
 
 
 main()
