@@ -27,19 +27,34 @@ def all_possible_2d_arrays(digits_array):
     return possible_arrays
 
 
-def determine_median(given_array):
-    array_for_get = np.array(given_array)
+def generating_rr_cc(given_array, axis):
+    if axis == 0:
+        transposed_array = np.swapaxes(given_array, 0, 1)
+        column_by_column_array = np.array([transposed_array[i][j] for i in range(len(transposed_array))
+                                           for j in range(len(transposed_array[i]))])
+        return column_by_column_array, transposed_array
+    else:
+        row_by_row_array = np.array([given_array[k][j] for k in range(len(given_array)) for j in range(len(given_array[k]))])
+        return row_by_row_array, given_array
+
+
+def determine_median(given_array, axis=1):
+    array_for_get = ''
 
     if len(given_array.shape) == 2:
-        given_array = given_array.ravel()
+        if axis == 0:
+            given_array, array_for_get = generating_rr_cc(given_array, axis=0)
+        else:
+            given_array, array_for_get = generating_rr_cc(given_array, axis=1)
+
         location = int(str(len(given_array) / 2 - 1).removesuffix('.0'))
 
         element_from_that_location = given_array[location]
         location_inside_initial_array = np.where(array_for_get == element_from_that_location)
         row, column = location_inside_initial_array
-        print(f'\n\033[1;31m - > Median of the giving array is at the following location:\033[0m\033[1;31m Row: {row[0]}, '
+        print(f"\n\033[1;31m- > Given array:\033[0m\n\033[1m {array_for_get}\033[0m")
+        print(f'\n\033[1;31m - > Median of the giving array is at the following location:\033[0m\033[1m Row: {row[0]},'
               f'Column: {column[0]}, Element: {element_from_that_location}\033[0m', end="\n\n")
-
     else:
         length_of_array = len(given_array)
         position_of_element = (length_of_array // 2 + 1)
@@ -48,11 +63,14 @@ def determine_median(given_array):
               f'in the 1d array with element: {given_array[position_of_element]}\033[0m', end="\n\n")
 
 
-def determine_mode(given_array):
+def determine_mode(given_array, axis=1):
     arr_to_find = given_array
 
     if len(given_array.shape) == 2:
-        given_array = given_array.ravel()
+        if axis == 0:
+            given_array, arr_to_find = generating_rr_cc(given_array, axis=0)
+        else:
+            given_array, arr_to_find = generating_rr_cc(given_array, axis=1)
 
     uniq_values, indexes_of_uniq_array, freq = np.unique(given_array, return_inverse=True, return_counts=True)
     max_freq = max(freq)
@@ -106,10 +124,10 @@ def main():
     #print_2d_arrays(return_arrays)
 
     ### print median for 1d and 2d arrays
-    #determine_median(array_to_process)
+    determine_median(array_to_process, 0)
 
     ### print mode for 1d and 2d arrays
-    determine_mode(array_to_process)
+    #determine_mode(array_to_process, 0)
 
 
 main()
