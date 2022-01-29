@@ -30,25 +30,23 @@ def all_possible_2d_arrays(digits_array):
 def generating_rr_cc(given_array, axis):
     if axis == 0:
         transposed_array = np.swapaxes(given_array, 0, 1)
-        column_by_column_array = np.array([transposed_array[i][j] for i in range(len(transposed_array))
-                                           for j in range(len(transposed_array[i]))])
+        column_by_column_array = np.array(transposed_array.flatten())
         return column_by_column_array
     else:
-        row_by_row_array = np.array([given_array[k][j] for k in range(len(given_array)) for j in range(len(given_array[k]))])
+        row_by_row_array = np.array(given_array.flatten())
         return row_by_row_array
 
 
 def determine_median(given_array, axis=1):
     array_for_get = given_array
 
-    if len(given_array.shape) == 2:
+    if given_array.ndim == 2:
         if axis == 0:
             given_array = generating_rr_cc(given_array, axis=0)
         else:
             given_array = generating_rr_cc(given_array, axis=1)
 
         location = int(str(len(given_array) / 2 - 1).removesuffix('.0'))
-
         element_from_that_location = given_array[location]
         location_inside_initial_array = np.where(array_for_get == element_from_that_location)
         row, column = location_inside_initial_array
@@ -67,7 +65,7 @@ def determine_median(given_array, axis=1):
 def determine_mode(given_array, axis=1):
     arr_to_find = given_array
 
-    if len(given_array.shape) == 2:
+    if given_array.ndim == 2:
         if axis == 0:
             given_array = generating_rr_cc(given_array, axis=0)
         else:
@@ -89,7 +87,8 @@ def determine_mode(given_array, axis=1):
 
     if len(arr_to_find.shape) == 1:
         print(f"\033[1m{most_freq_elements}\033[0m", end=" ")
-        locations_indexes = [i for i in range(len(arr_to_find)) for j in element_mode_indexes_uniq_array if uniq_values[j] == arr_to_find[i]]
+        locations_indexes = [i for i in range(len(arr_to_find)) for j in element_mode_indexes_uniq_array
+                             if uniq_values[j] == arr_to_find[i]]
         print(f"\033[1mwith the following indexes: {locations_indexes}\033[0m", end="\n\n")
     else:
         print()
@@ -125,7 +124,7 @@ def main():
     #print_2d_arrays(return_arrays)
 
     ### print median for 1d and 2d arrays
-    determine_median(array_to_process, 0)
+    determine_median(array_to_process, 1)
 
     ### print mode for 1d and 2d arrays
     #determine_mode(array_to_process, 0)
