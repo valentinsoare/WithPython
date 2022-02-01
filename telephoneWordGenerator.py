@@ -26,7 +26,7 @@ def mapping_digits_letters():
 
 def numeric_zero_and_ones(phone_number):
     phone_number_for_processing = list(phone_number)
-    extracted_numbers = ['X'] * 10
+    extracted_numbers = ['X'] * len(phone_number)
     length_phone_number = len(phone_number)
 
     for i in range(length_phone_number):

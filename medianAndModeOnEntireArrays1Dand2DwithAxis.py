@@ -5,7 +5,7 @@ import numpy as np
 
 
 def all_possible_2d_arrays(digits_array):
-    size = len(digits_array)
+    size = (len(digits_array) / 2) + 1
     values_after_divide = []
 
     for i in range(2, size):
