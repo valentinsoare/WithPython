@@ -48,10 +48,11 @@ def main():
             with_ed += [y]
 
     if len(with_b) != 0:
-        print(f"\n\033[1m - > WORDS from given sentence that begin with letter b:\033[0m \033[1;31m{with_b}\033[0m")
+        print(f"\n\033[1m - > WORDS from given sentence that begin with letter b:\033[0m \033[1;31m"
+              f"{with_b}\033[0m {0x1F643:c}")
 
     if len(with_ed) != 0:
-        print(f"\n\033[1m - > WORDS that ends with ed:\033[0m \033[1;31m{with_ed}\033[0m")
+        print(f"\n\033[1m - > WORDS that ends with ed:\033[0m \033[1;31m{with_ed}\033[0m {0x1F603:c}")
 
 
 main()
