@@ -11,7 +11,7 @@ def load_text_for_analysis():
     given_text = input()
 
     given_file = open(f"{given_text}", "r")
-    words_from_text = pd.Series(given_file.read().split())
+    words_from_text = given_file.read().split()
 
     return words_from_text
 
@@ -59,16 +59,25 @@ def divide_word_positive_negative(given_list_of_matched_words, given_values_text
     return positive_words_values, negative_words_values
 
 
+def calculate_percentages(words_positive, words_negative, text_to_check):
+    length_of_positive = len(words_positive)
+    length_of_negative = len(words_negative)
+    length_of_text_to_check = len(text_to_check)
+
+    positive_scoring = sum(filter(lambda i: i, words_positive.values()))
+    negative_scoring = sum(filter(lambda j: j, words_negative.values()))
+
+
 def main():
     text_to_check = load_text_for_analysis()
     words_with_values_to_use = load_file_with_words_value()
 
     text_to_process_after_removing_punctuation = remove_punctuation_text(text_to_check)
-    matching_text_words = extracting_matched_words(text_to_process_after_removing_punctuation, words_with_values_to_use)
 
+    matching_text_words = extracting_matched_words(text_to_process_after_removing_punctuation, words_with_values_to_use)
     positive_words, negative_words = divide_word_positive_negative(matching_text_words, words_with_values_to_use)
 
-    print(f"{positive_words}")
+    calculate_percentages(positive_words, negative_words, text_to_check)
 
 
 main()
