@@ -71,11 +71,38 @@ def catch_input():
     return splitting_input_series, digits, alpha_digits, operations
 
 
+def exec_calculations(*args):
+    from_char_to_math = []
+    split_series, digits_with_alpha, operations_with_signs = args
+
+    digits_with_alpha_swapped = {j: i for i, j in digits_with_alpha.items()}
+    operations_with_signs_swapped = {l: k for k, l in operations_with_signs.items()}
+
+    combined_dicts = {**digits_with_alpha_swapped, **operations_with_signs_swapped}
+
+    for i in split_series:
+        for j in combined_dicts.keys():
+            if i == j:
+                from_char_to_math += [combined_dicts[j]]
+
+    to_execute = ' '.join(from_char_to_math)
+
+    print(f'\n\033[1m - > Converting given operation in words to integers: ', end="")
+
+    for i in split_series:
+        print(f"{i} ", end="")
+
+    print(f'equal {digits_with_alpha[eval(to_execute)]}', end=" ")
+    print(f'< > {to_execute} = {eval(to_execute)}', end="\n")
+
+
 def main():
     split_series, digits, alpha_digits, operations = catch_input()
 
     digits_with_alpha = pd.Series(alpha_digits, index=digits)
     operations_with_signs = pd.Series(operations, index=['+', '-', '*', '/'])
+
+    exec_calculations(split_series, digits_with_alpha, operations_with_signs)
 
 
 main()
