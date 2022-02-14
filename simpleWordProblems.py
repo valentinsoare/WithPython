@@ -7,6 +7,8 @@ import string
 import numpy as np
 import pandas as pd
 
+##This small project is only with integers from zero to nine. Also result of any operation is with integers.
+
 
 def check_if_in_range(given_input_string):
     counting_alpha = 0
