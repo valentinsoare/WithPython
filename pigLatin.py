@@ -35,7 +35,6 @@ def prepare_for_commas(given_word):
 
 
 def generate_pig_latin_word(given_word):
-
     if check_word_with_capitalized_letter(given_word):
         given_word = prepare_for_commas(given_word).lower()
         final_piglatin_word = given_word[0].capitalize() + given_word[1:(len(given_word))]
