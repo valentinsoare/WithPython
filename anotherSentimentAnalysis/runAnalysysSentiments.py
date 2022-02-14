@@ -9,7 +9,7 @@ import pandas as pd
 
 
 def load_text_for_analysis():
-    print(f'\n\033[1;32m{"< SENTIMENT_ANALYSIS >":>52}\033[0m')
+    print(f'\n\033[1;32m{"< SENTIMENT_ANALYSIS >":>84}\033[0m')
     print(f"\n\033[1m - > Enter the name of the file from current directory that you want to "
           f"analyze or entire path if the file is in another location (q to quit): ", end="\033[0m")
     given_text = input()
@@ -104,21 +104,28 @@ def print_dict_freq_output(input_dict, limit):
 def printing_statistics_and_output(*args):
     p_frequency, n_frequency, l_positive, l_negative, p_scoring, n_scoring, text_to_process = args
 
-    print(f"\n\033[1m Number of words in the processed text after removing punctuation: {len(text_to_process)}\033[0m", end="\n")
+    print(f"\n\033[1m Number of words in the processed text after removing punctuation: {len(text_to_process)}\033[0m",
+          end="\n")
 
-    print(f"\n\033[1m *Negative words: {l_negative}\033[0m")
-    print(f"\033[1m **Percentage of negative words: {(l_negative * 100)/len(text_to_process):.2f}\033[0m")
-    print(f"\033[1m ***Top five negative words sorted by frequency:\033[0m")
-    print(f'{"-" * 25:>31}')
-    print_dict_freq_output(n_frequency, 5)
-    print(f'{"-" * 25:>31}', end="\n")
+    if l_negative != 0:
+        print(f"\n\033[1m *Negative words: {l_negative}\033[0m")
+        print(f"\033[1m **Percentage of negative words: {(l_negative * 100)/len(text_to_process):.2f}\033[0m")
+        print(f"\033[1m ***Top five negative words sorted by frequency:\033[0m")
+        print(f'{"-" * 25:>31}')
+        print_dict_freq_output(n_frequency, 5)
+        print(f'{"-" * 25:>31}', end="\n")
+    else:
+        print(f"\n\033[1m *No negative words in the given text\033[0m", end="\n")
 
-    print(f"\n\033[1m *Positive words: {l_positive}\033[0m")
-    print(f"\033[1m **Percentage of positive words: {(l_positive * 100) / len(text_to_process):.2f}\033[0m")
-    print(f"\033[1m **Top five positive words sorted by frequency:\033[0m")
-    print(f'{"-" * 25:>31}')
-    print_dict_freq_output(p_frequency, 5)
-    print(f'{"-"* 25:>31}', end="\n\n")
+    if l_positive != 0:
+        print(f"\n\033[1m *Positive words: {l_positive}\033[0m")
+        print(f"\033[1m **Percentage of positive words: {(l_positive * 100) / len(text_to_process):.2f}\033[0m")
+        print(f"\033[1m **Top five positive words sorted by frequency:\033[0m")
+        print(f'{"-" * 25:>31}')
+        print_dict_freq_output(p_frequency, 5)
+        print(f'{"-"* 25:>31}', end="\n\n")
+    else:
+        print(f"\n\033[1m *No positive words in the given text.\033[0m", end="\n")
 
 
 def main():
