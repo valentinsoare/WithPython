@@ -93,7 +93,7 @@ def exec_calculations(*args):
         print(f"{i} ", end="")
 
     print(f'equal {digits_with_alpha[eval(to_execute)]}', end=" ")
-    print(f'< > {to_execute} = {eval(to_execute)}', end="\n\n")
+    print(f'< > {to_execute} = {eval(to_execute)}\033[0m', end="\n\n")
 
 
 def main():
