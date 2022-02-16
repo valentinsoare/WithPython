@@ -1,11 +1,18 @@
 #!/usr/bin/python
 
+
 import re
+from time import sleep
 
 
 def catching_input():
     print(f"\n\033[1m - > Please provide a text to analyze:\033[0m", end=" ")
     given_text = input()
+
+    if given_text.lower()[0] == 'q':
+        print(f'\n\033[1;33m{"Quiting...":>15}\033[0m', end="\n")
+        sleep(1)
+        exit(1)
 
     return given_text
 
@@ -33,7 +40,6 @@ def main():
     given_string = catching_input()
     words, digits, non_digits, whitespaces = processing_given_text(given_string)
     printing_output(words, digits, non_digits, whitespaces)
-
 
 
 main()

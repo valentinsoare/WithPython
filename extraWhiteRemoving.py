@@ -1,11 +1,16 @@
 #!/usr/bin/python
 
-import re
+from time import sleep
 
 
 def catch_input():
-    print('\n\033[1m - > Provide a phrase with extra spaces:\033[0m', end=" ")
+    print('\n\033[1m - > Provide a phrase with extra spaces (q to quit):\033[0m', end=" ")
     ask_input = input()
+
+    if ask_input.lower()[0] == 'q':
+        print(f'\n\033[1;33m{"Quiting...":>15}\033[0m', end="\n")
+        sleep(1)
+        exit(1)
 
     return ask_input
 
