@@ -58,8 +58,8 @@ def main():
         given_text = catching_input_passwords()
         var_for_first = first_rule(given_text)
 
-        #if var_for_first == 0:
-        #    continue
+        if var_for_first == 0:
+            continue
 
         var_for_second = second_rule(given_text)
 
