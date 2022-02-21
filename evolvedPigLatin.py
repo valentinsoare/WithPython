@@ -74,7 +74,7 @@ def main():
         final_phrase += ' ' + processed_word
 
     print(f"\n\033[1m \033[1;31m-> RESULT:\033[0m", end=" ")
-    print(f"\033[1m{final_phrase}\033[0m")
+    print(f"\033[1m{final_phrase}\033[0m", end="\n\n")
 
 
 main()
