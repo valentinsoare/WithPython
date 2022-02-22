@@ -78,17 +78,6 @@ def extracted_dates_from_text(given_text, dict_with_functions):
     return dict_with_items
 
 
-def get_month_digit(month_name):
-    dict_with_months = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05', 'Jun': '06',
-                        'Jul': '07', 'Aug': '08', 'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'
-                        }
-
-    if_not_present = 'Error requested element not available.'
-    month_digit = dict_with_months.get(month_name.title()[0:3], if_not_present)
-
-    return month_digit
-
-
 def print_given_dates_category(*args):
     design_format, dates_given = args
 
@@ -99,18 +88,47 @@ def print_given_dates_category(*args):
         for k in j:
             if i == 1:
                 k = ''.join(list(k))
-                print(f"{k}", end="  ")
+                print(f'"{k}"', end="  ")
             if i == 2:
                 k = '/'.join(list(k))
-                print(f"{k}", end="  ")
+                print(f'"{k}"', end="  ")
             if i == 3:
                 k = ' '.join(list(k))
-                print(f"{k}", end="  ")
+                print(f'"{k}"', end="  ")
+
+    print(f"\n")
+
+
+def converting_from_one_to_rest(given_dict, dict_with_months, formats_design):
+    list_type_one = [list(i) for i in given_dict[1]]
+
+    if len(list_type_one) != 0:
+        print(f'\033[1m *Converting from {formats_design[1]} to ({formats_design[2]} and {formats_design[3]})\033[0m', end="\n")
+
+    for i in list_type_one:
+        type_two = '/'.join(i)
+        intermediary = re.search(r'[0-9]{2}$', type_two)
+
+        if int(intermediary.group()) > 22:
+            type_two = re.sub(r'[0-9]{2}$', "19", type_two)
+        else:
+            type_two = re.sub(r'[0-9]{2}$', "20", type_two)
+
+        final_two = type_two + intermediary.group()
+        final_three = dict_with_months[i[0]] + " " + i[1] + ', ' + re.search(r'[0-9]{2}$', type_two).group() + intermediary.group()
+
+        print(f" - {final_two}, {final_three}")
 
 
 def main():
+    dict_with_months = {'01': 'January', '02': 'February', '03': 'March', '04': 'April', '05': 'May',
+                        '06': 'June', '07': 'July', '08': 'August', '09': 'September',
+                        '10': 'October', '11': 'November', '12': 'December'
+                        }
+
     dict_with_functions = {'check_for_first_rule(given_text)': 1, 'check_for_second_rule(given_text)': 2,
-                           'check_for_third_rule(given_text)': 3}
+                           'check_for_third_rule(given_text)': 3
+                           }
 
     formats_design = {1: 'MMDDYY',
                       2: 'MM/DD/YYYY',
@@ -120,6 +138,9 @@ def main():
     dates_from_given_text = extracted_dates_from_text(text_after_catching, dict_with_functions)
 
     print_given_dates_category(formats_design, dates_from_given_text)
+
+    converting_from_one_to_rest(dates_from_given_text, dict_with_months, formats_design)
+
 
     #numerical_month = get_month_digit("november")
 
