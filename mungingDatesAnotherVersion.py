@@ -112,7 +112,9 @@ def main():
     dict_with_functions = {'check_for_first_rule(given_text)': 1, 'check_for_second_rule(given_text)': 2,
                            'check_for_third_rule(given_text)': 3}
 
-    formats_design = {1: 'MMDDYY', 2: 'MM/DD/YYYY', 3: 'Month DD, YYYY'}
+    formats_design = {1: 'MMDDYY',
+                      2: 'MM/DD/YYYY',
+                      3: 'Month DD, YYYY'}
 
     text_after_catching = catch_user_input(dict_with_functions)
     dates_from_given_text = extracted_dates_from_text(text_after_catching, dict_with_functions)
