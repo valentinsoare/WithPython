@@ -102,8 +102,7 @@ def print_given_dates_category(*args):
 def converting_from_one_to_rest(given_dict, dict_with_months, formats_design):
     list_type_one = [list(i) for i in given_dict[1]]
 
-    if len(list_type_one) != 0:
-        print(f'\033[1m *Converting from {formats_design[1]} to ({formats_design[2]} and {formats_design[3]})\033[0m', end="\n")
+    print(f'\033[1m *Converting from {formats_design[1]} to ({formats_design[2]} and {formats_design[3]})\033[0m', end="\n")
 
     for i in list_type_one:
         type_two = '/'.join(i)
@@ -117,7 +116,7 @@ def converting_from_one_to_rest(given_dict, dict_with_months, formats_design):
         final_two = type_two + intermediary.group()
         final_three = dict_with_months[i[0]] + " " + i[1] + ', ' + re.search(r'[0-9]{2}$', type_two).group() + intermediary.group()
 
-        print(f" - {final_two}, {final_three}")
+        print(f' - "{final_two}", "{final_three}"')
 
 
 def main():
@@ -126,19 +125,20 @@ def main():
                         '10': 'October', '11': 'November', '12': 'December'
                         }
 
-    dict_with_functions = {'check_for_first_rule(given_text)': 1, 'check_for_second_rule(given_text)': 2,
+    dict_with_functions = {'check_for_first_rule(given_text)': 1,
+                           'check_for_second_rule(given_text)': 2,
                            'check_for_third_rule(given_text)': 3
                            }
 
     formats_design = {1: 'MMDDYY',
                       2: 'MM/DD/YYYY',
-                      3: 'Month DD, YYYY'}
+                      3: 'Month DD, YYYY'
+                      }
 
     text_after_catching = catch_user_input(dict_with_functions)
     dates_from_given_text = extracted_dates_from_text(text_after_catching, dict_with_functions)
 
     print_given_dates_category(formats_design, dates_from_given_text)
-
     converting_from_one_to_rest(dates_from_given_text, dict_with_months, formats_design)
 
 
