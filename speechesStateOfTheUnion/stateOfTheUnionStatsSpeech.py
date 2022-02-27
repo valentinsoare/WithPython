@@ -1,13 +1,13 @@
 #!/usr/bin/python
 
-import operator
+
 import re
 from sys import exit
 from os import system
 from time import sleep
 from statistics import mean
 from collections import Counter
-
+from operator import itemgetter
 
 def catch_input_text():
     to_continue = 0
@@ -72,7 +72,7 @@ def statistics_with_length(given_text):
     words_distribution_sorted_order = sorted(Counter(extracted_words), reverse=True)
 
     dict_with_length = {i: len(i) for i in extracted_words}
-    sorted_by_length = dict(sorted(dict_with_length.items(), key=operator.itemgetter(1), reverse=True))
+    sorted_by_length = dict(sorted(dict_with_length.items(), key=itemgetter(1), reverse=True))
     top_ten = sorted(Counter(dict_with_length.values()), reverse=True)
     word_ten = {}
     counting = 0
