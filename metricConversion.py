@@ -80,7 +80,7 @@ def from_system_to_meters(type_of_operation, *arguments):
     return var_to_return
 
 
-def from_meters_to_system(value_in_meters, to_type, input_dict, type_of_operation=0):
+def from_meters_to_system(value_in_meters, to_type, input_dict, type_of_operation):
     value_after_conv = 0
 
     dict_to_read = input_dict.items()
