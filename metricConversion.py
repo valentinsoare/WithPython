@@ -50,16 +50,11 @@ def conversion_english_to_meters(*arguments):
 
 def from_meters_to_metric(value_in_meters, to_type, dict_of_values_metric_system_length):
     value_after_conv = 0
-    counting = -3
 
     dict_to_read = dict_of_values_metric_system_length.items()
     for i, j in dict_to_read:
-        if counting < 0 and i == to_type.lower():
-            value_after_conv = value_in_meters * int(f'1{"0" * counting}')
-        elif counting <= 3 and i == to_type.lower():
-            value_after_conv = value_in_meters * float(f'0.{"0"* (counting-1)}1')
-
-        counting += 1
+        if i == to_type.lower():
+            value_after_conv = value_in_meters * j
 
     return value_after_conv
 
