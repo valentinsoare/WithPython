@@ -101,7 +101,6 @@ def main():
     dict_of_values_metric_system_length = {'millimeters': 1000, 'centimeters': 100, 'decimeters': 10, 'meters': 1,
                                            'decameters': 0.1, 'hectometers': 0.01, 'kilometers': 0.001}
     to_continue = 0
-
     while to_continue == 0:
         from_measurements, to_measurements = catch_given_input()
         many_qty, type_of_value, to_continue = delimiter_fields(from_measurements)
