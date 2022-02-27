@@ -40,7 +40,7 @@ def catch_input_text():
 
 
 def printing_output(*arguments):
-    count_word, count_characters, average_length_word, average_length_sentences, words_ten = arguments
+    count_word, count_characters, average_length_word, average_length_sentences, words_ten, words_distribution = arguments
 
     print(f'\n\033[1m{" - > Statistics from the given text:":>43}\033[0m', end="\n")
     print(f'{"*Word count":>25} {count_word:>22}')
@@ -51,6 +51,9 @@ def printing_output(*arguments):
 
     for i, j in words_ten.items():
         print(f"{i}: {j}", end=" ")
+
+    print(f'\n{"******Words distribution:":>39}', end="\n")
+    print(f'{words_distribution}')
 
 
 def statistics_with_length(given_text):
@@ -69,11 +72,11 @@ def statistics_with_length(given_text):
     sentences_length = list(map(lambda j: len(j), sentences))
     average_sentences_length = mean(sentences_length)
 
-    words_distribution_sorted_order = sorted(Counter(extracted_words), reverse=True)
+    words_distribution_sorted_order = sorted(dict(Counter(extracted_words)).items(), key=itemgetter(1), reverse=True)
 
     dict_with_length = {i: len(i) for i in extracted_words}
     sorted_by_length = dict(sorted(dict_with_length.items(), key=itemgetter(1), reverse=True))
-    top_ten = sorted(Counter(dict_with_length.values()), reverse=True)
+    #top_ten = sorted(Counter(dict_with_length.values()), reverse=True)
     word_ten = {}
     counting = 0
 
@@ -105,7 +108,7 @@ def statistics_with_length(given_text):
 def main():
     text_to_check = catch_input_text()
     w_count, c_count, av_word_length, av_sent_length, words_distribution, words_ten_list = statistics_with_length(text_to_check)
-    printing_output(w_count, c_count, av_word_length, av_sent_length, words_ten_list)
+    printing_output(w_count, c_count, av_word_length, av_sent_length, words_ten_list, words_distribution)
 
 
 main()
