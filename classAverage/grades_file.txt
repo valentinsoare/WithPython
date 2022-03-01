@@ -1,0 +1,20 @@
+
+Jones
+Math  7 8 10 8
+English  7 2 9 4
+
+
+Andreea
+Math  10 4 7 9
+English  10 4 5 9
+
+
+Valentin
+Math  9 10 8 1 4
+English  3 2 10 5 4
+
+
+Dimitri
+Math  9 10 7 9
+English  8 10 4 9
+
