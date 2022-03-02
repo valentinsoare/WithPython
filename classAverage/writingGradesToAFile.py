@@ -91,7 +91,8 @@ def catch_number_of_courses(header, students_name):
 def populate_with_courses_and_grades(name_of_students, number_of_courses):
     nr_courses = 0
     dict_with_courses_grades = {}
-    nums = {1: "First", 2: "Second", 3: "Third", 4: "Fourth", 5: "Fifth", 6: "Sixth", 7: "Seventh", 8: "Eighth", 9: "Nineth"}
+    nums = {1: "First", 2: "Second", 3: "Third", 4: "Fourth", 5: "Fifth", 6: "Sixth",
+            7: "Seventh", 8: "Eighth", 9: "Ninth"}
 
     for i in range(len(name_of_students)):
 
@@ -133,16 +134,13 @@ def convert_to_dict(courses_grades):
 
 
 def populate_the_file_with_grades(header, dict_with_students_courses):
-    file_with_grades = open('grades_file.txt', mode='w')
+    file_with_grades = open('grades_file.txt', mode='w', newline='')
 
     with file_with_grades:
-        file_with_grades.writelines(header)
-        file_with_grades.write(f'\n')
+        file_with_grades.writelines([header, f'\n\n'])
 
         for i, j in dict_with_students_courses.items():
-            file_with_grades.write(f'\n{"-" * 15}\n')
-            file_with_grades.write(i)
-            file_with_grades.write(f'\n{"-" * 15}\n')
+            file_with_grades.writelines([f'\n{"-" * 15}\n', i, f'\n{"-" * 15}\n'])
 
             for course, grade in j.items():
                 file_with_grades.writelines([course, "  ", ' '.join(grade), "\n"])
