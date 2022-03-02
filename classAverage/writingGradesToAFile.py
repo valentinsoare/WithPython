@@ -132,23 +132,26 @@ def convert_to_dict(courses_grades):
     return dict_with_grades
 
 
-def populate_the_file_with_grades(dict_with_students_courses):
+def populate_the_file_with_grades(header, dict_with_students_courses):
     file_with_grades = open('grades_file.txt', mode='w')
 
     with file_with_grades:
+        file_with_grades.writelines(header)
+        file_with_grades.write(f'\n')
+
         for i, j in dict_with_students_courses.items():
-            file_with_grades.write(f'\n')
+            file_with_grades.write(f'\n{"-" * 15}\n')
             file_with_grades.write(i)
-            file_with_grades.write(f'\n{"-" * 12}\n')
+            file_with_grades.write(f'\n{"-" * 15}\n')
 
             for course, grade in j.items():
                 file_with_grades.writelines([course, "  ", ' '.join(grade), "\n"])
 
-            file_with_grades.write(f'{"#" * 45}\n')
+            file_with_grades.write(f'{"#" * 30}\n')
 
         file_with_grades.write(f'\n')
 
-        
+
 def main():
     header = f'\n\033[1m{"-" * 35:>65}\n{"**GRADE BOOK**":>54}\n{"-" * 35:>65}\033[0m'
 
@@ -159,7 +162,7 @@ def main():
     courses_and_grades = populate_with_courses_and_grades(students_list, number_of_courses_per_student)
 
     dict_courses_grades = convert_to_dict(courses_and_grades)
-    populate_the_file_with_grades(dict_courses_grades)
+    populate_the_file_with_grades(header, dict_courses_grades)
 
 
 main()
