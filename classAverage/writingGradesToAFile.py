@@ -151,7 +151,7 @@ def populate_the_file_with_grades(header, dict_with_students_courses):
 
 
 def main():
-    header = f'\n\033[1m{"-" * 35:>65}\n{"**GRADE BOOK**":>54}\n{"-" * 35:>65}\033[0m'
+    header = f'\n\033[1m{"-" * 35:>65}\n{"**GRADES BOOK**":>54}\n{"-" * 35:>65}\033[0m'
 
     number_of_students = how_many_students(header)
     students_list = name_of_the_students(number_of_students, header)
