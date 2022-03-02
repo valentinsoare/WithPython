@@ -4,7 +4,6 @@ import re
 from sys import exit
 from os import system
 from time import sleep
-import pandas as pd
 
 
 def to_quit(input_var):
@@ -70,9 +69,8 @@ def catch_number_of_courses(header, students_name):
     for i in students_name:
         print(f'{i}', end=" ")
 
-    print("\n")
+    print(f'\n\n - > How many courses you want to add for (q to quit):', end="\n")
 
-    print(f' - > How many courses you want to add for (q to quit):', end="\n")
     while len(dict_with_number_of_courses.keys()) < len(students_name):
         print(f' {j + 1:>10} - {students_name[j]}:', end=" ")
         number_of_courses = input()
@@ -91,9 +89,9 @@ def catch_number_of_courses(header, students_name):
 
 
 def populate_with_courses_and_grades(name_of_students, number_of_courses):
-    nums = {1: "First", 2: "Second", 3: "Third", 4: "Fourth", 5: "Fifth", 6: "Sixth", 7: "Seventh", 8: "Eighth", 9: "Nineth"}
-    dict_with_courses_grades = {}
     nr_courses = 0
+    dict_with_courses_grades = {}
+    nums = {1: "First", 2: "Second", 3: "Third", 4: "Fourth", 5: "Fifth", 6: "Sixth", 7: "Seventh", 8: "Eighth", 9: "Nineth"}
 
     for i in range(len(name_of_students)):
 
@@ -122,38 +120,46 @@ def populate_with_courses_and_grades(name_of_students, number_of_courses):
 
         nr_courses = 0
 
-    print(dict_with_courses_grades)
     return dict_with_courses_grades
 
 
-def populate_the_file_with_grades():
+def convert_to_dict(courses_grades):
+    dict_with_grades = {}
+
+    for key, value in courses_grades.items():
+        dict_with_grades[key] = {j[0]: j[1:] for j in value}
+
+    return dict_with_grades
+
+
+def populate_the_file_with_grades(dict_with_students_courses):
     file_with_grades = open('grades_file.txt', mode='w')
 
-    list_with_students = ['Jones', 'Andreea', 'Valentin', 'Dimitri']
-    dict_grades = {'Math': [['7', '8', '10', '8'], ['10', '4', '7', '9'], ['9', '10', '8', '1', '4'], ['9', '10', '7', '9']],
-                   'English': [['7', '2', '9', '4'], ['10', '4', '5', '9'], ['3', '2', '10', '5', '4'], ['8', '10', '4', '9']]}
-
     with file_with_grades:
-        for i in range(len(list_with_students)):
+        for i, j in dict_with_students_courses.items():
             file_with_grades.write(f'\n')
-            file_with_grades.write(list_with_students[i])
-            file_with_grades.write(f'\n')
+            file_with_grades.write(i)
+            file_with_grades.write(f'\n{"-" * 12}\n')
 
-            for j, k in dict_grades.items():
-                file_with_grades.writelines([j, "  ", ' '.join(k[i]), "\n"])
+            for course, grade in j.items():
+                file_with_grades.writelines([course, "  ", ' '.join(grade), "\n"])
 
-            file_with_grades.write(f'\n')
+            file_with_grades.write(f'{"#" * 45}\n')
 
+        file_with_grades.write(f'\n')
 
+        
 def main():
     header = f'\n\033[1m{"-" * 35:>65}\n{"**GRADE BOOK**":>54}\n{"-" * 35:>65}\033[0m'
 
     number_of_students = how_many_students(header)
     students_list = name_of_the_students(number_of_students, header)
+
     number_of_courses_per_student = catch_number_of_courses(header, students_list)
     courses_and_grades = populate_with_courses_and_grades(students_list, number_of_courses_per_student)
 
+    dict_courses_grades = convert_to_dict(courses_and_grades)
+    populate_the_file_with_grades(dict_courses_grades)
 
 
 main()
-
