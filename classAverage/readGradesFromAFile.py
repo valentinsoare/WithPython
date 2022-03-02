@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
 import re
-import statistics
 from sys import exit
 from os import system
 from time import sleep
+from statistics import mean
 
 
 def to_quit(input_var):
@@ -18,7 +18,7 @@ def catch_input_text(header):
     system('clear')
     print(header)
 
-    print(f' \n{"- > Enter the name of the text file with grades that we need to read (q to quit):"}', end=" ")
+    print(f' \n{"- > Enter the name of the text file(.txt)/csv file (.csv) with grades that we need to read (q to quit):"}', end=" ")
     name_of_file = input()
 
     if not name_of_file:
@@ -75,7 +75,7 @@ def statistics_on_grades(header, dict_with_courses_grades):
             print(f'{"Course:":>18} {course}', end="\n")
             grades_string = ' '.join(grades)
             grades = [float(i) for i in grades]
-            print(f'{"Grades: ":>19}{grades_string}\n{"Count:":>17} {len(grades)}, Average: {statistics.mean(grades)}\n')
+            print(f'{"Grades: ":>19}{grades_string}\n{"Count:":>17} {len(grades)}, Average: {mean(grades)}\n')
 
 
 def main():
