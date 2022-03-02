@@ -19,7 +19,6 @@ def catch_input_text(header):
     print(header)
 
     print(f' \n{"- > Enter the name of the text file with grades that we need to read (q to quit):"}', end=" ")
-
     name_of_file = input()
 
     if not name_of_file:

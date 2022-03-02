@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import re
+import csv
 from sys import exit
 from os import system
 from time import sleep
@@ -150,6 +151,18 @@ def populate_the_file_with_grades(header, dict_with_students_courses):
         file_with_grades.write(f'\n')
 
 
+def create_populate_csv_file(dict_with_students_courses):
+    file_csv_grades = open('grades.csv', mode='w', newline='')
+
+    with file_csv_grades:
+        writing = csv.writer(file_csv_grades)
+
+        for student, grades_courses in dict_with_students_courses.items():
+            for course, grades in grades_courses.items():
+                grades = [student, course] + grades
+                writing.writerow(grades)
+
+
 def main():
     header = f'\n\033[1m{"-" * 35:>65}\n{"**GRADES BOOK**":>54}\n{"-" * 35:>65}\033[0m'
 
@@ -161,6 +174,8 @@ def main():
 
     dict_courses_grades = convert_to_dict(courses_and_grades)
     populate_the_file_with_grades(header, dict_courses_grades)
+
+    create_populate_csv_file(dict_courses_grades)
 
 
 main()
