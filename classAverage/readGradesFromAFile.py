@@ -15,8 +15,6 @@ def to_quit(input_var):
 
 
 def catch_input_text(header):
-    name_of_file = ''
-
     system('clear')
     print(header)
 
