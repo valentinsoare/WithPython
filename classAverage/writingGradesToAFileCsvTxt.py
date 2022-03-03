@@ -2,6 +2,7 @@
 
 import re
 import csv
+import json
 from sys import exit
 from os import system
 from time import sleep
@@ -134,7 +135,7 @@ def convert_to_dict(courses_grades):
     return dict_with_grades
 
 
-def populate_the_file_with_grades(header, dict_with_students_courses):
+def populate_txt_file_with_grades(header, dict_with_students_courses):
     file_with_grades = open('grades_file.txt', mode='w', newline='')
 
     with file_with_grades:
@@ -163,6 +164,22 @@ def create_populate_csv_file(dict_with_students_courses):
                 writing.writerow(grades)
 
 
+def convert_for_json(dict_with_students):
+    book_dict = {'students': []}
+
+    for student, course_grade in dict_with_students.items():
+        book_dict['students'].append({student: course_grade})
+
+    return book_dict
+
+
+def creating_json_file(dict_to_process_courses):
+    opening_json = open('json_grades.json', mode='w')
+
+    with opening_json:
+        json.dump(dict_to_process_courses, opening_json)
+
+
 def main():
     header = f'\n\033[1m{"-" * 35:>65}\n{"**GRADES BOOK**":>54}\n{"-" * 35:>65}\033[0m'
 
@@ -173,9 +190,12 @@ def main():
     courses_and_grades = populate_with_courses_and_grades(students_list, number_of_courses_per_student)
 
     dict_courses_grades = convert_to_dict(courses_and_grades)
-    populate_the_file_with_grades(header, dict_courses_grades)
 
+    populate_txt_file_with_grades(header, dict_courses_grades)
     create_populate_csv_file(dict_courses_grades)
+
+    dict_for_json = convert_for_json(dict_courses_grades)
+    creating_json_file(dict_for_json)
 
 
 main()

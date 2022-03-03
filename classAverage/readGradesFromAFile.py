@@ -2,6 +2,7 @@
 
 import re
 import csv
+import json
 from sys import exit
 from os import system
 from time import sleep
@@ -92,6 +93,30 @@ def reading_the_file_csv(given_file):
     return dict_with_grades, var_to_continue
 
 
+def reading_the_file_json(given_file):
+    var_to_continue = 0
+    dict_with_grades = {}
+
+    try:
+        open_file = open(given_file, mode='r', newline='')
+    except FileNotFoundError:
+        print(f'\n\033[1;31m{"ERROR - file not found":>30}\033[0m\n')
+        sleep(1)
+
+        return dict_with_grades, var_to_continue
+
+    with open_file:
+        reading_file = json.load(open_file)
+        print(reading_file)
+        for i in reading_file.values():
+            for k in i:
+                dict_with_grades[''.join(k.keys())] = {x: y for i in k.values() for x, y in i.items()}
+
+    var_to_continue = 1
+
+    return dict_with_grades, var_to_continue
+
+
 def statistics_on_grades(header, dict_with_courses_grades):
     average_per_class = {}
     system('clear')
@@ -113,7 +138,7 @@ def statistics_on_grades(header, dict_with_courses_grades):
                 average_per_class[course] += grades
 
     for courses, all_grades in average_per_class.items():
-        print(f'{"*Class:":>12} {courses}, Average: {mean(all_grades)}')
+        print(f'{"*Class:":>12} {courses}, Average: {mean(all_grades):.2f}')
 
     print()
 
@@ -130,6 +155,8 @@ def main():
             dict_students_grades, to_continue = reading_the_file_txt(name_of_given_file)
         elif re.search(r'\.csv$', name_of_given_file):
             dict_students_grades, to_continue = reading_the_file_csv(name_of_given_file)
+        elif re.search(r'\.json$', name_of_given_file):
+            dict_students_grades, to_continue = reading_the_file_json(name_of_given_file)
 
     statistics_on_grades(header, dict_students_grades)
 
