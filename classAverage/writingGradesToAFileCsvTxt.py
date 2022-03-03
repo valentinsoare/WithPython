@@ -168,7 +168,7 @@ def convert_for_json(dict_with_students):
     book_dict = {'students': []}
 
     for student, course_grade in dict_with_students.items():
-        book_dict['students'].append({student: course_grade})
+        book_dict["".join(book_dict.keys())].append({student: course_grade})
 
     return book_dict
 

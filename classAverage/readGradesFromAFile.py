@@ -142,6 +142,19 @@ def statistics_on_grades(header, dict_with_courses_grades):
     print()
 
 
+def check_file_small(given_file):
+    var_to_continue = 0
+
+    try:
+        open_file = open(given_file, mode='r', newline='')
+        var_to_continue = 1
+    except FileNotFoundError:
+        print(f'\n\033[1;31m{"ERROR - file not found":>30}\033[0m\n')
+        sleep(1)
+
+    return var_to_continue
+
+
 def main():
     to_continue = 0
     dict_students_grades = {}
@@ -149,6 +162,10 @@ def main():
 
     while to_continue == 0:
         name_of_given_file = catch_input_text(header)
+        to_continue = check_file_small(name_of_given_file)
+
+        if to_continue == 0:
+            continue
 
         if re.search(r'\.txt$', name_of_given_file):
             dict_students_grades, to_continue = reading_the_file_txt(name_of_given_file)
