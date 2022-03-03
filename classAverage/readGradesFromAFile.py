@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import re
+import csv
 from sys import exit
 from os import system
 from time import sleep
@@ -29,7 +30,7 @@ def catch_input_text(header):
     return name_of_file
 
 
-def reading_the_file(given_file):
+def reading_the_file_txt(given_file):
     student_name = ''
     var_to_continue = 0
     dict_with_names_grades = {}
@@ -64,7 +65,35 @@ def reading_the_file(given_file):
     return dict_with_names_grades, var_to_continue
 
 
+def reading_the_file_csv(given_file):
+    var_to_continue = 0
+    dict_with_grades = {}
+
+    try:
+        open_file = open(given_file, mode='r', newline='')
+    except FileNotFoundError:
+        print(f'\n\033[1;31m{"ERROR - file not found":>30}\033[0m\n')
+        sleep(1)
+
+        return dict_with_grades, var_to_continue
+
+    with open_file:
+        reading = csv.reader(open_file)
+
+        for line in reading:
+            if line[0] not in dict_with_grades:
+                dict_with_grades[line[0]] = {}
+
+            if line[0] in dict_with_grades:
+                dict_with_grades[line[0]].update({line[1]: [line[item] for item in range(2, len(line))]})
+
+    var_to_continue = 1
+
+    return dict_with_grades, var_to_continue
+
+
 def statistics_on_grades(header, dict_with_courses_grades):
+    average_per_class = {}
     system('clear')
     print(header)
 
@@ -75,7 +104,18 @@ def statistics_on_grades(header, dict_with_courses_grades):
             print(f'{"Course:":>18} {course}', end="\n")
             grades_string = ' '.join(grades)
             grades = [float(i) for i in grades]
-            print(f'{"Grades: ":>19}{grades_string}\n{"Count:":>17} {len(grades)}, Average: {mean(grades)}\n')
+            print(f'{"Grades: ":>19}{grades_string}\n{"Count:":>17} {len(grades)}, Average: {mean(grades):.2f}\n')
+
+            if course not in average_per_class:
+                average_per_class[course] = []
+
+            if course in average_per_class:
+                average_per_class[course] += grades
+
+    for courses, all_grades in average_per_class.items():
+        print(f'{"*Class:":>12} {courses}, Average: {mean(all_grades)}')
+
+    print()
 
 
 def main():
@@ -85,7 +125,11 @@ def main():
 
     while to_continue == 0:
         name_of_given_file = catch_input_text(header)
-        dict_students_grades, to_continue = reading_the_file(name_of_given_file)
+
+        if re.search(r'\.txt$', name_of_given_file):
+            dict_students_grades, to_continue = reading_the_file_txt(name_of_given_file)
+        elif re.search(r'\.csv$', name_of_given_file):
+            dict_students_grades, to_continue = reading_the_file_csv(name_of_given_file)
 
     statistics_on_grades(header, dict_students_grades)
 
