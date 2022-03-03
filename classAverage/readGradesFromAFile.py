@@ -107,7 +107,6 @@ def reading_the_file_json(given_file):
 
     with open_file:
         reading_file = json.load(open_file)
-        print(reading_file)
         for i in reading_file.values():
             for k in i:
                 dict_with_grades[''.join(k.keys())] = {x: y for i in k.values() for x, y in i.items()}
