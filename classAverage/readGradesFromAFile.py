@@ -37,15 +37,15 @@ def reading_the_file_txt(given_file):
     dict_with_names_grades = {}
 
     try:
-        opening_file = open(given_file, mode='r')
+        open_file = open(given_file, mode='r')
     except FileNotFoundError:
         print(f'\n\033[1;31m{"ERROR - file not found":>30}\033[0m\n')
         sleep(1)
 
         return dict_with_names_grades, var_to_continue
 
-    with opening_file:
-        entire_text = opening_file.readlines()
+    with open_file:
+        entire_text = open_file.readlines()
 
         for line in entire_text:
             list_with_lines = line.split()
@@ -142,7 +142,7 @@ def statistics_on_grades(header, dict_with_courses_grades):
     print()
 
 
-def check_file_small(given_file):
+def check_file(given_file):
     var_to_continue = 0
 
     try:
@@ -162,7 +162,7 @@ def main():
 
     while to_continue == 0:
         name_of_given_file = catch_input_text(header)
-        to_continue = check_file_small(name_of_given_file)
+        to_continue = check_file(name_of_given_file)
 
         if to_continue == 0:
             continue
