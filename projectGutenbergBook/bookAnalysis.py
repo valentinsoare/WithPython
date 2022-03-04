@@ -10,6 +10,7 @@ from time import sleep
 from statistics import mean
 from string import punctuation
 from operator import itemgetter
+from collections import Counter
 
 
 def for_quit(input_var):
@@ -57,7 +58,6 @@ def work_on_text_remove_punctuation(given_series):
 
     return given_series
 
-
 def generate_statistics_count(given_series_book):
     number_of_chars = 0
     word_count = given_series_book.count()
@@ -67,14 +67,14 @@ def generate_statistics_count(given_series_book):
         number_of_chars += chars_number
 
     print(f'\n{"*Number of words in the book: "}{word_count}')
-    print(f'{"*Chars count: "}{number_of_chars}', end="\n")
+    print(f'\n{"*Chars count: "}{number_of_chars}', end="\n")
 
 
 def stats_average_length(given_input, input_with_punct):
     dict_for_average = {i: len(i) for i in given_input}
     average_word_length = mean(dict_for_average.values())
 
-    print(f'{"*Average word length: "}{average_word_length:.2f}', end="\n")
+    print(f'\n{"*Average word length: "}{average_word_length:.2f}', end="\n")
 
     dict_with_length_sentences = {}
     extracting_words_pattern = re.compile(r'\w{1,}')
@@ -86,16 +86,27 @@ def stats_average_length(given_input, input_with_punct):
 
     average_sentence_length = mean(dict_with_length_sentences.values())
 
-    print(f'{"*Average sentence length: "}{average_sentence_length:.2f}', end="\n")
+    print(f'\n{"*Average sentence length: "}{average_sentence_length:.2f}', end="\n")
 
     longest_words = sorted(list(map(lambda i: i, dict_for_average.items())), key=itemgetter(1), reverse=True)
 
-    print(f'{"*Top 10 longest words: "}', end="\n")
+    print(f'\n{"*Top 15 longest words: "}', end="\n")
 
     for match in range(0, 15):
         word, counter = longest_words[match]
         print(f'{"- ":>5}{word} {counter}')
 
+    counting_words_freq = Counter(list(given_input))
+    sorted_counting_freq = dict(sorted((map(lambda i: i, counting_words_freq.items())), key=itemgetter(1), reverse=True))
+
+    print(f'\n{"*Word frequency top 30: "}', end="\n")
+
+    counting = 0
+    for word, freq in sorted_counting_freq.items():
+        print(f'{"- ":>5}{word} {freq}')
+        counting += 1
+        if counting == 30:
+            break
     print()
 
 
