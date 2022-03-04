@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # book analysis without NLP
-
+import operator
 import re
 import string
 import statistics
@@ -42,7 +42,6 @@ def catch_input_text():
 def reading_the_file(file_open):
     with file_open:
         intermediary = file_open.read()
-
         file_open_read = pd.Series(intermediary.split(), dtype=str)
 
     return intermediary, file_open_read
@@ -67,14 +66,14 @@ def generate_statistics_count(given_series_book):
         number_of_chars += chars_number
 
     print(f'\n{"*Number of words in the book: "}{word_count}')
-    print(f'{"**Chars count: "}{number_of_chars}', end="\n")
+    print(f'{"*Chars count: "}{number_of_chars}', end="\n")
 
 
 def stats_average_length(given_input, input_with_punct):
     dict_for_average = {i: len(i) for i in given_input}
     average_word_length = statistics.mean(dict_for_average.values())
 
-    print(f'{"***Average word length: "}{average_word_length:.2f}', end="\n")
+    print(f'{"*Average word length: "}{average_word_length:.2f}', end="\n")
 
     dict_with_length_sentences = {}
     extracting_words_pattern = re.compile(r'\w{1,}')
@@ -86,8 +85,17 @@ def stats_average_length(given_input, input_with_punct):
 
     average_sentence_length = statistics.mean(dict_with_length_sentences.values())
 
-    print(f'{"***Average sentence length: "}{average_sentence_length:.2f}', end="\n\n")
+    print(f'{"*Average sentence length: "}{average_sentence_length:.2f}', end="\n")
 
+    longest_words = sorted(list(map(lambda i: i, dict_for_average.items())), key=operator.itemgetter(1), reverse=True)
+
+    print(f'{"*Top 10 longest words: "}', end="\n")
+
+    for match in range(0, 15):
+        word, counter = longest_words[match]
+        print(f'{"- ":>5}{word} {counter}')
+
+    print()
 
 def main():
     file_open_read = ''
