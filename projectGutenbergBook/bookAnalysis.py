@@ -1,14 +1,15 @@
 #!/usr/bin/python
 
 # book analysis without NLP
-import operator
+
 import re
-import string
-import statistics
 import pandas as pd
 from sys import exit
 from os import system
 from time import sleep
+from statistics import mean
+from string import punctuation
+from operator import itemgetter
 
 
 def for_quit(input_var):
@@ -48,11 +49,11 @@ def reading_the_file(file_open):
 
 
 def work_on_text_remove_punctuation(given_series):
-    punctuation = string.punctuation + '”“’'
+    punctuations = punctuation + '”“’'
     length_of_series = len(given_series)
 
     for i in range(length_of_series):
-        given_series[i] = given_series[i].translate(str.maketrans('', '', punctuation))
+        given_series[i] = given_series[i].translate(str.maketrans('', '', punctuations))
 
     return given_series
 
@@ -71,7 +72,7 @@ def generate_statistics_count(given_series_book):
 
 def stats_average_length(given_input, input_with_punct):
     dict_for_average = {i: len(i) for i in given_input}
-    average_word_length = statistics.mean(dict_for_average.values())
+    average_word_length = mean(dict_for_average.values())
 
     print(f'{"*Average word length: "}{average_word_length:.2f}', end="\n")
 
@@ -83,11 +84,11 @@ def stats_average_length(given_input, input_with_punct):
         words_from_sentences = re.findall(extracting_words_pattern, i)
         dict_with_length_sentences[i] = len(words_from_sentences)
 
-    average_sentence_length = statistics.mean(dict_with_length_sentences.values())
+    average_sentence_length = mean(dict_with_length_sentences.values())
 
     print(f'{"*Average sentence length: "}{average_sentence_length:.2f}', end="\n")
 
-    longest_words = sorted(list(map(lambda i: i, dict_for_average.items())), key=operator.itemgetter(1), reverse=True)
+    longest_words = sorted(list(map(lambda i: i, dict_for_average.items())), key=itemgetter(1), reverse=True)
 
     print(f'{"*Top 10 longest words: "}', end="\n")
 
@@ -96,6 +97,7 @@ def stats_average_length(given_input, input_with_punct):
         print(f'{"- ":>5}{word} {counter}')
 
     print()
+
 
 def main():
     file_open_read = ''
