@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-
 import re
 from sys import exit
 from os import system
@@ -8,6 +7,7 @@ from time import sleep
 from statistics import mean
 from collections import Counter
 from operator import itemgetter
+
 
 def catch_input_text():
     to_continue = 0
