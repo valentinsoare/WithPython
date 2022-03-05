@@ -9,8 +9,9 @@ from os import system
 from time import sleep
 from statistics import mean
 from string import punctuation
-from operator import itemgetter
 from collections import Counter
+from operator import itemgetter
+from wordcloud import WordCloud
 
 
 def for_quit(input_var):
@@ -57,6 +58,7 @@ def work_on_text_remove_punctuation(given_series):
         given_series[i] = given_series[i].translate(str.maketrans('', '', punctuations))
 
     return given_series
+
 
 def generate_statistics_count(given_series_book):
     number_of_chars = 0
@@ -109,6 +111,14 @@ def stats_average_length(given_input, input_with_punct):
             break
     print()
 
+    return sorted_counting_freq
+
+
+def creating_cloud(given_dict_with_freq_words):
+    wordcloud = WordCloud(colormap='prism', background_color='white')
+    wordcloud = wordcloud.fit_words(given_dict_with_freq_words)
+    wordcloud = wordcloud.to_file('PrideAndPrejudice.png')
+
 
 def main():
     file_open_read = ''
@@ -123,7 +133,9 @@ def main():
     after_remove_punctuation = work_on_text_remove_punctuation(file_open_read)
 
     generate_statistics_count(after_remove_punctuation)
-    stats_average_length(after_remove_punctuation, intermediary)
+    sorted_counting_freq = stats_average_length(after_remove_punctuation, intermediary)
+
+    creating_cloud(sorted_counting_freq)
 
 
 main()
