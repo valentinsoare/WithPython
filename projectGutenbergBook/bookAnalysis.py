@@ -115,9 +115,20 @@ def stats_average_length(given_input, input_with_punct):
 
 
 def creating_cloud(given_dict_with_freq_words):
+    ### most freq 200 words
+
+    dict_two_hundred = {}
+    counting = 0
+
+    for i, j in given_dict_with_freq_words.items():
+        dict_two_hundred[i] = j
+        if counting == 200:
+            break
+        counting += 1
+
     wordcloud = WordCloud(colormap='prism', background_color='white')
-    wordcloud = wordcloud.fit_words(given_dict_with_freq_words)
-    wordcloud = wordcloud.to_file('PrideAndPrejudice.png')
+    wordcloud = wordcloud.fit_words(dict_two_hundred)
+    wordcloud.to_file('PrideAndPrejudice.png')
 
 
 def main():
