@@ -20,6 +20,12 @@ def catch_number_of_texts():
     print(f'\n{" - > How many texts you want to compare (q to quit):"}', end=" ")
     number_of_texts = input()
 
+    if number_of_texts == "":
+        print(f'\n\033[1;31m{"ERROR - you need to give an integer written in digits.":>63}\033[0m', end="\n\n")
+        sleep(1.5)
+
+        return number_of_texts, var_to_continue
+
     to_exit(number_of_texts)
 
     try:
@@ -42,23 +48,27 @@ def catch_text_files(number_of_text):
 
     while validity_of_files == 0:
         system('clear')
-        print(f'\n{" - > Enter the entire path for text files as input:  (q to quit):":>43}')
+        print(f'\n{" - > Enter the entire path for text files as input (q to quit):":>43}', end="\n")
         print(f'{"-":>7} {text_numbers_in_letters[i]} text file:', end=" ")
         text_as_input = input()
+
+        if text_as_input == "":
+            print(f'\n\033[1;31m{"ERROR - file does not exists.":>40}\033[0m', end="\n\n")
+            sleep(1.5)
+            continue
 
         to_exit(text_as_input)
 
         if not path.isfile(text_as_input):
-            print(f'\n\033[1;31m{"ERROR - file does not exists.":>63}\033[0m', end="\n\n")
+            print(f'\n\033[1;31m{"ERROR - file does not exists.":>40}\033[0m', end="\n\n")
             sleep(1.5)
-            continue
+        else:
+            dict_with_files_names[i] = text_as_input
 
-        dict_with_files_names[i] = text_as_input
+            i += 1
 
-        i += 1
-
-        if len(dict_with_files_names) == number_of_text:
-            validity_of_files = 1
+            if len(dict_with_files_names) == number_of_text:
+                validity_of_files = 1
 
     return dict_with_files_names
 
