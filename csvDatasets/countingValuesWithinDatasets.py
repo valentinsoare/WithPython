@@ -15,16 +15,18 @@ def catch_text():
         print(f'\n{" - > Enter the csv to parse (q to quit):"}\033[0m', end=" ")
         parsable_text = input()
 
-        if parsable_text.lower()[0] == 'q':
+        if parsable_text == '':
+            print(f'\n\033[31m{"ERROR - file does not exists.":>35}\033[0m', end="\n\n")
+            sleep(1.5)
+        elif parsable_text.lower()[0] == 'q':
             print(f'\n\033[31m{"Exiting...":>17}\33[0m', end="\n\n")
             sleep(1)
             exit(0)
         elif not path.exists(parsable_text):
             print(f'\n\033[31m{"ERROR - file does not exists.":>35}\033[0m', end="\n\n")
             sleep(1.5)
-            continue
-
-        var_continue = 1
+        else:
+            var_continue = 1
 
     return parsable_text
 
