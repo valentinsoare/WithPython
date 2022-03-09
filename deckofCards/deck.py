@@ -31,24 +31,29 @@ class DeckOfCards:
             return None
 
     def poker_hands(self):
-        hands = 0
+        counting = 0
+        self.shuffle()
 
-        while hands != 2:
-            self.shuffle()
-            counting = 0
+        for i in self._deck:
+            self._hands.append(i)
 
-            for i in self._deck:
-                self._hands.append(i)
+            if counting == 9:
+                break
 
-                if counting == 4:
-                    print()
-                    break
-                counting += 1
+            counting += 1
 
-            hands += 1
+    def printing_poker_hands(self):
+        counter = 0
 
-    #def printing_poker_hands(self):
+        print(f'First hand: ', end=" ")
 
+        for i in range(len(self._hands)):
+            if counter == 5:
+                print(f'\nSecond hand: ', end=" ")
+
+            print(f'{self._hands[i]:<15}', end=" ")
+            counter += 1
+        print("\n\n")
 
     def __str__(self):
         to_print = ''
@@ -64,8 +69,7 @@ class DeckOfCards:
 def main():
     all_cards = DeckOfCards()
     all_cards.poker_hands()
-
-
+    all_cards.printing_poker_hands()
 
 
 main()
