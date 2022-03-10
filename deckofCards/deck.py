@@ -2,6 +2,7 @@
 
 import random
 from card import Card
+#from cardDataClass import Card
 
 
 class DeckOfCards:
@@ -45,7 +46,7 @@ class DeckOfCards:
     def printing_poker_hands(self):
         counter = 0
 
-        print(f'First hand: ', end=" ")
+        print(f'\nFirst hand: ', end=" ")
 
         for i in range(len(self._hands)):
             if counter == 5:
@@ -53,7 +54,8 @@ class DeckOfCards:
 
             print(f'{self._hands[i]:<15}', end=" ")
             counter += 1
-        print("\n\n")
+
+        print("\n")
 
     def __str__(self):
         to_print = ''
@@ -64,12 +66,3 @@ class DeckOfCards:
                 to_print += '\n'
 
         return to_print
-
-
-def main():
-    all_cards = DeckOfCards()
-    all_cards.poker_hands()
-    all_cards.printing_poker_hands()
-
-
-main()
