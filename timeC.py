@@ -2,10 +2,11 @@
 
 class Time:
 
-    def __init__(self, hour=0, minute=0, second=0):
+    def __init__(self, hour=0, minute=0, second=0, total_seconds=0):
         self._hour = hour
         self._minute = minute
         self._second = second
+        self._total_seconds = total_seconds
 
     @property
     def hour(self):
@@ -52,6 +53,23 @@ class Time:
         self.hour = hour
         self.minute = minute
         self.second = second
+
+    @property
+    def total_seconds(self):
+        return self._total_seconds
+
+    @total_seconds.setter
+    def total_seconds(self, seconds=0):
+        if seconds < 0:
+            raise ValueError('Total seconds must be greater than 0')
+
+        self._total_seconds = seconds
+
+    def get_total_seconds(self):
+        if self.total_seconds != 0:
+            return self.total_seconds
+        else:
+            return self.hour * 3600 + self.minute * 60 + self.second
 
     @property
     def universal_str(self):
