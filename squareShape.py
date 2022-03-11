@@ -6,7 +6,7 @@ import math
 class Square:
     def __init__(self, side_length):
         self._side_length = side_length
-        self._all_properties = []
+        self._all_properties = {}
         self._validate_all_prop = 0
 
     @property
@@ -26,7 +26,7 @@ class Square:
         return math.sqrt(2 * self.side_length ** 2)
 
     def populate_properties(self):
-        self._all_properties = [self.side_length, self.perimeter, self.area, self.diagonal]
+        self._all_properties = {'side': self.side_length, 'perimeter': self.perimeter, 'area': self.area, 'diagonal': self.diagonal}
         self._validate_all_prop = 1
 
     @property
@@ -42,11 +42,16 @@ class Square:
 
 def main():
     given_square = Square(4)
-    print(given_square)
+    #print(given_square)
 
     given_square.populate_properties()
-    all_prop_square_obj = given_square.all_properties
-    print(all_prop_square_obj)
+    given_square_all_properties_dict = given_square.all_properties
+
+    if isinstance(given_square_all_properties_dict, dict):
+        for i, j in given_square_all_properties_dict.items():
+            print(f"{i.title()}: {j:,.2f}")
+    else:
+        print(f'\n\033[1;31m ERROR Properties on the square object are not in a dict.\033[0m\n')
 
 
 if __name__ == '__main__':
