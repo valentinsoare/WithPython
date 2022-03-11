@@ -66,8 +66,8 @@ def main():
 
     printing_deck_of_cards(shuffled_deck)
 
-    obj_to_dict = converting_from_card_obj_to_tuples_dicts(shuffled_deck, 1)
-    obj_to_tuples = converting_from_card_obj_to_tuples_dicts(shuffled_deck, 0)
+    #obj_to_dict = converting_from_card_obj_to_tuples_dicts(shuffled_deck, 1)
+    #obj_to_tuples = converting_from_card_obj_to_tuples_dicts(shuffled_deck, 0)
 
     #print(obj_to_dict)
     #print(obj_to_tuples)
