@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import dataclasses
+import random
 from typing import ClassVar, List
 
 
@@ -30,6 +31,11 @@ def generate_deck_cards():
     return deck_of_cards
 
 
+def shuffle_deck_of_cards(deck_of_cards):
+    random.shuffle(deck_of_cards)
+    return deck_of_cards
+
+
 def printing_deck_of_cards(deck_cards):
     for i in range(0, len(deck_cards)):
         print(f'{deck_cards[i]:<19}', end=" ")
@@ -56,13 +62,15 @@ def converting_from_card_obj_to_tuples_dicts(deck_of_cards, option=0):
 
 def main():
     deck_of_cards = generate_deck_cards()
-    #printing_deck_of_cards(deck_of_cards)
+    shuffled_deck = shuffle_deck_of_cards(deck_of_cards)
 
-    #obj_to_dict = converting_from_card_obj_to_tuples_dicts(deck_of_cards, 1)
-    obj_to_tuples = converting_from_card_obj_to_tuples_dicts(deck_of_cards, 0)
+    printing_deck_of_cards(shuffled_deck)
+
+    obj_to_dict = converting_from_card_obj_to_tuples_dicts(shuffled_deck, 1)
+    obj_to_tuples = converting_from_card_obj_to_tuples_dicts(shuffled_deck, 0)
 
     #print(obj_to_dict)
-    print(obj_to_tuples)
+    #print(obj_to_tuples)
 
 
 if __name__ == '__main__':
