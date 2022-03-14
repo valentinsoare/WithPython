@@ -236,9 +236,7 @@ def sort_by_price_from_list(list_with_invoices):
 
     dict_items_price = dict(sorted(dict_items_price.items(), key=operator.itemgetter(1)))
     for i, j in dict_items_price.items():
-        print(f'Item: {i}, Price: {j}')
-
-
+        print(f'{i}, {j}$')
 
 
 def main():
