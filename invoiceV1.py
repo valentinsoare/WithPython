@@ -99,6 +99,9 @@ def catch_number_of_invoices():
 
         try:
             given_input = int(given_input)
+            if given_input <= 0:
+                print(f'\n\033[1;31m {"  ERROR - you need to provide an integer greater than zero for number of invoices."}\033[0m')
+                time.sleep(1)
         except ValueError:
             print(f'\n\033[1;31m {"  ERROR - you need to provide an integer for number of invoices."}\033[0m')
             time.sleep(1)
@@ -119,7 +122,7 @@ def catch_item_type():
         if not to_quit(given_input):
             continue
 
-        if given_input.isnumeric():
+        if given_input.lstrip('-+').isdigit():
             print(f'\n\033[1;31m {"  ERROR - you need to provide a name with letters, numbers in the name for your item."}\033[0m\n')
             time.sleep(1)
         else:
@@ -139,7 +142,7 @@ def catch_description():
         if not to_quit(given_input):
             continue
 
-        if given_input.isnumeric():
+        if given_input.lstrip('-+').isdigit():
             print(f'\n\033[1;31m {"ERROR - you need to use letters and/or digits.":>30}\033[0m\n')
             time.sleep(1)
         else:
@@ -160,7 +163,7 @@ def catch_part_number():
             continue
 
         if not given_input.isalnum():
-            print(f'\n\033[1;31m {"ERROR - you need to provide minimum and integer and/or a letter for part number.":>30}\033[0m\n')
+            print(f'\n\033[1;31m {"ERROR - you need to provide integers with letters or themselves for part number.":>30}\033[0m\n')
             time.sleep(1)
         else:
             to_continue = 1
@@ -229,14 +232,22 @@ def printing_all_invoices_from_list(list_with_invoices):
 
 def sort_by_price_from_list(list_with_invoices):
     dict_items_price = {}
-    print(f'\n{"**ITEMS BOUGHT SORT BY PRICE**":>60}\n')
 
     for i in list_with_invoices:
         dict_items_price[i.item] = i.price
 
     dict_items_price = dict(sorted(dict_items_price.items(), key=operator.itemgetter(1)))
-    for i, j in dict_items_price.items():
-        print(f'{i}, {j}$')
+    return dict_items_price
+
+
+def sort_by_qty_from_list(list_with_invoices):
+    dict_items_qty = {}
+    
+    for i in list_with_invoices:
+        dict_items_qty[i.item] = i.qty
+
+    dict_items_qty = dict(sorted(dict_items_qty.items(), key=operator.itemgetter(1)))
+    return dict_items_qty
 
 
 def main():
@@ -262,7 +273,8 @@ def main():
         invoices_counter += 1
 
     printing_all_invoices_from_list(list_with_invoices)
-    sort_by_price_from_list(list_with_invoices)
+    sorted_items_by_price = sort_by_price_from_list(list_with_invoices)
+    sorted_items_by_qty = sort_by_qty_from_list(list_with_invoices)
 
 
 if __name__ == '__main__':
