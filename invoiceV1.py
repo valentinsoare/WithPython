@@ -99,14 +99,15 @@ def catch_number_of_invoices():
 
         try:
             given_input = int(given_input)
-            if given_input <= 0:
-                print(f'\n\033[1;31m {"  ERROR - you need to provide an integer greater than zero for number of invoices."}\033[0m')
-                time.sleep(1)
         except ValueError:
             print(f'\n\033[1;31m {"  ERROR - you need to provide an integer for number of invoices."}\033[0m')
             time.sleep(1)
         else:
-            var_to_continue = 1
+            if given_input <= 0:
+                print(f'\n\033[1;31m {"  ERROR - you need to provide an integer greater than zero for number of invoices."}\033[0m')
+                time.sleep(1)
+            else:
+                var_to_continue = 1
 
     return given_input
 
@@ -188,7 +189,7 @@ def catch_qty(item_type):
             print(f'\n\033[1;31m {"ERROR - you need to provide how many have you bought and needs to be an integer.":>30}\033[0m\n')
             time.sleep(1)
         else:
-            if given_input < 0:
+            if given_input <= 0:
                 print(f'\n\033[1;31m {"ERROR - quantity needs to be greater than zero."}\033[0m\n')
                 time.sleep(1)
             else:
@@ -214,7 +215,7 @@ def catch_price(item_type):
             print(f'\n\033[1;31m {"ERROR - you need to provide an integer or float for how many items have you bought.":>30}\033[0m\n')
             time.sleep(1)
         else:
-            if given_input < 0:
+            if given_input <= 0:
                 print(f'\n\033[1;31m{"Price of the item needs to be greater than zero."}\n')
                 time.sleep(1)
             else:
@@ -223,35 +224,44 @@ def catch_price(item_type):
     return given_input
 
 
-def printing_all_invoices_from_list(list_with_invoices):
+def printing_all_invoices_from_list(list_with_items):
     print(f'\n{"**ALL REGISTERED ITEMS BOUGHT**":>50}\n')
 
-    for i in list_with_invoices:
+    for i in list_with_items:
         print(f'{i}')
 
 
-def sort_by_price_from_list(list_with_invoices):
+def sort_by_price_from_list(list_with_items):
     dict_items_price = {}
 
-    for i in list_with_invoices:
+    for i in list_with_items:
         dict_items_price[i.item] = i.price
 
     dict_items_price = dict(sorted(dict_items_price.items(), key=operator.itemgetter(1)))
     return dict_items_price
 
 
-def sort_by_qty_from_list(list_with_invoices):
+def sort_by_qty_from_list(list_with_items):
     dict_items_qty = {}
-    
-    for i in list_with_invoices:
+
+    for i in list_with_items:
         dict_items_qty[i.item] = i.qty
 
     dict_items_qty = dict(sorted(dict_items_qty.items(), key=operator.itemgetter(1)))
     return dict_items_qty
 
 
+def sort_by_invoices(list_with_items):
+    dict_with_calc_invoices = {}
+
+    for i in list_with_items:
+        dict_with_calc_invoices[i.item] = i.calculate_invoice()
+
+    return dict_with_calc_invoices
+
+
 def main():
-    list_with_invoices = []
+    list_with_items = []
     invoices_counter = 0
     print(f'\n\033[1m{"-"*30:>60}\n{"*GENERATE INVOICES*":>54}\n{"-"*30:>60}\033[0m')
 
@@ -268,13 +278,14 @@ def main():
         if number_of_inv >= 1:
             print(f'\n{"-" * 85}\n')
 
-        list_with_invoices.append(Invoice(item_name, part_number, description_for_item, item_qty, item_price))
+        list_with_items.append(Invoice(item_name, part_number, description_for_item, item_qty, item_price))
 
         invoices_counter += 1
 
-    printing_all_invoices_from_list(list_with_invoices)
-    sorted_items_by_price = sort_by_price_from_list(list_with_invoices)
-    sorted_items_by_qty = sort_by_qty_from_list(list_with_invoices)
+    printing_all_invoices_from_list(list_with_items)
+    sorted_items_by_price = sort_by_price_from_list(list_with_items)
+    sorted_items_by_qty = sort_by_qty_from_list(list_with_items)
+    sorted_items_by_invoices = sort_by_invoices(list_with_items)
 
 
 if __name__ == '__main__':
