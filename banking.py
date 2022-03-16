@@ -3,6 +3,13 @@
 import decimal
 
 
+def transaction_fee_validation(given_fee):
+    if given_fee < 0:
+        raise ValueError('Transaction fee should be zero or greater.')
+    else:
+        return decimal.Decimal(given_fee)
+
+
 def interest_rate_validation(given_interest):
     if given_interest <= 0:
         raise ValueError('Interest rate should be greater than zero.')
@@ -84,7 +91,7 @@ class Account:
             self.balance = self.balance + amount
 
     def __str__(self):
-        var_to_return = f'{self.name.title()}, {self._account_type.title()}, {self.balance}'
+        var_to_return = f'{self.name.title()}, {self._account_type.title()}, {self.balance:,.2f}$'
         return var_to_return
 
     def __format__(self, format_spec):
@@ -106,21 +113,64 @@ class SavingsAccount(Account):
         self._interest_rate = amount
 
     def calculate_interest(self):
-        return self.balance * self.interest_rate
+        return (self.balance * self.interest_rate) / 100
 
     def __str__(self):
         return f'{super().__str__()}, {self.interest_rate}%'
 
     def __format__(self, format_spec):
-        return f'{str(super().__str__()), self.interest_rate}: {format_spec}'
+        return f'{super().__str__():{format_spec}}'
+
+
+class CheckingAccount(Account):
+    def __init__(self, name, account_type, balance, transaction_fee):
+        super().__init__(name, account_type, balance)
+        self._transaction_fee = transaction_fee_validation(transaction_fee)
+
+    @property
+    def transaction_fee(self):
+        return self._transaction_fee
+
+    def transaction_fee_setter(self, amount):
+        amount = transaction_fee_validation(amount)
+        self._transaction_fee = amount
+
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError('Amount for deposit should be greater than zero.')
+
+        self.balance = self.balance + amount - self.transaction_fee
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            raise ValueError('Withdraw amount should be greater than zero.')
+
+        self.balance = self.balance - amount - self.transaction_fee
+
+    def __str__(self):
+        return f'{super().__str__()}, {self.transaction_fee:,.2f}$'
+
+    def __format__(self, format_spec):
+        return f'{super().__str__():{format_spec}}'
 
 
 def main():
-    andreea_account = Account('Andreea', 'silver', 800)
+    andreea_account = Account('Andreea', 'silver', 80000000)
     monica_account = SavingsAccount('Monica', 'gold', 600, 0.25)
+    gabriela_account = SavingsAccount('Gabriela', 'platinum', 104000, 2.25)
 
-    print(monica_account)
+    interest_a_month = gabriela_account.calculate_interest()
 
-    
+    print(f'1. Name of the account, Type of account, Balance: {gabriela_account}')
+    print(f'2. Interest for a month: {interest_a_month}$.')
+    print(f'3. Current month after interest rate applied: {(gabriela_account.balance + interest_a_month):,.2f}$.')
+
+    maria_account = CheckingAccount('Maria', 'gold', 900, 10.5)
+    maria_account.withdraw(10)
+    maria_account.deposit(200)
+    maria_account.transaction_fee_setter(5)
+    print(f'\nName of the account, Type, Balance, Transaction fee: {maria_account}, {maria_account.transaction_fee}$')
+
+
 if __name__ == '__main__':
     main()
