@@ -257,6 +257,8 @@ def sort_by_invoices(list_with_items):
     for i in list_with_items:
         dict_with_calc_invoices[i.item] = i.calculate_invoice()
 
+    dict_with_calc_invoices = dict(sorted(dict_with_calc_invoices.items(), key=operator.itemgetter(1)))
+
     return dict_with_calc_invoices
 
 
