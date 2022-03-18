@@ -20,10 +20,10 @@ def finding_integer():
     to_begin = int(math.sqrt(31415))
 
     while not re.search(r'^31415', final):
-        final = str(to_begin ** 2)
         to_begin += 1
+        final = str(to_begin ** 2)
 
-    print(f'\n **Found number: {to_begin - 1} - Reached pattern: {final}')
+    print(f'\n **Found number: {to_begin} - Reached pattern: {final}')
 
 
 def main():

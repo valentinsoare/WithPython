@@ -231,6 +231,19 @@ def printing_all_invoices_from_list(list_with_items):
         print(f'{i}')
 
 
+def printing_sorted_dict(list_with_items):
+    print(f'\n{"**ALL REGISTERED ITEMS SORTED**":>50}\n')
+
+    sorted_items_by_price = sort_by_price_from_list(list_with_items)
+    print(f'{"**BY PRICE**"}\n{sorted_items_by_price}', end="\n\n")
+
+    sorted_items_by_qty = sort_by_qty_from_list(list_with_items)
+    print(f'{"**BY QUANTITY**"}\n{sorted_items_by_qty}', end="\n\n")
+
+    sorted_items_by_invoices = sort_by_invoices(list_with_items)
+    print(f'{"**BY TOTAL VALUE OF INVOICES**"}\n{sorted_items_by_invoices}', end="\n\n")
+
+
 def sort_by_price_from_list(list_with_items):
     dict_items_price = {}
 
@@ -285,9 +298,7 @@ def main():
         invoices_counter += 1
 
     printing_all_invoices_from_list(list_with_items)
-    sorted_items_by_price = sort_by_price_from_list(list_with_items)
-    sorted_items_by_qty = sort_by_qty_from_list(list_with_items)
-    sorted_items_by_invoices = sort_by_invoices(list_with_items)
+    printing_sorted_dict(list_with_items)
 
 
 if __name__ == '__main__':
