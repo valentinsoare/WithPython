@@ -125,8 +125,7 @@ def main():
     #get_cmc(4, 18)
     #n_queens_brute_force(13)
     #generate_permutations(perm=[], n=4)
-    #generating(perm=[], n=10)
-    
+    generating(perm=[], n=8)
 
 
 if __name__ == '__main__':
