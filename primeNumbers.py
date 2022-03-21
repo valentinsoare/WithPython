@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 import math
 
 given_list = [i for i in range(150)]
