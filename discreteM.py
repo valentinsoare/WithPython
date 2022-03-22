@@ -2,7 +2,8 @@
 
 import re
 import math
-from itertools import combinations, permutations
+from itertools import combinations,\
+    permutations
 
 
 def remainder_one():
@@ -118,6 +119,57 @@ def generating(perm, n):
             perm.pop()
 
 
+def merging_lists(list_one, list_two):
+    to_add = 0
+    final_list = []
+    i = 0
+
+    while (len(list_one) and len(list_two)) != 0:
+        if list_one[i] < list_two[i]:
+            to_add = list_one.pop(i)
+        elif list_two[i] < list_one[i]:
+            to_add = list_two.pop(i)
+
+        final_list.append(to_add)
+
+    print(final_list)
+
+
+def fibonacci(given_number):
+    if given_number <= 2:
+        return 1
+
+    return fibonacci(given_number - 1) + fibonacci(given_number - 2)
+
+
+def palindrome_recursive(given_word):
+    if len(given_word) == 1:
+        return True
+
+    if given_word[0] != given_word[-1]:
+        return False
+
+    given_word = given_word[1:(len(given_word) - 1)]
+    return palindrome_recursive(given_word)
+
+
+def coins_problem(coins_qty):
+    if coins_qty < 8:
+        print(f'Quantity of coins should be greater or equal to 8.')
+
+    if coins_qty == 8:
+        return [3, 5]
+    elif coins_qty == 9:
+        return [3, 3, 3]
+    elif coins_qty == 10:
+        return [5, 5]
+
+    coins = coins_problem(coins_qty - 3)
+    coins.append(3)
+
+    return coins
+
+
 def main():
     #remainder_one()
     #finding_integer()
@@ -125,7 +177,26 @@ def main():
     #get_cmc(4, 18)
     #n_queens_brute_force(13)
     #generate_permutations(perm=[], n=4)
-    generating(perm=[], n=8)
+    #generating(perm=[], n=8)
+
+    #----------------------------
+    #first = [1, 3, 5, 7, 9]
+    #second = [2, 4, 6, 8, 10]
+    #merging_lists(first, second)
+    #-----------------------------
+    #value = 6
+    #number = fibonacci(value)
+    #print(f'{value} fibonacci number is {number}')
+    ##----------------------------
+    #given_word = 'racecar'
+    #value = palindrome_recursive(given_word)
+    #if value:
+    #    print(f'"{given_word}" is a palindrome')
+    #----------------------------
+    number_of_coins = 25
+    value = coins_problem(number_of_coins)
+    print(f' -{number_of_coins}$ change in bank notes with values of 3 and 5 dollars: {value}')
+    #----------------------------
 
 
 if __name__ == '__main__':
