@@ -170,6 +170,25 @@ def coins_problem(coins_qty):
     return coins
 
 
+def coins_another_value(amount):
+    def to_get(given_value):
+        dict_to_get = {24: [5, 5, 7, 7], 25: [5, 5, 5, 5, 5],
+                       26: [7, 7, 7, 5], 27: [5, 5, 5, 5, 7], 28: [7, 7, 7, 7]}
+
+        return dict_to_get.get(given_value)
+
+    if amount <= 23:
+        print(f'Quantity of coins should be greater or equal to 23.')
+        return 1
+    elif 24 <= amount <= 28:
+        return to_get(amount)
+
+    coins_to_return = coins_another_value(amount - 5)
+    coins_to_return.append(5)
+
+    return coins_to_return
+
+
 def main():
     #remainder_one()
     #finding_integer()
@@ -178,7 +197,6 @@ def main():
     #n_queens_brute_force(13)
     #generate_permutations(perm=[], n=4)
     #generating(perm=[], n=8)
-
     #----------------------------
     #first = [1, 3, 5, 7, 9]
     #second = [2, 4, 6, 8, 10]
@@ -193,9 +211,13 @@ def main():
     #if value:
     #    print(f'"{given_word}" is a palindrome')
     #----------------------------
-    number_of_coins = 25
-    value = coins_problem(number_of_coins)
-    print(f' -{number_of_coins}$ change in bank notes with values of 3 and 5 dollars: {value}')
+    #number_of_coins = 23
+    #value = coins_problem(number_of_coins)
+    #print(f' -> {number_of_coins}$ change in bank notes with values of 3 and 5 dollars: {value} <-')
+    #----------------------------
+    x = coins_another_value(189)
+    if x != 1:
+        print(x)
     #----------------------------
 
 
