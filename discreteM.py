@@ -213,11 +213,14 @@ def main():
     #----------------------------
     #number_of_coins = 23
     #value = coins_problem(number_of_coins)
-    #print(f' -> {number_of_coins}$ change in bank notes with values of 3 and 5 dollars: {value} <-')
+    #print(f' -> {number_of_coins}$ change in banknotes with values of 3 and 5 dollars: {value} <-')
     #----------------------------
-    x = coins_another_value(189)
+    x = coins_another_value(55)
     if x != 1:
         print(x)
+    #----------------------------
+    #y = fibonacci(6)
+    #print(y)
     #----------------------------
 
 
