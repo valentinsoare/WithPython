@@ -1,8 +1,6 @@
 #!/usr/bin/python
 
 import ctypes
-import time
-import sys
 
 
 class DynamicArray:
@@ -34,7 +32,9 @@ class DynamicArray:
     def extend(self, iterable_obj):
         iterable_size = len(iterable_obj)
 
-        if (self.capacity - self.count) <= iterable_size:
+        if self.capacity == 1:
+            self._resize(iterable_size * 3)
+        elif (self.capacity - self.count) <= iterable_size:
             self._resize(self._capacity * iterable_size)
 
         for i in range(iterable_size):
@@ -90,38 +90,3 @@ class DynamicArray:
 
     def _new_array(self, given_capacity):
         return (given_capacity * ctypes.py_object)()
-
-
-def init_array_class_and_print():
-    init_array = DynamicArray()
-
-    #start_time = time.time()
-
-    #for k in range(300):
-    #    init_array.extend([0] * 40)
-
-    #print(f'{init_array.count} and {init_array.capacity}')
-    #end_time = time.time()
-
-    #print(f'{(end_time - start_time) / 150}')
-
-    #------------------
-    init_array.extend([10, 40, 100, 23, 51])
-
-    for i in init_array:
-        print(f'{i}', end=" ")
-
-    print()
-    init_array.insert(2, 1000)
-
-    for i in init_array:
-        print(f'{i}', end=" ")
-    print()
-
-
-def main():
-    init_array_class_and_print()
-
-
-if __name__ == '__main__':
-    main()
