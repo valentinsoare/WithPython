@@ -1,30 +1,8 @@
 #!/usr/bin/python
 
 import ctypes
-import sys
 import time
-
-
-def list_length_size():
-    given_list = []
-
-    for i in range(20):
-        a = len(given_list)
-        b = sys.getsizeof(given_list)
-        print(f'Length: {a:>3d}, Size: {b:>3d} bytes')
-        given_list.append(i)
-
-
-def extend_array_under_list():
-    given_A = [4, 10, 20, 100, 401, 1001, 23, 67]
-    given_B = [0] * 16
-
-    for i in range(len(given_A)):
-       given_B[i] = given_A[i]
-
-    given_A = given_B
-
-    print(given_A)
+import sys
 
 
 class DynamicArray:
@@ -128,25 +106,22 @@ def init_array_class_and_print():
     #print(f'{(end_time - start_time) / 150}')
 
     #------------------
-    #init_array.extend([10, 40, 100, 23, 51])
-    #print(init_array.count)
+    init_array.extend([10, 40, 100, 23, 51])
 
-    #for i in init_array:
-    #    print(f'{i}', end=" ")
+    for i in init_array:
+        print(f'{i}', end=" ")
 
-    #init_array.insert(1, 20)
+    print()
+    init_array.insert(2, 1000)
 
-    #print(init_array.capacity)
-    #for i in init_array:
-    #    print(f'{i}', end=" ")
+    for i in init_array:
+        print(f'{i}', end=" ")
+    print()
 
 
 def main():
-    #list_length_size()
-    #extend_array_under_list()
     init_array_class_and_print()
 
 
 if __name__ == '__main__':
     main()
-
