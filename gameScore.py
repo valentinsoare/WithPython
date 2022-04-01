@@ -131,7 +131,7 @@ def second_implementation_with_score_board():
     #print(new_score_card)
 
     new_score_card.insertion_sort()
-    print(new_score_card)
+    #print(new_score_card)
 
 
 def main():
