@@ -43,9 +43,9 @@ class ArrayDynamic:
                 new_arr[length_of - i] = self._low_level_array[i]
 
             if step == 1:
-                return new_arr[end - 1:first - 1:step]
+                return new_arr[(end - 1):(first - 1):step]
             else:
-                return new_arr[end - 1:first:step]
+                return new_arr[(end - 1):first:step]
 
         elif not ((0 <= first < self._count - 1) and (0 < end <= self._count)):
             raise IndexError('Index value not valid!')
@@ -104,8 +104,11 @@ class ArrayDynamic:
 
 
 def reversing(given_element):
-    given_element.reverse_the_array()
-    return given_element
+    reversed_array = ArrayDynamic()
+    for i in range(given_element.count - 1, -1, -1):
+        reversed_array.append(given_element[i])
+
+    return reversed_array
 
 
 def main():
@@ -118,11 +121,9 @@ def main():
 
     default_array.insert_at(1, 7)
     print(default_array)
-    #reversed_element = reversing(default_array)
-    #print(reversed_element)
 
-    slice_of_array_from_end = default_array[-4:-1]
-    print(slice_of_array_from_end)
+    reversed_element = reversing(default_array)
+    print(reversed_element)
 
 
 if __name__ == '__main__':
