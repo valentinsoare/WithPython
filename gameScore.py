@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import operator
-from dynamicArray import DynamicArray
+from arrayDynamic import ArrayDynamic
 
 
 class ScoreEntry:
@@ -86,13 +86,13 @@ def first_implementation_with_dynamic_array():
     bobita = ScoreEntry('Bobita Bossu', 199, 1)
     ionut = ScoreEntry('Ionut H', 108, 3)
 
-    new_array = DynamicArray()
+    new_array = ArrayDynamic()
     new_array.extend([bogdan, valentin, andreea, madalina, bobita, ionut])
 
-    array_with_entries_scoring = DynamicArray()
+    array_with_entries_scoring = ArrayDynamic()
     array_with_entries_scoring.extend([(new_array[i].get_name, new_array[i].score) for i in range(new_array.count)])
 
-    sort_array_score = DynamicArray()
+    sort_array_score = ArrayDynamic()
     sort_array_score.extend(sorted(array_with_entries_scoring, key=operator.itemgetter(1), reverse=True))
 
     print(f'\n\033[1;31m{"---SORT BY SCORE---":>27}\033[0m\n')
@@ -102,7 +102,7 @@ def first_implementation_with_dynamic_array():
         print(f'{count}. Name: {name[0]}, {name[1]}; score: {score}')
         count += 1
 
-    array_with_tries = DynamicArray()
+    array_with_tries = ArrayDynamic()
     array_with_tries.extend([(new_array[i].get_name, new_array[i].number_tries) for i in range(new_array.count)])
 
     print(f'\n\033[1;33m{"---SORT BY NUMBER OF TRIES---":>37}\033[0m\n')
@@ -121,7 +121,7 @@ def second_implementation_with_score_board():
     stelian = ScoreEntry('Stelian S', 370, 1)
 
     new_score_card = Scoreboard(10)
-    default_array_with_elements = DynamicArray()
+    default_array_with_elements = ArrayDynamic()
 
     default_array_with_elements.extend([valentin, gabriela, andreea, tudorina, stelian])
 
