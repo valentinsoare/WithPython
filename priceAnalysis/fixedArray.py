@@ -76,16 +76,13 @@ class FixedArray:
     def execute_next(self):
         return self.__next__()
 
-    def fixed_to_dict(self, index_values=None):
-        fixed_dict_return = {}
-        if isinstance(index_values, list) or isinstance(index_values, dynArray.DynamicArray) or isinstance(index_values, FixedArray):
-            for i in range(self._fixed_count):
-                fixed_dict_return[index_values[i]] = self._fixed_array[i]
-        else:
-            for i in range(self._fixed_count):
-                fixed_dict_return[i] = self._fixed_array[i]
+    def fixed_to_dict(self):
+        fixed_to_dict_arr = dict([i for i in enumerate(self._fixed_array) if i[1] is not None])
+        return fixed_to_dict_arr
 
-        return fixed_dict_return
+    def fixed_to_tuple(self):
+        fixed_to_tuple_arr = [i for i in enumerate(self._fixed_array) if i[1] is not None]
+        return fixed_to_tuple_arr
 
     def add_in_descending_sorter_order(self, given_value):
         if self._fixed_count < self._fixed_capacity or given_value > self._fixed_array[self._fixed_count - 1]:
@@ -133,8 +130,19 @@ class FixedArray:
             start_index += 1
             end_index -= 1
 
-    def __str__(self):
+    def sort_array(self):
+        for i in range(1, self._fixed_count):
+            j = i
+            element_in_outer_loop = self._fixed_array[i]
+            while j > 0 and self._fixed_array[j - 1] > element_in_outer_loop:
+                self._fixed_array[j] = self._fixed_array[j-1]
+                j -= 1
 
+            self._fixed_array[j] = element_in_outer_loop
+
+        return self._fixed_array
+
+    def __str__(self):
         to_return = '['
 
         for i in range(self.fixed_count):
@@ -148,7 +156,12 @@ class FixedArray:
 
 def to_fixed_array(given_values):
     new_arr = FixedArray(given_values)
-    return new_arr.reverse_the_array_flash()
+    return new_arr
+
+
+def to_dyn_array(given_arr):
+    arr_to_return = dynArray.DynamicArray(given_arr)
+    return arr_to_return
 
 
 def reverse_order(given_values):
@@ -156,6 +169,3 @@ def reverse_order(given_values):
     to_return.reverse_the_array_flash()
 
     return to_return
-
-
-
