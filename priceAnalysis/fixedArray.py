@@ -130,13 +130,19 @@ class FixedArray:
             start_index += 1
             end_index -= 1
 
-    def sort_array(self):
+    def sort_array(self, reverse=False):
         for i in range(1, self._fixed_count):
             j = i
             element_in_outer_loop = self._fixed_array[i]
-            while j > 0 and self._fixed_array[j - 1] > element_in_outer_loop:
-                self._fixed_array[j] = self._fixed_array[j-1]
-                j -= 1
+
+            if not reverse:
+                while j > 0 and self._fixed_array[j - 1] > element_in_outer_loop:
+                    self._fixed_array[j] = self._fixed_array[j-1]
+                    j -= 1
+            else:
+                while j > 0 and self._fixed_array[j - 1] < element_in_outer_loop:
+                    self._fixed_array[j] = self._fixed_array[j - 1]
+                    j -= 1
 
             self._fixed_array[j] = element_in_outer_loop
 

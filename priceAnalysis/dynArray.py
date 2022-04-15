@@ -210,6 +210,21 @@ class DynamicArray:
         self._low_level_array = new_array_for_swap
         self._capacity = given_capacity
 
+    def dyn_sort(self, reverse=False):
+
+        for i in range(1, self._count):
+            j = i
+            outer_element_from_loop = self._low_level_array[i]
+            if not reverse:
+                while j > 0 and self._low_level_array[j - 1] > outer_element_from_loop:
+                    self._low_level_array[j] = self._low_level_array[j - 1]
+                    j -= 1
+            else:
+                while j > 0 and self._low_level_array[j - 1] < outer_element_from_loop:
+                    self._low_level_array[j] = self._low_level_array[j - 1]
+                    j -= 1
+
+            self._low_level_array[j] = outer_element_from_loop
 
     def _new_low_level_array_c(self, capacity_given):
         return (capacity_given * ctypes.py_object)()
