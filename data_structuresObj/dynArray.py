@@ -3,6 +3,7 @@
 
 import ctypes
 import fixedArray
+import stackArray
 
 
 class DynamicArray:
@@ -274,3 +275,8 @@ def to_dynamic_array(given_array):
 def to_fixed_array(given_arr):
     to_return = fixedArray.FixedArray(given_arr)
     return to_return
+
+
+def to_stack_array(given_arr):
+    for_return = stackArray.StackArray(list(given_arr))
+    return for_return

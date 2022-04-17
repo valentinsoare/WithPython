@@ -1,17 +1,15 @@
 #!/usr/bin/python
-import operator
 
+import string
 import dynArray
 import fixedArray
 import stackArray
 
 
 def main():
-    main_array_fixed = fixedArray.FixedArray(['math', 'physics', 'chemistry', 'computer science', 'english'])
-    ab = main_array_fixed.fixed_to_dict(given_keys=[1, 2, 3, 4, 5])
-
-    for i, j in sorted(ab.items(), key=operator.itemgetter(0), reverse=True):
-        print(f'{i}. {j}')
+    classes = fixedArray.FixedArray(['math', 'physics', 'chemistry', 'computer science', 'english'])
+    classes_dict = classes.fixed_to_dict(given_keys=list(string.ascii_uppercase[0:5]), to_return=1)
+    classes_stack_array = fixedArray.to_stack(classes_dict)
 
 
 if __name__ == '__main__':

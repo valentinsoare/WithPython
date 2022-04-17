@@ -1,6 +1,10 @@
 #!/usr/bin/python
 
-# adapter design pattern
+import fixedArray
+import dynArray
+
+#adapter design pattern
+
 
 class Empty(Exception):
     pass
@@ -23,11 +27,14 @@ class StackArray:
     def length(self):
         return len(self._data)
 
+    def __getitem__(self, item):
+        if self.length == 0:
+            raise Empty('Stack is empty.')
+
+        return self._data[item]
+
     def __len__(self):
         return len(self._data)
-
-    def __getitem__(self, item):
-        return self._data[item]
 
     def is_empty(self):
         if len(self._data) == 0:
@@ -57,10 +64,6 @@ class StackArray:
             return f''
 
 
-def main():
-    given_array = StackArray([('lux', 'opulenta'), ('bani', 'valoare')])
-    print(given_array.pop())
-
-
-if __name__ == '__main__':
-    main()
+def to_fixed_array(given_arr):
+    new_arr_to_swap = fixedArray.FixedArray(list(given_arr))
+    return new_arr_to_swap

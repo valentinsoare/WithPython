@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import dynArray
+import stackArray
 
 
 class FixedArray:
@@ -57,7 +58,7 @@ class FixedArray:
 
     def __iter__(self):
         self._iterator_element = 0
-        return self
+        return self._fixed_array
 
     def __next__(self):
         if self._iterator_element < self._fixed_count:
@@ -76,7 +77,7 @@ class FixedArray:
     def execute_next(self):
         return self.__next__()
 
-    def fixed_to_dict(self, given_keys=None):
+    def fixed_to_dict(self, given_keys=None, to_return=0):
         fixed_to_dict_arr = {}
 
         if given_keys is None:
@@ -84,7 +85,10 @@ class FixedArray:
         elif isinstance(given_keys, list) and len(given_keys) != 0:
             fixed_to_dict_arr = {given_keys[i]: self._fixed_array[i] for i in range(self.fixed_count)}
 
-        return fixed_to_dict_arr
+        if to_return == 1:
+            return fixed_to_dict_arr
+        elif to_return == 0:
+            self._fixed_array = fixed_to_dict_arr
 
     def fixed_to_tuple(self):
         fixed_to_tuple_arr = [i for i in enumerate(self._fixed_array) if i[1] is not None]
@@ -181,3 +185,16 @@ def reverse_order(given_values):
     to_return.reverse_the_array_flash()
 
     return to_return
+
+
+def to_stack(given_values):
+    values_to_add = []
+    if isinstance(given_values, dict):
+        values_to_add = [(i, j) for i, j in given_values.items()]
+    elif isinstance(given_values, list) or isinstance(given_values, tuple) or \
+            isinstance(given_values, FixedArray) or isinstance(given_values, dynArray.DynamicArray):
+        values_to_add = [k for k in given_values]
+
+    stack_to_return = stackArray.StackArray(values_to_add)
+
+    return stack_to_return
