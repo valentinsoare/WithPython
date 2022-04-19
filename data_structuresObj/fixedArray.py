@@ -140,23 +140,28 @@ class FixedArray:
             start_index += 1
             end_index -= 1
 
-    def sort_array(self, reverse=False):
+    def sort_array(self, reverse=False, to_return=False):
+        array_to_work_on = self._fixed_array
+
         for i in range(1, self._fixed_count):
             j = i
-            element_in_outer_loop = self._fixed_array[i]
+            element_in_outer_loop = array_to_work_on[i]
 
             if not reverse:
-                while j > 0 and self._fixed_array[j - 1] > element_in_outer_loop:
-                    self._fixed_array[j] = self._fixed_array[j-1]
+                while j > 0 and array_to_work_on[j - 1] > element_in_outer_loop:
+                    array_to_work_on[j] = array_to_work_on[j-1]
                     j -= 1
             else:
-                while j > 0 and self._fixed_array[j - 1] < element_in_outer_loop:
-                    self._fixed_array[j] = self._fixed_array[j - 1]
+                while j > 0 and array_to_work_on[j - 1] < element_in_outer_loop:
+                    array_to_work_on[j] = array_to_work_on[j - 1]
                     j -= 1
 
-            self._fixed_array[j] = element_in_outer_loop
+            array_to_work_on[j] = element_in_outer_loop
 
-        return self._fixed_array
+        if to_return:
+            return FixedArray(array_to_work_on)
+        else:
+            self._fixed_array = array_to_work_on
 
     def __str__(self):
         to_return = '['
@@ -193,7 +198,7 @@ def to_stack(given_values):
         values_to_add = [(i, j) for i, j in given_values.items()]
     elif isinstance(given_values, list) or isinstance(given_values, tuple) or \
             isinstance(given_values, FixedArray) or isinstance(given_values, dynArray.DynamicArray):
-        values_to_add = [k for k in given_values]
+        values_to_add = [given_values[k] for k in range(len(given_values))]
 
     stack_to_return = stackArray.StackArray(values_to_add)
 

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-import fixedArray
 import dynArray
+import fixedArray
 
 #adapter design pattern
 
@@ -35,6 +35,19 @@ class StackArray:
 
     def __len__(self):
         return len(self._data)
+
+    def __iter__(self):
+        self._iter_element = 0
+        return self._data
+
+    def __next__(self):
+        if self._iter_element < self.length:
+            element_to_return = self._data[self._iter_element]
+            self._iter_element += 1
+        else:
+            raise StopIteration
+
+        return element_to_return
 
     def is_empty(self):
         if len(self._data) == 0:

@@ -2,9 +2,8 @@
 
 
 import ctypes
-import fixedArray
 import stackArray
-
+import fixedArray
 
 class DynamicArray:
     def __init__(self, given_values=None):
