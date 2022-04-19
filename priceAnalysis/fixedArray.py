@@ -76,8 +76,14 @@ class FixedArray:
     def execute_next(self):
         return self.__next__()
 
-    def fixed_to_dict(self):
-        fixed_to_dict_arr = dict([i for i in enumerate(self._fixed_array) if i[1] is not None])
+    def fixed_to_dict(self, our_keys=[]):
+        fixed_to_dict_arr = {}
+
+        if isinstance(our_keys, list) and len(our_keys) != 0:
+            fixed_to_dict_arr = {our_keys[i]: self._fixed_array[i] for i in range(len(self._fixed_array))}
+        elif len(our_keys) == 0:
+            fixed_to_dict_arr = dict([i for i in enumerate(self._fixed_array) if i[1] is not None])
+
         return fixed_to_dict_arr
 
     def fixed_to_tuple(self):
@@ -175,3 +181,11 @@ def reverse_order(given_values):
     to_return.reverse_the_array_flash()
 
     return to_return
+
+
+def to_dictionary(given_values, given_keys):
+    dict_to_return = FixedArray(given_values)
+    dict_to_return.fixed_to_dict(given_keys)
+
+    return dict_to_return
+
