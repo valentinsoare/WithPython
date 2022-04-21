@@ -77,18 +77,15 @@ class FixedArray:
     def execute_next(self):
         return self.__next__()
 
-    def fixed_to_dict(self, given_keys=None, to_return=0):
+    def fixed_to_dict(self, given_keys=None):
         fixed_to_dict_arr = {}
 
         if given_keys is None:
             fixed_to_dict_arr = dict([i for i in enumerate(self._fixed_array) if i[1] is not None])
         elif isinstance(given_keys, list) and len(given_keys) != 0:
-            fixed_to_dict_arr = {given_keys[i]: self._fixed_array[i] for i in range(self.fixed_count)}
+            fixed_to_dict_arr = {given_keys[i]: self._fixed_array[i] for i in range(len(given_keys))}
 
-        if to_return == 1:
-            return fixed_to_dict_arr
-        elif to_return == 0:
-            self._fixed_array = fixed_to_dict_arr
+        return fixed_to_dict_arr
 
     def fixed_to_tuple(self):
         fixed_to_tuple_arr = [i for i in enumerate(self._fixed_array) if i[1] is not None]
@@ -153,7 +150,7 @@ class FixedArray:
                     j -= 1
             else:
                 while j > 0 and array_to_work_on[j - 1] < element_in_outer_loop:
-                    array_to_work_on[j] = array_to_work_on[j - 1]
+                    array_to_work_on[j] = array_to_work_on[j-1]
                     j -= 1
 
             array_to_work_on[j] = element_in_outer_loop
