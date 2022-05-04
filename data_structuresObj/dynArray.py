@@ -5,6 +5,7 @@ import ctypes
 import stackArray
 import fixedArray
 
+
 class DynamicArray:
     def __init__(self, given_values=None):
         if isinstance(given_values, list) and len(given_values) > 0:
@@ -21,8 +22,12 @@ class DynamicArray:
             self._capacity = given_values
             self._low_level_array = self._new_low_level_array_c(self._capacity)
         elif isinstance(given_values, fixedArray.FixedArray):
-            self._count = len(given_values)
-            self._capacity = self._count
+            self._count = given_values.fixed_count
+            self._capacity = given_values.fixed_capacity
+            self._low_level_array = given_values
+        elif isinstance(given_values, DynamicArray):
+            self._count = given_values.count
+            self._capacity = given_values.capacity
             self._low_level_array = given_values
 
     @property
@@ -197,8 +202,9 @@ class DynamicArray:
             start_index = 0
             end_index = self._count - 1
 
-        while start_index < end_index:
-            self._low_level_array[start_index], self._low_level_array[end_index] = self._low_level_array[end_index], self._low_level_array[start_index]
+        while end_index > start_index:
+            self._low_level_array[start_index], self._low_level_array[end_index] = self._low_level_array[end_index], \
+                                                                                   self._low_level_array[start_index]
             start_index += 1
             end_index -= 1
 
@@ -212,7 +218,6 @@ class DynamicArray:
         self._capacity = given_capacity
 
     def dyn_sort(self, reverse=False):
-
         for i in range(1, self._count):
             j = i
             outer_element_from_loop = self._low_level_array[i]
@@ -246,16 +251,15 @@ class DynamicArray:
             for i in range(self._count):
                 dict_to_return[key_values[i]] = self._low_level_array[i]
         elif key_values is None:
-            for i in range(self._count):
-                dict_to_return[i] = self._low_level_array[i]
+            for j in range(self._count):
+                dict_to_return[j] = self._low_level_array[j]
 
         return dict_to_return
 
 
 def reversing(given_element):
-    reversed_array = DynamicArray()
-    for i in range(given_element.count - 1, -1, -1):
-        reversed_array.dyn_append(given_element[i])
+    reversed_array = DynamicArray(given_element)
+    reversed_array.dyn_reverse_the_array_flash()
 
     return reversed_array
 
