@@ -45,7 +45,7 @@ def decrypt(encrypted_message, rotation_value):
 def main():
     rotated_list = encrypt_rule(encrypt_by_rotation=8)
 
-    message_after_encryption = encrypt("ce facem boss aici", rotated_list)
+    message_after_encryption = encrypt("ce face Mihaita la munte ?", rotated_list)
     print(f'Message after encryption: {message_after_encryption}')
 
     decrypted_message = decrypt(message_after_encryption, rotation_value=8)
