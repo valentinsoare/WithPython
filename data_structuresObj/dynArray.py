@@ -126,7 +126,6 @@ class DynamicArray:
             self._count += 1
 
     def dyn_like_pop(self, index=None):
-
         if (index == self._count - 1) or (index is None):
 
             for_return = self._low_level_array[self._count - 1]
