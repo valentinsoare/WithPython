@@ -24,8 +24,10 @@ class Deque:
         return self._number_of_elements
 
     def is_empty(self):
-        variable_to_go = True if self._number_of_elements == 0 else variable_to_go = False
-        return variable_to_go
+        if self._number_of_elements == 0:
+            return True
+        else:
+            return False
 
     def first(self):
         if self.is_empty():

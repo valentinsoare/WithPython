@@ -9,6 +9,10 @@ import queueArray
 import dequeArray
 import numpy as np
 import pandas as pd
+import collections
+import stackWithLinkedList
+import queueWithSingleLinkedList
+
 
 
 def main():
@@ -63,23 +67,48 @@ def main():
     ##print(value_y)
     #print(f'{given_queue}', end="\n\n")
 
-    ###---deque running
+    ###-----------------------deque running
 
-    given_deck = dequeArray.Deque()
+    #given_deck = dequeArray.Deque()
 
-    given_deck.add_first(10)
-    given_deck.add_first(40)
-    given_deck.add_first(25)
-    given_deck.add_last(100)
-    given_deck.add_last(44)
-    given_deck.add_last(13)
+    #given_deck.add_first(10)
+    #given_deck.add_first(40)
+    #given_deck.add_first(25)
+    #given_deck.add_last(100)
+    #given_deck.add_last(44)
+    #given_deck.add_last(13)
 
     #print(given_deck)
-    print(given_deck.remove_first())
-    given_deck.add_last(201)
+    #print(given_deck.remove_first())
+    #given_deck.add_last(201)
 
-    given_deck.add_first(33)
-    print(given_deck[7])
+    #given_deck.add_first(33)
+    #print(given_deck)
+
+    ###------------------------stack with single linkedlist
+
+    #given_linked_list = stackWithLinkedList.LinkedStack()
+
+    #given_linked_list.push(20)
+    #given_linked_list.push(101)
+    #given_linked_list.push(44)
+
+    #print(given_linked_list)
+    #given_linked_list.push_last(50)
+
+    #print(given_linked_list)
+
+    ###-------------------------Queue with Single Linkedlist
+
+    queue_with_linked_list = queueWithSingleLinkedList.QueueLinkedList()
+
+    queue_with_linked_list.enqueue(40)
+    queue_with_linked_list.enqueue(22)
+    queue_with_linked_list.enqueue(99)
+    print(queue_with_linked_list)
+
+    ###-----------------------
+
 
 if __name__ == '__main__':
     main()
