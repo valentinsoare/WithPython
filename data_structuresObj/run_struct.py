@@ -108,7 +108,7 @@ def main():
     queue_with_linked_list.enqueue(123)
     queue_with_linked_list.enqueue(4762)
 
-    xx = list(queue_with_linked_list)
+    xx = queue_with_linked_list.get_position(1)
 
     print(xx)
 

@@ -59,6 +59,9 @@ class QueueLinkedList:
             count += 1
 
     def __iter__(self):
+        if self.is_empty():
+            raise Empty('Queue with single linked list is empty!')
+
         item = self._head
         while item:
             yield item.element
@@ -104,12 +107,27 @@ class QueueLinkedList:
 
         return value_to_return
 
-    def __str__(self):
-        to_print = '['
-
-        current_element = self._head
+    def get_position(self, given_value):
+        if self.is_empty():
+            raise Empty('Queue with linked list is empty!')
 
         count = 0
+        parsing_element = self._head
+
+        while parsing_element:
+            if parsing_element.element == given_value:
+                return count
+
+            parsing_element = parsing_element.next_object
+            count += 1
+
+        raise ValueError('Value was not find in the queue linked list.')
+
+    def __str__(self):
+        count = 0
+        to_print = '['
+        current_element = self._head
+
         while current_element:
             if count == self._size - 1:
                 to_print += str(current_element.element) + ']'
