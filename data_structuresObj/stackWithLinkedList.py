@@ -85,6 +85,13 @@ class LinkedStack:
 
         return var_to_return
 
+    def __iter__(self):
+        element_for_parse = self._head
+
+        while element_for_parse:
+            yield element_for_parse.element
+            element_for_parse = element_for_parse.next_object
+
     def __str__(self):
         if self.is_empty():
             raise Empty('Stack is empty, nothing to print!')

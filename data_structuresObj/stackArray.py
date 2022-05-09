@@ -3,8 +3,6 @@
 import dynArray
 import fixedArray
 
-#adapter design pattern
-
 
 class Empty(Exception):
     pass

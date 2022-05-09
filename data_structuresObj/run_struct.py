@@ -69,19 +69,18 @@ def main():
 
     ###-----------------------deque running
 
-    given_deck = dequeArray.Deque()
+    #given_deck = dequeArray.Deque()
 
-    given_deck.add_first(10)
-    given_deck.add_first(40)
-    given_deck.add_first(25)
+    #given_deck.add_first(10)
+    #given_deck.add_first(40)
+    #given_deck.add_first(25)
 
     #listing_transform = list(given_deck)
-    given_deck[0] = 23
+    #given_deck[0] = 23
 
-    print(given_deck)
+    #print(f'Deque array: {given_deck}')
+    #print(f'Converted to list: {listing_transform}')
 
-
-    #print(given_deck)
     #print(given_deck.remove_first())
     #given_deck.add_last(201)
 
@@ -110,19 +109,21 @@ def main():
     #queue_with_linked_list.enqueue(123)
     #queue_with_linked_list.enqueue(4762)
     #queue_with_linked_list.enqueue(9999)
-
     #xx = queue_with_linked_list.get_position(123)
 
     #print(xx)
     #print(queue_with_linked_list)
 
     ###-----------------------
+    given_stack = stackWithLinkedList.LinkedStack()
+    given_stack.push(40)
+    given_stack.push(201)
+    given_stack.push_last(119)
+    given_stack.push(5)
 
-    #given_stack = stackWithLinkedList.LinkedStack()
-    #given_stack.push(40)
-    #xx = given_stack.pop()
+    xx = list(given_stack)
 
-    #print(xx)
+    print(xx)
 
 if __name__ == '__main__':
     main()
