@@ -42,6 +42,44 @@ class QueueLinkedList:
     def last(self):
         return self._tail.element
 
+    def __getitem__(self, item):
+        if self.is_empty():
+            raise Empty('Queue with linked list is empty!')
+        elif not 0 <= item < self._size:
+            raise ValueError('Given key is not available!')
+
+        count = 0
+        item_to_return = self._head
+
+        while count < self._size:
+            if count == item:
+                return str(item_to_return.element)
+
+            item_to_return = item_to_return.next_object
+            count += 1
+
+    def __iter__(self):
+        item = self._head
+        while item:
+            yield item.element
+            item = item.next_object
+
+    def __setitem__(self, key, value):
+        if self.is_empty():
+            raise Empty('Queue with linked list is empty!')
+        elif not 0 <= key < self._size:
+            raise ValueError('Key to set/modify not available!')
+
+        count = 0
+        element_to_set = self._head
+
+        while count < self._size:
+            if count == key:
+                element_to_set._element = value
+
+            element_to_set = element_to_set.next_object
+            count += 1
+
     def enqueue(self, element):
         new_element = self._Node(element, None)
 
@@ -82,9 +120,3 @@ class QueueLinkedList:
             count += 1
 
         return to_print
-
-
-
-
-
-

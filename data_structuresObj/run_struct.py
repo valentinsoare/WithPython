@@ -105,7 +105,19 @@ def main():
     queue_with_linked_list.enqueue(40)
     queue_with_linked_list.enqueue(22)
     queue_with_linked_list.enqueue(99)
-    print(queue_with_linked_list)
+    queue_with_linked_list.enqueue(123)
+    queue_with_linked_list.enqueue(4762)
+
+    xx = list(queue_with_linked_list)
+
+    print(xx)
+
+
+
+
+
+
+
 
     ###-----------------------
 
