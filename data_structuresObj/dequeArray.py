@@ -29,6 +29,29 @@ class Deque:
         else:
             return False
 
+    def __iter__(self):
+        count = 0
+        element_position = self._first_element
+
+        while count < self._number_of_elements:
+            yield self._array_data[element_position]
+            element_position = (element_position + 1) % len(self._array_data)
+            count += 1
+
+    def __setitem__(self, key, value):
+        if self.is_empty():
+            raise Empty('Deque array is empty!')
+
+        count = 0
+        element_selector = self._first_element
+
+        while count < self._number_of_elements:
+            if count == key:
+                self._array_data[element_selector] = value
+
+            element_selector = (element_selector + 1) % len(self._array_data)
+            count += 1
+
     def first(self):
         if self.is_empty():
             return Empty('Deque is empty!')

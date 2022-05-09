@@ -86,6 +86,9 @@ class LinkedStack:
         return var_to_return
 
     def __str__(self):
+        if self.is_empty():
+            raise Empty('Stack is empty, nothing to print!')
+
         value_to_return = '['
         present_object = self.head
 

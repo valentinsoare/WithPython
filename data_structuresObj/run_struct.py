@@ -69,14 +69,17 @@ def main():
 
     ###-----------------------deque running
 
-    #given_deck = dequeArray.Deque()
+    given_deck = dequeArray.Deque()
 
-    #given_deck.add_first(10)
-    #given_deck.add_first(40)
-    #given_deck.add_first(25)
-    #given_deck.add_last(100)
-    #given_deck.add_last(44)
-    #given_deck.add_last(13)
+    given_deck.add_first(10)
+    given_deck.add_first(40)
+    given_deck.add_first(25)
+
+    #listing_transform = list(given_deck)
+    given_deck[0] = 23
+
+    print(given_deck)
+
 
     #print(given_deck)
     #print(given_deck.remove_first())
@@ -100,27 +103,26 @@ def main():
 
     ###-------------------------Queue with Single Linkedlist
 
-    queue_with_linked_list = queueWithSingleLinkedList.QueueLinkedList()
+    #queue_with_linked_list = queueWithSingleLinkedList.QueueLinkedList()
 
-    queue_with_linked_list.enqueue(40)
-    queue_with_linked_list.enqueue(22)
-    queue_with_linked_list.enqueue(99)
-    queue_with_linked_list.enqueue(123)
-    queue_with_linked_list.enqueue(4762)
+    #queue_with_linked_list.enqueue(4)
+    #queue_with_linked_list.enqueue(22)
+    #queue_with_linked_list.enqueue(123)
+    #queue_with_linked_list.enqueue(4762)
+    #queue_with_linked_list.enqueue(9999)
 
-    xx = queue_with_linked_list.get_position(1)
+    #xx = queue_with_linked_list.get_position(123)
 
-    print(xx)
-
-
-
-
-
-
-
+    #print(xx)
+    #print(queue_with_linked_list)
 
     ###-----------------------
 
+    #given_stack = stackWithLinkedList.LinkedStack()
+    #given_stack.push(40)
+    #xx = given_stack.pop()
+
+    #print(xx)
 
 if __name__ == '__main__':
     main()
