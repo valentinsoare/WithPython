@@ -25,9 +25,6 @@ class LinkedStack:
         self._head = None
         self._tail = None
 
-    def __len__(self):
-        return self._size
-
     @property
     def head(self):
         return self._head
@@ -39,6 +36,29 @@ class LinkedStack:
     @property
     def tail(self):
         return self._tail
+
+    def __len__(self):
+        return self._size
+
+    def __getitem__(self, item):
+        if self.is_empty():
+            raise Empty('Stack with linked list is empty!')
+
+        count = 0
+        element_to_get = self._head
+
+        while count < self._size:
+            if count == item:
+                return str(element_to_get.element)
+            element_to_get = element_to_get.next_object
+            count += 1
+
+    def __iter__(self):
+        element_for_parse = self._head
+
+        while element_for_parse:
+            yield element_for_parse.element
+            element_for_parse = element_for_parse.next_object
 
     def is_empty(self):
         if self._size == 0:
@@ -84,13 +104,6 @@ class LinkedStack:
         self._size -= 1
 
         return var_to_return
-
-    def __iter__(self):
-        element_for_parse = self._head
-
-        while element_for_parse:
-            yield element_for_parse.element
-            element_for_parse = element_for_parse.next_object
 
     def __str__(self):
         if self.is_empty():

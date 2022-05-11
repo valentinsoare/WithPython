@@ -6,6 +6,7 @@ class Empty(Exception):
 
 class QueueArray:
     DEFAULT_CAP = 10
+    __slots__ = '_data', '_size', '_first_element'
 
     def __init__(self):
         self._data = [None] * QueueArray.DEFAULT_CAP

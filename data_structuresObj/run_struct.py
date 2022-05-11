@@ -12,6 +12,7 @@ import pandas as pd
 import collections
 import stackWithLinkedList
 import queueWithSingleLinkedList
+import queueWithCircularlyLinkedList
 
 
 
@@ -115,15 +116,30 @@ def main():
     #print(queue_with_linked_list)
 
     ###-----------------------
-    given_stack = stackWithLinkedList.LinkedStack()
-    given_stack.push(40)
-    given_stack.push(201)
-    given_stack.push_last(119)
-    given_stack.push(5)
+    #counting = 0
+    #given_stack = stackWithLinkedList.LinkedStack()
 
-    xx = list(given_stack)
+    #while counting < 20:
+    #    given_stack.push(random.randint(1, 101))
+    #    given_stack.push_last(random.randint(400, 999))
+    #    counting += 1
 
-    print(xx)
+    #print(f'{given_stack}')
+
+    #---------------------------------------
+
+    given_queue = queueWithCircularlyLinkedList.QueueCircularlyLinkedList()
+    given_queue.enqueue_back(4)
+    given_queue.enqueue_back(2)
+    given_queue.enqueue_back(100)
+
+    print(given_queue)
+    given_queue.enqueue_front(1)
+
+    print(given_queue)
+
+    aa = given_queue.dequeue_back()
+    print(aa)
 
 if __name__ == '__main__':
     main()

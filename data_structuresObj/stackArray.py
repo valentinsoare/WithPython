@@ -9,6 +9,9 @@ class Empty(Exception):
 
 
 class StackArray:
+
+    __slots__ = '_data'
+
     def __init__(self, data=None):
         if isinstance(data, list):
             self._data = data
