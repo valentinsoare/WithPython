@@ -20,6 +20,8 @@ class QueueCircularlyLinkedList:
         def next_object(self):
             return self._next_object
 
+    MESSAGE_IF_EMPTY = 'Queue is empty'
+
     def __init__(self):
         self._tail = None
         self._size = 0
@@ -36,6 +38,23 @@ class QueueCircularlyLinkedList:
 
         yield current.next_object.element
 
+    def __getitem__(self, item):                               # not efficient or recommended for a queue
+        if self.is_empty():
+            raise Empty(self.MESSAGE_IF_EMPTY)
+        elif not 0 <= item < self.size:
+            raise IndexError('Index not within range')
+
+        count = 0
+        current_for_parse = self.tail.next_object
+
+        while count < self.size:
+            if count == item:
+                value_to_return = current_for_parse.element
+                return value_to_return
+
+            current_for_parse = current_for_parse.next_object
+            count += 1
+
     @property
     def tail(self):
         return self._tail
@@ -43,6 +62,20 @@ class QueueCircularlyLinkedList:
     @property
     def size(self):
         return self._size
+
+    def first(self):
+        if self.is_empty():
+            raise Empty(self.MESSAGE_IF_EMPTY)
+
+        element_to_return = self.tail.next_object
+        return element_to_return.element
+
+    def last(self):
+        if self.is_empty():
+            raise Empty(self.MESSAGE_IF_EMPTY)
+
+        element_to_return = self.tail.element
+        return element_to_return
 
     def is_empty(self):
         if self._size == 0:
@@ -52,7 +85,7 @@ class QueueCircularlyLinkedList:
 
     def dequeue_front(self):
         if self.is_empty():
-            raise Empty('Queue with circular linked list is empty!')
+            raise Empty(self.MESSAGE_IF_EMPTY)
         elif self.size == 1:
             heading = self.tail.element
             self._tail = None
@@ -68,7 +101,7 @@ class QueueCircularlyLinkedList:
         #back of a queue with a single linked list, we need a double
 
         if self.is_empty():
-            raise Empty('Queue with circular linked list is empty!')
+            raise Empty(self.MESSAGE_IF_EMPTY)
         elif self._size == 1:
             backing = self.tail.element
             self._tail = None
@@ -110,7 +143,7 @@ class QueueCircularlyLinkedList:
 
     def rotate(self):
         if self.is_empty():
-            raise Empty('Queue with circular linked list is empty!')
+            raise Empty(self.MESSAGE_IF_EMPTY)
         else:
             self._tail = self.tail.next_object    # tail value becomes old head value
 

@@ -9,7 +9,7 @@ import queueArray
 import dequeArray
 import numpy as np
 import pandas as pd
-import collections
+import simpleLinkedList
 import stackWithLinkedList
 import queueWithSingleLinkedList
 import queueWithCircularlyLinkedList
@@ -127,19 +127,32 @@ def main():
     #print(f'{given_stack}')
 
     #---------------------------------------
+    #given_queue = queueWithCircularlyLinkedList.QueueCircularlyLinkedList()
+    #given_queue.enqueue_back(4)
+    #given_queue.enqueue_back(2)
+    #given_queue.enqueue_back(100)
 
-    given_queue = queueWithCircularlyLinkedList.QueueCircularlyLinkedList()
-    given_queue.enqueue_back(4)
-    given_queue.enqueue_back(2)
-    given_queue.enqueue_back(100)
+    #print(given_queue)
+    #given_queue.enqueue_front(1)
+    #print(given_queue)
 
-    print(given_queue)
-    given_queue.enqueue_front(1)
+    #given_queue.rotate()
+    #given_queue.enqueue_back(35)
 
-    print(given_queue)
+    #print(given_queue)
 
-    aa = given_queue.dequeue_back()
-    print(aa)
+    #----------------------------------------
+
+    start_linked_list = simpleLinkedList.LinkedList()
+
+    start_linked_list.add_item_beginning(40)
+    start_linked_list.add_item_beginning(5)
+    start_linked_list.add_item_end(22)
+    start_linked_list.add_item_beginning(201)
+    start_linked_list.add_item_end(35)
+
+    print(start_linked_list.get_location(5))
+
 
 if __name__ == '__main__':
     main()
