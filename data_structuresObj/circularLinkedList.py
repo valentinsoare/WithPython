@@ -60,7 +60,7 @@ class CircularLinkedList:
             new_element._next_node = new_element
             self._head = new_element
         else:
-            new_element._next_node = self._head   # or new_element._next_node = self._tail.next_node
+            new_element._next_node = self._tail.next_node
             self._tail._next_node = new_element
 
         self._tail = new_element
@@ -97,7 +97,7 @@ class CircularLinkedList:
             new_element._next_node = new_element
             self._tail = new_element
         else:
-            new_element._next_node = self._head
+            new_element._next_node = self._tail.next_node
             self._tail._next_node = new_element
 
         self._head = new_element
@@ -129,7 +129,7 @@ class CircularLinkedList:
             current = current.next_node
             count += 1
 
-        current._next_node = self._head
+        current._next_node = self._tail.next_node
         self._tail = current
         self._size -= 1
 
@@ -164,6 +164,14 @@ class CircularLinkedList:
                 self._tail = None
 
             return element_to_remove.element
+
+    def rotate(self):
+        if self.is_empty():
+            raise Empty(self._MESSAGE_EMPTY)
+        else:
+            self._tail = self._tail.next_node
+            self._head = self._head.next_node
+            self._tail._next_node = self._head
 
     def __str__(self):
         if self.is_empty():

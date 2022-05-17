@@ -10,10 +10,11 @@ import dequeArray
 import numpy as np
 import pandas as pd
 import simpleLinkedList
-from circularLinkedList import CircularLinkedList
 import stackWithLinkedList
 import queueWithSingleLinkedList
 import queueWithCircularlyLinkedList
+from circularLinkedList import CircularLinkedList
+from doubleLinkedList import DoubleLinkedList
 
 
 def main():
@@ -173,33 +174,53 @@ def main():
     circ_list.add_item_end(404)
     circ_list.add_item_end(20)
     circ_list.add_item_end(11)
-
-    circ_list.add_item_beginning(8)
-    circ_list.add_item_beginning(2)
-
-    print(circ_list.head)
-    print(circ_list.tail)
+    print(circ_list)
+    circ_list.rotate()
     print(circ_list)
 
-    circ_list.insert_item_anywhere(2, 1000)
-    print(circ_list)
+    #circ_list.add_item_beginning(8)
+    #circ_list.add_item_beginning(2)
 
-    circ_list.insert_item_anywhere(0, 666)
-    print(circ_list)
+    #print(circ_list.head)
+    #print(circ_list.tail)
+    #print(circ_list)
 
-    ax = circ_list.remove_item_beginning()
-    print(circ_list)
-    print(ax)
-    print(circ_list.head)
-    print(circ_list.tail)
+    #circ_list.insert_item_anywhere(2, 1000)
+    #print(circ_list)
 
-    ay = circ_list.remove_item_end()
-    print(ay)
-    print(circ_list)
+    #circ_list.insert_item_anywhere(0, 666)
+    #print(circ_list)
 
-    az = circ_list.remove_item_anywhere(2)
-    print(circ_list)
-    print(az)
+    #ax = circ_list.remove_item_beginning()
+    #print(circ_list)
+    #print(ax)
+    #print(circ_list.head)
+    #print(circ_list.tail)
+
+    #ay = circ_list.remove_item_end()
+    #print(ay)
+    #print(circ_list)
+
+    #az = circ_list.remove_item_anywhere(2)
+    #print(circ_list)
+    #print(az)
+
+    #-------------------------------------
+    #double linkedlist
+
+    d_list = DoubleLinkedList()
+
+    d_list.add_item_start(40)
+    d_list.add_item_start(22)
+    d_list.add_item_start(100)
+    #print(d_list)
+
+    d_list.add_item_end(20)
+    d_list.add_item_end(9)
+    #print(d_list)
+
+    #print(f'{d_list.print_reverse_list()}')
+
 
 if __name__ == '__main__':
     main()
