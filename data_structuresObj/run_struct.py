@@ -10,10 +10,10 @@ import dequeArray
 import numpy as np
 import pandas as pd
 import simpleLinkedList
+from circularLinkedList import CircularLinkedList
 import stackWithLinkedList
 import queueWithSingleLinkedList
 import queueWithCircularlyLinkedList
-
 
 
 def main():
@@ -142,17 +142,64 @@ def main():
     #print(given_queue)
 
     #----------------------------------------
+    #Single linked list
 
-    start_linked_list = simpleLinkedList.LinkedList()
+    #start_linked_list = simpleLinkedList.LinkedList()
 
-    start_linked_list.add_item_beginning(40)
-    start_linked_list.add_item_beginning(5)
-    start_linked_list.add_item_end(22)
-    start_linked_list.add_item_beginning(201)
-    start_linked_list.add_item_end(35)
+    #start_linked_list.insert_element(100, 0)
+    #start_linked_list.add_item_beginning(44)
+    #start_linked_list.add_item_end(202)
 
-    print(start_linked_list.get_location(5))
+    #xx = start_linked_list.get_location(44)
 
+    #print(xx)
+
+    #start_linked_list.insert_element(4444, 3)
+    #print(start_linked_list)
+
+    #ax = start_linked_list.remove_item_beginning()
+    #print(ax)
+
+    #print(start_linked_list)
+
+    #axx = start_linked_list.remove_element_from_between(1)
+    #print(axx)
+
+    #print(start_linked_list)
+    #---------------------------------------------------
+    #Circular linked list
+
+    circ_list = CircularLinkedList()
+    circ_list.add_item_end(404)
+    circ_list.add_item_end(20)
+    circ_list.add_item_end(11)
+
+    circ_list.add_item_beginning(8)
+    circ_list.add_item_beginning(2)
+
+    print(circ_list.head)
+    print(circ_list.tail)
+    print(circ_list)
+
+    circ_list.insert_item_anywhere(2, 1000)
+    print(circ_list)
+
+    circ_list.insert_item_anywhere(0, 666)
+    print(circ_list)
+
+    ax = circ_list.remove_item_beginning()
+    print(circ_list)
+    print(ax)
+    print(circ_list.head)
+    print(circ_list.tail)
+
+    ay = circ_list.remove_item_end()
+    print(ay)
+    print(circ_list)
+
+    az = circ_list.remove_item_anywhere(2)
+    print(circ_list)
+    print(az)
 
 if __name__ == '__main__':
     main()
