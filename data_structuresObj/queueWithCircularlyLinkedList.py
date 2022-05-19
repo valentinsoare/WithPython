@@ -78,10 +78,7 @@ class QueueCircularlyLinkedList:
         return element_to_return
 
     def is_empty(self):
-        if self._size == 0:
-            return True
-        else:
-            return False
+        return self._size == 0
 
     def dequeue_front(self):
         if self.is_empty():

@@ -1,20 +1,21 @@
 #!/usr/bin/python
 
-import string
-import random
-import dynArray
-import fixedArray
-import stackArray
-import queueArray
-import dequeArray
-import numpy as np
-import pandas as pd
-import simpleLinkedList
-import stackWithLinkedList
-import queueWithSingleLinkedList
-import queueWithCircularlyLinkedList
-from circularLinkedList import CircularLinkedList
-from doubleLinkedList import DoubleLinkedList
+#import string
+#import random
+#import dynArray
+#import fixedArray
+#import stackArray
+#import queueArray
+#import dequeArray
+#import numpy as np
+#import pandas as pd
+#import simpleLinkedList
+#import stackWithLinkedList
+#import queueWithSingleLinkedList
+#import queueWithCircularlyLinkedList
+#from doubleLinkedList import DoubleLinkedList
+#from circularLinkedList import CircularLinkedList
+from stackWithArrays import StacksArray
 
 
 def main():
@@ -170,13 +171,13 @@ def main():
     #---------------------------------------------------
     #Circular linked list
 
-    circ_list = CircularLinkedList()
-    circ_list.add_item_end(404)
-    circ_list.add_item_end(20)
-    circ_list.add_item_end(11)
-    print(circ_list)
-    circ_list.rotate()
-    print(circ_list)
+    #circ_list = CircularLinkedList()
+    #circ_list.add_item_end(404)
+    #circ_list.add_item_end(20)
+    #circ_list.add_item_end(11)
+    #print(circ_list)
+    #circ_list.rotate()
+    #print(circ_list)
 
     #circ_list.add_item_beginning(8)
     #circ_list.add_item_beginning(2)
@@ -185,7 +186,7 @@ def main():
     #print(circ_list.tail)
     #print(circ_list)
 
-    #circ_list.insert_item_anywhere(2, 1000)
+    #circ_list.insert_item_anywhere(3, 1000)
     #print(circ_list)
 
     #circ_list.insert_item_anywhere(0, 666)
@@ -208,18 +209,54 @@ def main():
     #-------------------------------------
     #double linkedlist
 
-    d_list = DoubleLinkedList()
+    #d_list = DoubleLinkedList()
 
-    d_list.add_item_start(40)
-    d_list.add_item_start(22)
-    d_list.add_item_start(100)
+    #d_list.add_item_start(40)
+    #d_list.add_item_start(22)
+    #d_list.add_item_start(100)
+    #d_list.add_item_start(44)
+    #d_list.add_item_start(20)
+    #d_list.add_item_start(9)
+    #d_list.add_item_start(234)
+    #d_list.add_item_start(12)
+    #d_list.add_item_start(89)
+    #d_list.add_item_start(91)
     #print(d_list)
 
-    d_list.add_item_end(20)
-    d_list.add_item_end(9)
+    #d_list.insert_element(2, 1001)
     #print(d_list)
 
-    #print(f'{d_list.print_reverse_list()}')
+    #ax = d_list.remove_item_beginning()
+    #print(ax)
+    #print(d_list)
+
+    #xx = d_list.remove_item_end()
+    #print(xx)
+
+    #print(d_list)
+    #pp = d_list.remove_element(0)
+
+    #print(pp)
+
+    #d_list.add_item_start(57)
+    #print(d_list)
+
+    #aaa = d_list.remove_element(1)
+    #print(aaa)
+
+    #print(d_list)
+
+    #-------------------------------------------------
+    #stacksArray explainedVideo
+
+    given_stack = StacksArray()
+
+    given_stack.push(20)
+    given_stack.push(12)
+    given_stack.push(99)
+    given_stack.push(2)
+
+    print(given_stack)
 
 
 if __name__ == '__main__':
