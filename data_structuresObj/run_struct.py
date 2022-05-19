@@ -5,7 +5,7 @@
 #import dynArray
 #import fixedArray
 #import stackArray
-#import queueArray
+import queueArray
 #import dequeArray
 #import numpy as np
 #import pandas as pd
@@ -15,8 +15,9 @@
 #import queueWithCircularlyLinkedList
 #from doubleLinkedList import DoubleLinkedList
 #from circularLinkedList import CircularLinkedList
-from stackWithArrays import StacksArray
-
+#from stackWithArrays import StacksArray
+#from stacksLinkedList import StacksLinkedLists
+import queueWithArray
 
 def main():
     #classes = fixedArray.FixedArray(['math', 'physics', 'chemistry', 'object oriented programming', 'english'])
@@ -60,6 +61,7 @@ def main():
     #    given_queue.enqueue(number_to_add)
     #    n += 1
 
+    #given_queue
     #print(f'{given_queue}', end="\n\n")
 
     #value_x = given_queue.dequeue()
@@ -249,14 +251,49 @@ def main():
     #-------------------------------------------------
     #stacksArray explainedVideo
 
-    given_stack = StacksArray()
+    #given_stack = StacksArray()
 
-    given_stack.push(20)
-    given_stack.push(12)
-    given_stack.push(99)
-    given_stack.push(2)
+    #given_stack.push(20)
+    #given_stack.push(12)
+    #given_stack.push(99)
+    #given_stack.push(2)
 
-    print(given_stack)
+    #print(given_stack)
+
+    #given_stack.pop()
+    #print(given_stack.top())
+    #print(given_stack)
+
+    #---------------------------------------------
+    #stacks with LinkedList
+
+    #given_stack_with_linked = StacksLinkedLists()
+    #given_stack_with_linked.push(20)
+    #given_stack_with_linked.push(123)
+    #given_stack_with_linked.push(99)
+    #given_stack_with_linked.push(11)
+
+    #print(given_stack_with_linked)
+    #ax = given_stack_with_linked.pop()
+    #print(ax)
+    #print(given_stack_with_linked)
+    #print(given_stack_with_linked.bottom())
+
+    #-------------------------------------------
+    #Queue with Arrays
+
+    Q = queueWithArray.QueueArray()
+    Q.enqueue(44)
+    Q.enqueue(21)
+    Q.enqueue(98)
+    Q.enqueue(12)
+
+    print(Q)
+    ax = Q.dequeue()
+    print(ax)
+    print(Q)
+    #------------------------------
+
 
 
 if __name__ == '__main__':

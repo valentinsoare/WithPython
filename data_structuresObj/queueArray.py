@@ -85,8 +85,3 @@ class QueueArray:
             counting += 1
 
         return variable_to_return
-
-
-
-
-
