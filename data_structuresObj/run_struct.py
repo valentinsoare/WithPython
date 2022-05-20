@@ -17,7 +17,8 @@ import queueArray
 #from circularLinkedList import CircularLinkedList
 #from stackWithArrays import StacksArray
 #from stacksLinkedList import StacksLinkedLists
-import queueWithArray
+#import queueWithArray
+import queueWithTheCircularLinkedList
 
 def main():
     #classes = fixedArray.FixedArray(['math', 'physics', 'chemistry', 'object oriented programming', 'english'])
@@ -282,17 +283,38 @@ def main():
     #-------------------------------------------
     #Queue with Arrays
 
-    Q = queueWithArray.QueueArray()
-    Q.enqueue(44)
-    Q.enqueue(21)
-    Q.enqueue(98)
-    Q.enqueue(12)
+    #Q = queueWithArray.QueueArray()
+    #Q.enqueue(44)
+    #Q.enqueue(21)
+    #Q.enqueue(98)
+    #Q.enqueue(12)
+    #Q.enqueue(101)
+    #Q.enqueue(123)
+    #Q.enqueue(942)
 
-    print(Q)
-    ax = Q.dequeue()
-    print(ax)
-    print(Q)
+    #print(Q)
+    #ax = Q.dequeue()
+    #print(ax)
+    #print(Q)
     #------------------------------
+
+    #given_queue = queueWithTheCircularLinkedList.QueueCircularLinkedList()
+
+    #given_queue.enqueue(44)
+    #given_queue.enqueue(12)
+    #given_queue.enqueue(100)
+    #given_queue.enqueue(6)
+
+    #print(given_queue)
+    #given_queue.rotate()
+    #print(given_queue)
+
+    #extract_element_front = given_queue.dequeue()
+    #print(extract_element_front)
+    #print(given_queue)
+
+    #------------------------------
+    #double ended queues, DEques
 
 
 
