@@ -18,7 +18,8 @@ import queueArray
 #from stackWithArrays import StacksArray
 #from stacksLinkedList import StacksLinkedLists
 #import queueWithArray
-import queueWithTheCircularLinkedList
+#import queueWithTheCircularLinkedList
+import dequeWithArray
 
 def main():
     #classes = fixedArray.FixedArray(['math', 'physics', 'chemistry', 'object oriented programming', 'english'])
@@ -195,15 +196,15 @@ def main():
     #circ_list.insert_item_anywhere(0, 666)
     #print(circ_list)
 
-    #ax = circ_list.remove_item_beginning()
-    #print(circ_list)
-    #print(ax)
-    #print(circ_list.head)
-    #print(circ_list.tail)
+    # ax = circ_list.remove_item_beginning()
+    # print(circ_list)
+    # print(ax)
+    # print(circ_list.head)
+    # print(circ_list.tail)
 
-    #ay = circ_list.remove_item_end()
-    #print(ay)
-    #print(circ_list)
+    # ay = circ_list.remove_item_end()
+    # print(ay)
+    # print(circ_list)
 
     #az = circ_list.remove_item_anywhere(2)
     #print(circ_list)
@@ -309,12 +310,36 @@ def main():
     #given_queue.rotate()
     #print(given_queue)
 
-    #extract_element_front = given_queue.dequeue()
-    #print(extract_element_front)
-    #print(given_queue)
+    # extract_element_front = given_queue.dequeue()
+    # print(extract_element_front)
+    # print(given_queue)
 
     #------------------------------
-    #double ended queues, DEques
+    #double ended queues, DEques with array
+
+    given_q = dequeWithArray.DequeArray()
+
+    given_q.add_last(4)
+    given_q.add_last(20)
+    given_q.add_last(78)
+    given_q.add_first(100)
+    given_q.add_first(52)
+    given_q.add_last(123)
+    given_q.add_last(99)
+    given_q.add_first(67)
+
+    #print(given_q.first())
+    #print(given_q.last())
+
+    print(given_q)
+    extract_first = given_q.remove_first()
+    print(extract_first)
+    print(given_q)
+    given_q.rotate()
+
+
+    #----------------------------
+    #double ended queue with double linkedlist
 
 
 
