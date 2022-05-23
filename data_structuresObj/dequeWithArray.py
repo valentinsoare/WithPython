@@ -7,6 +7,7 @@ class Empty(Exception):
 class DequeArray:
     _ARRAY_CAPACITY = 10
     _EMPTY_MESSAGE = 'Double queue is empty!'
+    _NOT_VALID_MESSAGE = 'Value outside valid range!'
 
     def __init__(self):
         self._data = [None] * self._ARRAY_CAPACITY
@@ -33,6 +34,21 @@ class DequeArray:
 
         while count < self._size:
             yield self._data[f]
+            f = (f + 1) % len(self._data)
+            count += 1
+
+    def __getitem__(self, item):
+        if self.is_empty():
+            raise Empty(self._EMPTY_MESSAGE)
+        elif not 0 <= item < self._size:
+            raise IndexError(self._NOT_VALID_MESSAGE)
+
+        count = 0
+        f = self._first_element
+
+        while count < self._size:
+            if count == item:
+                return self._data[f]
             f = (f + 1) % len(self._data)
             count += 1
 

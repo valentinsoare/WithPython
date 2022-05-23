@@ -19,7 +19,9 @@ import queueArray
 #from stacksLinkedList import StacksLinkedLists
 #import queueWithArray
 #import queueWithTheCircularLinkedList
-import dequeWithArray
+#import dequeWithArray
+#from deQueWithDoubleLinkedList import DEqueueDoubleLinkedList
+import doublyLinkedBase
 
 def main():
     #classes = fixedArray.FixedArray(['math', 'physics', 'chemistry', 'object oriented programming', 'english'])
@@ -317,31 +319,73 @@ def main():
     #------------------------------
     #double ended queues, DEques with array
 
-    given_q = dequeWithArray.DequeArray()
+    #given_q = dequeWithArray.DequeArray()
 
-    given_q.add_last(4)
-    given_q.add_last(20)
-    given_q.add_last(78)
-    given_q.add_first(100)
-    given_q.add_first(52)
-    given_q.add_last(123)
-    given_q.add_last(99)
-    given_q.add_first(67)
+    #given_q.add_last(4)
+    #given_q.add_last(20)
+    #given_q.add_last(78)
+    #given_q.add_first(100)
+    #given_q.add_first(52)
+    #given_q.add_last(123)
+    #given_q.add_last(99)
+    #given_q.add_first(67)
 
     #print(given_q.first())
     #print(given_q.last())
 
-    print(given_q)
-    extract_first = given_q.remove_first()
-    print(extract_first)
-    print(given_q)
-    given_q.rotate()
+    #print(given_q)
+    #extract_first = given_q.remove_first()
+    #given_q.rotate()
+    #given_q.rotate()
 
+    #print(given_q)
 
-    #----------------------------
-    #double ended queue with double linkedlist
+    #print(given_q[7])
 
+    #--------------------------------------------------------
+    #double ended queue with double linked list
 
+    #given_q = DEqueueDoubleLinkedList()
+
+    #given_q.add_first(40)
+    #given_q.add_first(21)
+    #given_q.add_first(67)
+    #given_q.add_first(19)
+    #given_q.add_last(100)
+    #given_q.add_last(4)
+    #given_q.add_last(99)
+    #given_q.insert(7, 1000)
+    #given_q.insert(0, 400)
+    #given_q.insert(2, 4000)
+    #given_q.insert(6, 999)
+    #print(given_q)
+    #given_q.insert_between(55, 21, 67)
+    #print(len(given_q))
+    #print(given_q)
+
+    ##----------------------
+    #deque with double linkedlist with header and trailer as empty nodes
+
+    #given_deque = doublyLinkedBase.LinkedDeque()
+
+    #given_deque.insert_first(40)
+    #given_deque.insert_first(5)
+    #given_deque.insert_first(99)
+
+    #print(f'Size: {len(given_deque)}')
+    #print(given_deque)
+
+    #ax = given_deque.delete_last()
+    #print(given_deque)
+    #print(f'Deleted Element from the list: {ax}')
+
+    given_positional_list = doublyLinkedBase.PositionalList()
+    given_positional_list.add_last(40)
+    given_positional_list.add_last(2)
+    given_positional_list.add_first(100)
+
+    aa = list(given_positional_list)
+    print(aa)
 
 if __name__ == '__main__':
     main()
