@@ -379,13 +379,17 @@ def main():
     #print(given_deque)
     #print(f'Deleted Element from the list: {ax}')
 
-    given_positional_list = doublyLinkedBase.PositionalList()
-    given_positional_list.add_last(40)
-    given_positional_list.add_last(2)
-    given_positional_list.add_first(100)
+    #given_positional_list = doublyLinkedBase.PositionalList()
+    #given_positional_list.add_last(40)
+    #given_positional_list.add_last(2)
+    #given_positional_list.add_first(100)
 
-    aa = list(given_positional_list)
-    print(aa)
+    #aa = list(given_positional_list)
+    #print(aa)
+
+#--------------------------------------------------------
+
+
 
 if __name__ == '__main__':
     main()
