@@ -5,6 +5,8 @@
 #import dynArray
 #import fixedArray
 #import stackArray
+import collections
+import string
 import queueArray
 #import dequeArray
 #import numpy as np
@@ -21,7 +23,9 @@ import queueArray
 #import queueWithTheCircularLinkedList
 #import dequeWithArray
 #from deQueWithDoubleLinkedList import DEqueueDoubleLinkedList
-import doublyLinkedBase
+#import doublyLinkedBase
+#from binaryTreeWithLinkedList import BinaryTree
+from binaryTree import BinaryTree
 
 def main():
     #classes = fixedArray.FixedArray(['math', 'physics', 'chemistry', 'object oriented programming', 'english'])
@@ -387,8 +391,101 @@ def main():
     #aa = list(given_positional_list)
     #print(aa)
 
-#--------------------------------------------------------
+    #--------------------------------------------------------
+    ##Binary trees
 
+    #x = BinaryTree()
+    #y = BinaryTree()
+    #z = BinaryTree()
+    #a = BinaryTree()     # it will be null for when a node has no children. This is for leaf nodes.
+
+    #x.make_tree(20, a, a)
+    #y.make_tree(30, a, a)
+    #z.make_tree(10, x, y)
+
+    # Binary tree traversal
+    #z.inorder(z.root)    # A + B
+    #print()
+    #z.preorder(z.root)   # +AB
+    #print()
+    #z.postorder(z.root)  # AB+
+    #print()
+
+    #---------------------------------
+
+    #null_node = BinaryTree()
+    #a = BinaryTree()
+    #b = BinaryTree()
+    #c = BinaryTree()
+    #d = BinaryTree()
+    #e = BinaryTree()
+    #f = BinaryTree()
+    #g = BinaryTree()
+    #h = BinaryTree()
+    #i = BinaryTree()
+    #j = BinaryTree()
+    #k = BinaryTree()
+
+    #creating leaf nodes
+    #a.make_tree(40, null_node, null_node)
+    #b.make_tree(10, null_node, null_node)
+    #c.make_tree(10, null_node, null_node)
+    #d.make_tree(25, null_node, null_node)
+    #e.make_tree(15, null_node, null_node)
+
+    #creating internal nodes
+    #f.make_tree(200, a, null_node)
+    #g.make_tree(100, null_node, b)
+    #h.make_tree(60, d, e)
+    #i.make_tree(50, g, h)
+    #j.make_tree(90, i, null_node)
+    #k.make_tree(80, f, j)        #root node for the entire tree structure
+
+    #k.preorder(k.root)
+    #print()
+    #k.inorder(k.root)
+    #print()
+    #k.postorder(k.root)
+    #print()
+    #print()
+    #k.levelorder()
+    #print()
+    #i.levelorder()  #partial tree, subtree
+
+    #print(f'- > Our binary tree has {k.count_elements(k.root)} elements')
+
+    #print(f'- > In Order Iter Traversal')
+    #for p in k.inorder_iter():
+    #    print(f'{p}', end=" ")
+
+    #print(k)   # print the tree with inorder iterative traversal
+
+    #print(f'The height of the K tree is {k.height(k.root) - 1}')   # find the height of a binary tree. Height starts from 0.
+    #for p in k.preorder_iter():
+    #    print(p, end=" ")
+
+    #for p in k.postorder_iter():
+    # print(p, end=" ")
+    #-----------------------------------------------
+
+    null_node = BinaryTree(None, None, None)
+
+    a = BinaryTree(40, null_node, null_node)
+    b = BinaryTree(150, null_node, null_node)
+    c = BinaryTree(180, null_node, null_node)
+    d = BinaryTree(10, null_node, null_node)
+    e = BinaryTree(25, null_node, null_node)
+    f = BinaryTree(15, null_node, null_node)
+
+    g = BinaryTree(125, b, c)
+    h = BinaryTree(200, a, g)
+    i = BinaryTree(100, null_node, d)
+    j = BinaryTree(60, e, f)
+    k = BinaryTree(50, i, j)
+    n = BinaryTree(90, k, null_node)
+    m = BinaryTree(80, h, n)
+
+    print(m)
 
 
 if __name__ == '__main__':
