@@ -1,21 +1,22 @@
 #!/usr/bin/python
 
+class Position:
+    _ERROR_MESSAGE = 'must be implemented by subclass'
+
+    def element(self):
+        raise NotImplementedError(self._ERROR_MESSAGE)
+
+    def __eq__(self, other):
+        raise NotImplementedError(self._ERROR_MESSAGE)
+
+    def __ne__(self, other):
+        if self != other:
+            return True
+        else:
+            return False
+
+
 class Tree:
-    class Position:
-        _ERROR_MESSAGE = 'must be implemented by subclass'
-
-        def element(self):
-            raise NotImplementedError(self._ERROR_MESSAGE)
-
-        def __eq__(self, other):
-            raise NotImplementedError(self._ERROR_MESSAGE)
-
-        def __ne__(self, other):
-            if self != other:
-                return True
-            else:
-                return False
-
     _ERROR = 'you need to implement this in subclass'
 
     # abstract methods implemented in this base class
