@@ -26,7 +26,7 @@ import queueArray
 #import doublyLinkedBase
 #from binaryTreeWithLinkedList import BinaryTree
 from binaryTree import BinaryTree
-from binaryTree import Node
+import binaryTree
 
 def main():
     #classes = fixedArray.FixedArray(['math', 'physics', 'chemistry', 'object oriented programming', 'english'])
@@ -479,16 +479,17 @@ def main():
     f = BinaryTree(15, null_node, null_node)
 
     g = BinaryTree(125, b, c)
-    h = BinaryTree(200, a, g)
+    h = BinaryTree(70, a, g)
     i = BinaryTree(100, null_node, d)
     j = BinaryTree(60, e, f)
     k = BinaryTree(50, i, j)
     n = BinaryTree(90, k, null_node)
     m = BinaryTree(80, h, n)
 
-    print(h)  # - > left subtree
-    print(n)  # - > right subtree
-    print(m)  # - > entire tree
+    #print(h)  # - > left subtree
+    #print(n)  # - > right subtree
+    #print(m)  # - > entire tree
+    m.insert(35, m.root)
 
 
 if __name__ == '__main__':

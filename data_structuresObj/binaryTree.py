@@ -82,12 +82,11 @@ class BinaryTree:
                 given_stack.push(given_node.left_child)
 
     def depth_first_preorder_recursive(self, given_root, given_list):
-        if given_root.element is None:
-            return
-
-        given_list.append(given_root.element)
-        self.depth_first_preorder_recursive(given_root.left_child, given_list)
-        self.depth_first_preorder_recursive(given_root.right_child, given_list)
+        if given_root:
+            if given_root.element is not None:
+                given_list.append(given_root.element)
+            self.depth_first_preorder_recursive(given_root.left_child, given_list)
+            self.depth_first_preorder_recursive(given_root.right_child, given_list)
 
         return given_list
 
@@ -115,23 +114,20 @@ class BinaryTree:
         given_stack = StackArray()
 
         while True:
-            if given_node.element is not None:
+            if given_node.element:
                 given_stack.push(given_node)
                 given_node = given_node.left_child
             elif not given_stack.is_empty():
                 given_node = given_stack.pop()
                 yield given_node.element
                 given_node = given_node.right_child
-            else:
-                break
 
     def inorder_recursive(self, given_root, given_list):
-        if given_root.element is None:
-            return
-
-        self.inorder_recursive(given_root.left_child, given_list)
-        given_list.append(given_root.element)
-        self.inorder_recursive(given_root.right_child, given_list)
+        if given_root:
+            self.inorder_recursive(given_root.left_child, given_list)
+            if given_root.element is not None:
+                given_list.append(given_root.element)
+            self.inorder_recursive(given_root.right_child, given_list)
 
         return given_list
 
@@ -160,12 +156,11 @@ class BinaryTree:
             yield given_node.element
 
     def postorder_recursive(self, given_root, given_list):
-        if given_root.element is None:
-            return
-
-        self.postorder_recursive(given_root.left_child, given_list)
-        self.postorder_recursive(given_root.right_child, given_list)
-        given_list.append(given_root.element)
+        if given_root:
+            self.postorder_recursive(given_root.left_child, given_list)
+            self.postorder_recursive(given_root.right_child, given_list)
+            if given_root.element is not None:
+                given_list.append(given_root.element)
 
         return given_list
 
@@ -187,12 +182,36 @@ class BinaryTree:
                 return y + 1
         return 0
 
+    # recursive search function
+    def search(self, given_value, given_node):
+        if given_node.element is None:
+            return
+
+        if given_value == given_node.element:
+            return given_node
+        elif given_value < given_node.element:
+            return self.search(given_value, given_node.left_child)
+        else:
+            return self.search(given_value, given_node.right_child)
+
+    def insert(self, given_value, given_node):
+        if given_value < given_node.element:
+            if given_node.left_child.element is None:
+                given_node.left_child = Node(given_value, None, None)
+            else:
+                self.insert(given_value, given_node.left_child)
+        elif given_value > given_node.element:
+            if given_node.right_child.element is None:
+                given_node.right_child = Node(given_value, None, None)
+            else:
+                self.insert(given_value, given_node.right_child)
+
     def __str__(self):
         count = 0
         string_to_print = '['
         number_of_elements = self.count(self.root)
 
-        for p in self.inorder_recursive(self.root, []):
+        for p in self.inorder_iterative():
             if count != number_of_elements - 1:
                 string_to_print += str(p) + ', '
                 count += 1
