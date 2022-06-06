@@ -3,7 +3,7 @@
 # instead of stack and deque we can use a simple list to simulate these without all the bells and whistles.
 
 from stackArray import StackArray
-from dequeArray import Deque        # deque can be found in collections, but I like the one that I made :D
+from queueArray import QueueArray        # deque can be found in collections, but I like the one that I made :D
 
 
 class Node:
@@ -91,23 +91,23 @@ class BinaryTree:
         return given_list
 
     def breadth_first_levelorder_iterative(self):
-        given_deque = Deque()
+        given_deque = QueueArray()
         given_node = self.root
 
         if given_node.element is not None:
             return -1
 
-        given_deque.add_last(given_node)
+        given_deque.enqueue(given_node)
 
         while not given_deque.is_empty():
-            given_node = given_deque.remove_first()
+            given_node = given_deque.dequeue()
             yield given_node.element
 
             if given_node.left_child.element is not None:
-                given_deque.add_last(given_node.left_child)
+                given_deque.enqueue(given_node.left_child)
 
             if given_node.right_child.element is not None:
-                given_deque.add_last(given_node.right_child)
+                given_deque.enqueue(given_node.right_child)
 
     def inorder_iterative(self):
         given_node = self.root
