@@ -1,18 +1,16 @@
 #!/usr/bin/python
 
-# instead of stack and deque we can use a simple list to simulate these without all the bells and whistles.
-
-from stackArray import StackArray
-from queueArray import QueueArray        # deque can be found in collections, but I like the one that I made :D
+from stackWithArrays import StacksArray
+from queueArray import QueueArray
 
 
 class Node:
-    __slots__ = '_left_child', '_right_child', '_element'
+    __slots__ = '_element', '_left_child', '_right_child'
 
-    def __init__(self, element, left_child=None, right_child=None):
+    def __init__(self, element, left_child, right_child):
         self._element = element
-        self._right_child = right_child
         self._left_child = left_child
+        self._right_child = right_child
 
     @property
     def element(self):
@@ -28,14 +26,14 @@ class Node:
 
     @element.setter
     def element(self, value):
-        if value:
+        if value is not None:
             self._element = value
         else:
             raise ValueError('No proper value was given!')
 
     @left_child.setter
     def left_child(self, value):
-        if value:
+        if value is not None:
             self._left_child = value
         else:
             raise ValueError('No proper value was given!')
@@ -49,21 +47,18 @@ class Node:
 
 
 class BinaryTree:
-    def __init__(self, given_element, left_child=None, right_child=None):
-        if None in (left_child, right_child):
-            self._root = Node(given_element, left_child, right_child)
-        else:
-            self._root = Node(given_element, left_child.root, right_child.root)
+    def __init__(self):
+        self._root = None
 
     @property
     def root(self):
         return self._root
 
-    #def make_tree(self, element, left, right):
-    #    self._root = _Node(element, left.root, right.root)
+    def make_tree(self, element, left_child, right_child):
+        self._root = Node(element, left_child.root, right_child.root)
 
     def depth_first_preorder_iterative(self):
-        given_stack = StackArray()
+        given_stack = StacksArray()
         given_node = self.root
 
         if given_node.element is None:
@@ -94,7 +89,7 @@ class BinaryTree:
         given_deque = QueueArray()
         given_node = self.root
 
-        if given_node.element is not None:
+        if given_node.element is None:
             return -1
 
         given_deque.enqueue(given_node)
@@ -111,16 +106,18 @@ class BinaryTree:
 
     def inorder_iterative(self):
         given_node = self.root
-        given_stack = StackArray()
+        given_stack = StacksArray()
 
         while True:
-            if given_node.element:
+            if given_node is not None:
                 given_stack.push(given_node)
                 given_node = given_node.left_child
             elif not given_stack.is_empty():
                 given_node = given_stack.pop()
                 yield given_node.element
                 given_node = given_node.right_child
+            else:
+                break
 
     def inorder_recursive(self, given_root, given_list):
         if given_root:
@@ -137,8 +134,8 @@ class BinaryTree:
         if given_node.element is None:
             return -1
 
-        processing_stack = StackArray()
-        printing_stack = StackArray()
+        processing_stack = StacksArray()
+        printing_stack = StacksArray()
         processing_stack.push(given_node)
 
         while not processing_stack.is_empty():
@@ -165,7 +162,7 @@ class BinaryTree:
         return given_list
 
     def count(self, given_root):
-        if given_root.element is not None:
+        if given_root:
             x = self.count(given_root.left_child)
             y = self.count(given_root.right_child)
             return x + y + 1
@@ -185,10 +182,10 @@ class BinaryTree:
     # recursive search function
     def search(self, given_value, given_node):
         if given_node.element is None:
-            return
+            return False
 
         if given_value == given_node.element:
-            return given_node
+            return True
         elif given_value < given_node.element:
             return self.search(given_value, given_node.left_child)
         else:
@@ -196,12 +193,12 @@ class BinaryTree:
 
     def insert(self, given_value, given_node):
         if given_value < given_node.element:
-            if given_node.left_child.element is None:
+            if given_node.left_child is None:
                 given_node.left_child = Node(given_value, None, None)
             else:
                 self.insert(given_value, given_node.left_child)
         elif given_value > given_node.element:
-            if given_node.right_child.element is None:
+            if given_node.right_child is None:
                 given_node.right_child = Node(given_value, None, None)
             else:
                 self.insert(given_value, given_node.right_child)
@@ -212,10 +209,10 @@ class BinaryTree:
         number_of_elements = self.count(self.root)
 
         for p in self.inorder_iterative():
-            if count != number_of_elements - 1:
+            if count != number_of_elements - 1 and p is not None:
                 string_to_print += str(p) + ', '
                 count += 1
-            else:
+            elif p is not None:
                 string_to_print += str(p) + ']'
 
         return string_to_print
