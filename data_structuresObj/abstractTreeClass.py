@@ -55,3 +55,26 @@ class Tree:
             return True
         else:
             return False
+
+    def depth(self, given_position):
+        if self.is_root(given_position):
+            return 0
+        else:
+            return 1 + self.depth(self.parent(given_position))
+
+    def _height1(self):
+        list_with_depths = []
+        for p in self.positions():
+            if self.is_leaf(p):
+                list_with_depths += self.depth(p)
+
+        return max(list_with_depths)
+
+    def _height2(self, given_position):
+        if self.is_leaf(given_position):
+            return 0
+        else:
+            return 1 + max(self._height2(c) for c in self.children(given_position))
+
+
+

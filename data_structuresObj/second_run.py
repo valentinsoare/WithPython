@@ -37,7 +37,8 @@ def main():
     n.make_tree(50, k, m)
 
     print(n)
-
+    ax = k.successor(k.root)
+    print(ax)
 
 
 if __name__ == "__main__":

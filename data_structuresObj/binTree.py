@@ -26,24 +26,15 @@ class Node:
 
     @element.setter
     def element(self, value):
-        if value is not None:
-            self._element = value
-        else:
-            raise ValueError('No proper value was given!')
+        self._element = value
 
     @left_child.setter
     def left_child(self, value):
-        if value is not None:
-            self._left_child = value
-        else:
-            raise ValueError('No proper value was given!')
+        self._left_child = value
 
     @right_child.setter
     def right_child(self, value):
-        if value:
-            self._right_child = value
-        else:
-            raise ValueError('No proper value was given')
+        self._right_child = value
 
 
 class BinaryTree:
@@ -202,6 +193,63 @@ class BinaryTree:
                 given_node.right_child = Node(given_value, None, None)
             else:
                 self.insert(given_value, given_node.right_child)
+
+    def delete(self, delete_value, given_node):
+        if given_node is None:
+            return None
+        elif delete_value < given_node.element:
+            given_node.left_child = self.delete(delete_value, given_node.left_child)
+            return given_node
+        elif delete_value > given_node.element:
+            given_node.right_child = self.delete(delete_value, given_node.right_child)
+            return given_node
+        elif delete_value == given_node.element:
+            if given_node.left_child is None:
+                return given_node.right_child
+            elif given_node.right_child is None:
+                return given_node.left_child
+            else:
+                given_node.right_child = self.lift(given_node.right_child, given_node)
+                return given_node
+
+    def lift(self, given_node, node_to_delete):
+        if given_node.left_child:
+            given_node.left_child = self.lift(given_node.left_child, node_to_delete)
+            return given_node
+        else:
+            node_to_delete.element = given_node.element
+            return given_node.right_child
+
+    #for inorder traversal iterative, first node in inorder traversal
+    def subtree_first_iterative(self, given_node):
+        while given_node.left_child is not None:
+            given_node = given_node.left_child
+        return given_node.element
+
+    #first node in inorder traversal recursive
+    def subtree_first_recursive(self, given_node):
+        if given_node.left_child is not None:
+            return self.subtree_first_recursive(given_node.left_child)
+        return given_node.element
+
+    #last node inorder traversal iterative
+    def subtree_last_iterative(self, given_node):
+        while given_node.right_child is not None:
+            given_node = given_node.right_child
+        return given_node.element
+
+    #last node inorder traversal recursive
+    def subtree_last_recursive(self, given_node):
+        if given_node.right_child is not None:
+            return self.subtree_last_recursive(given_node.right_child)
+        return given_node.element
+
+    #find successor node in inorder traversal binary trees
+    def successor(self, given_node):
+        if given_node.right_child is not None:
+            return self.subtree_first_recursive(given_node.right_child)
+        return given_node
+       # under development :( not easy
 
     def __str__(self):
         count = 0
