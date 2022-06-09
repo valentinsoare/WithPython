@@ -170,56 +170,6 @@ class BinaryTree:
                 return y + 1
         return 0
 
-    # recursive search function
-    def search(self, given_value, given_node):
-        if given_node.element is None:
-            return False
-
-        if given_value == given_node.element:
-            return True
-        elif given_value < given_node.element:
-            return self.search(given_value, given_node.left_child)
-        else:
-            return self.search(given_value, given_node.right_child)
-
-    def insert(self, given_value, given_node):
-        if given_value < given_node.element:
-            if given_node.left_child is None:
-                given_node.left_child = Node(given_value, None, None)
-            else:
-                self.insert(given_value, given_node.left_child)
-        elif given_value > given_node.element:
-            if given_node.right_child is None:
-                given_node.right_child = Node(given_value, None, None)
-            else:
-                self.insert(given_value, given_node.right_child)
-
-    def delete(self, delete_value, given_node):
-        if given_node is None:
-            return None
-        elif delete_value < given_node.element:
-            given_node.left_child = self.delete(delete_value, given_node.left_child)
-            return given_node
-        elif delete_value > given_node.element:
-            given_node.right_child = self.delete(delete_value, given_node.right_child)
-            return given_node
-        elif delete_value == given_node.element:
-            if given_node.left_child is None:
-                return given_node.right_child
-            elif given_node.right_child is None:
-                return given_node.left_child
-            else:
-                given_node.right_child = self.lift(given_node.right_child, given_node)
-                return given_node
-
-    def lift(self, given_node, node_to_delete):
-        if given_node.left_child:
-            given_node.left_child = self.lift(given_node.left_child, node_to_delete)
-            return given_node
-        else:
-            node_to_delete.element = given_node.element
-            return given_node.right_child
-
     #for inorder traversal iterative, first node in inorder traversal
     def subtree_first_iterative(self, given_node):
         while given_node.left_child is not None:
@@ -249,7 +199,8 @@ class BinaryTree:
         if given_node.right_child is not None:
             return self.subtree_first_recursive(given_node.right_child)
         return given_node
-       # under development :( not easy
+
+    # under development :( not easy
 
     def __str__(self):
         count = 0
