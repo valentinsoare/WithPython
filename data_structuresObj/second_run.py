@@ -42,30 +42,16 @@ def main():
     #print(ax)
 
     #---------------------------------------
+    ax = BinarySearchTree()
+    ax.insert_iterative(ax.root, 5)
+    ax.insert_iterative(ax.root, 10)
+    ax.insert_iterative(ax.root, 2)
+    ax.insert_iterative(ax.root, 7)
+    ax.insert_iterative(ax.root, 12)
 
-    zero_node = BinarySearchTree(None, None, None)
-
-    a = BinarySearchTree(1, zero_node, zero_node)
-    b = BinarySearchTree(4, zero_node, zero_node)
-    c = BinarySearchTree(3, a, b)  # subtree root
-
-    d = BinarySearchTree(6, zero_node, zero_node)
-    e = BinarySearchTree(9, zero_node, zero_node)
-    f = BinarySearchTree(8, d, e)  # sbutree root
-
-    g = BinarySearchTree(5, c, f)
-
-    #if g.iterative_search(3):
-    #    print(f'nebunie boss')
-
-    #ax = g.recursive_search(, g.root)
-    #print(ax)
-
-    #ax = list(f.iterative_traverse_binary_search_tree())
-    #print(ax)
-
-    ay = list(g.recursive_traverse_binary_search_tree(g.root, []))
-    print(ay)
+    print(ax.count(ax.root))
+    print(ax.height(ax.root))
+    print(ax)
 
 
 
