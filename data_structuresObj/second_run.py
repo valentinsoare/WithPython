@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 #from binTree import BinaryTree
-from searchTree import BinarySearchTree
+import searchTree
 
 
 def main():
@@ -42,16 +42,16 @@ def main():
     #print(ax)
 
     #---------------------------------------
-    ax = BinarySearchTree()
-    ax.insert_iterative(ax.root, 5)
-    ax.insert_iterative(ax.root, 10)
-    ax.insert_iterative(ax.root, 2)
-    ax.insert_iterative(ax.root, 7)
-    ax.insert_iterative(ax.root, 12)
+    fst = searchTree.BinarySearchTree()
+   
+    given_list = [4, 10, 2, 3, 15, 8, 9, 6, 7]
 
-    print(ax.count(ax.root))
-    print(ax.height(ax.root))
-    print(ax)
+    for i in given_list: 
+        fst.insert_iterative(fst.root, i)
+
+    print(f' -> Array in sorted order with search tree: {fst}')
+    print(f' -> Number of elements in the tree: {fst.count(fst.root)}')
+    print(f' -> Height of the tree: {fst.height(fst.root)}')
 
 
 

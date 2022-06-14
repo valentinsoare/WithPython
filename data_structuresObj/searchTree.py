@@ -1,15 +1,17 @@
 #!/usr/bin/python
 
 from stackWithArrays import StacksArray
+from queueWithArray import QueueArray
 
 
 class Node:
-    __slots__ = '_element', '_left', '_right'
+    __slots__ = '_element', '_left', '_right', '_parent'
 
-    def __init__(self, element, left, right):
+    def __init__(self, element, left, right, parent):
         self._element = element
         self._left = left
         self._right = right
+        self._parent = parent
 
     @property
     def element(self):
@@ -23,6 +25,10 @@ class Node:
     def right(self):
         return self._right
 
+    @property
+    def parent(self):
+        return self._parent
+
     @right.setter
     def right(self, value):
         self._right = value
@@ -30,6 +36,10 @@ class Node:
     @left.setter
     def left(self, value):
         self._left = value
+
+    @parent.setter
+    def parent(self, value):
+        self._parent = value
 
 
 class BinarySearchTree:
@@ -39,6 +49,10 @@ class BinarySearchTree:
     @property
     def root(self):
         return self._root
+
+    @root.setter
+    def root(self, value):
+        self._root = value
 
     def iterative_search(self, given_value):
         tnode = self.root
@@ -80,6 +94,66 @@ class BinarySearchTree:
             else:
                 break
 
+    def iterative_preorder_traverse(self):
+        temp_root = self.root
+        given_stack = StacksArray()
+
+        given_stack.push(temp_root)
+
+        while not given_stack.is_empty():
+            temp_root = given_stack.pop()
+            yield temp_root.element
+
+            if temp_root.right:
+                given_stack.push(temp_root.right)
+
+            if temp_root.left:
+                given_stack.push(temp_root.left)
+
+    def iterative_level_order(self):
+        temp_root = self.root
+        given_queue = QueueArray()
+
+        if not temp_root:
+            return -1
+
+        given_queue.enqueue(temp_root)
+
+        while not given_queue.is_empty():
+            temp_root = given_queue.dequeue()
+            yield temp_root.element
+
+            if temp_root.left:
+                given_queue.enqueue(temp_root.left)
+
+            if temp_root.right:
+                given_queue.enqueue(temp_root.right)
+
+    def iterative_postorder(self):
+        temp_root = self.root
+
+        if not temp_root:
+            return -1
+
+        process_stack = StacksArray()
+        printing_stack = StacksArray()
+
+        process_stack.push(temp_root)
+
+        while not process_stack.is_empty():
+            temp_root = process_stack.pop()
+            printing_stack.push(temp_root)
+
+            if temp_root.left:
+                process_stack.push(temp_root.left)
+
+            if temp_root.right:
+                process_stack.push(temp_root.right)
+
+        while len(printing_stack) > 0:
+            temp_root = printing_stack.pop()
+            yield temp_root.element
+
     def recursive_inorder_traverse_binary_search_tree(self, given_node, given_list):
         if given_node:
             self.recursive_inorder_traverse_binary_search_tree(given_node.left, given_list)
@@ -105,11 +179,11 @@ class BinarySearchTree:
                 return y + 1
         return -1
 
-    def insert_iterative(self, t_root, given_element):
+    def insert_iterative(self, t_root, given_element, parent_node=None):
         temporary_root = None
 
         while t_root:
-            temporary_root = t_root
+            temporary_root = parent_node = t_root
             if given_element == t_root.element:
                 return
             elif given_element < t_root.element:
@@ -117,7 +191,7 @@ class BinarySearchTree:
             elif given_element > t_root.element:
                 t_root = t_root.right
 
-        new_node = Node(given_element, None, None)
+        new_node = Node(given_element, None, None, parent_node)
 
         if self.root:
             if new_node.element < temporary_root.element:
@@ -126,6 +200,22 @@ class BinarySearchTree:
                 temporary_root.right = new_node
         else:
             self._root = new_node
+
+    def insert_recursive(self, t_root, given_element, parent_node=None):
+        if t_root:
+            parent_node = t_root
+            if given_element < t_root.element:
+                t_root.left = self.insert_recursive(t_root.left, given_element, parent_node)
+            elif given_element > t_root.element:
+                t_root.right = self.insert_recursive(t_root.right, given_element, parent_node)
+        else:
+            new_element = Node(given_element, None, None, parent_node)
+            t_root = new_element
+
+            if not self.root:
+                self.root = new_element
+
+        return t_root
 
     def __str__(self):
         str_to_print = '['
