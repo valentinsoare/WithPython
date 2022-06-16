@@ -67,17 +67,20 @@ class BinarySearchTree:
 
         return False
 
-    def recursive_search(self, given_value, given_node):
+    def recursive_search(self, given_value, given_node, type_of_return=0):
 
-        if given_node:
+        if not given_node:
             return False
 
         if given_value == given_node.element:
-            return True
+            if type_of_return == 0:
+                return True
+            else:
+                return given_node
         elif given_value > given_node.element:
-            return self.recursive_search(given_value, given_node.right)
-        else:
-            return self.recursive_search(given_value, given_node.left)
+            return self.recursive_search(given_value, given_node.right, type_of_return)
+        elif given_value < given_node.element:
+            return self.recursive_search(given_value, given_node.left, type_of_return)
 
     def iterative_inorder_traverse_binary_search_tree(self):
         temp_root = self.root
@@ -216,6 +219,83 @@ class BinarySearchTree:
                 self.root = new_element
 
         return t_root
+
+    def is_leaf_node(self, t_root, given_node_value):
+        temp_root = t_root
+
+        if not temp_root:
+            return None
+
+        if given_node_value == t_root.element and (not t_root.right and not t_root.left):
+            return True
+        elif given_node_value < temp_root.element:
+            return self.is_leaf_node(t_root.left, given_node_value)
+        elif given_node_value > temp_root.element:
+            return self.is_leaf_node(t_root.right, given_node_value)
+        else:
+            return False
+
+    def largest_element(self, t_root):
+        temp_root = t_root
+
+        while temp_root.right:
+            temp_root = temp_root.right
+
+        return temp_root.element
+
+    def smallest_element(self, t_root):
+        temp_root = t_root
+
+        while temp_root.left:
+            temp_root = temp_root.left
+
+        return temp_root.element
+
+    #def delete_iterative_way(self, given_value):
+    #    t_root = self.root
+
+    #    while t_root and given_value != t_root.element:
+    #        parenting = t_root
+    #        if given_value < t_root.element:
+    #            t_root = t_root.left
+    #        elif given_value > t_root.element:
+    #            t_root = t_root.right
+
+    #    if not t_root:
+    #        return False
+
+    #    #if t_root.right:
+
+    def subtree_first_recursive(self, given_node):
+        if given_node.left:
+            return self.subtree_first_recursive(given_node.left)
+        return given_node.element
+
+    def subtree_last_recursive(self, given_node):
+        if given_node.right:
+            return self.subtree_last_recursive(given_node.right)
+        return given_node.element
+
+    def successor(self, given_element):
+        t_root = self.root
+
+        if not t_root:
+            return False
+
+        given_node = self.recursive_search(given_element, t_root, 1)
+
+        if not given_node:
+            return -1
+        elif self.subtree_last_recursive(t_root) == given_node.element:
+            return f'Value given is the last element of the tree!'
+
+        if given_node.right:
+            return self.subtree_first_recursive(given_node.right)
+        else:
+            while given_node != given_node.parent.left:
+                given_node = given_node.parent
+
+            return given_node.parent.element
 
     def __str__(self):
         str_to_print = '['

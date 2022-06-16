@@ -44,15 +44,19 @@ def main():
     #---------------------------------------
     fst = searchTree.BinarySearchTree()
    
-    given_list = [4, 10, 2, 3, 15, 8, 9, 6, 7]
-
+    given_list = [50, 25, 20, 15, 23, 75, 80, 76, 85, 70, 65, 72]
+    
     for i in given_list: 
         fst.insert_iterative(fst.root, i)
-
-    print(f' -> Array in sorted order with search tree: {fst}')
-    print(f' -> Number of elements in the tree: {fst.count(fst.root)}')
-    print(f' -> Height of the tree: {fst.height(fst.root)}')
-
+    
+    print()
+    print(f' - > Array in sorted order with search tree: {fst}')
+    print(f' - > Number of elements in the tree: {fst.count(fst.root)}')
+    print(f' - > Height of the tree: {fst.height(fst.root)}')
+    print(f' - > Largest element in the tree: {fst.largest_element(fst.root)}')
+    print(f' - > Smallest element in the tree: {fst.smallest_element(fst.root)}')
+    print(f' - > Successor of 85 is {fst.successor(85)}')
+    print()
 
 
 if __name__ == "__main__":
