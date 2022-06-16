@@ -251,20 +251,15 @@ class BinarySearchTree:
 
         return temp_root.element
 
-    #def delete_iterative_way(self, given_value):
-    #    t_root = self.root
+    def subtree_first_iterative(self, given_node):
+        while given_node.left:
+            given_node = given_node.left
+        return given_node.element
 
-    #    while t_root and given_value != t_root.element:
-    #        parenting = t_root
-    #        if given_value < t_root.element:
-    #            t_root = t_root.left
-    #        elif given_value > t_root.element:
-    #            t_root = t_root.right
-
-    #    if not t_root:
-    #        return False
-
-    #    #if t_root.right:
+    def subtree_last_iterative(self, given_node):
+        while given_node.right:
+            given_node = given_node.right
+        return given_node.element
 
     def subtree_first_recursive(self, given_node):
         if given_node.left:
