@@ -56,7 +56,10 @@ def main():
     print(f' - > Largest element in the tree: {fst.largest_element(fst.root)}')
     print(f' - > Smallest element in the tree: {fst.smallest_element(fst.root)}')
     print(f' - > Successor of 15 is {fst.successor(15)}')
-    print(f' - > Predecessor of 15 is {fst.predecessor(15)}')
+    print(f' - > Predecessor of 50 is {fst.predecessor(50)}')
+
+    fst.insert_after(50, 55)
+    print(f' - > Treee after insertion {fst}')
     print()
 
 

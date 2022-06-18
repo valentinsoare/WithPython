@@ -264,12 +264,12 @@ class BinarySearchTree:
     def subtree_first_recursive(self, given_node):
         if given_node.left:
             return self.subtree_first_recursive(given_node.left)
-        return given_node.element
+        return given_node
 
     def subtree_last_recursive(self, given_node):
         if given_node.right:
             return self.subtree_last_recursive(given_node.right)
-        return given_node.element
+        return given_node
 
     def successor(self, given_element):
         t_root = self.root
@@ -281,11 +281,11 @@ class BinarySearchTree:
 
         if not given_node:
             return -1
-        elif self.subtree_last_recursive(t_root) == given_node.element:
+        elif self.subtree_last_recursive(t_root).element == given_node.element:
             return f'Value given is the last element of the tree!'
 
         if given_node.right:
-            return self.subtree_first_recursive(given_node.right)
+            return self.subtree_first_recursive(given_node.right).element
         else:
             while given_node != given_node.parent.left:
                 given_node = given_node.parent
@@ -302,11 +302,27 @@ class BinarySearchTree:
 
         if not given_node:
             return -1
-        elif given_node.element == self.subtree_last_recursive(t_root):
+        elif given_node.element == self.subtree_last_recursive(t_root).element:
             return given_node.parent.element
 
         if given_node.left:
-            return self.subtree_last_recursive(given_node.left)
+            return self.subtree_last_recursive(given_node.left).element
+
+    def insert_after(self, given_node_value, new_element):
+        t_root = self.root
+
+        if t_root:
+            given_node = self.recursive_search(given_node_value, t_root, 1)
+            if not given_node.right:
+                new_node = Node(new_element, None, None, given_node)
+                given_node.right = new_node
+            else:
+                given_node = self.subtree_first_recursive(given_node.right)
+                new_node = Node(new_element, None, None, given_node)
+                given_node.left = new_node
+        else:
+            new_node = Node(new_element, None, None, None)
+            self.root = new_node
 
     def __str__(self):
         str_to_print = '['
