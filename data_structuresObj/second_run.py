@@ -55,7 +55,8 @@ def main():
     print(f' - > Height of the tree: {fst.height(fst.root)}')
     print(f' - > Largest element in the tree: {fst.largest_element(fst.root)}')
     print(f' - > Smallest element in the tree: {fst.smallest_element(fst.root)}')
-    print(f' - > Successor of 85 is {fst.successor(85)}')
+    print(f' - > Successor of 15 is {fst.successor(15)}')
+    print(f' - > Predecessor of 15 is {fst.predecessor(15)}')
     print()
 
 

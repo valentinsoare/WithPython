@@ -292,6 +292,22 @@ class BinarySearchTree:
 
             return given_node.parent.element
 
+    def predecessor(self, given_element):
+        t_root = self.root
+
+        if not t_root:
+            return False
+
+        given_node = self.recursive_search(given_element, t_root, 1)
+
+        if not given_node:
+            return -1
+        elif given_node.element == self.subtree_last_recursive(t_root):
+            return given_node.parent.element
+
+        if given_node.left:
+            return self.subtree_last_recursive(given_node.left)
+
     def __str__(self):
         str_to_print = '['
         given_root = self.root
