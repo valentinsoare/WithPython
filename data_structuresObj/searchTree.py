@@ -54,6 +54,9 @@ class BinarySearchTree:
     def root(self, value):
         self._root = value
 
+    def __len__(self):
+        return self.count(self.root)
+
     def iterative_search(self, given_value):
         tnode = self.root
 
@@ -221,20 +224,16 @@ class BinarySearchTree:
         return t_root
 
     def largest_element(self, t_root):
-        temp_root = t_root
+        while t_root.right:
+            t_root = t_root.right
 
-        while temp_root.right:
-            temp_root = temp_root.right
-
-        return temp_root.element
+        return t_root.element
 
     def smallest_element(self, t_root):
-        temp_root = t_root
+        while t_root.left:
+            t_root = t_root.left
 
-        while temp_root.left:
-            temp_root = temp_root.left
-
-        return temp_root.element
+        return t_root.element
 
     def subtree_first_iterative(self, given_node):
         while given_node.left:
@@ -323,6 +322,58 @@ class BinarySearchTree:
                 tuple_to_return.append(i)
 
         return tuple_to_return
+
+    def sibling(self, given_value):
+        t_root = self.root
+
+        if not t_root:
+            raise ValueError('There is no element in the tree')
+
+        given_node = self.recursive_search(given_value, t_root, 1)
+
+        if not given_node:
+            raise ValueError("Element doesn't exists!")
+        else:
+            p_node = given_node.parent
+
+            if p_node.left and p_node.left.element != given_value:
+                return p_node.left.element
+            elif p_node.right and p_node.right.element != given_value:
+                return p_node.right.element
+            else:
+                return None
+
+    def left_node(self, given_value):
+        t_root = self.root
+
+        if not t_root:
+            raise ValueError('There is no element in the tree')
+
+        given_node = self.recursive_search(given_value, t_root, 1)
+
+        if not given_node:
+            raise ValueError("Element doesn't exists!")
+        else:
+            if given_node.left:
+                return given_node.left.element
+            else:
+                return None
+
+    def right_node(self, given_value):
+        t_root = self.root
+
+        if not t_root:
+            raise ValueError('There is no element in the tree')
+
+        given_node = self.recursive_search(given_value, t_root, 1)
+
+        if not given_node:
+            raise ValueError("Element doesn't exists!")
+        else:
+            if given_node.right:
+                return given_node.right.element
+            else:
+                return None
 
     def successor(self, given_element):
         t_root = self.root

@@ -61,11 +61,14 @@ def main():
     fst.insert_after(50, 55)
     fst.insert_before(25, 24)
     fst.insert_before(50, 33)
+
     print(f' - > Tree after insertion {fst}')
     print(f' - > 76 is a leaf node ? {fst.is_leaf_node(76)}')
     print(f' - > 80 is a root node ? {fst.is_root_node(80)}')
     print(f' - > Number of children for 70 is {fst.number_of_children(70)}')
     print(f' - > Children of 25 are {fst.children_of_a_node(25)}')
+    print(f' - > Sibling of 20 is {fst.sibling(20)}')
+    print(f'{fst.right_node(75)}')
     print()
 
 
