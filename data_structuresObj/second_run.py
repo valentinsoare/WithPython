@@ -65,7 +65,7 @@ def main():
     print(f' - > 76 is a leaf node ? {fst.is_leaf_node(76)}')
     print(f' - > 80 is a root node ? {fst.is_root_node(80)}')
     print(f' - > Number of children for 70 is {fst.number_of_children(70)}')
-
+    print(f' - > Children of 25 are {fst.children_of_a_node(25)}')
     print()
 
 

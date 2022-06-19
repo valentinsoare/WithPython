@@ -306,13 +306,23 @@ class BinarySearchTree:
 
     def children_of_a_node(self, given_value):
         t_root = self.root
+        tuple_to_return = []
 
         if not t_root:
             raise ValueError('There is no element in the tree')
 
         given_node = self.recursive_search(given_value, t_root, 1)
 
-        return given_node.left.element, given_node.right.element
+        if not given_node:
+            raise ValueError("Given element doesn't exists!")
+
+        for i in given_node.left, given_node.right:
+            if i:
+                tuple_to_return.append(i.element)
+            else:
+                tuple_to_return.append(i)
+
+        return tuple_to_return
 
     def successor(self, given_element):
         t_root = self.root
