@@ -220,21 +220,6 @@ class BinarySearchTree:
 
         return t_root
 
-    def is_leaf_node(self, t_root, given_node_value):
-        temp_root = t_root
-
-        if not temp_root:
-            return None
-
-        if given_node_value == t_root.element and (not t_root.right and not t_root.left):
-            return True
-        elif given_node_value < temp_root.element:
-            return self.is_leaf_node(t_root.left, given_node_value)
-        elif given_node_value > temp_root.element:
-            return self.is_leaf_node(t_root.right, given_node_value)
-        else:
-            return False
-
     def largest_element(self, t_root):
         temp_root = t_root
 
@@ -270,6 +255,64 @@ class BinarySearchTree:
         if given_node.right:
             return self.subtree_last_recursive(given_node.right)
         return given_node
+
+    def is_root_node(self, given_val):
+        t_root = self.root
+
+        if not t_root:
+            return None
+
+        given_node = self.recursive_search(given_val, t_root, 1)
+
+        if given_node.left or given_node.right:
+            return True
+        else:
+            return False
+
+    def number_of_children(self, given_value):
+        count = 0
+        t_root = self.root
+
+        if not t_root:
+            return False
+
+        given_node = self.recursive_search(given_value, t_root, 1)
+
+        if given_node:
+            if given_node.left:
+                count += 1
+
+            if given_node.right:
+                count += 1
+        else:
+            raise -1
+
+        return count
+
+    def is_leaf_node(self, given_node_value):
+        temp_root = self.root
+
+        if not temp_root:
+            raise ValueError('There is no element in the tree')
+
+        find_out_num_children = self.number_of_children(given_node_value)
+
+        if find_out_num_children == -1:
+            raise ValueError("Given element doesn't exists!")
+        elif find_out_num_children in [1, 2]:
+            return False
+        else:
+            return True
+
+    def children_of_a_node(self, given_value):
+        t_root = self.root
+
+        if not t_root:
+            raise ValueError('There is no element in the tree')
+
+        given_node = self.recursive_search(given_value, t_root, 1)
+
+        return given_node.left.element, given_node.right.element
 
     def successor(self, given_element):
         t_root = self.root
@@ -320,6 +363,23 @@ class BinarySearchTree:
                 given_node = self.subtree_first_recursive(given_node.right)
                 new_node = Node(new_element, None, None, given_node)
                 given_node.left = new_node
+        else:
+            new_node = Node(new_element, None, None, None)
+            self.root = new_node
+
+    def insert_before(self, given_node_value, new_element):
+        t_root = self.root
+
+        if t_root:
+            given_node = self.recursive_search(given_node_value, t_root, 1)
+            if not given_node.left:
+                new_node = Node(new_element, None, None, given_node)
+                given_node.left = new_node
+            else:
+                temp = given_node.left
+                new_node = Node(new_element, temp, None, given_node)
+                given_node.left = new_node
+                new_node.left.parent = new_node
         else:
             new_node = Node(new_element, None, None, None)
             self.root = new_node

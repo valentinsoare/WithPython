@@ -59,7 +59,13 @@ def main():
     print(f' - > Predecessor of 50 is {fst.predecessor(50)}')
 
     fst.insert_after(50, 55)
-    print(f' - > Treee after insertion {fst}')
+    fst.insert_before(25, 24)
+    fst.insert_before(50, 33)
+    print(f' - > Tree after insertion {fst}')
+    print(f' - > 76 is a leaf node ? {fst.is_leaf_node(76)}')
+    print(f' - > 80 is a root node ? {fst.is_root_node(80)}')
+    print(f' - > Number of children for 70 is {fst.number_of_children(70)}')
+
     print()
 
 
