@@ -55,12 +55,12 @@ def main():
     print(f' - > Height of the tree: {fst.height(fst.root)}')
     print(f' - > Largest element in the tree: {fst.largest_element(fst.root)}')
     print(f' - > Smallest element in the tree: {fst.smallest_element(fst.root)}')
-    print(f' - > Successor of 15 is {fst.successor(15)}')
-    print(f' - > Predecessor of 50 is {fst.predecessor(50)}')
+    print(f' - > Successor of 15 is {fst.successor(15).element}')
+    print(f' - > Predecessor of 50 is {fst.predecessor(50).element}')
 
     fst.insert_after(50, 55)
     fst.insert_before(25, 24)
-    fst.insert_before(50, 33)
+    fst.insert_before(15, 14)
 
     print(f' - > Tree after insertion {fst}')
     print(f' - > 76 is a leaf node ? {fst.is_leaf_node(76)}')
@@ -68,7 +68,11 @@ def main():
     print(f' - > Number of children for 70 is {fst.number_of_children(70)}')
     print(f' - > Children of 25 are {fst.children_of_a_node(25)}')
     print(f' - > Sibling of 20 is {fst.sibling(20)}')
-    print(f'{fst.right_node(75)}')
+    print(f' - > Right of 75 is {fst.right_node(75)}')
+    print(f' - > Root of the entire tree is {fst.root.element}')
+    print(f' - > Predecessor of the root node is {fst.predecessor(50).element}')
+    fst.delete(15, 1)
+    print(f' - > Tree after deletion: {fst}')
     print()
 
 

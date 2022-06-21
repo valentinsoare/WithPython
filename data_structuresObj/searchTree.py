@@ -41,6 +41,10 @@ class Node:
     def parent(self, value):
         self._parent = value
 
+    @element.setter
+    def element(self, value):
+        self._element = value
+
 
 class BinarySearchTree:
     def __init__(self):
@@ -394,7 +398,7 @@ class BinarySearchTree:
             while given_node != given_node.parent.left:
                 given_node = given_node.parent
 
-            return given_node.parent.element
+            return given_node.parent
 
     def predecessor(self, given_element):
         t_root = self.root
@@ -407,10 +411,10 @@ class BinarySearchTree:
         if not given_node:
             return -1
         elif given_node.element == self.subtree_last_recursive(t_root).element:
-            return given_node.parent.element
+            return given_node.parent
 
         if given_node.left:
-            return self.subtree_last_recursive(given_node.left).element
+            return self.subtree_last_recursive(given_node.left)
 
     def insert_after(self, given_node_value, new_element):
         t_root = self.root
@@ -444,6 +448,37 @@ class BinarySearchTree:
         else:
             new_node = Node(new_element, None, None, None)
             self.root = new_node
+
+    def delete(self, given_value, option_to_search=0):
+        t_root = self.root
+
+        if not t_root:
+            return False
+
+        if option_to_search == 1:
+            given_node = self.recursive_search(given_value, t_root, 1)
+        else:
+            given_node = given_value
+
+        if given_node.right:
+            successor_node = self.subtree_first_recursive(given_node.right)
+            temp_node = successor_node.element
+            successor_node.element = given_node.element
+            given_node.element = temp_node
+            self.delete(successor_node)
+        elif given_node.left:
+            predecessor_node = self.subtree_last_recursive(given_node.left)
+            temp_node = predecessor_node.element
+            predecessor_node.element = given_node.element
+            given_node.element = temp_node
+            self.delete(predecessor_node)
+        elif not given_node.left and not given_node.right:
+            if given_node.parent.left.element == given_node.element:
+                given_node.parent.left = None
+            elif given_node.parent.right.element == given_node.element:
+                given_node.parent.right = None
+
+            given_node.parent = None
 
     def __str__(self):
         str_to_print = '['
