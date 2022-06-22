@@ -167,7 +167,7 @@ class BinarySearchTree:
     def recursive_inorder_traverse_binary_search_tree(self, given_node, given_list):
         if given_node:
             self.recursive_inorder_traverse_binary_search_tree(given_node.left, given_list)
-            given_list.append(given_node.element)
+            given_list.append(given_node)
             self.recursive_inorder_traverse_binary_search_tree(given_node.right, given_list)
 
         return given_list
@@ -449,7 +449,7 @@ class BinarySearchTree:
             new_node = Node(new_element, None, None, None)
             self.root = new_node
 
-    def delete(self, given_value, option_to_search=0):
+    def delete_recursive(self, given_value, option_to_search=0):
         t_root = self.root
 
         if not t_root:
@@ -465,13 +465,13 @@ class BinarySearchTree:
             temp_node = successor_node.element
             successor_node.element = given_node.element
             given_node.element = temp_node
-            self.delete(successor_node)
+            self.delete_recursive(successor_node)
         elif given_node.left:
             predecessor_node = self.subtree_last_recursive(given_node.left)
             temp_node = predecessor_node.element
             predecessor_node.element = given_node.element
             given_node.element = temp_node
-            self.delete(predecessor_node)
+            self.delete_recursive(predecessor_node)
         elif not given_node.left and not given_node.right:
             if given_node.parent.left.element == given_node.element:
                 given_node.parent.left = None
@@ -480,6 +480,62 @@ class BinarySearchTree:
 
             given_node.parent = None
 
+    def delete_iterative(self, given_value):
+        t_root = self.root
+
+        while t_root and t_root.element != given_value:
+            if given_value < t_root.element:
+                t_root = t_root.left
+            elif given_value > t_root.element:
+                t_root = t_root.right
+
+        if not t_root:
+            return False
+
+        if t_root.left and t_root.right:
+            choose_side = t_root.left
+
+            while choose_side.right:
+                choose_side = choose_side.right
+
+            successor = choose_side
+            t_root.element = successor.element
+
+            if successor.parent.right.element == successor.element:
+                successor.parent.right = None
+            elif successor.parent.left.element == successor.element:
+                successor.parent.left = None
+        elif t_root.left:
+            temp_node = t_root.parent
+            t_root.parent.left = t_root.left
+            t_root.left.parent = temp_node
+        elif t_root.right:
+            temp_node = t_root.parent
+            t_root.parent.right = t_root.right
+            t_root.right.parent = temp_node
+        elif not t_root.left and not t_root.right:
+            if t_root.parent.left.element == t_root.element:
+                t_root.parent.left = None
+            elif t_root.parent.right.element == t_root.element:
+                t_root.parent.right = None
+
+            t_root.parent = None
+
+    def sum_of_all_leafs(self):
+        t_root = self.root
+        leaf_sum = 0
+
+        if not t_root:
+            return -1
+
+        traversing_tree_inorder = self.recursive_inorder_traverse_binary_search_tree(t_root, [])
+
+        for node in traversing_tree_inorder:
+            if not node.left and not node.right:
+                leaf_sum += node.element
+
+        return leaf_sum
+
     def __str__(self):
         str_to_print = '['
         given_root = self.root
@@ -487,7 +543,7 @@ class BinarySearchTree:
         for_traversing = self.recursive_inorder_traverse_binary_search_tree(given_root, [])
 
         for i in range(number_of_elements - 1):
-            str_to_print += str(for_traversing[i]) + ', '
+            str_to_print += str(for_traversing[i].element) + ', '
 
-        str_to_print += str(for_traversing[number_of_elements - 1]) + ']'
+        str_to_print += str(for_traversing[number_of_elements - 1].element) + ']'
         return str_to_print
