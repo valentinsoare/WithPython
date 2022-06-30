@@ -71,10 +71,12 @@ def main():
     print(f' - > Right of 75 is {fst.right_node(75)}')
     print(f' - > Root of the entire tree is {fst.root.element}')
     print(f' - > Predecessor of the root node is {fst.predecessor(50).element}')
-    #fst.delete_recursive(15, 1)
+    fst.delete_recursive(23, 1)
+    fst.delete_recursive(70, 1)
+
     #fst.delete_iterative(55)
     print(f' - > Tree after deletion: {fst}')
-    print(f' - > Sum of all leafs is {fst.sum_of_all_leafs()}')
+    print(f' - > Sum of all leafs is {fst.sum_of_all_leafs(fst.root)}')
     print()
 
 

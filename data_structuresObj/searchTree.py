@@ -172,6 +172,17 @@ class BinarySearchTree:
 
         return given_list
 
+    def get_leaf_nodes(self, given_node, given_list):
+        if given_node:
+            self.get_leaf_nodes(given_node.left, given_list)
+
+            if not given_node.left and not given_node.right:
+                given_list.append(given_node.element)
+
+            self.get_leaf_nodes(given_node.right, given_list)
+
+        return given_list
+
     def count(self, temp_root):
         if temp_root:
             x = self.count(temp_root.left)
@@ -465,20 +476,20 @@ class BinarySearchTree:
             temp_node = successor_node.element
             successor_node.element = given_node.element
             given_node.element = temp_node
+
             self.delete_recursive(successor_node)
         elif given_node.left:
             predecessor_node = self.subtree_last_recursive(given_node.left)
             temp_node = predecessor_node.element
             predecessor_node.element = given_node.element
             given_node.element = temp_node
-            self.delete_recursive(predecessor_node)
-        elif not given_node.left and not given_node.right:
-            if given_node.parent.left.element == given_node.element:
-                given_node.parent.left = None
-            elif given_node.parent.right.element == given_node.element:
-                given_node.parent.right = None
 
-            given_node.parent = None
+            self.delete_recursive(predecessor_node)
+        else:
+            if given_node.parent.left == given_node:
+                given_node.parent.left = None
+            elif given_node.parent.right == given_node:
+                given_node.parent.right = None
 
     def delete_iterative(self, given_value):
         t_root = self.root
@@ -521,20 +532,9 @@ class BinarySearchTree:
 
             t_root.parent = None
 
-    def sum_of_all_leafs(self):
-        t_root = self.root
-        leaf_sum = 0
-
-        if not t_root:
-            return -1
-
-        traversing_tree_inorder = self.recursive_inorder_traverse_binary_search_tree(t_root, [])
-
-        for node in traversing_tree_inorder:
-            if not node.left and not node.right:
-                leaf_sum += node.element
-
-        return leaf_sum
+    def sum_of_all_leafs(self, given_node):
+        all_leaf_nodes = self.get_leaf_nodes(given_node, [])
+        return sum(all_leaf_nodes)
 
     def __str__(self):
         str_to_print = '['

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="SonarLintProjectSettings">
     <option name="bindingEnabled" value="true" />
-    <option name="projectKey" value="" />
-    <option name="serverId" value="MyConnectionFirst" />
+    <option name="projectKey" value="valentinsoare_currentlyLearningPythonProjectsBased" />
+    <option name="serverId" value="MyMainConnection" />
   </component>
 </project>

@@ -1,7 +1,0 @@
-
-xpython:S1578"aRename this module to match this regular expression: "(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$".8Χ΄ΙΘ/
-6python:S1720"Add a docstring to this module.8Χ΄ΙΘ/
-@python:S1720"!Add a docstring to this function.(–¬Β8Ψ΄ΙΘ/
-Epython:S1720"!Add a docstring to this function.(ψ£Σϊÿÿÿÿ8Ψ΄ΙΘ/
-Epython:S1720&"!Add a docstring to this function.(η°Φνώÿÿÿÿ8Ω΄ΙΘ/
-Epython:S1720;"!Add a docstring to this function.(Τ”¦΄ÿÿÿÿÿ8Ϊ΄ΙΘ/

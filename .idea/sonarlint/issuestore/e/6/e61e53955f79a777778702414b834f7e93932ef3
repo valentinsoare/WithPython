@@ -1,7 +1,0 @@
-
-opython:S117 "SRename this parameter "playerH" to match the regular expression ^[_a-z][a-z0-9_]*$.(‹á‰Ìüÿÿÿÿ
-opython:S117 "SRename this parameter "playerT" to match the regular expression ^[_a-z][a-z0-9_]*$.(‹á‰Ìüÿÿÿÿ
-vpython:S117 "ZRename this parameter "return_value_H" to match the regular expression ^[_a-z][a-z0-9_]*$.(‹á‰Ìüÿÿÿÿ
-tpython:S1172"XRename this local variable "playerH" to match the regular expression ^[_a-z][a-z0-9_]*$.( Ï§øúÿÿÿÿ
-tpython:S1173"XRename this local variable "playerT" to match the regular expression ^[_a-z][a-z0-9_]*$.(½ŸÕÔýÿÿÿÿ
-{python:S117B"_Rename this local variable "return_value_H" to match the regular expression ^[_a-z][a-z0-9_]*$.(Ð–³çüÿÿÿÿ
