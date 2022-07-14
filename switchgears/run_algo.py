@@ -2,6 +2,8 @@
 
 import string
 import numpy as np
+from operator import itemgetter
+from collections import OrderedDict
 
 
 def calculate_recursive(n):
@@ -155,14 +157,36 @@ def main():
 
     #---------------------------------
 
-    given_array = [4, 10, 2, 3, 20, 17, 21, 14, 18, 34]
+    given_array = [4, 10, 2, 3, 38, 20, 17, 21, 14, 18, 34]
     #selection_sort(given_array)
     insertion_sort(given_array)
     print(given_array)
 
-    given_num_array = np.array([4, 10, 2, 3, 21, 40, 101, 89, 62], dtype=int)
+    #-------------------------------
+    #second_array = [(4, 10), (2, 7), (6, 3), (9, 2)]
 
-    print(given_num_array.max())
+    #sorted_array = sorted(second_array, key=itemgetter(0))
+    #print(sorted_array, end="\n\n")
+
+    #for i, j in sorted_array:
+    #    k = 0
+    #    while k < i // 2:
+    #        print(f' |')
+    #        k += 1
+    #    print(f' | {"#" * j}')
+
+    #print(f' |', end=" ")
+    #print(f'{"-" * sorted_array[len(sorted_array) - 1][0]}')
+    #------------------------------
+
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     main()
