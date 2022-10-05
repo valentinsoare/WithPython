@@ -4,6 +4,7 @@ import string
 import numpy as np
 from operator import itemgetter
 from collections import OrderedDict
+import telnetlib
 
 
 def calculate_recursive(n):
@@ -137,7 +138,7 @@ def main():
     #print(ay)
 
     #az = multiplication(2, 3)
-    #print(az)
+    #print(az)e
 
     #print(is_palindrome("aiurea"))
 
@@ -178,14 +179,6 @@ def main():
     #print(f' |', end=" ")
     #print(f'{"-" * sorted_array[len(sorted_array) - 1][0]}')
     #------------------------------
-
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

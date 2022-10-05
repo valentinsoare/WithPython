@@ -248,4 +248,5 @@ def main():
                     val_to_exit = execute_operations_and_validate(nr1, nr2, answering, operation)
 
 
-main()
+if __name__ == '__main__':
+    main()
