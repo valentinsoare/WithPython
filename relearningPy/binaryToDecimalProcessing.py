@@ -16,8 +16,13 @@ def catch_number():
     while not isinstance(processing_number, int):
         os.system('clear')
         header('Conversion | binary < - > decimal')
-        print(f"\n ** Please give me an integer you want to convert, like a binary or decimal:", end=" ")
+        print(f"\n ** Please give me an integer you want to convert, like a binary or decimal (q to quit):", end=" ")
         input_answer = input()
+
+        if input_answer.lower()[0] == "q":
+            print(f"\n{' ' * 5}Exiting...")
+            os.system('sleep 1')
+            exit(0)
 
         try:
             processing_number = int(input_answer)
@@ -61,7 +66,32 @@ def from_binary_to_decimal(given_value):
 
     return number_in_decimal
 
-#def from_decimal_to_binary(given_number):
+
+def from_decimal_to_binary(given_number):
+    count = 0
+    list_to_process = []
+    list_with_binary = []
+
+    while True:
+        processing_value = 2 ** count
+
+        if given_number >= processing_value:
+            list_to_process.append(processing_value)
+        else:
+            break
+
+        count += 1
+
+    list_to_process = list(reversed(list_to_process))
+
+    for i in range(len(list_to_process)):
+        if given_number >= list_to_process[i]:
+            given_number = given_number - list_to_process[i]
+            list_with_binary.append('1')
+        else:
+            list_with_binary.append('0')
+
+    return ''.join(list_with_binary)
 
 
 def main():
@@ -70,6 +100,10 @@ def main():
 
     if if_binary:
         number_in_decimal_after_conversion = from_binary_to_decimal(number_from_user)
+        print(f"\n - > Number that you gave was in binary \"{number_from_user}\" and converted in decimal is: \"{number_in_decimal_after_conversion}\" ")
+    else:
+        numbering = from_decimal_to_binary(number_from_user)
+        print(f"\n - > Number that you gave was in decimal \"{number_from_user}\" and converted in binary is: \"{numbering}\" ")
 
 
 if __name__ == '__main__':
