@@ -261,8 +261,20 @@ def execute_code():
     #print(4 % 10)
 
     #-------------------------------------------------------
+    #print(f'Aiurea')
 
-    
+    #number = 5
+    #final = 1
+
+    #for i in range(1, number + 1):
+    #    final *= i
+
+    #print(final)
+
+    #-----------------------------------------------------
+
+
+
 
 def main():
     # ask_the_question()
