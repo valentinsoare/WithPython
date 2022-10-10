@@ -52,7 +52,7 @@ def set_a_limit():
 
     while True:
         printing_cool_header(5, 'Pythagorean Triples')
-        print(f"\n** Please give us a limit of those pythagorean triples before we square them:", end=" ")
+        print(f"\n ** Please give us a limit of those pythagorean triples before we square them:", end=" ")
         answer = input()
 
         try:
@@ -69,11 +69,11 @@ def set_a_limit():
 
 
 def print_values_pyth(given_list):
-    print(f"\n{' ' * 10}Pythagorean triples")
-    print(f"{'-' * 40}")
+    print(f"\n{' ' * 11} Pythagorean triples")
+    print(f" {'-' * 40}")
 
     for i in given_list:
-        print(f"{i[0]} + {i[1]} = {i[2]} - > {i[0] ** 2} + {i[1] ** 2} = {i[2] ** 2}")
+        print(f" {i[0]} + {i[1]} = {i[2]} - > {i[0] ** 2} + {i[1] ** 2} = {i[2] ** 2}")
 
 
 def main():
