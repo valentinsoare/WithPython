@@ -30,8 +30,13 @@ def ask_for_input_price():
 
     while True:
         header("Calculating Change")
-        print(f"\n{' ' * 4} ** Please provide the purchase price:", end=" ")
+        print(f"\n{' ' * 4} ** Please provide the purchase price (q to quit):", end=" ")
         answer_input = input()
+
+        if answer_input.lower()[0] == 'q':
+            print(f"Exiting..")
+            os.system('sleep 1')
+            exit(0)
 
         try:
             processed_price = int(answer_input)
