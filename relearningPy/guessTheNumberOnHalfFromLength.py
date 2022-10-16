@@ -23,9 +23,12 @@ def ask_questions(value_for_exit=0):
         print(f"\n{' ' * 4} [1] Please give the min of the range, only integers, for generating the number to guess (q to quit):",
               end=" ")
         given_range = input()
-    else:
+    elif value_for_exit == 1:
         print(f"\n{' ' * 4} [2] Please give the max of the range, only integers, for generating the number to guess (q to quit):",
               end=" ")
+        given_range = input()
+    elif value_for_exit == 2:
+        print(f"\n{' ' * 4} [3] Please give the number of tries we have to guess the number (q to quit):", end=" ")
         given_range = input()
 
     for_exit(given_range)
@@ -37,7 +40,7 @@ def ask_for_limits_of_range_numbers():
     value_for_exit = 0
     list_with_values = []
 
-    while len(list_with_values) != 2:
+    while len(list_with_values) != 3:
         header_printing_with_style('**Number To Guess**')
 
         given_range = ask_questions(value_for_exit)
@@ -48,12 +51,13 @@ def ask_for_limits_of_range_numbers():
             after_processed = 'error'
 
         if (str(after_processed) == 'error' or after_processed < 0) or (len(list_with_values) == 1 and after_processed < list_with_values[0]):
-            print(f"\n{' ' * 10}\033[1;31mERROR\033[0m - Please use only integers greater than or equal to 0. Second number should be greater than first number.")
+            print(f"\n{' ' * 10}\033[1;31mERROR\033[0m - Please use only integers greater than or equal to 0. Second number should be greater than first number and "
+                  f"the number of tries needs to be greater than 0.")
             os.system('sleep 2; clear')
         else:
             list_with_values.append(after_processed)
             os.system('clear')
-            value_for_exit = 1
+            value_for_exit += 1
 
     return tuple(list_with_values)
 
@@ -86,10 +90,9 @@ def ask_for_question(value_min, value_max, nr_of_tries):
 
 def main():
     number_of_guesses = 0
-    limit_of_guesses = 10
     guessed_number = -1
 
-    min_value, max_value = ask_for_limits_of_range_numbers()
+    min_value, max_value, limit_of_guesses = ask_for_limits_of_range_numbers()
     number_for_guessing = set_number_to_guess(min_value, max_value)
 
     while guessed_number != number_for_guessing:
