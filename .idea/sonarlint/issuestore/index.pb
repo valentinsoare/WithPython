@@ -20,3 +20,7 @@ B
 banking.py,0/3/03b07032b98a2b3f99ee4f51a5d896c8043b6190
 S
 #classAverage/readGradesFromAFile.py,5/f/5fe4a92b7c14df37f19afb542708ed531af62c72
+I
+fromBeginning/chapter3.py,3/3/331f0832a21318bf4b81c9179c9c23b495ee250c
+H
+fromBeginning/chaper2.py,0/d/0dcf02c16c17377449a23f817a52f5aa13c391b4
