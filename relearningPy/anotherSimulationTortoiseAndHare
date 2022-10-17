@@ -101,16 +101,7 @@ def main():
     h_position = 0
     t_position = 0
 
-    os.system('clear')
-    header('TORTOISE vs HARE')
-
-    print(f"\n{' ' * 9} The Race will begin in a few moments...")
-    print(f"\n{' ' * 6} START |", end="")
-    print(f"{'-' * 70}", end="")
-    print(f"| FINISH\n")
-    os.system('sleep 2')
-    print(f"{' ' * 9}BANG!!!!\n{' ' * 9}AND THEY ARE OFF!!!")
-    os.system('sleep 1')
+    print_message_before_the_race()
 
     while True:
         os.system('clear')
