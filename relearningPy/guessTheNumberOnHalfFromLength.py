@@ -51,8 +51,7 @@ def ask_for_limits_of_range_numbers():
             after_processed = 'error'
 
         if (str(after_processed) == 'error' or after_processed < 0) or (len(list_with_values) == 1 and after_processed < list_with_values[0]):
-            print(f"\n{' ' * 10}\033[1;31mERROR\033[0m - Please use only integers greater than or equal to 0. Second number should be greater than first number and "
-                  f"the number of tries needs to be greater than 0.")
+            print(f"\n{' ' * 10}\033[1;31mERROR\033[0m - Please use only integers greater than or equal to 0. Second number should be greater than first number.")
             os.system('sleep 2; clear')
         else:
             list_with_values.append(after_processed)
