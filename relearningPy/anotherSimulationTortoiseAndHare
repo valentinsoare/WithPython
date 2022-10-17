@@ -17,6 +17,7 @@ def header(message_for_print):
 
 
 def print_message_before_the_race():
+    os.system('tput civis')
     os.system('clear')
     header('TORTOISE vs HARE')
 
@@ -67,14 +68,18 @@ def determine_how_to_move_hare(randomizer_value):
 
 
 def determine_winner(position_hare, position_tortoise, length_line):
+    message = 1
+
     if position_hare >= length_line:
-        print(f"\n{' ' * 12}Hare Wins!!\n")
-        exit(0)
+        message = f"Hare Wins!!"
     elif position_tortoise >= length_line:
-        print(f"\n{' ' * 12}Tortoise Wins!!\n")
-        exit(0)
+        message = f"Tortoise Wins!!"
     elif position_hare <= length_line <= position_tortoise:
-        print(f"\n{' ' * 12}We have a tie!!\n")
+        message = f"We have a tie!!"
+
+    if isinstance(message, str):
+        print(f"\n{' ' * 9}{message}\n")
+        os.system('tput cnorm')
         exit(0)
 
 
@@ -122,6 +127,7 @@ def main():
 
         print_line(h_position, t_position, length_of_race, if_hare_sleeps)
         determine_winner(h_position, t_position, length_of_race)
+
         os.system('sleep 1')
 
 
