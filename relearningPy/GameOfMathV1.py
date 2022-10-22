@@ -11,6 +11,16 @@ def print_header(given_message):
     print(f"{' ' * 20}{'-' * given_length_of_message * 2}")
 
 
+def exiting(given_answer):
+    try:
+        if given_answer.lower()[0] == 'q':
+            print(f"\n{' ' * 9}Exiting...\n")
+            time.sleep(0.5)
+            exit(0)
+    except IndexError:
+        pass
+
+
 def generate_numbers_to_use(type_of_randoms):
     if type_of_randoms == 1:
         first_number = random.randrange(1, 10)
@@ -70,11 +80,7 @@ def choose_operation():
         print(f"\n{' ' * 6}** Answer (q to quit):", end=" ")
         given_answer = input()
 
-        if given_answer.lower()[0] == 'q':
-            print(f"\n{' ' * 9}Exiting...\n")
-            time.sleep(0.5)
-            exit(0)
-
+        exiting(given_answer)
         number_of_operation = check_validity_dif_type(given_answer, 0)
 
     return type_of_problems[number_of_operation]
@@ -95,11 +101,7 @@ def choose_difficulty():
         print(f"\n{' ' * 6}** Answer (q to quit):", end=" ")
         given_answer = input()
 
-        if given_answer.lower()[0] == 'q':
-            print(f"\n{' ' * 9}Exiting..\n")
-            time.sleep(0.5)
-            exit(0)
-
+        exiting(given_answer)
         type_of_operation = check_validity_dif_type(given_answer, 1)
 
     return list_with_difficulty[type_of_operation]
@@ -128,10 +130,13 @@ def validate_math_answer(given_math_answer):
 def check_arithmetic_answers(nr_1, nr_2, operation_type, answer_to_question):
     results_after_math = [('+', (nr_1 + nr_2)), ('-', (nr_1 - nr_2)), ('/', (nr_1 / nr_2)), ('*', (nr_1 * nr_2))]
 
-    if answer_to_question.lower()[0] == 's':
-        print(f"\n{' ' * 9}\033[1;31m FAILED \033[0m Skip this question....")
-        os.system('sleep 1')
-        return 1
+    try:
+        if answer_to_question.lower()[0] == 's':
+            print(f"\n{' ' * 9}\033[1;31m FAILED \033[0m Skip this question....")
+            os.system('sleep 1')
+            return 1
+    except IndexError:
+        pass
 
     answer_to_question = validate_math_answer(answer_to_question)
 
@@ -145,6 +150,8 @@ def check_arithmetic_answers(nr_1, nr_2, operation_type, answer_to_question):
                 print(f"\n{' ' * 9}\033[1;31m FAILED \033[0m {printing_messages(-1)}")
                 os.system('sleep 1')
                 return 2
+    elif isinstance(answer_to_question, str):
+        return 2
 
 
 def ask_a_question(operation_type, difficulty_level):
@@ -158,11 +165,7 @@ def ask_a_question(operation_type, difficulty_level):
 
         given_answer = input()
 
-        if given_answer.lower()[0] == 'q':
-            print(f"\n{' ' * 9}Exiting..\n")
-            time.sleep(0.5)
-            exit(0)
-
+        exiting(given_answer)
         answering_type = check_arithmetic_answers(nr_1, nr_2, operation_type, given_answer)
 
 
