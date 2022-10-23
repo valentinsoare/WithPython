@@ -11,7 +11,7 @@ def determine_if_prime(given_number):
     elif given_number % 2 == 0 or given_number % 3 == 0:
         return False
 
-    for i in range(2, int(math.sqrt(given_number))):
+    for i in range(2, int(math.sqrt(given_number) + 1)):
         if given_number % i == 0:
             return False
 
@@ -24,7 +24,7 @@ def check_how_many_numbers(qty):
 
 
 def main():
-    list_with_primes = check_how_many_numbers(23)
+    list_with_primes = check_how_many_numbers(50)
     print(list_with_primes)
 
 
