@@ -1,9 +1,7 @@
 #!/usr/bin/python
 
 import os
-import time
 import string
-import itertools
 
 
 def prepare_message_for_header(given_message):
@@ -87,7 +85,6 @@ def ask_a_question():
 
 def from_string_to_digit(list_mappings, given_string):
     number_after_conversion = ''.join(list(str(j[0]) for i in given_string for j in list_mappings if i in j[1]))
-
     return number_after_conversion
 
 
