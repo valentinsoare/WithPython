@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 """Calculate how many liters we used for one hundred kilometers. Now the values for liters and kilometers are asked from the user
 with validation and all that is needed. At the end the overall liters/kms is calculated"""
@@ -66,10 +66,11 @@ def ask_questions(round_of_questions):
     i = 0
     question_liters = 0
     list_with_consumption_per_km_onehundred = []
+    number_of_liters = ''
 
     while i < round_of_questions:
-        os.system('clear')
-        printing_header()
+        #os.system('clear')
+        #printing_header()
 
         print(f"\n - Round {i + 1} of questions - \n")
 
@@ -99,8 +100,8 @@ def ask_questions(round_of_questions):
             print(f"{'-' * 46:>47}")
             calc_per_input = number_of_kms / number_of_liters
             list_with_consumption_per_km_onehundred.append(calc_per_input)
-            print(f"{' ** The liters/kms for this was: '}{calc_per_input:.1f}%", end=" ")
-            os.system('sleep 3')
+            print(f" ** The liters/kms for this was: {calc_per_input:.1f}%", end="\n")
+            #os.system('sleep 2')
 
     return list_with_consumption_per_km_onehundred
 
@@ -109,7 +110,7 @@ def main():
     number_of_rounds = catch_input_number_of_questions()
     list_with_averages_km_liters = ask_questions(number_of_rounds)
 
-    print(f"\n\n{' ** The overall average liters/kilometers was: '}{sum(list_with_averages_km_liters) / len(list_with_averages_km_liters):.2f}%")
+    print(f"\n{' *** The overall average liters/kilometers was: '}{sum(list_with_averages_km_liters) / len(list_with_averages_km_liters):.2f}%\n")
 
 
 if __name__ == "__main__":

@@ -87,15 +87,15 @@ from decimal import Decimal as Dec
 #def rounding_numbers(given_number):
 #    print(f"{round(given_number)}, {round(given_number, 2)}, {round(given_number, 3)}, {round(given_number, 4)}")
 
-def temperature_conversion():
-    message_header = f"{' ' * 12}{'Celsius'}{' ' * 10}{'Fahrenheit'}"
-    length_of_message = len(message_header)
+#def temperature_conversion():
+#    message_header = f"{' ' * 12}{'Celsius'}{' ' * 10}{'Fahrenheit'}"
+#    length_of_message = len(message_header)
 
-    print(f"\n{message_header}\n{' ' * 12}{'-' * (length_of_message - 12)}")
+#    print(f"\n{message_header}\n{' ' * 12}{'-' * (length_of_message - 12)}")
 
-    for given_value_celsius in range(0, 101):
-        value_in_fahrenheit = (9 / 5) * given_value_celsius + 32
-        print(f"{given_value_celsius:>19}{value_in_fahrenheit:20.1f}")
+#    for given_value_celsius in range(0, 101):
+#        value_in_fahrenheit = (9 / 5) * given_value_celsius + 32
+#        print(f"{given_value_celsius:>19}{value_in_fahrenheit:20.1f}")
 
 
 def main():
@@ -130,7 +130,7 @@ def main():
 
     #rounding_numbers(13.56449)
 
-    temperature_conversion()
-
+    #temperature_conversion()
+    print()
 if __name__ == '__main__':
     main()
