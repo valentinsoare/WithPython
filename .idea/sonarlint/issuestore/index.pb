@@ -42,3 +42,11 @@ R
 "relearningPy/meanMedianModeCalc.py,4/d/4d8e7a0388ead1a0a466fe7249f854e42888a25a
 8
 mathQ.py,0/6/064a9c1ef73f303238a3eb5136212130d8949238
+T
+$relearningPy/rotateTuplesElements.py,e/7/e72313dfc3c6fdcd0a1c1212bd69e58a7c423e38
+R
+"relearningPy/removingDuplicates.py,a/8/a85eeef48b168864b937c5010454702d9fe5d2c0
+L
+relearningPy/primeNumbers.py,3/2/325ea56c66600c0a6343df65e5e196b163998f77
+J
+relearningPy/palindrome.py,9/e/9e5bae2845684e3f7bcc272ac22c6039cbe0fd76
