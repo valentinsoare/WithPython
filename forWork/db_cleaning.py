@@ -26,7 +26,7 @@ def sanity_checks_connect_db(host_to_use=None, db_name_from_user=None, user_to_u
     if length_of_missing_args != 0:
         print(f"\n {' ' * 6} * ERROR - You need to have 4 input arguments"
               f" in order to connect to DB: host, db_name, user and password.",end="")
-        print(f"\n{' ' * 7} ** {length_of_missing_args} missing arguments:", end=" ")
+        print(f"\n{' ' * 7} * {length_of_missing_args} missing arguments:", end=" ")
 
         for i in missing_args:
             print(f"{i}", end=" ")
@@ -45,7 +45,7 @@ def sanity_checks_connect_db(host_to_use=None, db_name_from_user=None, user_to_u
             cursor = connection_to_db.cursor()
             cursor.execute("select database();")
             record_line = cursor.fetchone()
-            print(f"You're connected to database: ", record_line)
+            print(f"You're connected to database: {record_line} ")
 
     except mysql.connector.Error:
         print(f"\n{' ' * 6} * ERROR Error while connecting to MySQL DB.\n")

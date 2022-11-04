@@ -9,8 +9,6 @@ Y
 checkerboard.py,9/5/95be5b052a1ff058e058f5aef2befe1d6843c208
 B
 binaryToDecimal.py,9/a/9add2adacefb5badfd7efec71a662e4253b4b29f
-<
-discreteM.py,4/1/41a0aaaee8e7f25a90956f41ae95b77e2ece906d
 ?
 arrayDynamic.py,1/a/1a922aa51fbf96f7fec75249e2e0e51c15c10c4a
 :
@@ -40,8 +38,6 @@ Q
 !relearningPy/calculatingChange.py,6/0/6056cae5e5986117dabf91c41648f85692331aa3
 R
 "relearningPy/meanMedianModeCalc.py,4/d/4d8e7a0388ead1a0a466fe7249f854e42888a25a
-8
-mathQ.py,0/6/064a9c1ef73f303238a3eb5136212130d8949238
 T
 $relearningPy/rotateTuplesElements.py,e/7/e72313dfc3c6fdcd0a1c1212bd69e58a7c423e38
 R
