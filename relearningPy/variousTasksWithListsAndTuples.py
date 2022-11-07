@@ -3,6 +3,8 @@
 import os
 import string
 import random
+import statistics
+import numpy as np
 
 
 def sorting_list(given_list_to_process):
@@ -117,33 +119,96 @@ def simulate_queue_with_a_list():
         random_number = random.randrange(1, 10, 1)
         given_list.append(random_number)
         print(f"{given_list}")
-        os.system('sleep 2')
+        os.system('sleep 1')
 
         count += 1
 
-    os.system('sleep 10')
+    os.system('sleep 2')
 
     while count >= 0:
         os.system('clear')
         print(f"\n{' ' * 4} ** {'Dequeue all 10 items: '}{given_list}", end=" ")
-        pop_item = given_list.pop(0)
-        print(f"{' ' * 2} Popped item: {pop_item}")
-        os.system('sleep 2')
+        if count != 0:
+            pop_item = given_list.pop(0)
+            print(f"{' ' * 2} Pop item: {pop_item}")
+        os.system('sleep 1')
         count -= 1
 
     print(f"{' ' * 4} ** Entire queue is depleted.")
 
 
+def duplication_elimination_and_counting_freq():
+    generate_50_numbers = np.random.randint(1, 11, size=50)
+    integers_values, integers_count = np.unique(generate_50_numbers, return_counts=True)
+
+    print(f"\n - > Generated values: {integers_values}")
+    print(f" - > Count values: {integers_count}")
+
+
+def survey_response_stats():
+    twenty_response = np.random.randint(1, 6, size=20)
+    values, counts = np.unique(twenty_response, return_counts=True)
+    counts = list(counts)
+
+    print(f"\n\n * All values: {values}")
+    print(f" * Counter: {counts}")
+
+    calc_mean = statistics.mean(counts)
+    calc_median = statistics.median(counts)
+    calc_mode = statistics.mode(counts)
+    calc_range = [values[0], values[len(values) - 1]]
+
+    calc_min = values[counts.index(min(counts))]
+    calc_max = values[counts.index(max(counts))]
+
+    print(f" * Element with minimum appearances: {calc_min}")
+    print(f" * Element with maximum appearances: {calc_max}")
+    print(f" * Average of appearances: {calc_mean}")
+    print(f" * Median: {calc_median}")
+    print(f" * Mode: {calc_mode}")
+    print(f" * Range: {calc_range}")
+
+
+def visualizing_survey_response_statistics():
+    twenty_response = np.random.randint(1, 6, size=20)
+    values, counts = np.unique(twenty_response, return_counts=True)
+    counts = list(counts)
+
+    paired_values = list((values[i], counts[i]) for i in range(len(values)))
+
+    print(f"\n\n < - > Answers: {values} ")
+    print(f" < - > Counting answers and put them in categories: {counts} ")
+
+    print(f"\n{'Answer':>12}{'Percent':>13}{'Barchart':>15}")
+
+    for i in paired_values:
+        value, count = i
+        print(f"{value:>12}{((count/len(twenty_response)) * 100):>12}%{' ' * 7}{('#' * count)}")
+
+
+def coin_tossing():
+    responses = np.random.randint(1, 3, size=2_000_000)
+    values, count = np.unique(responses, return_counts=True)
+    list_with_values_and_count = list((values[i], count[i]) for i in range(len(values)))
+
+    print(f"\n\n{'* Coin value':>13}{'Frequency':>13}{'Percent':>13}{'Barchart':>15}")
+
+    for i in list_with_values_and_count:
+        value, count = i
+        print(f"{value:>13}{count:>13}{((count/len(responses)) * 100):>12.2f}%{' ' * 7}{'#' * int((count/len(responses)) * 100)}")
+
+
 def main():
     working_with_lists_duplicates()
     summing_th_triples()
-
     finding_name_people()
-
     print_in_tabular_format_v1()
     print_in_tabular_format_v2()
-
-    #simulate_queue_with_a_list()
+    simulate_queue_with_a_list()
+    duplication_elimination_and_counting_freq()
+    survey_response_stats()
+    visualizing_survey_response_statistics()
+    coin_tossing()
 
 
 if __name__ == '__main__':
