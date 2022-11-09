@@ -28,8 +28,6 @@ R
 "relearningPy/pythagoreanTriples.py,1/7/17c7307565f1246aad9e266ba54d994dd33cfe90
 K
 relearningPy/rollTheDice.py,8/4/84c8421592574f8e11faeeafc6e7b2ff5efccb7d
-E
-relearningPy/craps.py,b/0/b08df6328c546054ec913411db8f96be02b277af
 Y
 )relearningPy/binaryToDecimalProcessing.py,5/9/594502b7d62cc384466d2e77c5c3310daf3a68c3
 M
