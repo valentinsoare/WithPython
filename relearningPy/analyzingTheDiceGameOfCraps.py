@@ -98,17 +98,15 @@ def main():
     create_header('Analysing The Game of Craps')
 
     while counting < number_games:
-        counter_rolls = 0
-        while True:
+        counter_rolls = output_after_checking = 0
+        while output_after_checking not in ['w', 'l']:
             d_1, d_2 = generate_two_dice_values()
             output_after_checking = check_the_dice(d_1, d_2, counter_rolls, my_point)
 
             if output_after_checking == 'w':
                 wins += 1
-                break
             elif output_after_checking == 'l':
                 losses += 1
-                break
             if isinstance(output_after_checking, int) and output_after_checking > 0:
                 my_point = output_after_checking
 

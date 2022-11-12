@@ -56,6 +56,8 @@ def ask_operation_type():
             print(f"\n{' ' * 5} ERROR - please use an option between 1 and 4.")
             os.system(value_to_sleep_one)
             error = 0
+        elif processed_answer == 'cd':
+            return processed_answer
         else:
             return type_of_math[processed_answer][0]
 
@@ -177,14 +179,26 @@ def main():
 
     while True:
         if list_with_values[0] != -2:
+
             chosen_operation = ask_operation_type()
+
+            if chosen_operation == 'cd':
+                print(f"\n{' ' * 5} ERROR please choose an operation first and then you can choose a difficulty level when you start the script.")
+                os.system('sleep 1')
+                list_with_values[1] = -1
+                continue
+
             list_with_values[0] = -2
 
         if list_with_values[1] != -2:
             choose_difficulty_level = ask_difficulty_level()
             list_with_values[1] = -2
+
             if choose_difficulty_level == 'co':
-                list_with_values[0] = list_with_values[1] = -1
+                print(f"\n{' ' * 5} ERROR please choose a difficulty level first and then you can change the operation.")
+                os.system('sleep 1')
+                list_with_values[1] = -1
+                list_with_values[0] = -2
                 continue
 
         if answer_after_math_checking == '1':
