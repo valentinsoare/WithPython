@@ -222,9 +222,9 @@ def various_exercises():
     #--------------------------------
 
     #given_numbers = np.random.randint(1, 11, 20)
-    #given_numbers_set = sorted({i for i in given_numbers if i % 2 == 0})
+    given_numbers_set = sorted({i for i in given_numbers if i % 2 == 0})
 
-    #print(given_numbers_set)
+    print(given_numbers_set)
 
     #----------------------------------------
 

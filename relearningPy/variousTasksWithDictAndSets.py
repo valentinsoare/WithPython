@@ -22,20 +22,20 @@ def dict_manipulation():
 
 
 def set_manipulation():
-    #s_1 = {'yellow', 'green', 'blue'}
-    #s_2 = {'cyan', 'green', 'blue', 'magenta', 'red'}
+    s_1 = {'yellow', 'green', 'blue'}
+    s_2 = {'cyan', 'green', 'blue', 'magenta', 'red'}
 
-    #if s_1 > s_2:
-    #    print(f"True")
-    #else:
-    #    print(f"False")
+    if s_1 > s_2:
+        print(f"True")
+    else:
+        print(f"False")
 
-    #ax = s_1.intersection(s_2)
-    #ay = s_1.union(s_2)
-    #az = s_1.difference(s_2)
-    #aw = s_1.symmetric_difference(s_2)
+    ax = s_1.intersection(s_2)
+    ay = s_1.union(s_2)
+    az = s_1.difference(s_2)
+    aw = s_1.symmetric_difference(s_2)
 
-    #print(aw)
+    print(aw)
 
 
 def main():

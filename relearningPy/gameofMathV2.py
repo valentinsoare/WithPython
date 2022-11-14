@@ -137,7 +137,8 @@ def ask_the_question(type_of_operation, d_1, d_2):
                 list_with_values[1] = -1
                 return given_answer, '1'
         except IndexError:
-            print(f"\n{' ' * 5} ERROR you need to use integers/floats when you answer to math questions or 'cd' or 'cd' to change operation or difficulty.")
+            print(f"\n{' ' * 5} ERROR you need to use integers/floats when you answer to math questions or "
+                  f"'cd' or 'cd' to change operation or difficulty.")
             os.system(value_to_sleep_one)
             continue
 
@@ -147,7 +148,8 @@ def ask_the_question(type_of_operation, d_1, d_2):
             try:
                 processed_answer = float(given_answer)
             except ValueError:
-                print(f"\n{' ' * 5} ERROR you need to use integers/floats when you answer to math questions or 'cd' or 'cd' to change operation or difficulty.")
+                print(f"\n{' ' * 5} ERROR you need to use integers/floats when you answer to math questions or 'cd' "
+                      f"or 'cd' to change operation or difficulty.")
                 os.system(value_to_sleep_one)
                 continue
 
@@ -183,7 +185,8 @@ def main():
             chosen_operation = ask_operation_type()
 
             if chosen_operation == 'cd':
-                print(f"\n{' ' * 5} ERROR please choose an operation first and then you can choose a difficulty level when you start the script.")
+                print(f"\n{' ' * 5} ERROR please choose an operation first and then you can choose a difficulty "
+                      f"level when you start the script.")
                 os.system('sleep 1')
                 list_with_values[1] = -1
                 continue
