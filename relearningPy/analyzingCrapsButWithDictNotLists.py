@@ -110,8 +110,17 @@ def calculate_statistics(wins, losses, number_of_games):
     print(f"{' ' * 13}{'Rolls':<11}{'on this roll':<27}{'of games resolved'}")
 
     past = 0
+    numbers_of_digits = ''
+    
+    if number_of_games > 4_000_000:
+        numbers_of_digits = 6
+    elif number_of_games > 2_000_000:
+        numbers_of_digits = 5
+    elif number_of_games > 1_000_000:
+        numbers_of_digits = 3
+
     for i, j in sorted(games_resolved.items(), key=lambda k: k[0], reverse=False):
-        print(f"{' ' * 13}{i:>5}{(j/number_of_games) * 100:>17.2f}%{past + ((j/number_of_games) * 100):>31.2f}%")
+        print(f"{' ' * 13}{i:>5}{(j/number_of_games) * 100:>17.{numbers_of_digits}f}%{past + ((j/number_of_games) * 100):>31.{numbers_of_digits}f}%")
         past = past + (j/number_of_games) * 100
 
 
