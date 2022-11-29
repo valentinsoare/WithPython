@@ -140,7 +140,7 @@ def indexing_and_slicing():
     #print(f"\n{giving_array[:, 1:4]}")
 
     #print(f"\n{giving_array[1, 4]}")
-
+asdasd
     #print(f"{giving_array[0:2, [0, 2, 4]]}")
 
 
