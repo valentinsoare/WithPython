@@ -131,17 +131,50 @@ def indexing_and_slicing():
     giving_array = np.array(np.random.randint(1, 16, 15).reshape(3, 5))
     print(f"{giving_array}")
 
-    #print(f"\n{giving_array[1]}")
+    print(f"\n{giving_array[1]}")
+    print(f"\n{giving_array[:, 4]}")
 
-    #print(f"\n{giving_array[:, 4]}")
+    print(f"{giving_array[0:2]}")
 
-    #print(f"{giving_array[0:2]}")
+    print(f"\n{giving_array[:, 1:4]}")
 
-    #print(f"\n{giving_array[:, 1:4]}")
+    print(f"\n{giving_array[1, 4]}")
 
-    #print(f"\n{giving_array[1, 4]}")
-asdasd
-    #print(f"{giving_array[0:2, [0, 2, 4]]}")
+    print(f"{giving_array[0:2, [0, 2, 4]]}")
+
+
+def broadcasting_capabilities():
+    given_array = np.random.randint(1, 9, 20)
+    new_arr = given_array * 2
+    old_arr = np.array([2, 3])
+    next_version = np.full(20, 10)
+    print(f"{given_array * next_version}")
+
+def stacking():
+    array_1 = np.array([[0, 1], [2, 3]])
+    array_2 = np.array([[4, 5], [6, 7]])
+
+    array_3 = np.vstack([array_1, array_2])
+    print(array_3)
+
+    array_4 = np.hstack([array_1, array_2])
+    print(array_4)
+
+    array_5 = np.vstack([array_4, array_4])
+    print(array_5)
+
+    array_6 = np.hstack([array_3, array_3])
+    print(array_6)
+
+
+def to_concatenate():
+    first_array = np.array(np.random.randint(1, 9, 20).reshape(4, 5))
+    second_array = np.array(np.random.randint(21, 29, 10).reshape(2, 5))
+
+    concatenated_array = np.concatenate([first_array, second_array], axis=0)
+
+    print(f"{first_array}\nNEBUNIE\n{second_array}\n\n\n\n{concatenated_array}")
+
 
 
 def main():
@@ -154,7 +187,10 @@ def main():
     #method_astype()
     #numpy_array_output()
     #pandas_dataframe_output_like()
-    indexing_and_slicing()
+    #indexing_and_slicing()
+    #broadcasting_capabilities()
+    #stacking()
+    to_concatenate()
 
 
 if __name__ == '__main__':
