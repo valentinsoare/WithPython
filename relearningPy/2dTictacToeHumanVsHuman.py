@@ -103,7 +103,6 @@ def names(game_board):
 def who_will_start_first(list_of_players, game_board):
     count = 0
     order_of_start = []
-    processed_answer = 'default'
     list_ways = ['first', 'second']
 
     while count < 2:

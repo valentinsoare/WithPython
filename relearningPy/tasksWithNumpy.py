@@ -2,6 +2,7 @@
 
 import numpy as np
 import pandas as pd
+from collections import Counter
 
 
 def calculate_avg():
@@ -83,7 +84,7 @@ def flattening_arrays():
     print(id(flatten_array))
     print(id(ravel_array))
 
-    #flatten_array[0] = 100
+    flatten_array[0] = 100
     ravel_array[0] = 100
 
     print(two_by_three)
@@ -109,8 +110,8 @@ def pandas_dataframe_output_like():
                    'Katie': [100, 81, 82], 'Bob': [83, 65, 85]}
 
     list_with_fields = ['Math', 'English', 'Chemistry']
-    #pandas_grades = pd.DataFrame(grades_dict.values(), index=grades_dict.keys(), columns=list_with_fields)
-    #print(pandas_grades)
+    pandas_grades = pd.DataFrame(grades_dict.values(), index=grades_dict.keys(), columns=list_with_fields)
+    print(pandas_grades)
 
     longest_key_dict = max(list(len(i) for i in grades_dict.keys()))
 
@@ -176,6 +177,59 @@ def to_concatenate():
     print(f"{first_array}\nNEBUNIE\n{second_array}\n\n\n\n{concatenated_array}")
 
 
+def count_negative():
+    given_integers = np.array(np.random.randint(-99, 99, 25).reshape(5, 5))
+    values, counting_digits = np.unique(given_integers, return_counts=True)
+
+    print(f"\n * Given Array with Positive and Negative Integers:\n{given_integers}")
+    count_negative = 0
+    dict_with_appearances = {}
+
+    for i in range(len(values)):
+        if values[i] < 0:
+            dict_with_appearances[values[i]] = counting_digits[i]
+            count_negative += 1
+
+    print(f"\n * How many negative numbers: {count_negative}")
+    print(f"\n * Frequency of negative numbers:\n{dict_with_appearances}")
+
+
+def median_numpy_array(given_numpy_array):
+    median_value = 0
+    array_to_work_with = np.array(given_numpy_array)
+    print(f"\n ** Given numpy array\n to calculate median.\n{given_numpy_array}")
+
+    if len(np.shape(given_numpy_array)) == 2:
+        array_to_work_with = array_to_work_with.ravel()
+        print(f"\n * Raveled array:\n{array_to_work_with}\n")
+
+    if len(array_to_work_with) == 0:
+        print(f" * No elements in the array.")
+        exit(1)
+    elif len(array_to_work_with) == 1:
+        median_value = array_to_work_with[0]
+    elif len(array_to_work_with) % 2 != 0:
+        median_value = array_to_work_with[(len(array_to_work_with) // 2)]
+    else:
+        median_value = array_to_work_with[int(len(array_to_work_with) / 2)]
+
+    return median_value
+
+
+def mode_numpy_array(given_array):
+    array_to_work_with = np.array(given_array)
+
+    print(f" * * Given array:\n{array_to_work_with}")
+
+    if len(array_to_work_with) == 0:
+        print(f" ERROR * array is empty")
+        exit(0)
+
+    values, counting = np.unique(array_to_work_with, return_counts=True)
+    most_frequent = max(counting)
+
+    return values[list(counting).index(most_frequent)]
+
 
 def main():
     #calculate_avg()
@@ -190,7 +244,13 @@ def main():
     #indexing_and_slicing()
     #broadcasting_capabilities()
     #stacking()
-    to_concatenate()
+    #to_concatenate()
+    #count_negative()
+    #calc_median = median_numpy_array(np.array(np.random.randint(1, 10, 9)))
+    #print(f"Median: {calc_median}")
+    #mode_calc = mode_numpy_array(np.random.randint(1, 10, 12).reshape(3, 4))
+    #print(f"\nMode calc: {mode_calc}")
+
 
 
 if __name__ == '__main__':

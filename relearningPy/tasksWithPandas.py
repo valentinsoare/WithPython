@@ -35,9 +35,7 @@ def colorize_1st_2nd_diag(given_board, number_diag):
 
 def main():
     numpy_array = np.array(np.random.randint(1, 9, 9).reshape(3, 3))
-
-    print(f"{numpy_array}\n\n")
-
+    #print(f"{numpy_array}\n\n")
     #colorize_rows_column(numpy_array, 1, 1)
     #colorize_1st_2nd_diag(numpy_array, 2)
 
