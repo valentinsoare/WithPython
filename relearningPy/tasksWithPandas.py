@@ -85,7 +85,7 @@ def main():
     #colorize_1st_2nd_diag(numpy_array, 2)
     #shallow_vs_deep_copy()
     #simple_tasks_with_pandas_series()
-    #tasks_with_pandas_frame()
+    tasks_with_pandas_frame()
 
 
 if __name__ == '__main__':

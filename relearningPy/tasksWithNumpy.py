@@ -248,8 +248,8 @@ def main():
     #count_negative()
     #calc_median = median_numpy_array(np.array(np.random.randint(1, 10, 9)))
     #print(f"Median: {calc_median}")
-    #mode_calc = mode_numpy_array(np.random.randint(1, 10, 12).reshape(3, 4))
-    #print(f"\nMode calc: {mode_calc}")
+    mode_calc = mode_numpy_array(np.random.randint(1, 10, 12).reshape(3, 4))
+    eprint(f"\nMode calc: {mode_calc}")
 
 
 
