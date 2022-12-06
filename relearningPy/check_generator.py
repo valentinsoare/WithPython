@@ -151,12 +151,13 @@ def print_money_in_letters_on_check_and_footer(money_in_letters, remitter_id, si
     print(f"{' ' * 8}{'will be replaced or refunded in the event it is lost, misplaced or stolen.'}")
 
     print(f"\n{' ' * 2}{'Remitter'} \033[4;4m{' ' * 3}{remitter_id}{' ' * 40}\033[0m", end="")
-    print(f"{' ' * 16}{'Signature'}\033[4;4m{' ' * 2}{signature}{' ' * 25}\033[0m\033[0m")
-    print(f"\n\n")
+    print(f"{' ' * 16}{'Signature'}\033[4;4m{' ' * 2}{signature}{' ' * 25}\033[0m\033[0m\n\n")
+
 
 def main():
+    # limit of th cashier's check is 9999$, no more than that.
     current_date = '12-11-21'
-    money_to_cash = '2342.23'
+    money_to_cash = '8762'
     name_receiver = 'Andrei Caramitru'
     #-------
 

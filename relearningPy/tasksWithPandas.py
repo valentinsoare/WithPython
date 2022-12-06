@@ -123,7 +123,7 @@ def main():
     #shallow_vs_deep_copy()
     #simple_tasks_with_pandas_series()
     #tasks_with_pandas_frame()
-    #various_tasks_pandas()
+    various_tasks_pandas()
 
 
 if __name__ == '__main__':
