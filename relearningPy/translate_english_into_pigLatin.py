@@ -134,7 +134,6 @@ def word_to_add(word_without_punctuation, signs_location, if_capitalized):
 
 def start_translating(given_text):
     words_after_processing = []
-
     splitting_text = given_text.split()
     length_split_text = len(splitting_text)
 
@@ -151,7 +150,6 @@ def start_translating(given_text):
 
 def print_translated_sentence(given_list_with_words):
     sentence_to_print = ' '.join(given_list_with_words)
-
     print(f"\n{' ** Translation: '}{sentence_to_print}\n\n")
 
 
