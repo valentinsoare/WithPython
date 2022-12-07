@@ -50,7 +50,11 @@ def tokenize_the_input_and_extract_only_selected(given_input, selection_var):
 
 
 def printing_selected_words(given_set, filter_to_select):
-    var_to_print = ', '.join(given_set)
+    if len(given_set) == 0:
+        var_to_print = 'none'
+    else:
+        var_to_print = ', '.join(given_set)
+
     print(f"\n{' ** Words selected with letter '}\"{filter_to_select}\" at the beginning:", end=" ")
     print(f"{var_to_print}")
 
