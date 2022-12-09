@@ -1,0 +1,141 @@
+The code in the previous examples works fine with ASCII text files. However, if you’re dealing with other languages such as Japanese, Chinese, and Korean, the text file is not a simple ASCII text file. And it’s likely a UTF-8 file that uses more than just the standard ASCII text characters.
+
+Create a script that inputs text, then determines
+whether that text is positive or negative, based on the total number of positive words and
+the total number of negative words. Test your script by searching for Twitter tweets on a
+topic of your choosing, then entering the text for several tweets
+
+With more than 26,000 murders this year, it is clear the president’s strategy of using the military to control the crime gangs has failed
+Oscar Lopez in Mexico City
+Thu 8 Dec 2022 11.30 GMT
+Last modified on Thu 8 Dec 2022 11.32 GMT
+
+The news came almost as fast as the bullets were fired: a judge murdered in cold blood; cartel members attempting a prison break; five people killed at a bar in a popular port city.
+
+The surge in violence over a single weekend in Mexico brought a torrent of headlines that are increasingly familiar as powerful gangs battle for control of the country: shootouts, cars set on fire, bodies lying in the street.
+
+It has become a steady drumbeat of conflict that underscores the ongoing failure of President Andrés Manuel López Obrador’s security strategy – and the inability of his government to tackle the scourge.
+
+“There’s this false sense that we are moving away from a latent state of armed, violent, lethal conflict,” said Falko Ernst, a Mexico security analyst at the International Crisis Group. “But we must be conscious that we’re talking about a staggering level of homicides and other lethal practices that are still the norm in Mexico.”
+
+Despite campaigning on a promise to take the military off the streets, López Obrador, or Amlo as he’s commonly known, has increasingly relied on the armed forces to tackle the violence, deploying the army and the national guard across the country.
+
+On Monday the Mexican president addressed the weekend’s wave of attacks in Zacatecas state, where, a day after a judge was shot dead, cars were set on fire and roads blocked off as inmates at a prison tried to escape.
+A member of the national guard in Guadalajara, Mexico, in December 2021.
+Amlo promised to take Mexico’s army off the streets – but he made it more powerful
+Read more
+
+“This weekend, there were these very unfortunate events: the loss of life, the murder of a judge,” the president said during his morning news conference, before blaming the violence on the inaction of previous governments. “We are improving, we are advancing, we will not stop protecting the people.”
+
+But the very next day, the carnage continued.
+
+On Tuesday a shooting near a kindergarten in Sinaloa state left two dead; a video shared on social media showed children cowering under their desks as their teacher tried to comfort them with the music of Taylor Swift.
+
+On Wednesday morning another shootout between the military and members of an organized crime gang in the border city of Nuevo Laredo left seven people dead, just over a week after shootouts forced schools in the city to cancel classes.
+
+Preliminary figures from the Mexican government show that there have been an average of 78 murders a day this month in Mexico – about three killings an hour.
+
+Amlo has pointed to a slight drop in murders since he took office as sign his strategy is working. Overall homicides dropped by about 7% in the first 10 months of 2022, compared with the same period last year, official figures show.
+
+But given that more than 26,000 Mexicans have been murdered this year, such a dip is hardly a victory, analysts say.
+
+“We’re still going to come out north of 30,000 homicides that have been officially counted by any standard this year,” said Ernst. “We’re still talking about this staggeringly high level. I think that selling that as a success is politically convenient, but it has its own perverted logic.”
+
+Zacatecas state has become a focal point for the violence as powerful organized crime groups compete for the strategically significant region, with highways that head both toward the northern border and the Pacific coast.
+
+Between 2015 and 2021, the number of murders in the state increased by a staggering 400%. In January this year, an SUV with 10 dead bodies was dumped in front of the offices of the state governor, David Monreal Ávila, in the state capital, also called Zacatecas.
+
+“The issue of violence is terrifying,” said Victor Piña, a lifelong resident of Zacatecas state who lives in the city of Fresnillo. “The situation is out of control.”
+
+On Sunday, as reports emerged of violence erupting in the city after the failed prison break, Piña sheltered at home with his son, listening to the sirens that have become a common soundtrack in this city.
+
+The next day, driving out of town, Piña saw the aftermath: burned carcasses of trucks set on fire as roadblocks, which, according to the state security secretary, Adolfo Marín Marín, had been set up to draw attention away from the attempted prison break.
+
+“It terrifies me,” Piña said of the violence. “It fills me with rage, with indignation.”
+
+Zacatecas has become a focus for Amlo’s chief security strategy, with the government announcing last November that it would be sending about 4,000 members of the military and national guard to tackle organized crime in the state.
+
+But more than a year later, with violence again overwhelming the state, the limits of the president’s strategy has been laid bare, according to analysts.
+
+“It’s another example of the failed policy of military deployment,” said Catalina Pérez Correa, a law professor at Mexico City’s CIDE university. “There are areas of the country that are simply out of state control.”
+
+And as the strategy of militarization fails, residents like Piña are left to deal with unending violence.
+
+“I love my home profoundly,” he said. “And I see that it’s going through the worst crisis in its history.”
+
+As Mexico’s epidemic of violence rages on, authorities seem powerless to stop it
+Heavily armed national guard soldiers looming ominously against the sky
+Soldiers and national guard troops have been deployed throughout Mexico to combat crime gangs, but violence remains shockingly high, with more than 26,000 murders so far this year. Photograph: Joebeth Terríquez/EPA
+
+With more than 26,000 murders this year, it is clear the president’s strategy of using the military to control the crime gangs has failed
+Oscar Lopez in Mexico City
+Thu 8 Dec 2022 11.30 GMT
+Last modified on Thu 8 Dec 2022 11.32 GMT
+
+The news came almost as fast as the bullets were fired: a judge murdered in cold blood; cartel members attempting a prison break; five people killed at a bar in a popular port city.
+
+The surge in violence over a single weekend in Mexico brought a torrent of headlines that are increasingly familiar as powerful gangs battle for control of the country: shootouts, cars set on fire, bodies lying in the street.
+
+It has become a steady drumbeat of conflict that underscores the ongoing failure of President Andrés Manuel López Obrador’s security strategy – and the inability of his government to tackle the scourge.
+
+“There’s this false sense that we are moving away from a latent state of armed, violent, lethal conflict,” said Falko Ernst, a Mexico security analyst at the International Crisis Group. “But we must be conscious that we’re talking about a staggering level of homicides and other lethal practices that are still the norm in Mexico.”
+Scorched remains of a truck
+A burnt-out truck blocks a highway on Monday after an attempted prison break in Zacatecas state. Photograph: Reuters
+
+Despite campaigning on a promise to take the military off the streets, López Obrador, or Amlo as he’s commonly known, has increasingly relied on the armed forces to tackle the violence, deploying the army and the national guard across the country.
+
+On Monday the Mexican president addressed the weekend’s wave of attacks in Zacatecas state, where, a day after a judge was shot dead, cars were set on fire and roads blocked off as inmates at a prison tried to escape.
+A member of the national guard in Guadalajara, Mexico, in December 2021.
+Amlo promised to take Mexico’s army off the streets – but he made it more powerful
+Read more
+
+“This weekend, there were these very unfortunate events: the loss of life, the murder of a judge,” the president said during his morning news conference, before blaming the violence on the inaction of previous governments. “We are improving, we are advancing, we will not stop protecting the people.”
+
+But the very next day, the carnage continued.
+
+On Tuesday a shooting near a kindergarten in Sinaloa state left two dead; a video shared on social media showed children cowering under their desks as their teacher tried to comfort them with the music of Taylor Swift.
+
+On Wednesday morning another shootout between the military and members of an organized crime gang in the border city of Nuevo Laredo left seven people dead, just over a week after shootouts forced schools in the city to cancel classes.
+
+Preliminary figures from the Mexican government show that there have been an average of 78 murders a day this month in Mexico – about three killings an hour.
+
+Amlo has pointed to a slight drop in murders since he took office as sign his strategy is working. Overall homicides dropped by about 7% in the first 10 months of 2022, compared with the same period last year, official figures show.
+
+But given that more than 26,000 Mexicans have been murdered this year, such a dip is hardly a victory, analysts say.
+Flower-covered coffin being carried into a church
+Members of the justice department bearing the coffin of a judge killed in Zacatecas on Sunday. Photograph: Reuters
+
+“We’re still going to come out north of 30,000 homicides that have been officially counted by any standard this year,” said Ernst. “We’re still talking about this staggeringly high level. I think that selling that as a success is politically convenient, but it has its own perverted logic.”
+
+Zacatecas state has become a focal point for the violence as powerful organized crime groups compete for the strategically significant region, with highways that head both toward the northern border and the Pacific coast.
+
+Between 2015 and 2021, the number of murders in the state increased by a staggering 400%. In January this year, an SUV with 10 dead bodies was dumped in front of the offices of the state governor, David Monreal Ávila, in the state capital, also called Zacatecas.
+
+“The issue of violence is terrifying,” said Victor Piña, a lifelong resident of Zacatecas state who lives in the city of Fresnillo. “The situation is out of control.”
+
+On Sunday, as reports emerged of violence erupting in the city after the failed prison break, Piña sheltered at home with his son, listening to the sirens that have become a common soundtrack in this city.
+
+The next day, driving out of town, Piña saw the aftermath: burned carcasses of trucks set on fire as roadblocks, which, according to the state security secretary, Adolfo Marín Marín, had been set up to draw attention away from the attempted prison break.
+
+“It terrifies me,” Piña said of the violence. “It fills me with rage, with indignation.”
+Quick Guide
+Mexico's evolving war on drugs
+Show
+
+Zacatecas has become a focus for Amlo’s chief security strategy, with the government announcing last November that it would be sending about 4,000 members of the military and national guard to tackle organized crime in the state.
+
+But more than a year later, with violence again overwhelming the state, the limits of the president’s strategy has been laid bare, according to analysts.
+
+“It’s another example of the failed policy of military deployment,” said Catalina Pérez Correa, a law professor at Mexico City’s CIDE university. “There are areas of the country that are simply out of state control.”
+
+And as the strategy of militarization fails, residents like Piña are left to deal with unending violence.
+
+“I love my home profoundly,” he said. “And I see that it’s going through the worst crisis in its history.”
+
+… as you’re joining us today from Romania, we have a small favour to ask. Tens of millions have placed their trust in the Guardian’s fearless journalism since we started publishing 200 years ago, turning to us in moments of crisis, uncertainty, solidarity and hope. More than 1.5 million supporters, from 180 countries, now power us financially – keeping us open to all, and fiercely independent. Will you make a difference and support us too?
+
+Unlike many others, the Guardian has no shareholders and no billionaire owner. Just the determination and passion to deliver high-impact global reporting, always free from commercial or political influence. Reporting like this is vital for democracy, for fairness and to demand better from the powerful.
+
+And we provide all this for free, for everyone to read. We do this because we believe in information equality. Greater numbers of people can keep track of the events shaping our world, understand their impact on people and communities, and become inspired to take meaningful action. Millions can benefit from open access to quality, truthful news, regardless of their ability to pay for it.
+
+Whether you give a little or a lot, your funding will power our reporting for the years to come.
