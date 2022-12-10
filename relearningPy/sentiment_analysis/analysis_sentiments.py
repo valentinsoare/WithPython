@@ -2,14 +2,16 @@
 
 import os
 import re
-import time
-import random
 import logging
 import pandas as pd
-import pyparsing as pp
+from time import sleep
+from random import randrange
+from collections import Counter
+from pyparsing import Word, alphas
 
 header_name = 'sentiment analysis'
 sleep_time = 2
+
 
 def header_printing(given_message):
     processed_words = []
@@ -19,7 +21,7 @@ def header_printing(given_message):
     for i in range(len(list_with_title_tokenized)):
         word = ''
         for j in range(len(list_with_title_tokenized[i])):
-            location_to_use = random.randrange(0, (len(list_with_title_tokenized[i]) - 1))
+            location_to_use = randrange(0, (len(list_with_title_tokenized[i]) - 1))
             if j == location_to_use:
                 word += list_with_title_tokenized[i][j].upper()
             else:
@@ -48,11 +50,11 @@ def to_quit(given_answer):
 
     if re.match(r'\s+', given_answer) or given_answer == "":
         print(f"{message_to_give}")
-        time.sleep(sleep_time)
+        sleep(sleep_time)
         variable_to_return = False
     elif given_answer.lower()[0] == 'q':
         print(f"\n{' ' * 5}{' Exiting...'}\n")
-        time.sleep(sleep_time)
+        sleep(sleep_time)
         exit(0)
     elif given_answer.lower()[0] == 'b':
         variable_to_return = 'backward'
@@ -85,7 +87,7 @@ def validate_answer_for_source(given_word):
 
     if issue == 0:
         print(error_message)
-        time.sleep(sleep_time)
+        sleep(sleep_time)
 
     return issue, processed_word
 
@@ -99,7 +101,7 @@ def validate_read_input_from_command_line(given_answer):
     else:
         if len(given_answer) == 1:
             print(message_to_give_1)
-            time.sleep(sleep_time)
+            sleep(sleep_time)
             return 0
 
     exit_value = 0
@@ -116,7 +118,7 @@ def validate_read_input_from_command_line(given_answer):
 
     if isinstance(processed_answer, int) or isinstance(processed_answer, float):
         print(f"{message_to_give}")
-        time.sleep(sleep_time)
+        sleep(sleep_time)
 
     return exit_value
 
@@ -130,7 +132,7 @@ def validate_load_txt_file(given_answer):
     else:
         if len(given_answer) == 1:
             print(message_to_give_1)
-            time.sleep(sleep_time)
+            sleep(sleep_time)
             return 0
 
     issue = 0
@@ -139,11 +141,11 @@ def validate_load_txt_file(given_answer):
 
     if not os.path.isfile(given_answer):
         print(f"\n{given_message_1}\n")
-        time.sleep(sleep_time)
+        sleep(sleep_time)
     else:
         if os.path.getsize(given_answer) == 0:
             print(f"{' ' * 4}{given_message_2}\n")
-            time.sleep(sleep_time)
+            sleep(sleep_time)
         else:
             issue = 1
 
@@ -156,7 +158,7 @@ def read_input_from_command_line():
 
     while to_exit == 0:
         os.system('clear')
-        header_printing(header_name)
+        #header_printing(header_name)
 
         print(f"{' ' * 2} * Please put here the sentence(s) you want to analyze (q to quit or b to return to "
               f"sources:", end=" ")
@@ -173,7 +175,7 @@ def load_input_from_text_file():
 
     while error == 0:
         os.system('clear')
-        header_printing(header_name)
+        #header_printing(header_name)
         print(f"{' ' * 2} * Please enter the entire path of the file which is use "
               f"to load the text from (q to quit or b to return to sources):", end=" ")
         answer = input()
@@ -195,7 +197,7 @@ def ask_for_input_source():
 
     while error == 0:
         os.system('clear')
-        header_printing(header_name)
+        #header_printing(header_name)
         print(f"{' ' * 2}{' * From where you want to load the text to analyse, command line or file:'}\n")
 
         for i, j in dict_with_options.items():
@@ -219,7 +221,7 @@ def prepare_text_for_analysis(given_text):
 
 
 def creating_text_parser_for_level(given_level_of_log):
-    log_pattern = pp.Word(pp.alphas) + '.' + pp.Word(pp.alphas)
+    log_pattern = Word(alphas) + '.' + Word(alphas)
 
     for log in ['logging.DEBUG', 'logging.INFO', 'logging.WARNING', 'logging.ERROR', 'logging.CRITICAL']:
         log_level = log_pattern.parseString(log)
@@ -241,7 +243,24 @@ def logging_the_output(logging_level_to_use, list_with_words):
     action_to_use = given_level.lower() + f"(list_with_words)"
     eval(action_to_use)
 
-#def find_sentiment_value(given_list_with_words, positive_words, negative_words):
+
+def populate_sentiment_value_dict(given_list_with_words, positive_words, negative_words):
+    positive_dict_with_words_from_text = {}
+    negative_dict_with_words_from_text = {}
+    positive_words_freq = {}
+    negative_words_freq = {}
+
+    counting_words_freq = Counter(given_list_with_words)
+
+    for word, freq in counting_words_freq.items():
+        if word in positive_words.keys():
+            positive_dict_with_words_from_text[word] = positive_words.loc[word]
+            positive_words_freq[word] = freq
+        elif word in negative_words.keys():
+            negative_dict_with_words_from_text[word] = negative_words.loc[word]
+            negative_words_freq[word] = freq
+
+    return counting_words_freq, positive_dict_with_words_from_text, positive_words_freq, negative_dict_with_words_from_text, negative_words_freq
 
 
 def main():
@@ -256,10 +275,12 @@ def main():
         if len(text_to_use) > 1:
             words_in_list_for_analysis = prepare_text_for_analysis(text_to_use)
             negative_sentiments, positive_sentiments = import_document_with_sentiments()
-            logging_the_output('info', words_in_list_for_analysis)
+            #logging_the_output('info', words_in_list_for_analysis)
 
-            #find_sentiment_value(words_in_list_for_analysis, positive_sentiments, negative_sentiments)
-
+            total_count_freq, positive_words, positive_freq, negative_words, negative_freq = populate_sentiment_value_dict(words_in_list_for_analysis,
+                                                                                                                        positive_sentiments,
+                                                                                                                        negative_sentiments)
+            
 
 if __name__ == '__main__':
     main()
