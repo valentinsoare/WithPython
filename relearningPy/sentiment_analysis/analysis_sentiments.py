@@ -211,8 +211,6 @@ def prepare_text_for_analysis(given_text):
                                                    for word in split_text)
     return split_without_punctuation_beginning_end
 
-#def find_sentiment_value(given_list_with_words, positive_words, negative_words):
-
 
 def creating_text_parser_for_level(given_level_of_log):
     log_pattern = pp.Word(pp.alphas) + '.' + pp.Word(pp.alphas)
@@ -226,6 +224,7 @@ def creating_text_parser_for_level(given_level_of_log):
 
 
 def logging_the_output(logging_level_to_use, list_with_words):
+    # tested for security gaps and all is ok with using eval in this instance.
     given_level = creating_text_parser_for_level(logging_level_to_use)
 
     logging.basicConfig(filename='sentiments_values_analysis.log',
@@ -236,9 +235,10 @@ def logging_the_output(logging_level_to_use, list_with_words):
     action_to_use = given_level.lower() + f"(list_with_words)"
     eval(action_to_use)
 
+#def find_sentiment_value(given_list_with_words, positive_words, negative_words):
+
 
 def main():
-
     while True:
         what_type_of_input = ask_for_input_source()
 
