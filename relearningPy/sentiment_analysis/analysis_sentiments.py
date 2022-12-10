@@ -4,7 +4,9 @@ import os
 import re
 import time
 import random
+import logging
 import pandas as pd
+import pyparsing as pp
 
 
 def header_printing(given_message):
@@ -39,7 +41,7 @@ def import_document_with_sentiments():
 
 
 def to_quit(given_answer):
-    variable_to_return = ''
+    variable_to_return = 'forward'
     message_to_give = f"\n{' ' * 4}{' ERROR please do not use only whitespaces.'}\n"
 
     if re.match(r'\s+', given_answer) or given_answer == "":
@@ -52,8 +54,6 @@ def to_quit(given_answer):
         exit(0)
     elif given_answer.lower()[0] == 'b':
         variable_to_return = 'backward'
-    else:
-        variable_to_return = 'forward'
 
     return variable_to_return
 
@@ -89,9 +89,15 @@ def validate_answer_for_source(given_word):
 
 
 def validate_read_input_from_command_line(given_answer):
+    message_to_give_1 = f"\n{' ' * 4}{' ERROR you can use only char b as a single character which means to return to sources'}"
     exit_value = applying_to_quit(given_answer)
     if exit_value in [0, 1]:
         return exit_value
+    else:
+        if len(given_answer) == 1:
+            print(message_to_give_1)
+            time.sleep(2)
+            return 0
 
     exit_value = 0
     message_to_give = f"\n{' ' * 4} ERROR - please use also alpha characters not only numerical ones or whitespaces\n"
@@ -113,9 +119,15 @@ def validate_read_input_from_command_line(given_answer):
 
 
 def validate_load_txt_file(given_answer):
+    message_to_give_1 = f"\n{' ' * 4}{' ERROR you can use only char b as a single character which means to return to sources'}"
     issue = applying_to_quit(given_answer)
     if issue in [0, 1]:
         return issue
+    else:
+        if len(given_answer) == 1:
+            print(message_to_give_1)
+            time.sleep(2)
+            return 0
 
     issue = 0
     given_message_1 = f"{' ' * 4}{' ERROR the file does not exists.'}"
@@ -193,13 +205,40 @@ def ask_for_input_source():
 
 def prepare_text_for_analysis(given_text):
     punctuation = '!"#$%&\'()*+,./:;<=>?[\]`{|}~'
+    split_text = given_text.split()
 
     split_without_punctuation_beginning_end = list(word.translate(str.maketrans('', '', punctuation)).lower()
-                                                   for word in given_text.split())
+                                                   for word in split_text)
     return split_without_punctuation_beginning_end
+
+#def find_sentiment_value(given_list_with_words, positive_words, negative_words):
+
+
+def creating_text_parser_for_level(given_level_of_log):
+    log_pattern = pp.Word(pp.alphas) + '.' + pp.Word(pp.alphas)
+
+    for log in ['logging.DEBUG', 'logging.INFO', 'logging.WARNING', 'logging.ERROR', 'logging.CRITICAL']:
+        log_level = log_pattern.parseString(log)
+        if log_level[2].lower() == given_level_of_log:
+            return ''.join(log_level)
+
+    raise ValueError('Please use one of the five classic log levels.')
+
+
+def logging_the_output(logging_level_to_use, list_with_words):
+    given_level = creating_text_parser_for_level(logging_level_to_use)
+
+    logging.basicConfig(filename='sentiments_values_analysis.log',
+                        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                        datefmt='%d/%m/%Y %I:%M:%S %p',
+                        level=eval(given_level))
+
+    action_to_use = given_level.lower() + f"(list_with_words)"
+    eval(action_to_use)
 
 
 def main():
+
     while True:
         what_type_of_input = ask_for_input_source()
 
@@ -211,6 +250,10 @@ def main():
         if len(text_to_use) > 1:
             words_in_list_for_analysis = prepare_text_for_analysis(text_to_use)
             negative_sentiments, positive_sentiments = import_document_with_sentiments()
+
+            logging_the_output('info', words_in_list_for_analysis)
+
+            #find_sentiment_value(words_in_list_for_analysis, positive_sentiments, negative_sentiments)
 
 
 if __name__ == '__main__':
