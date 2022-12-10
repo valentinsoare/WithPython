@@ -8,6 +8,8 @@ import logging
 import pandas as pd
 import pyparsing as pp
 
+header_name = 'sentiment analysis'
+sleep_time = 2
 
 def header_printing(given_message):
     processed_words = []
@@ -46,11 +48,11 @@ def to_quit(given_answer):
 
     if re.match(r'\s+', given_answer) or given_answer == "":
         print(f"{message_to_give}")
-        time.sleep(2)
+        time.sleep(sleep_time)
         variable_to_return = False
     elif given_answer.lower()[0] == 'q':
         print(f"\n{' ' * 5}{' Exiting...'}\n")
-        time.sleep(1)
+        time.sleep(sleep_time)
         exit(0)
     elif given_answer.lower()[0] == 'b':
         variable_to_return = 'backward'
@@ -83,20 +85,21 @@ def validate_answer_for_source(given_word):
 
     if issue == 0:
         print(error_message)
-        time.sleep(1)
+        time.sleep(sleep_time)
 
     return issue, processed_word
 
 
 def validate_read_input_from_command_line(given_answer):
-    message_to_give_1 = f"\n{' ' * 4}{' ERROR you can use only char b as a single character which means to return to sources'}"
+    message_to_give_1 = f"\n{' ' * 4} ERROR you can use only char b as a single " \
+                        f"character which means to return to sources"
     exit_value = applying_to_quit(given_answer)
     if exit_value in [0, 1]:
         return exit_value
     else:
         if len(given_answer) == 1:
             print(message_to_give_1)
-            time.sleep(2)
+            time.sleep(sleep_time)
             return 0
 
     exit_value = 0
@@ -113,20 +116,21 @@ def validate_read_input_from_command_line(given_answer):
 
     if isinstance(processed_answer, int) or isinstance(processed_answer, float):
         print(f"{message_to_give}")
-        time.sleep(2)
+        time.sleep(sleep_time)
 
     return exit_value
 
 
 def validate_load_txt_file(given_answer):
-    message_to_give_1 = f"\n{' ' * 4}{' ERROR you can use only char b as a single character which means to return to sources'}"
+    message_to_give_1 = f"\n{' ' * 4} ERROR you can use only char b as a single " \
+                        f"character which means to return to sources"
     issue = applying_to_quit(given_answer)
     if issue in [0, 1]:
         return issue
     else:
         if len(given_answer) == 1:
             print(message_to_give_1)
-            time.sleep(2)
+            time.sleep(sleep_time)
             return 0
 
     issue = 0
@@ -135,11 +139,11 @@ def validate_load_txt_file(given_answer):
 
     if not os.path.isfile(given_answer):
         print(f"\n{given_message_1}\n")
-        time.sleep(2)
+        time.sleep(sleep_time)
     else:
         if os.path.getsize(given_answer) == 0:
             print(f"{' ' * 4}{given_message_2}\n")
-            time.sleep(2)
+            time.sleep(sleep_time)
         else:
             issue = 1
 
@@ -152,9 +156,10 @@ def read_input_from_command_line():
 
     while to_exit == 0:
         os.system('clear')
-        header_printing("sentiment analysis")
+        header_printing(header_name)
 
-        print(f"{' ' * 2}{' * Please put here the sentence(s) you want to analyze (q to quit or b to return to sources):'}", end=" ")
+        print(f"{' ' * 2} * Please put here the sentence(s) you want to analyze (q to quit or b to return to "
+              f"sources:", end=" ")
         answer = input()
 
         to_exit = validate_read_input_from_command_line(answer)
@@ -168,8 +173,9 @@ def load_input_from_text_file():
 
     while error == 0:
         os.system('clear')
-        header_printing("sentiment analysis")
-        print(f"{' ' * 2}{' * Please enter the entire path of the file which is use to load the text from (q to quit or b to return to sources):'}", end=" ")
+        header_printing(header_name)
+        print(f"{' ' * 2} * Please enter the entire path of the file which is use "
+              f"to load the text from (q to quit or b to return to sources):", end=" ")
         answer = input()
 
         error = validate_load_txt_file(answer)
@@ -189,7 +195,7 @@ def ask_for_input_source():
 
     while error == 0:
         os.system('clear')
-        header_printing("sentiment analysis")
+        header_printing(header_name)
         print(f"{' ' * 2}{' * From where you want to load the text to analyse, command line or file:'}\n")
 
         for i, j in dict_with_options.items():
@@ -250,7 +256,6 @@ def main():
         if len(text_to_use) > 1:
             words_in_list_for_analysis = prepare_text_for_analysis(text_to_use)
             negative_sentiments, positive_sentiments = import_document_with_sentiments()
-
             logging_the_output('info', words_in_list_for_analysis)
 
             #find_sentiment_value(words_in_list_for_analysis, positive_sentiments, negative_sentiments)
