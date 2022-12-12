@@ -344,8 +344,8 @@ def main():
                                                                                                                         negative_sentiments)
             text_to_output = printing_statistics(total_count_freq, words_in_list_for_analysis, positive_words, positive_freq, negative_words, negative_freq)
 
-            print(text_to_output)
-            logging_the_output('info', f"\n" + text_to_output)
+            print(text_to_output + "\n")
+            logging_the_output('info', f"\n" + text_to_output + "\n")
 
             exit(0)
 
