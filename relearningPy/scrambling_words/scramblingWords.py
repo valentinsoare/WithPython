@@ -208,7 +208,7 @@ def parsing_config_file_and_decide(config_file_from_user: dict) -> tuple:
     return to_load_text_from, type_of_output_input, to_write_text_to, type_of_output_output
 
 
-def choose_text_from_file(given_path_of_file: str) -> int:
+def choose_text_from_file(given_path_of_file: str) -> tuple:
 
     while True:
         system('clear')
@@ -222,19 +222,14 @@ def choose_text_from_file(given_path_of_file: str) -> int:
         if to_check == 'continue':
             continue
         elif to_check == 'back_config':
-            return 1
+            return 1, 'back_config'
         elif to_check == 'go_forward':
-            return 0
+            with open(given_path_of_file, 'r') as file_with_text:
+                loaded_text_in_string = file_with_text.read()
+            return 0, pd.Series(loaded_text_in_string.split())
 
         print(f"\n{' ' * 6} ERROR - please use only one of those three options - q, f or b.", flush=True)
         sleep(2)
-
-
-def load_the_text_from_file(given_file: str) -> pd.Series:
-    with open(given_file, 'r') as file_with_text:
-        loaded_text_in_string = file_with_text.read().split()
-
-    return pd.Series(loaded_text_in_string)
 
 
 def main():
@@ -257,9 +252,7 @@ def main():
         if type_of_input == 'cli':
             after_content_validation_error, words_from_text = load_text_from_cli()
         elif type_of_input == 'file':
-            after_content_validation_error = choose_text_from_file(load_text_from)
-            if after_content_validation_error == 0:
-                words_from_text = load_the_text_from_file(load_text_from)
+            after_content_validation_error, words_from_text = choose_text_from_file(load_text_from)
 
 
 if __name__ == '__main__':
