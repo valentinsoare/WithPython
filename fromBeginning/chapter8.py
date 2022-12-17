@@ -299,6 +299,17 @@ def other_tasks_with_re():
 
     print(ax.capitalize())
 
+def to_be():
+
+    variable = 'sa fiee bine'
+
+    try:
+        processed_var = int(variable)
+    except ValueError as err:
+        print(err)
+
+
+
 def main():
     #strings_exercises()
     #formatting_strings()
@@ -313,7 +324,12 @@ def main():
     #raw_string()
     #regex_with_python()
     #replacing_and_splitting_substrings()
-    other_tasks_with_re()
+    #other_tasks_with_re()
+    #to_be()
+    print(897 % 100)
+
+    given_list = [10, 20, 33, 44]
+    print(given_list, sep="-")
 
 if __name__ == '__main__':
     main()

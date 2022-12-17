@@ -3,8 +3,6 @@
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 G
 switchgears/run_algo.py,a/b/ab45578284659b5c417e97655db3e01abd0ed7ed
-Y
-)sentimentAnalysis/runSentimentAnalysis.py,e/9/e9fbbac06cb3ef5db56cb222534397a90431b60b
 ?
 checkerboard.py,9/5/95be5b052a1ff058e058f5aef2befe1d6843c208
 B
@@ -92,13 +90,29 @@ I
 fromBeginning/chapter6.py,0/1/0161f5a678ca80ca70193ce6bfb6707e7c567d02
 a
 1relearningPy/analyzingCrapsButWithDictNotLists.py,e/3/e383aba4fe7882791ea8987febab6ee0e7ab677d
-H
-relearningPy/invoices.py,b/4/b41b4ab7064b7eccde3eb6bf9b8fc74c495ed82c
 Q
 !relearningPy/calculatingChange.py,6/0/6056cae5e5986117dabf91c41648f85692331aa3
 _
 /relearningPy/median_and_mode_on_numpy_arrays.py,7/5/756ef89ba5255daba2947f52c0882e0d1b5660e3
-I
-fromBeginning/chapter7.py,0/c/0cdf8958f1ec6c10360c39f1dabc9771adf04877
 C
 wordsCheckAmount.py,9/7/97a09e830fd1558d214917b8e1946208f72b926f
+L
+relearningPy/checkerboard.py,0/1/011565dd729103aae821055885d062204976c383
+P
+ relearningPy/random_sentences.py,e/7/e729f6971e9eb089bf7da7f25c6b5a81a76899bf
+_
+/relearningPy/translate_english_into_pigLatin.py,0/8/08dc5e5aa9b539842ff2db30305afdd46edaac63
+c
+3relearningPy/reverse_a_sentence_with_punctuation.py,b/e/be56f4d54ed0684217a71248a4ba479ed150fc95
+_
+/relearningPy/comparing_strings_from_sentence.py,c/b/cb7f7acdcd42c0b268a70249cf004d09e9938a9f
+c
+3relearningPy/3_letter_strings_from_5_letter_word.py,5/e/5e536c75b5ba903416a702d00a0c4eb3a8b3820b
+W
+'relearningPy/2dTictacToeHumanVsHuman.py,b/8/b8f96602be6c8a8e4ae4806a38b995e1129e9c22
+H
+relearningPy/invoices.py,b/4/b41b4ab7064b7eccde3eb6bf9b8fc74c495ed82c
+L
+relearningPy/gameofMathV2.py,f/5/f5346b7702f234e30982475def93caeb213886d9
+O
+relearningPy/check_generator.py,5/2/52c9ec0ab2f2ea04d8175c3ec9ab67ec5e5740bb

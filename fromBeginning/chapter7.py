@@ -403,10 +403,60 @@ def exercises_3():
 
 
 
+first_category: dict = {
+    0: '', 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six',
+    7: 'seven', 8: 'eight', 9: 'nine', 10: 'ten', 11: 'eleven', 12: 'twelve',
+    13: 'thirteen', 14: 'fourteen', 15: 'fifteen', 16: 'sixteen',
+    17: 'seventeen', 18: 'eighteen', 19: 'nineteen'
+}
+
+second_category: dict = {
+    2: 'twenty', 3: 'thirty', 4: 'forty', 5: 'fifty', 6: 'sixty',
+    7: 'seventy', 8: 'eighty', 9: 'ninety'
+}
+
+third_category: dict = {
+    1: 'thousand', 2: 'million', 3: 'billion', 4: 'trillion', 5: 'quadrillion',
+    6: 'quintillion', 7: 'sextillion', 8: 'septillion', 9: 'octillion',
+    10: 'nonillion', 11: 'decillion'
+}
+
+
+def joining_elements(*args):
+    return ' '.join(filter(bool, args))
+
+
+def divide(dividend, divisor, magnitude):
+    return joining_elements(process_number(dividend // divisor), magnitude, process_number(dividend % divisor))
+
+
+def process_number(i):
+    if i < 20:
+        return first_category[i]
+    if i < 100:
+        return joining_elements(second_category[i // 10], first_category[i % 10])
+    if i < 1000:
+        return divide(i, 100, 'hundred')
+    for k, z in third_category.items():
+        if i < 1000**(k + 1):
+            break
+    return divide(i, 1000**k, z)
+
+
+def catch_number(i):
+    if i < 0:
+        return joining_elements('negative', process_number(-i))
+    if i == 0:
+        return 'zero'
+    return process_number(i)
+
+
 def main():
     #exercises_1()
     #exercises_2()
-    exercises_3()
+    #exercises_3()
+    ax = catch_number(1987)
+    print(ax)
 
 
 if __name__ == '__main__':
