@@ -74,6 +74,11 @@ def checking_in_depth_file_content(given_dict: dict) -> int:
         if value_of_error == 1:
             return 1
 
+    if not (given_dict['type'] == 'cli' and given_dict['if_file'] == 0) and not (given_dict['type'] == 'file' and given_dict['if_file'] == 1):
+        print(f'{" " * 6}{"ERROR - please put the proper argument in configuration on"} "if_file" and "type" to corespond one with the other.', flush=True)
+        sleep(2)
+        return 1
+
     return 0
 
 
@@ -109,19 +114,21 @@ def check_configuration_file_content(config_file_from_user: dict) -> int:
 
 
 def validate_string_on_answering(answer_string: str) -> str:
-    if answer_string == 'q':
-        print(f"\n{' ' * 6} Exiting...")
-        sleep(2)
-        exit(1)
-    elif answer_string == 'b':
-        print(f"\n{' ' * 6} Going back to loading configuration file...")
-        sleep(2)
-        return 'back_config'
-    elif answer_string == 'c':
-        print(f"\n{' ' * 6} Going forward to load text from the file...")
-        sleep(2)
-        return 'go_forward'
-    elif re.match(r'\s+', answer_string) or answer_string == '':
+    match answer_string:
+        case 'q':
+            print(f"\n{' ' * 6} Exiting...")
+            sleep(2)
+            exit(1)
+        case 'b':
+            print(f"\n{' ' * 6} Going back to loading configuration file...")
+            sleep(2)
+            return 'back_config'
+        case 'c':
+            print(f"\n{' ' * 6} Going forward to load text from the file...")
+            sleep(2)
+            return 'go_forward'
+
+    if re.match(r'\s+', answer_string) or answer_string == '':
         print(f"\n{' ' * 6} ERROR - please do not use only whitespaces or enter.")
         sleep(2)
         return 'continue'
