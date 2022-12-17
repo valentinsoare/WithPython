@@ -1,0 +1,8 @@
+input:
+    type: file                            # here we can have cli or FILE. If it is file then the second variable needs to be 1 to check the file below.
+    if_file: 1
+    file_entire_path: /home/vsoare/Documents/OracleEmployer/currentlyLearningPython/relearningPy/scrambling_words/wordsToScramble.txt
+output:
+    type: cli                             # here we can have cli or FILE. If it is file then the second variable needs to be 1 to check the file below.
+    if_file: 0
+    file_entire_path: /home/vsoare/Documents/OracleEmployer/currentlyLearningPython/relearningPy/scrambling_words/wordsAfterScrambling.txt
