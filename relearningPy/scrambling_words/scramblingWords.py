@@ -1,12 +1,14 @@
 #!/usr/bin/python
 
 import re
+import logging
 import pandas as pd
 from time import sleep
 from numpy import random
 from yaml import safe_load
 from os import path, system
 from string import punctuation
+from pyparsing import Word, alphas
 
 
 def printing_header(given_message):
@@ -176,7 +178,7 @@ def load_text_from_cli() -> tuple:
         except ValueError:
             to_break = 0
 
-        if len(answer.split()) <= 3 or isinstance(processed_answer, int):
+        if len(answer.split()) < 1 or isinstance(processed_answer, int):
             print(f"\n{' ' * 6} ERROR - please use only alphanumerical characters, "
                   f"but most preponderent alphabetic ones.",
                   flush=True)
@@ -232,10 +234,72 @@ def choose_text_from_file(given_path_of_file: str) -> tuple:
         sleep(2)
 
 
+def creating_text_parser_for_level(given_level_of_log):
+    log_pattern = Word(alphas) + '.' + Word(alphas)
+
+    for log in ['logging.DEBUG', 'logging.INFO', 'logging.WARNING', 'logging.ERROR', 'logging.CRITICAL']:
+        log_level = log_pattern.parseString(log)
+        if log_level[2].lower() == given_level_of_log:
+            return ''.join(log_level)
+
+    raise ValueError('Please use one of the five classic log levels.')
+
+
+def printing_the_text_to_file(logging_level_to_use, file_to_write_to: str):
+    given_level = creating_text_parser_for_level(logging_level_to_use)
+
+    logging.basicConfig(filename=file_to_write_to,
+                        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                        datefmt='%d/%m/%Y %I:%M:%S %p',
+                        level=eval(given_level))
+
+    action_to_use = given_level.lower() + f"(list_with_words)"
+    eval(action_to_use)
+
+
+def locate_punctuation_and_save_and_remove_punctuation_from_word(given_word_from_input: str) -> tuple:
+    punctuation_to_locate = '!"#$%&\'()*+,./:;<=>?[\]`{|}~'
+    word_after_punctuation = given_word_from_input.translate(str.maketrans('', '', punctuation_to_locate))
+    list_with_punctuation_location: list = []
+
+    for i in range(len(given_word_from_input)):
+        if given_word_from_input[i] in punctuation_to_locate and (0 <= i <= 2 or (len(given_word_from_input) - 3) <= i <= (len(given_word_from_input) - 1)):
+            list_with_punctuation_location.append((given_word_from_input[i], i))
+
+    return list(word_after_punctuation), list_with_punctuation_location
+
+
+def insert_punctuation(word_without_punctuation: str, our_punctuation: list) -> str:
+    word_without_punctuation = list(word_without_punctuation)
+
+    for sign, location in our_punctuation:
+        word_without_punctuation.insert(location, sign)
+
+    return ''.join(word_without_punctuation)
+
+
+def start_scrambling_words(given_words_with_punctuation: pd.Series()) -> pd.Series:
+    words_after_scrambling: list = []
+
+    for i, j in given_words_with_punctuation.items():
+        word_after_punctuation, signs_location = locate_punctuation_and_save_and_remove_punctuation_from_word(j)
+        if len(word_after_punctuation) > 3:
+            word_to_shuffle = list(word_after_punctuation[1:(len(word_after_punctuation) - 1)])
+            random.shuffle(word_to_shuffle)
+            final_word = word_after_punctuation[0] + ''.join(word_to_shuffle) + word_after_punctuation[len(word_after_punctuation) - 1]
+
+            final_word = insert_punctuation(final_word, signs_location)
+            words_after_scrambling.append(final_word)
+        else:
+            words_after_scrambling.append(j)
+
+    return pd.Series(words_after_scrambling)
+
+
 def main():
     loaded_cfg: dict = {}
     output_error: int = 0
-    words_from_text: pd.Series() = []
+    words_from_text = pd.Series()
     after_content_validation_error: int = 1
 
     while True:
@@ -253,6 +317,11 @@ def main():
             after_content_validation_error, words_from_text = load_text_from_cli()
         elif type_of_input == 'file':
             after_content_validation_error, words_from_text = choose_text_from_file(load_text_from)
+
+        words_after_scrambling_with_punctuation = start_scrambling_words(words_from_text)
+
+        #if type_of_output == 'file':
+        #    printing_the_text_to_file('info', write_text_to)
 
 
 if __name__ == '__main__':
