@@ -9,17 +9,18 @@ from yaml import safe_load
 from os import path, system
 from string import punctuation
 from pyparsing import Word, alphas
+from typing import List, AnyStr, Dict, Tuple
 
 
-def printing_header(given_message):
-    message_to_print: str = '*#* '
-    given_message = given_message.split()
-    special_chars = list(punctuation)
+def printing_header(given_message: AnyStr) -> None:
+    message_to_print: AnyStr = '*#* '
+    given_message: List[str] = given_message.split()
+    special_chars: List[str] = list(punctuation)
 
     for word in range(len(given_message)):
         for letter in range(len(given_message[word])):
             random.shuffle(special_chars)
-            value = random.randint(1, len(given_message[word]) - 1)
+            value: int = random.randint(1, len(given_message[word]) - 1)
             if value == letter:
                 message_to_print += f"{given_message[word][letter]}{special_chars[value]}"
             else:
@@ -34,8 +35,8 @@ def printing_header(given_message):
     print(f"{' ' * 15}{lines}", flush=True)
 
 
-def load_configuration_with_pre_validation(given_config_file: str) -> tuple:
-    cfg: dict = {}
+def load_configuration_with_pre_validation(given_config_file: AnyStr) -> Tuple:
+    cfg: Dict = {}
     error: int = 0
 
     system('clear')
@@ -45,32 +46,32 @@ def load_configuration_with_pre_validation(given_config_file: str) -> tuple:
         print(f"{' ' * 6}{'ERROR - given file'} \"{given_config_file}\" {'for configuration was not found.'}",
               flush=True)
         sleep(2)
-        error = 1
+        error: int = 1
     elif path.getsize(given_config_file) == 0:
         print(f"{' ' * 6}{'ERROR - given file'} \"{given_config_file}\" {'for configuration is empty'}",
               flush=True)
         sleep(2)
-        error = 1
+        error: int = 1
     else:
         with open(given_config_file, "r") as yml_config:
-            cfg = safe_load(yml_config)
+            cfg: AnyStr = safe_load(yml_config)
 
     return error, cfg
 
 
-def checking_in_depth_file_content(given_dict: dict) -> int:
+def checking_in_depth_file_content(given_dict: Dict) -> int:
     value_of_error: int = 0
 
     for k, z in given_dict.items():
         if k == 'type' and (str(z).strip() == '' or z.lower() not in ['cli', 'file']):
             print(f'{" " * 6}{"ERROR - please use the right input value in configuration on"} "type" '
                   f'{"row:"} "cli" or "file".', flush=True)
-            value_of_error = 1
+            value_of_error: int = 1
             sleep(2)
         if k == 'if_file' and (str(z).strip() == '' or z not in [0, 1]):
             print(f'{" " * 6}{"ERROR - please put the proper argument in configuration on"} "if_file" '
                   f'{"line:"} "0" or "1".', flush=True)
-            value_of_error = 1
+            value_of_error: int = 1
             sleep(2)
 
         if value_of_error == 1:
@@ -84,11 +85,11 @@ def checking_in_depth_file_content(given_dict: dict) -> int:
     return 0
 
 
-def check_configuration_file_content(config_file_from_user: dict) -> int:
-    configuration_for_input: dict
-    configuration_for_output: dict
+def check_configuration_file_content(config_file_from_user: Dict) -> int:
+    configuration_for_input: Dict
+    configuration_for_output: Dict
 
-    def to_minimize(given_message_for_path: str, type_of_configuration: dict) -> int:
+    def to_minimize(given_message_for_path: AnyStr, type_of_configuration: Dict) -> int:
         for i, j in type_of_configuration.items():
             if checking_in_depth_file_content(type_of_configuration) == 1:
                 return 1
@@ -100,14 +101,14 @@ def check_configuration_file_content(config_file_from_user: dict) -> int:
                     return 1
         return 0
 
-    configuration_for_input = config_file_from_user['input']
-    message_to_use_for_path_input: str = f'{" " * 10}{"ERROR - please put the right argument in configuration on "} ' \
+    configuration_for_input: Dict = config_file_from_user['input']
+    message_to_use_for_path_input: AnyStr = f'{" " * 10}{"ERROR - please put the right argument in configuration on "} ' \
                                          f'"path"{"line where to load the file with words from."}'
     if to_minimize(message_to_use_for_path_input, configuration_for_input) == 1:
         return 1
 
-    configuration_for_output = config_file_from_user['output']
-    message_to_use_for_path_output: str = f'{"ERROR - please put the proper values in configuration on "}' \
+    configuration_for_output: Dict = config_file_from_user['output']
+    message_to_use_for_path_output: AnyStr = f'{"ERROR - please put the proper values in configuration on "}' \
                                           f'{"path line where to write the scrambled words."}'
     if to_minimize(message_to_use_for_path_output, configuration_for_output) == 1:
         return 1
@@ -115,7 +116,7 @@ def check_configuration_file_content(config_file_from_user: dict) -> int:
     return 0
 
 
-def validate_string_on_answering(answer_string: str) -> str:
+def validate_string_on_answering(answer_string: AnyStr) -> AnyStr:
     match answer_string:
         case 'q':
             print(f"\n{' ' * 6} Exiting...")
@@ -136,8 +137,8 @@ def validate_string_on_answering(answer_string: str) -> str:
         return 'continue'
 
 
-def ask_for_config_file() -> str:
-    answer: str = ''
+def ask_for_config_file() -> AnyStr:
+    answer: AnyStr = ''
     error: int = 1
 
     while error == 1:
@@ -146,7 +147,7 @@ def ask_for_config_file() -> str:
 
         print(f"{' ' * 2} * In order to start to use this script we need to load the configuration.\n{' ' * 1} "
               f"** Please enter the entire path of the config file (q to quit):", end=" ", flush=True)
-        answer = input().strip()
+        answer: AnyStr = input().strip()
 
         if validate_string_on_answering(answer) == 'continue':
             continue
@@ -156,8 +157,8 @@ def ask_for_config_file() -> str:
     return answer
 
 
-def load_text_from_cli() -> tuple:
-    answer: str = ''
+def load_text_from_cli() -> Tuple:
+    answer: AnyStr = ''
     to_break: int = 1
     processed_answer = ''
 
@@ -174,7 +175,7 @@ def load_text_from_cli() -> tuple:
             return 1, answer
 
         try:
-            processed_answer = int(answer)
+            processed_answer: int = int(answer)
         except ValueError:
             to_break = 0
 
@@ -187,17 +188,17 @@ def load_text_from_cli() -> tuple:
     return 0, pd.Series(answer.split())
 
 
-def parsing_config_file_and_decide(config_file_from_user: dict) -> tuple:
+def parsing_config_file_and_decide(config_file_from_user: Dict) -> Tuple:
 
-    def to_minimize(given_dict_with_config: dict) -> tuple:
-        where_to: str = ''
+    def to_minimize(given_dict_with_config: Dict) -> Tuple:
+        where_to: AnyStr = ''
 
         if given_dict_with_config['if_file'] == 1 and given_dict_with_config['type'] == 'file':
-            where_to: str = given_dict_with_config['file_entire_path']
+            where_to = given_dict_with_config['file_entire_path']
         elif given_dict_with_config['if_file'] == 0 and given_dict_with_config['type'] == 'cli':
-            where_to: str = given_dict_with_config['type']
+            where_to = given_dict_with_config['type']
 
-        type_of = given_dict_with_config['type']
+        type_of: Dict = given_dict_with_config['type']
 
         return where_to, type_of
 
@@ -210,7 +211,7 @@ def parsing_config_file_and_decide(config_file_from_user: dict) -> tuple:
     return to_load_text_from, type_of_output_input, to_write_text_to, type_of_output_output
 
 
-def choose_text_from_file(given_path_of_file: str) -> tuple:
+def choose_text_from_file(given_path_of_file: AnyStr) -> Tuple:
 
     while True:
         system('clear')
@@ -218,9 +219,9 @@ def choose_text_from_file(given_path_of_file: str) -> tuple:
         print(f"{' ' * 4}{'* We will loading text from'} \'{given_path_of_file.split('/')[-1]}\'"
               f"\n{' ' * 3}** (q to quit, b to put a new config file, f to go forward):"
               , end=" ", flush=True)
-        answer = input().strip()
+        answer: AnyStr = input().strip()
 
-        to_check = validate_string_on_answering(answer)
+        to_check: AnyStr = validate_string_on_answering(answer)
         if to_check == 'continue':
             continue
         elif to_check == 'back_config':
@@ -234,7 +235,7 @@ def choose_text_from_file(given_path_of_file: str) -> tuple:
         sleep(2)
 
 
-def creating_text_parser_for_level(given_level_of_log):
+def creating_text_parser_for_level(given_level_of_log) -> AnyStr:
     log_pattern = Word(alphas) + '.' + Word(alphas)
 
     for log in ['logging.DEBUG', 'logging.INFO', 'logging.WARNING', 'logging.ERROR', 'logging.CRITICAL']:
@@ -245,8 +246,8 @@ def creating_text_parser_for_level(given_level_of_log):
     raise ValueError('Please use one of the five classic log levels.')
 
 
-def printing_the_text_to_file(logging_level_to_use, file_to_write_to: str):
-    given_level = creating_text_parser_for_level(logging_level_to_use)
+def printing_the_text_to_file(logging_level_to_use: AnyStr, file_to_write_to: AnyStr) -> None:
+    given_level: AnyStr = creating_text_parser_for_level(logging_level_to_use)
 
     logging.basicConfig(filename=file_to_write_to,
                         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -257,10 +258,10 @@ def printing_the_text_to_file(logging_level_to_use, file_to_write_to: str):
     eval(action_to_use)
 
 
-def locate_punctuation_and_save_and_remove_punctuation_from_word(given_word_from_input: str) -> tuple:
-    punctuation_to_locate = '!"#$%&\'()*+,./:;<=>?[\]`{|}~'
-    word_after_punctuation = given_word_from_input.translate(str.maketrans('', '', punctuation_to_locate))
-    list_with_punctuation_location: list = []
+def locate_punctuation_and_save_and_remove_punctuation_from_word(given_word_from_input: str) -> Tuple:
+    punctuation_to_locate: AnyStr = '!"#$%&\'()*+,./:;<=>?[\]`{|}~'
+    word_after_punctuation: AnyStr = given_word_from_input.translate(str.maketrans('', '', punctuation_to_locate))
+    list_with_punctuation_location: List = []
 
     for i in range(len(given_word_from_input)):
         if given_word_from_input[i] in punctuation_to_locate and (0 <= i <= 2 or (len(given_word_from_input) - 3) <= i <= (len(given_word_from_input) - 1)):
@@ -269,7 +270,7 @@ def locate_punctuation_and_save_and_remove_punctuation_from_word(given_word_from
     return list(word_after_punctuation), list_with_punctuation_location
 
 
-def insert_punctuation(word_without_punctuation: str, our_punctuation: list) -> str:
+def insert_punctuation(word_without_punctuation: AnyStr, our_punctuation: List) -> AnyStr:
     word_without_punctuation = list(word_without_punctuation)
 
     for sign, location in our_punctuation:
@@ -278,28 +279,30 @@ def insert_punctuation(word_without_punctuation: str, our_punctuation: list) -> 
     return ''.join(word_without_punctuation)
 
 
-def start_scrambling_words(given_words_with_punctuation: pd.Series()) -> pd.Series:
-    words_after_scrambling: list = []
+def start_scrambling_words(given_words_with_punctuation: pd.Series(dtype=object)) -> pd.Series:
+    words_after_scrambling: List = []
 
     for i, j in given_words_with_punctuation.items():
         word_after_punctuation, signs_location = locate_punctuation_and_save_and_remove_punctuation_from_word(j)
         if len(word_after_punctuation) > 3:
-            word_to_shuffle = list(word_after_punctuation[1:(len(word_after_punctuation) - 1)])
+            word_to_shuffle: List = list(word_after_punctuation[1:(len(word_after_punctuation) - 1)])
             random.shuffle(word_to_shuffle)
-            final_word = word_after_punctuation[0] + ''.join(word_to_shuffle) + word_after_punctuation[len(word_after_punctuation) - 1]
+            final_word: AnyStr = word_after_punctuation[0] + ''.join(word_to_shuffle) + word_after_punctuation[len(word_after_punctuation) - 1]
 
-            final_word = insert_punctuation(final_word, signs_location)
+            final_word: AnyStr = insert_punctuation(final_word, signs_location)
             words_after_scrambling.append(final_word)
         else:
             words_after_scrambling.append(j)
 
     return pd.Series(words_after_scrambling)
 
+#def printing_text_to_cli(given_words_scrambled)
+
 
 def main():
-    loaded_cfg: dict = {}
+    loaded_cfg: Dict = {}
     output_error: int = 0
-    words_from_text = pd.Series()
+    words_from_text = pd.Series(dtype=object)
     after_content_validation_error: int = 1
 
     while True:
@@ -320,7 +323,13 @@ def main():
 
         words_after_scrambling_with_punctuation = start_scrambling_words(words_from_text)
 
-        #if type_of_output == 'file':
+        print(words_after_scrambling_with_punctuation)
+        sleep(10)
+        exit(0)
+
+        #if type_of_output == 'cli':
+        #    printing_text_to_cli(words_after_scrambling_with_punctuation)
+        #elif type_of_output == 'file':
         #    printing_the_text_to_file('info', write_text_to)
 
 
