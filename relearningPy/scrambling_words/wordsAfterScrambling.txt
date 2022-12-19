@@ -1,0 +1,7 @@
+19/12/2022 08:08:42 PM - root - INFO - ['lux' 'si' 'opunleta']
+19/12/2022 08:10:24 PM - root - INFO - Lux si Onpeulta. Bsos nebunie. Ce putem sa fceam ?
+19/12/2022 08:32:56 PM - root - INFO - Nubniee boss
+19/12/2022 08:33:24 PM - root - INFO - nbnueie bsos!!
+19/12/2022 08:33:55 PM - root - INFO - auriea bsos ce sa facem
+19/12/2022 08:34:23 PM - root - INFO - ce sa fecam ?
+19/12/2022 08:34:48 PM - root - INFO - boss ce sa feacm!

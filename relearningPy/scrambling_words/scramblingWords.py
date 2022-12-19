@@ -119,17 +119,21 @@ def check_configuration_file_content(config_file_from_user: Dict) -> int:
 def validate_string_on_answering(answer_string: AnyStr) -> AnyStr:
     match answer_string:
         case 'q':
-            print(f"\n{' ' * 6} Exiting...")
-            sleep(2)
+            print(f"\n{' ' * 6} Exiting...\n", flush=True)
+            sleep(1)
             exit(1)
         case 'b':
-            print(f"\n{' ' * 6} Going back to loading configuration file...")
+            print(f"\n{' ' * 6} Going back to loading configuration file...", flush=True)
             sleep(2)
             return 'back_config'
-        case 'c':
-            print(f"\n{' ' * 6} Going forward to load text from the file...")
+        case 'f':
+            print(f"\n{' ' * 6} Going forward to load text from the file...", flush=True)
             sleep(2)
             return 'go_forward'
+        case 'p':
+            print(f"\n{' ' * 6} Write new text in the cli...", flush=True)
+            sleep(2)
+            return 'new_text_cli'
 
     if re.match(r'\s+', answer_string) or answer_string == '':
         print(f"\n{' ' * 6} ERROR - please do not use only whitespaces or enter.")
@@ -246,22 +250,10 @@ def creating_text_parser_for_level(given_level_of_log) -> AnyStr:
     raise ValueError('Please use one of the five classic log levels.')
 
 
-def printing_the_text_to_file(logging_level_to_use: AnyStr, file_to_write_to: AnyStr) -> None:
-    given_level: AnyStr = creating_text_parser_for_level(logging_level_to_use)
-
-    logging.basicConfig(filename=file_to_write_to,
-                        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                        datefmt='%d/%m/%Y %I:%M:%S %p',
-                        level=eval(given_level))
-
-    action_to_use = given_level.lower() + f"(list_with_words)"
-    eval(action_to_use)
-
-
 def locate_punctuation_and_save_and_remove_punctuation_from_word(given_word_from_input: str) -> Tuple:
     punctuation_to_locate: AnyStr = '!"#$%&\'()*+,./:;<=>?[\]`{|}~'
     word_after_punctuation: AnyStr = given_word_from_input.translate(str.maketrans('', '', punctuation_to_locate))
-    list_with_punctuation_location: List = []
+    list_with_punctuation_location: List[Tuple[str, int]] = []
 
     for i in range(len(given_word_from_input)):
         if given_word_from_input[i] in punctuation_to_locate and (0 <= i <= 2 or (len(given_word_from_input) - 3) <= i <= (len(given_word_from_input) - 1)):
@@ -296,7 +288,66 @@ def start_scrambling_words(given_words_with_punctuation: pd.Series(dtype=object)
 
     return pd.Series(words_after_scrambling)
 
-#def printing_text_to_cli(given_words_scrambled)
+
+def printing_text_to_cli(given_words_scrambled: pd.Series) -> Tuple:
+    processed_answer: AnyStr = ''
+
+    while processed_answer not in ['q', 'b', 'p']:
+        system('clear')
+        printing_header('scrambling words')
+        text_as_string: AnyStr = ''
+
+        text_as_string += ' '.join(i for i in given_words_scrambled.values)
+
+        print(f"{' ' * 4} * Text after scrambling......", flush=True)
+        print(f"\n{' ' * 3}\"{text_as_string}\"\n", flush=True)
+        sleep(1)
+
+        print(f"{' ' * 3} ** q to quit, b to load a new config file, p to put new text in cli:", end=" ", flush=True)
+        given_answer = input().strip()
+
+        to_check = validate_string_on_answering(given_answer)
+        if to_check == 'continue':
+            continue
+        elif to_check == 'back_config':
+            return 1, given_answer
+        elif to_check == 'new_text_cli':
+            return 0, given_answer
+        else:
+            print(f"{' ' * 6} ERROR - please choose one eof those options, q, b or p.\n", flush=True)
+            sleep(2)
+
+
+def printing_the_text_to_file(logging_level_to_use: AnyStr, file_to_write_to: AnyStr, words_to_write: pd.Series()) -> Tuple:
+    given_level: AnyStr = creating_text_parser_for_level(logging_level_to_use)
+
+    while True:
+        system('clear')
+        printing_header('scrambling words')
+
+        txt_to_print_in_log: AnyStr = ' '.join(words_to_write.values)
+
+        given_answer: AnyStr = ''
+        logging.basicConfig(filename=file_to_write_to,
+                            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                            datefmt='%d/%m/%Y %I:%M:%S %p',
+                            level=eval(given_level))
+
+        action_to_use: AnyStr = given_level.lower() + f"(txt_to_print_in_log)"
+        eval(action_to_use)
+
+        print(f"{' ' * 4} * Scrambled words were printed in the file...", flush=True)
+        print(f"{' ' * 3} ** q to quit, b to load again the config file:", end=" ", flush=True)
+        given_answer = input().strip()
+
+        to_check = validate_string_on_answering(given_answer)
+        if to_check == 'continue':
+            continue
+        elif to_check == 'back_config':
+            return 1, given_answer
+        else:
+            print(f"\n{' ' * 6} ERROR - please choose one of those options, q or b.\n", flush=True)
+            sleep(2)
 
 
 def main():
@@ -316,21 +367,18 @@ def main():
 
         load_text_from, type_of_input, write_text_to, type_of_output = parsing_config_file_and_decide(loaded_cfg)
 
-        if type_of_input == 'cli':
-            after_content_validation_error, words_from_text = load_text_from_cli()
-        elif type_of_input == 'file':
-            after_content_validation_error, words_from_text = choose_text_from_file(load_text_from)
+        while after_content_validation_error == 0:
+            if type_of_input == 'cli':
+                after_content_validation_error, words_from_text = load_text_from_cli()
+            elif type_of_input == 'file':
+                after_content_validation_error, words_from_text = choose_text_from_file(load_text_from)
 
-        words_after_scrambling_with_punctuation = start_scrambling_words(words_from_text)
+            words_after_scrambling_with_punctuation = start_scrambling_words(words_from_text)
 
-        print(words_after_scrambling_with_punctuation)
-        sleep(10)
-        exit(0)
-
-        #if type_of_output == 'cli':
-        #    printing_text_to_cli(words_after_scrambling_with_punctuation)
-        #elif type_of_output == 'file':
-        #    printing_the_text_to_file('info', write_text_to)
+            if type_of_output == 'cli':
+                after_content_validation_error, text = printing_text_to_cli(words_after_scrambling_with_punctuation)
+            elif type_of_output == 'file':
+                after_content_validation_error, text = printing_the_text_to_file('info', write_text_to, words_after_scrambling_with_punctuation)
 
 
 if __name__ == '__main__':
