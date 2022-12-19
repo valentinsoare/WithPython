@@ -327,7 +327,6 @@ def printing_the_text_to_file(logging_level_to_use: AnyStr, file_to_write_to: An
 
         txt_to_print_in_log: AnyStr = ' '.join(words_to_write.values)
 
-        given_answer: AnyStr = ''
         logging.basicConfig(filename=file_to_write_to,
                             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                             datefmt='%d/%m/%Y %I:%M:%S %p',
@@ -378,7 +377,9 @@ def main():
             if type_of_output == 'cli':
                 after_content_validation_error, text = printing_text_to_cli(words_after_scrambling_with_punctuation)
             elif type_of_output == 'file':
-                after_content_validation_error, text = printing_the_text_to_file('info', write_text_to, words_after_scrambling_with_punctuation)
+                logging_level = loaded_cfg['output']['logging_level']
+                after_content_validation_error, text = printing_the_text_to_file(logging_level, write_text_to,
+                                                                                 words_after_scrambling_with_punctuation)
 
 
 if __name__ == '__main__':
