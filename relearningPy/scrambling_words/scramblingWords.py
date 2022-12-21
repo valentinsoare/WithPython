@@ -1,10 +1,11 @@
 #!/usr/bin/python
 
-import re
+
 import logging
-import pandas as pd
+from re import match
 from time import sleep
 from numpy import random
+from pandas import Series
 from yaml import safe_load
 from os import path, system
 from string import punctuation
@@ -135,7 +136,7 @@ def validate_string_on_answering(answer_string: AnyStr) -> AnyStr:
             sleep(2)
             return 'new_text_cli'
 
-    if re.match(r'\s+', answer_string) or answer_string == '':
+    if match(r'\s+', answer_string) or answer_string == '':
         print(f"\n{' ' * 6} ERROR - please do not use only whitespaces or enter.")
         sleep(2)
         return 'continue'
@@ -189,7 +190,7 @@ def load_text_from_cli() -> Tuple:
                   flush=True)
             sleep(2)
 
-    return 0, pd.Series(answer.split())
+    return 0, Series(answer.split())
 
 
 def parsing_config_file_and_decide(config_file_from_user: Dict) -> Tuple:
@@ -233,7 +234,7 @@ def choose_text_from_file(given_path_of_file: AnyStr) -> Tuple:
         elif to_check == 'go_forward':
             with open(given_path_of_file, 'r') as file_with_text:
                 loaded_text_in_string = file_with_text.read()
-            return 0, pd.Series(loaded_text_in_string.split())
+            return 0, Series(loaded_text_in_string.split())
 
         print(f"\n{' ' * 6} ERROR - please use only one of those three options - q, f or b.", flush=True)
         sleep(2)
@@ -271,7 +272,7 @@ def insert_punctuation(word_without_punctuation: AnyStr, our_punctuation: List) 
     return ''.join(word_without_punctuation)
 
 
-def start_scrambling_words(given_words_with_punctuation: pd.Series(dtype=object)) -> pd.Series:
+def start_scrambling_words(given_words_with_punctuation: Series(dtype=object)) -> Series:
     words_after_scrambling: List = []
 
     for i, j in given_words_with_punctuation.items():
@@ -286,10 +287,10 @@ def start_scrambling_words(given_words_with_punctuation: pd.Series(dtype=object)
         else:
             words_after_scrambling.append(j)
 
-    return pd.Series(words_after_scrambling)
+    return Series(words_after_scrambling)
 
 
-def printing_text_to_cli(given_words_scrambled: pd.Series) -> Tuple:
+def printing_text_to_cli(given_words_scrambled: Series) -> Tuple:
     processed_answer: AnyStr = ''
 
     while processed_answer not in ['q', 'b', 'p']:
@@ -318,7 +319,7 @@ def printing_text_to_cli(given_words_scrambled: pd.Series) -> Tuple:
             sleep(2)
 
 
-def printing_the_text_to_file(logging_level_to_use: AnyStr, file_to_write_to: AnyStr, words_to_write: pd.Series()) -> Tuple:
+def printing_the_text_to_file(logging_level_to_use: AnyStr, file_to_write_to: AnyStr, words_to_write: Series()) -> Tuple:
     given_level: AnyStr = creating_text_parser_for_level(logging_level_to_use)
 
     while True:
@@ -352,7 +353,7 @@ def printing_the_text_to_file(logging_level_to_use: AnyStr, file_to_write_to: An
 def main():
     loaded_cfg: Dict = {}
     output_error: int = 0
-    words_from_text = pd.Series(dtype=object)
+    words_from_text = Series(dtype=object)
     after_content_validation_error: int = 1
 
     while True:

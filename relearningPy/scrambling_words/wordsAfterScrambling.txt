@@ -1,2 +1,2 @@
 
-20/12/2022 12:28:46 AM - root - ERROR - BsusOl Blisosor!?
+21/12/2022 02:49:17 AM - root - INFO - lux si openlut
