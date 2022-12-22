@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+
 import re
 import base64
 import random
@@ -95,11 +96,10 @@ def ask_for_user_password() -> Tuple:
 
 
 def printing_results(user: AnyStr, password: AnyStr) -> None:
-    passwd_to_use = b"password"
     print(f"\n{' ' * 7} ** Username and password are within complexity requirements.", flush=True)
     print(f"{' ' * 9} - username: {user}", flush=True)
 
-    to_process_print = re.sub(r'["\']', '', str(base64.b64encode(passwd_to_use)))
+    to_process_print = re.sub(r'["\']', '', str(base64.b64encode(bytes(password, 'utf-8'))))
     print(f"{' ' * 9} - ciphered 64 bits password: {to_process_print}", flush=True)
 
 
