@@ -18,7 +18,7 @@ def printing_header(message_to_print: AnyStr) -> None:
 
     while while_processing < len(message_to_print):
         if while_processing in [len(splitting_msg[0]), (len(splitting_msg[0]) - 1),
-                                                         len(splitting_msg[0]) + len(splitting_msg[1])]:
+                                len(splitting_msg[0]) + len(splitting_msg[1])]:
             processed_message += message_to_print[while_processing]
         else:
             processed_message += message_to_print[while_processing] + \
