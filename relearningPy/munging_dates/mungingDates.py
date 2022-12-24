@@ -1,10 +1,15 @@
 #!/usr/bin/python
 
-import mypy
+##########################################################################
+### - munging_dates with configparser vs scramblingWords with pyYAML - ###
+##########################################################################
+##### pyYAML is winning ######
+
 import pyparsing
 import configparser
+import pandas as pd
 from time import sleep
-from re import sub, match
+from re import sub, match, findall, compile
 from random import shuffle
 from os import system, path
 from string import ascii_lowercase
@@ -42,21 +47,21 @@ def check_short_answers(given_answer: str) -> str:
     message_to_return: str = ''
 
     match given_answer:
-        case 'c':
-            print(f"\n{' ' * 10} Going forward to load the configuration....", flush=True)
-            message_to_return = 'forward'
-            sleep(2)
         case 'q':
             print(f"\n{' ' * 10} Exiting....", flush=True)
             sleep(1)
             exit(1)
+        case 'f':
+            print(f"\n{' ' * 10} Going forward to load text from the file...", flush=True)
+            message_to_return = 'go_forward'
+            sleep(2)
         case 'r':
-            print(f"\n{' ' * 10} Reloading the configuration...", flush=True)
+            print(f"\n{' ' * 10} Going back to load the configuration...", flush=True)
             message_to_return = 'reload'
             sleep(2)
 
     if match(r'\s+', given_answer) or given_answer == '':
-        print(f"\n{' ' * 10} ERROR please specify a valid file path or q in order to quit!", flush=True)
+        print(f"\n{' ' * 10} ERROR please specify a valid answer. Do not use only whitespaces!", flush=True)
         message_to_return: str = 'looping'
         sleep(2)
 
@@ -136,12 +141,12 @@ def validate_config_content(given_config) -> str:
     elif to_summarize_checking_other(given_config, given_other) == 'looping':
         return 'looping'
     else:
-        print(f"{' ' * 10} 2. Parameters key/value pair from config file are ok. All Good!")
+        print(f"{' ' * 10} 2. Parameters key/value pair from config file are ok. All Good!", flush=True)
         sleep(1)
         return 'not_looping'
 
 
-def validate_config_file_and_load(given_file_path: str) -> tuple:
+def validate_config_file_and_load(given_file_path: str) -> Tuple:
     to_return_value: str = 'looping'
 
     print(f"\n{' ' * 10} 1. Checking validity of configuration file path....", end="", flush=True)
@@ -162,7 +167,7 @@ def validate_config_file_and_load(given_file_path: str) -> tuple:
         with open(given_file_path, 'r') as config_open:
             cfg.read_file(config_open)
             if cfg:
-                print(f"OK.", flush=True)
+                print(f"OK", flush=True)
                 sleep(1)
 
     if validate_config_content(cfg) == 'not_looping':
@@ -171,12 +176,30 @@ def validate_config_file_and_load(given_file_path: str) -> tuple:
         return 'looping', cfg
 
 
-#def parsing_config_file_and_extract_information(config):
+def parsing_config_file_and_extract_information(config: configparser.RawConfigParser()) -> Tuple:
+    values_to_return_input_output: Dict[str, List[str]] = {}
+    values_to_return_logging: Dict[str, List[str]] = {}
+
+    for section in config.sections()[0:2]:
+        for option in config.options(section):
+            if config.get(section, option) == 'cli':
+                values_to_return_input_output[section] = ['cli', None]
+            elif config.get(section, option) == 'file':
+                values_to_return_input_output[section] = [config.get(section, 'path_of_file'), 'file']
+
+    logging_section = config.sections()[-1]
+
+    if config.get(logging_section, 'enable_logging') == 'yes':
+        values_to_return_logging[logging_section] = [config.get(config.get(logging_section, 'path_of_logging'), logging_section, 'logging_level')]
+    else:
+        values_to_return_logging[logging_section] = ['no_logging', None]
+
+    return values_to_return_input_output, values_to_return_logging, 0
 
 
 def load_settings_from_cfg() -> configparser.RawConfigParser():
-    cfg = configparser.RawConfigParser()
     type_of_exit: str = 'looping'
+    cfg = configparser.RawConfigParser()
 
     while type_of_exit == 'looping':
         system('clear')
@@ -194,9 +217,117 @@ def load_settings_from_cfg() -> configparser.RawConfigParser():
     return cfg
 
 
+def load_text_from_cli() -> Tuple:
+    message_to_check: str = 'looping'
+
+    while message_to_check == 'looping':
+        system('clear')
+        display_header('munging dates')
+
+        print(f"\n{' ' * 7} * Please give us the text to extract the dates from: (q to quit, "
+              f"r to reload the config):", end=" ", flush=True)
+        answer: str = input().strip()
+
+        answer_from_short_checking: str = check_short_answers(answer)
+        if answer_from_short_checking == 'looping':
+            continue
+        elif answer_from_short_checking == 'reload':
+            return 0, 1
+        else:
+            return pd.Series(answer.split()), 0
+
+
+def load_text_from_file(input_type) -> Tuple:
+
+    while True:
+        system('clear')
+        display_header('munging dates')
+
+        print(f"\n{' ' * 8} * We will be loading the text from '{input_type['input'][0].split('/')[-1]}'\n"
+              f"{' ' * 7} ** (q to quit, r to reload config, f to go forward):", end=" ", flush=True)
+        answer = input().strip()
+
+        to_check = check_short_answers(answer)
+        if to_check == 'looping':
+            continue
+        elif to_check == 'reload':
+            return 1, 1
+        elif to_check == 'go_forward':
+            with open(input_type['input'][0], 'r') as open_file:
+                file_to_load = open_file.read()
+            return pd.Series(file_to_load.split()), 0
+
+        print(f"\n{' ' * 10} ERROR - please use only one of those three options - q, r or f.", flush=True)
+        sleep(2)
+
+
+def check_for_first_rule(given_text):
+    first_type_date = compile(r'(0[1-9]|1[0-2])([0-3][0-9])([0-9][0-9])')
+    checking_text = findall(first_type_date, given_text)
+
+    if checking_text:
+        return 1, checking_text[0]
+    else:
+        return 0, None
+
+
+def check_for_second_rule(given_text):
+    second_type_date = compile(r'(0[1-9]|1[0-2])/([0-3][0-9])/([1|2][0-9]{3})')
+    checking_given_string = findall(second_type_date, given_text)
+
+    if checking_given_string:
+        return 2, checking_given_string[0]
+    else:
+        return 0, None
+
+
+def check_for_third_rule(given_text):
+    third_type_date = compile(r'([A-Za-z][a-z]{,8})\s(0[1-9]|[1-2][0-9]|3[0-2]),\s(1[0-9][0-9][0-9]|20[0-9][0-9])')
+    checking_string = findall(third_type_date, given_text)
+
+    if checking_string:
+        return 3, checking_string[0]
+    else:
+        return 0, None
+
+
+def extracting_dates_from_text(given_series_as_text: pd.Series(dtype=object)) -> Tuple:
+    number_of_dates_matched_pattern_in_txt: int = 0
+    dates_from_txt_from_patterns: Dict = {}
+
+    for i, given_text in given_series_as_text.items():
+        for j in [check_for_first_rule(given_text), check_for_second_rule(given_text), check_for_third_rule(given_text)]:
+            if j[1] is not None:
+                dates_from_txt_from_patterns.update({i: j[1]})
+                number_of_dates_matched_pattern_in_txt += 1
+
+    if number_of_dates_matched_pattern_in_txt == 0:
+        print(f"\n{' ' * 10} There are no dates in the given text that matched the searched patterns")
+        sleep(2)
+
+    return dates_from_txt_from_patterns, number_of_dates_matched_pattern_in_txt
+
+
 def main() -> None:
-    config_to_use = load_settings_from_cfg()
+    dict_with_input_output: Dict = {}
+    load_configuration_for_looping_and_text: int = 1
+
+    while True:
+        while load_configuration_for_looping_and_text == 1:
+            config_to_use = load_settings_from_cfg()
+            dict_with_input_output, dict_with_logging, load_configuration_for_looping_and_text = parsing_config_file_and_extract_information(config_to_use)
+
+        if dict_with_input_output['input'][0] == 'cli':
+            text_to_be_process, load_configuration_for_looping_and_text = load_text_from_cli()
+        else:
+            text_to_be_process, load_configuration_for_looping_and_text = load_text_from_file(dict_with_input_output)
+
+        dates_from_txt, number_of_dates_matched_pattern = extracting_dates_from_text(text_to_be_process)
+
+        #while load_configuration_for_looping_and_text == 0:
+        #    if dict_with_input_output['output'][0] == 'cli':
 
 
 if __name__ == '__main__':
     main()
+
