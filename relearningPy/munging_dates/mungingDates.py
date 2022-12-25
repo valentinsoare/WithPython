@@ -340,8 +340,12 @@ def converting_from_three_to_rest(given_list, dict_with_months) -> Dict:
     return {(given_list[0] + ' ' + given_list[1] + ', ' + given_list[2]): [final_one, final_two]}
 
 
-def converting_dates(dict_with_months: Dict, given_text: Dict) -> Dict:
+def converting_dates(given_text: Dict) -> Dict:
     converted_dates: Dict = {}
+
+    dict_with_months = {'01': 'January', '02': 'February', '03': 'March', '04': 'April', '05': 'May',
+                        '06': 'June', '07': 'July', '08': 'August', '09': 'September',
+                        '10': 'October', '11': 'November', '12': 'December'}
 
     for i, list_with_dates in given_text.items():
         for element in list_with_dates:
@@ -355,11 +359,11 @@ def converting_dates(dict_with_months: Dict, given_text: Dict) -> Dict:
     return converted_dates
 
 
-def converting_all_dates(dict_with_months: Dict, number_of_dates_matched_pattern: int, dates_from_text: Dict, for_logging: int, given_level: str) -> Dict:
+def converting_all_dates(number_of_dates_matched_pattern: int, dates_from_text: Dict, for_logging: int, given_level: str) -> Dict:
     dates_after_conversion: Dict = {}
 
     if number_of_dates_matched_pattern != 0:
-        dates_after_conversion = converting_dates(dict_with_months, dates_from_text)
+        dates_after_conversion = converting_dates(dates_from_text)
     else:
         message_to_print = f"{' ' * 10} No valid dates that matches the patterns in the given text!"
         print(f"\n{message_to_print}", flush=True)
@@ -420,14 +424,8 @@ def printing_output(dict_with_dates: Dict, type_of_output: List, for_logging: in
 
 
 def main() -> None:
-    dict_with_months = {'01': 'January', '02': 'February', '03': 'March', '04': 'April', '05': 'May',
-                        '06': 'June', '07': 'July', '08': 'August', '09': 'September',
-                        '10': 'October', '11': 'November', '12': 'December'}
-
     if_logging: int = 0
     given_level: str = ''
-    text_to_be_process: str = ''
-    dates_after_conversion: Dict = {}
     dict_with_input_output: Dict = {}
     load_configuration_for_looping_and_text: int = 1
 
@@ -448,7 +446,7 @@ def main() -> None:
             continue
         else:
             dates_from_txt, number_of_dates_matched_pattern = extracting_dates_from_text(text_to_be_process)
-            dates_after_conversion = converting_all_dates(dict_with_months, number_of_dates_matched_pattern, dates_from_txt, if_logging, given_level)
+            dates_after_conversion = converting_all_dates(number_of_dates_matched_pattern, dates_from_txt, if_logging, given_level)
 
         if number_of_dates_matched_pattern != 0:
             load_configuration_for_looping_and_text = printing_output(dates_after_conversion, dict_with_input_output['output'],
