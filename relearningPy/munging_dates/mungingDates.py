@@ -5,11 +5,12 @@
 ##########################################################################
 ##### pyYAML is winning ######
 
-import pyparsing
+import logging
 import configparser
 from time import sleep
 from random import shuffle
 from os import system, path
+from pyparsing import Word, alphas
 from string import ascii_lowercase
 from typing import List, Dict, Tuple
 from re import sub, match, findall, compile, search
@@ -51,7 +52,7 @@ def check_short_answers(given_answer: str) -> str:
             sleep(1)
             exit(1)
         case 'f':
-            print(f"\n{' ' * 10} Going forward to load text from the file...", flush=True)
+            print(f"\n{' ' * 10} Going forward to load the text from source...", flush=True)
             message_to_return = 'go_forward'
             sleep(2)
         case 'r':
@@ -189,7 +190,7 @@ def parsing_config_file_and_extract_information(config: configparser.RawConfigPa
     logging_section = config.sections()[-1]
 
     if config.get(logging_section, 'enable_logging') == 'yes':
-        values_to_return_logging[logging_section] = [config.get(config.get(logging_section, 'path_of_logging'), logging_section, 'logging_level')]
+        values_to_return_logging[logging_section] = [config.get(logging_section, 'path_of_logging'), config.get(logging_section, 'logging_level')]
     else:
         values_to_return_logging[logging_section] = ['no_logging', None]
 
@@ -291,16 +292,24 @@ def check_for_third_rule(given_text):
 
 
 def extracting_dates_from_text(given_text) -> Tuple:
+    dict_with_dates_extracted: Dict = {}
+    number_of_dates: int = 0
     given_functions = [check_for_first_rule(given_text), check_for_second_rule(given_text), check_for_third_rule(given_text)]
 
     for rule in given_functions:
         rule_number, text_extracted_from_rule = rule
+        if text_extracted_from_rule is not None:
+            if rule_number in dict_with_dates_extracted.keys():
+                dict_with_dates_extracted[rule_number] += text_extracted_from_rule
+            else:
+                dict_with_dates_extracted[rule_number] = text_extracted_from_rule
+            number_of_dates += 1
+
+    return dict_with_dates_extracted, number_of_dates
 
 
 def converting_from_one_to_rest(given_list: List, dict_with_months: Dict) -> Dict:
-    reversed_given_list = list(reversed(given_list))
-
-    type_two = '/' + reversed_given_list[0]
+    type_two = '/' + given_list[2]
     intermediary = search(r'[0-9]{2}$', type_two)
 
     if int(intermediary.group()) > 23:
@@ -308,8 +317,8 @@ def converting_from_one_to_rest(given_list: List, dict_with_months: Dict) -> Dic
     else:
         type_two = sub(r'[0-9]{2}$', "20", type_two)
 
-    final_two = reversed_given_list[2] + '/' + reversed_given_list[1] + type_two + intermediary.group()
-    final_three = dict_with_months[reversed_given_list[2]] + " " + reversed_given_list[1] + ', ' + search(r'[0-9]{2}$',
+    final_two = given_list[0] + '/' + given_list[1] + type_two + intermediary.group()
+    final_three = dict_with_months[given_list[0]] + " " + given_list[1] + ', ' + search(r'[0-9]{2}$',
                                                                              type_two).group() + intermediary.group()
 
     return {''.join(given_list): [final_two, final_three]}
@@ -320,7 +329,7 @@ def converting_from_two_to_rest(given_list, dict_with_months) -> Dict:
     final_one = type_together[slice(4)] + type_together[len(type_together) - 2: len(type_together)]
     final_three = dict_with_months[given_list[0]] + " " + given_list[1] + ', ' + given_list[2]
 
-    return {''.join(given_list): [final_one, final_three]}
+    return {(given_list[0] + '/' + given_list[1] + '/' + given_list[2]): [final_one, final_three]}
 
 
 def converting_from_three_to_rest(given_list, dict_with_months) -> Dict:
@@ -328,26 +337,97 @@ def converting_from_three_to_rest(given_list, dict_with_months) -> Dict:
     final_one = month_in_digits + given_list[1] + given_list[2][2:4]
     final_two = month_in_digits + "/" + given_list[1] + "/" + given_list[2]
 
-    return {''.join(given_list): [final_one, final_two]}
+    return {(given_list[0] + ' ' + given_list[1] + ', ' + given_list[2]): [final_one, final_two]}
 
 
-def converting_dates(dict_with_months: Dict, given_text: List) -> Dict:
-    converted_dates: List = []
+def converting_dates(dict_with_months: Dict, given_text: Dict) -> Dict:
+    converted_dates: Dict = {}
 
-    for i in given_text:
-        if i[0] == 1:
-            converted_dates.append(converting_from_one_to_rest(i[1], dict_with_months))
-        elif i[0] == 2:
-            converted_dates.append(converting_from_two_to_rest(i[1], dict_with_months))
-        else:
-            converted_dates.append(converting_from_three_to_rest(i[1], dict_with_months))
+    for i, list_with_dates in given_text.items():
+        for element in list_with_dates:
+            if i == 1:
+                converted_dates.update(converting_from_one_to_rest(element, dict_with_months))
+            elif i == 2:
+                converted_dates.update(converting_from_two_to_rest(element, dict_with_months))
+            else:
+                converted_dates.update(converting_from_three_to_rest(element, dict_with_months))
+
+    return converted_dates
+
+
+def converting_all_dates(dict_with_months: Dict, number_of_dates_matched_pattern: int, dates_from_text: Dict, for_logging: int, given_level: str) -> Dict:
+    dates_after_conversion: Dict = {}
+
+    if number_of_dates_matched_pattern != 0:
+        dates_after_conversion = converting_dates(dict_with_months, dates_from_text)
+    else:
+        message_to_print = f"{' ' * 10} No valid dates that matches the patterns in the given text!"
+        print(f"\n{message_to_print}", flush=True)
+        sleep(2)
+        if for_logging == 1:
+            action_to_use: str = given_level.lower() + f"(message_to_print)"
+            eval(action_to_use)
+
+    return dates_after_conversion
+
+
+def creating_text_parser_for_level(given_level_of_log: str) -> str:
+    log_pattern = Word(alphas) + '.' + Word(alphas)
+
+    for log in ['logging.DEBUG', 'logging.INFO', 'logging.WARNING', 'logging.ERROR', 'logging.CRITICAL']:
+        log_level = log_pattern.parseString(log)
+        if log_level[2].lower() == given_level_of_log:
+            return ''.join(log_level)
+
+
+def define_logging(level_of_logging: str, log_file: str):
+    given_level_of_logging: str = creating_text_parser_for_level(level_of_logging)
+
+    logging.basicConfig(filename=log_file,
+                        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                        datefmt='%d/%m/%Y %I:%M:%S %p',
+                        level=eval(given_level_of_logging))
+
+    return given_level_of_logging
+
+
+def printing_output(dict_with_dates: Dict, type_of_output: List, for_logging: int, given_level) -> int:
+    if for_logging == 1:
+        action_to_use: str = given_level.lower() + f"(dict_with_dates)"
+        eval(action_to_use)
+
+    if type_of_output[0] == 'cli':
+        while True:
+            system('clear')
+            display_header('munging dates')
+
+            print(f"\n{' ' * 7} {'Initial Date':<18} {'->':<10} {'Converted Dates'}", flush=True)
+            print(f"{' ' * 7}{'-' * 47}", flush=True)
+
+            for initial_date, converted_dates in dict_with_dates.items():
+                print(f"{' ' * 7} {initial_date:<29} {converted_dates}", flush=True)
+
+            print(f"\n{' ' * 7} * q to quit, r to reload the configuration or f to enter a new next in cli:", end=" ", flush=True)
+            given_answer = input().strip()
+
+            to_check = check_short_answers(given_answer)
+            if to_check == 'looping':
+                continue
+            elif to_check == 'reload':
+                return 1
+            elif to_check == 'go_forward':
+                return 0
 
 
 def main() -> None:
     dict_with_months = {'01': 'January', '02': 'February', '03': 'March', '04': 'April', '05': 'May',
                         '06': 'June', '07': 'July', '08': 'August', '09': 'September',
                         '10': 'October', '11': 'November', '12': 'December'}
+
+    if_logging: int = 0
+    given_level: str = ''
     text_to_be_process: str = ''
+    dates_after_conversion: Dict = {}
     dict_with_input_output: Dict = {}
     load_configuration_for_looping_and_text: int = 1
 
@@ -355,6 +435,9 @@ def main() -> None:
         while load_configuration_for_looping_and_text == 1:
             config_to_use = load_settings_from_cfg()
             dict_with_input_output, dict_with_logging, load_configuration_for_looping_and_text = parsing_config_file_and_extract_information(config_to_use)
+            if dict_with_logging['other'][0] != 'no_logging':
+                given_level = define_logging(level_of_logging=dict_with_logging['other'][1], log_file=dict_with_logging['other'][0])
+                if_logging = 1
 
         if dict_with_input_output['input'][0] == 'cli':
             text_to_be_process, load_configuration_for_looping_and_text = load_text_from_cli()
@@ -365,10 +448,12 @@ def main() -> None:
             continue
         else:
             dates_from_txt, number_of_dates_matched_pattern = extracting_dates_from_text(text_to_be_process)
-            if number_of_dates_matched_pattern != 0:
-                converting_dates(dict_with_months, dates_from_txt)
+            dates_after_conversion = converting_all_dates(dict_with_months, number_of_dates_matched_pattern, dates_from_txt, if_logging, given_level)
+
+        if number_of_dates_matched_pattern != 0:
+            load_configuration_for_looping_and_text = printing_output(dates_after_conversion, dict_with_input_output['output'],
+                                                                      if_logging, given_level)
 
 
 if __name__ == '__main__':
     main()
-
