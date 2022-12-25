@@ -7,13 +7,12 @@
 
 import pyparsing
 import configparser
-import pandas as pd
 from time import sleep
-from re import sub, match, findall, compile
 from random import shuffle
 from os import system, path
 from string import ascii_lowercase
 from typing import List, Dict, Tuple
+from re import sub, match, findall, compile, search
 
 
 def create_lines_header(multiply_by: int, size_of_string) -> str:
@@ -234,7 +233,7 @@ def load_text_from_cli() -> Tuple:
         elif answer_from_short_checking == 'reload':
             return 0, 1
         else:
-            return pd.Series(answer.split()), 0
+            return answer, 0
 
 
 def load_text_from_file(input_type) -> Tuple:
@@ -255,7 +254,7 @@ def load_text_from_file(input_type) -> Tuple:
         elif to_check == 'go_forward':
             with open(input_type['input'][0], 'r') as open_file:
                 file_to_load = open_file.read()
-            return pd.Series(file_to_load.split()), 0
+            return file_to_load, 0
 
         print(f"\n{' ' * 10} ERROR - please use only one of those three options - q, r or f.", flush=True)
         sleep(2)
@@ -266,7 +265,7 @@ def check_for_first_rule(given_text):
     checking_text = findall(first_type_date, given_text)
 
     if checking_text:
-        return 1, checking_text[0]
+        return 1, checking_text
     else:
         return 0, None
 
@@ -276,7 +275,7 @@ def check_for_second_rule(given_text):
     checking_given_string = findall(second_type_date, given_text)
 
     if checking_given_string:
-        return 2, checking_given_string[0]
+        return 2, checking_given_string
     else:
         return 0, None
 
@@ -286,29 +285,69 @@ def check_for_third_rule(given_text):
     checking_string = findall(third_type_date, given_text)
 
     if checking_string:
-        return 3, checking_string[0]
+        return 3, checking_string
     else:
         return 0, None
 
 
-def extracting_dates_from_text(given_series_as_text: pd.Series(dtype=object)) -> Tuple:
-    number_of_dates_matched_pattern_in_txt: int = 0
-    dates_from_txt_from_patterns: Dict = {}
+def extracting_dates_from_text(given_text) -> Tuple:
+    given_functions = [check_for_first_rule(given_text), check_for_second_rule(given_text), check_for_third_rule(given_text)]
 
-    for i, given_text in given_series_as_text.items():
-        for j in [check_for_first_rule(given_text), check_for_second_rule(given_text), check_for_third_rule(given_text)]:
-            if j[1] is not None:
-                dates_from_txt_from_patterns.update({i: j[1]})
-                number_of_dates_matched_pattern_in_txt += 1
+    for rule in given_functions:
+        rule_number, text_extracted_from_rule = rule
 
-    if number_of_dates_matched_pattern_in_txt == 0:
-        print(f"\n{' ' * 10} There are no dates in the given text that matched the searched patterns")
-        sleep(2)
 
-    return dates_from_txt_from_patterns, number_of_dates_matched_pattern_in_txt
+def converting_from_one_to_rest(given_list: List, dict_with_months: Dict) -> Dict:
+    reversed_given_list = list(reversed(given_list))
+
+    type_two = '/' + reversed_given_list[0]
+    intermediary = search(r'[0-9]{2}$', type_two)
+
+    if int(intermediary.group()) > 23:
+        type_two = sub(r'[0-9]{2}$', "19", type_two)
+    else:
+        type_two = sub(r'[0-9]{2}$', "20", type_two)
+
+    final_two = reversed_given_list[2] + '/' + reversed_given_list[1] + type_two + intermediary.group()
+    final_three = dict_with_months[reversed_given_list[2]] + " " + reversed_given_list[1] + ', ' + search(r'[0-9]{2}$',
+                                                                             type_two).group() + intermediary.group()
+
+    return {''.join(given_list): [final_two, final_three]}
+
+
+def converting_from_two_to_rest(given_list, dict_with_months) -> Dict:
+    type_together = ''.join(given_list)
+    final_one = type_together[slice(4)] + type_together[len(type_together) - 2: len(type_together)]
+    final_three = dict_with_months[given_list[0]] + " " + given_list[1] + ', ' + given_list[2]
+
+    return {''.join(given_list): [final_one, final_three]}
+
+
+def converting_from_three_to_rest(given_list, dict_with_months) -> Dict:
+    month_in_digits = list(dict_with_months.keys())[list(dict_with_months.values()).index(given_list[0].title())]
+    final_one = month_in_digits + given_list[1] + given_list[2][2:4]
+    final_two = month_in_digits + "/" + given_list[1] + "/" + given_list[2]
+
+    return {''.join(given_list): [final_one, final_two]}
+
+
+def converting_dates(dict_with_months: Dict, given_text: List) -> Dict:
+    converted_dates: List = []
+
+    for i in given_text:
+        if i[0] == 1:
+            converted_dates.append(converting_from_one_to_rest(i[1], dict_with_months))
+        elif i[0] == 2:
+            converted_dates.append(converting_from_two_to_rest(i[1], dict_with_months))
+        else:
+            converted_dates.append(converting_from_three_to_rest(i[1], dict_with_months))
 
 
 def main() -> None:
+    dict_with_months = {'01': 'January', '02': 'February', '03': 'March', '04': 'April', '05': 'May',
+                        '06': 'June', '07': 'July', '08': 'August', '09': 'September',
+                        '10': 'October', '11': 'November', '12': 'December'}
+
     dict_with_input_output: Dict = {}
     load_configuration_for_looping_and_text: int = 1
 
@@ -323,9 +362,10 @@ def main() -> None:
             text_to_be_process, load_configuration_for_looping_and_text = load_text_from_file(dict_with_input_output)
 
         dates_from_txt, number_of_dates_matched_pattern = extracting_dates_from_text(text_to_be_process)
-
-        #while load_configuration_for_looping_and_text == 0:
-        #    if dict_with_input_output['output'][0] == 'cli':
+        if number_of_dates_matched_pattern == 0:
+            continue
+        else:
+            converting_dates(dict_with_months, dates_from_txt)
 
 
 if __name__ == '__main__':
