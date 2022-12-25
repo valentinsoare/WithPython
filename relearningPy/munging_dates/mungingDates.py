@@ -347,7 +347,7 @@ def main() -> None:
     dict_with_months = {'01': 'January', '02': 'February', '03': 'March', '04': 'April', '05': 'May',
                         '06': 'June', '07': 'July', '08': 'August', '09': 'September',
                         '10': 'October', '11': 'November', '12': 'December'}
-
+    text_to_be_process: str = ''
     dict_with_input_output: Dict = {}
     load_configuration_for_looping_and_text: int = 1
 
@@ -361,11 +361,12 @@ def main() -> None:
         else:
             text_to_be_process, load_configuration_for_looping_and_text = load_text_from_file(dict_with_input_output)
 
-        dates_from_txt, number_of_dates_matched_pattern = extracting_dates_from_text(text_to_be_process)
-        if number_of_dates_matched_pattern == 0:
+        if load_configuration_for_looping_and_text == 1:
             continue
         else:
-            converting_dates(dict_with_months, dates_from_txt)
+            dates_from_txt, number_of_dates_matched_pattern = extracting_dates_from_text(text_to_be_process)
+            if number_of_dates_matched_pattern != 0:
+                converting_dates(dict_with_months, dates_from_txt)
 
 
 if __name__ == '__main__':
