@@ -100,8 +100,6 @@ L
 relearningPy/checkerboard.py,0/1/011565dd729103aae821055885d062204976c383
 P
  relearningPy/random_sentences.py,e/7/e729f6971e9eb089bf7da7f25c6b5a81a76899bf
-_
-/relearningPy/translate_english_into_pigLatin.py,0/8/08dc5e5aa9b539842ff2db30305afdd46edaac63
 c
 3relearningPy/reverse_a_sentence_with_punctuation.py,b/e/be56f4d54ed0684217a71248a4ba479ed150fc95
 _
@@ -112,7 +110,17 @@ W
 'relearningPy/2dTictacToeHumanVsHuman.py,b/8/b8f96602be6c8a8e4ae4806a38b995e1129e9c22
 H
 relearningPy/invoices.py,b/4/b41b4ab7064b7eccde3eb6bf9b8fc74c495ed82c
-L
-relearningPy/gameofMathV2.py,f/5/f5346b7702f234e30982475def93caeb213886d9
 O
 relearningPy/check_generator.py,5/2/52c9ec0ab2f2ea04d8175c3ec9ab67ec5e5740bb
+O
+relearningPy/tasksWithPandas.py,4/4/446500930e2ec5d1e4802b5ff6d61e6aff6fad07
+N
+relearningPy/tasksWithNumpy.py,0/1/018fe7daf21a1e7076bc7e59e16b0bb6079eead3
+X
+(relearningPy/mathematicalWordProblems.py,4/0/404ae9332bd9c440f19c66631aebbc27c4f8f41d
+_
+/relearningPy/translate_english_into_pigLatin.py,0/8/08dc5e5aa9b539842ff2db30305afdd46edaac63
+_
+/relearningPy/scrambling_words/load_settings.yml,3/e/3e0e439407be91a47263aaac2ba767a1ab8e8e6e
+T
+$relearningPy/grade_book/book.logging,1/6/1605b1a96bc2488bc33c7061848d671a28784177

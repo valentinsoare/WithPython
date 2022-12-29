@@ -1,7 +1,9 @@
 #!/usr/bin/python
-import copy
 
+import collections
+import copy
 import numpy as np
+import numpy.random
 import pandas as pd
 
 
@@ -455,8 +457,25 @@ def main():
     #exercises_1()
     #exercises_2()
     #exercises_3()
-    ax = catch_number(1987)
-    print(ax)
+    #ax = catch_number(1987)
+    #at = pd.Series(dtype=str)
+    #az = pd.Series([1, 2], name='X')
+    #aw = pd.Series([3, 4], name='Y')
+    #at += pd.concat([az.values, aw.values], axis=0)
+
+    dict_1 = {'Romania': 'ro', 'English': 'uk', 'Germany': 'de'}
+    dict_2 = {'English': 4872352, 'Romania': 198762, 'Germany': 982345}
+
+    mapping = collections.ChainMap(dict_1, dict_2)
+    print(mapping.maps[0]['Romania'])
+
+    axz = '79235.234 162394'
+    axz.upper()
+    axz = float(axz)
+    print(axz)
+
+    #if axz.split()[0].isnumeric():
+    #    print(f"AX")
 
 
 if __name__ == '__main__':

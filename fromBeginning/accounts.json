@@ -1,0 +1,19 @@
+{
+    "accounts": [
+        {
+            "account": 1728476,
+            "name": "Valentin",
+            "balance": 24.98
+        },
+        {
+            "account": 187111952,
+            "name": "Aurelia",
+            "balance": 199.82
+        },
+        {
+            "account": 283749274,
+            "name": "Andrei",
+            "balance": 1000
+        }
+    ]
+}

@@ -1,10 +1,8 @@
 #!/usr/bin/python
 
 import re
-import string
-import numpy as np
-import pandas as pd
 from decimal import Decimal
+import typing
 
 
 def strings_exercises():
@@ -299,15 +297,52 @@ def other_tasks_with_re():
 
     print(ax.capitalize())
 
-def to_be():
 
-    variable = 'sa fiee bine'
+def condense_spaces(given_string: typing.Text = '') -> typing.AnyStr:
+    pattern_to_replace = re.compile(r'\s+')
+    after_replacement: typing.AnyStr = pattern_to_replace.sub(' ', given_string)
 
-    try:
-        processed_var = int(variable)
-    except ValueError as err:
-        print(err)
+    return after_replacement
 
+
+def catching_letters_starting_with_b(given_text: typing.AnyStr) -> None:
+    processed_text: typing.List = (re.sub(r'\s+', ' ', given_text).split())
+    for i in processed_text:
+        if re.match(r'^b+', i):
+            print(f"{i}")
+
+
+def counting_chars(given_input: typing.AnyStr) -> None:
+
+    counting_type_of_chars = {'digits': 0, 'non_digits': 0,
+                              'whitespace': 0, 'words': 0}
+
+    all_words = re.findall(r'\w+', given_input)
+    all_digits = re.findall(r'\d', given_input)
+    all_whitespaces = re.findall(r'\s', given_input)
+    all_non_digits = re.findall(r'[^\s\d\w]', given_input)
+
+    counting_type_of_chars['digits'] += len(all_digits)
+    counting_type_of_chars['non_digits'] += len(all_non_digits)
+    counting_type_of_chars['whitespace'] += len(all_whitespaces)
+    counting_type_of_chars['words'] += len(all_words)
+
+    print(counting_type_of_chars)
+
+
+def locating_urls(given_url_string: typing.AnyStr) -> None:
+    check_if_valid_url = re.match(r'(https://)(w{3}\.)([a-z]+_[a-z]+_[a-z]+\.[a-z]+)|'
+                                  r'(https://)([a-z]+_[a-z]+_[a-z]+\.[a-z]+)|'
+                                  r'([a-z]+_[a-z]+_[a-z]+\.[a-z]+)', given_url_string)
+
+    print(check_if_valid_url.groups())
+
+
+def matching_numeric_value(given_value: typing.AnyStr) -> None:
+    value_matching = re.search(r'([\+-].[0-9]+\.[0-9]+)|([0-9]+\.[0-9]+)|([\+|-].[0-9]+)|([0-9]+)', given_value)
+    after_regex = value_matching.groups()
+
+    print(after_regex)
 
 
 def main():
@@ -326,10 +361,17 @@ def main():
     #replacing_and_splitting_substrings()
     #other_tasks_with_re()
     #to_be()
-    print(897 % 100)
 
-    given_list = [10, 20, 33, 44]
-    print(given_list, sep="-")
+    #after_replacement_in_string = condense_spaces('Hello     World            from Bucharest!!')
+    #print(after_replacement_in_string)
+
+    #catching_letters_starting_with_b('Lux boss ce     putem sa facem aici sa mor eu bine.')
+
+    #counting_chars('Lux si Opule2nta, Boss ?! 1987')
+
+    #locating_urls('https://www.movies_on_demand.io')
+    matching_numeric_value('23.234')
+
 
 if __name__ == '__main__':
     main()
