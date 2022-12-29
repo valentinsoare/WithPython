@@ -1,0 +1,27 @@
+input:
+    type: !!str cli
+    input_from_file:
+            type_of_file:
+            file:
+    classes:
+            number_of_students: !!int 10
+            number_of_classes: !!int 5
+            type_of_classes:
+                        - Math
+                        - English
+                        - Chemistry
+                        - Physics
+                        - Computer Science
+output:
+    type: !!str cli
+    output_to_file:
+            type_of_file:
+            file:
+logging:
+    input_logging:
+            if_logging_input: !!bool True
+            file_logging_input: lux.log
+    output_logging:
+            if_logging_output: !!bool False
+            file_logging_output:
+
