@@ -1,6 +1,7 @@
 input:
     type: !!str cli
     input_from_file:
+            take_from_file: False
             type_of_file:
             file:
     classes:
@@ -15,6 +16,7 @@ input:
 output:
     type: !!str cli
     output_to_file:
+            put_to_file: False
             type_of_file:
             file:
 logging:
