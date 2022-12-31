@@ -1,18 +1,17 @@
 #!/usr/bin/python
 
-
 from time import sleep
 from re import sub, match
 from random import shuffle
 from os import system, path
 from string import punctuation
 from yaml import load, SafeLoader
-import printing_phase as printing_stage
-from typing import List, Union, Dict, Tuple
+from typing import List, Dict, Tuple, Union
+from . import printing_phase as printing_stage
 from schema import Or, Schema, SchemaError, Regex, And, Optional
 
 
-def create_line(size_of_multiply: Union[int | float], size_of_string: int) -> str:
+def create_line(size_of_multiply: Union[int, float], size_of_string: int) -> str:
     final_string_as_line: str = ''
     initial_list_as_punctuation: List[str] = (list(punctuation))[0:size_of_string]
     limit_of_string = round(len(initial_list_as_punctuation) * size_of_multiply)
@@ -55,13 +54,13 @@ def printing_header_notebook(given_message: str, if_upper: int = 0, width: int =
 
 def printing_what_we_have() -> None:
     printing_header_notebook(given_message='students grade book', if_upper=1, width=120, nr_of_newlines=1)
-    print(f"\n{' ' * 7} * We gonna have grades for five classes and each student will have at least three grades per class.\n"
+    print(f"\n{' ' * 7} * We gonna have grades for classes and each student will have at least three grades per class.\n"
           f"{' ' * 10}Average per exam, per class and then per all classes will be calculated. After teacher will input all\n"
-          f"{' ' * 10}these grades along with the names of the students in the gradebook and then we will calculate descriptive statistics.......")
+          f"{' ' * 10}these grades along with the names of the students in the gradebook and then we will calculate descriptive statistics.......", end="", flush=True)
     sleep(2)
 
 
-def to_check_keys(answer_to_check, react_on_reconfig) -> str:
+def to_check_keys(answer_to_check: str, react_on_reconfig: int, react_on_back=0) -> str:
     value_to_return: str = ''
 
     if match(r'\s+', answer_to_check) or answer_to_check == '':
@@ -76,14 +75,19 @@ def to_check_keys(answer_to_check, react_on_reconfig) -> str:
         print(f"\n{' ' * 12} * Reloading the configuration.....", flush=True)
         value_to_return = 'reload'
         sleep(2)
+    elif answer_to_check == 'b' and react_on_back == 1:
+        print(f"\n{' ' * 12} * Going back to configuration loading.....", flush=True)
+        value_to_return = 'back_to_config'
+        sleep(2)
     else:
         value_to_return = answer_to_check
 
     return value_to_return
 
 
-def ask_for_config(instances: int) -> Tuple:
+def ask_for_config(instances: int, initial_config: str) -> Tuple:
     to_run: str = 'looping'
+    reloading_active: int = 0
 
     while to_run == 'looping':
         system('clear')
@@ -94,12 +98,15 @@ def ask_for_config(instances: int) -> Tuple:
             instances += 1
         else:
             print(f"\n{' ' * 9} * Please provide the absolute path of configuration file (q to quit, r to reload the previous configuration):", end=" ", flush=True)
+            reloading_active = 1
 
         given_answer: str = input().strip()
 
-        to_run = to_check_keys(answer_to_check=given_answer, react_on_reconfig=0)
+        to_run = to_check_keys(answer_to_check=given_answer, react_on_reconfig=reloading_active)
         if to_run == 'looping':
             instances = 0
+        elif to_run == 'reload':
+            to_run = initial_config
 
     return to_run, instances
 
@@ -117,8 +124,6 @@ def check_logic_config_file(given_cfg: Dict) -> Tuple:
 
 
 def check_content_config_file(cfg_file) -> Tuple:
-    message_from_content_validation: str = ''
-
     config_model = Schema(
         {
             "input": {
@@ -163,7 +168,7 @@ def check_content_config_file(cfg_file) -> Tuple:
             printing_stage.printing_messages(given_message=message_from_content_validation, type_of_print='cli', type_of_sleep=3)
             return to_exit, message_from_content_validation
         else:
-            message_from_content_validation = f"\n{' ' * 12}All good, content checked and configuration is valid!"
+            message_from_content_validation = f"\n{' ' * 12}Good to go, content checked and configuration is valid!"
     except SchemaError as validation_error:
         to_exit = 1
         message_from_content_validation = f"\n{' ' * 12} ERROR - there are some issues with config file!\n\n{validation_error}"
@@ -201,3 +206,4 @@ def validate_config_file(given_file: str) -> Tuple:
 
     printing_stage.printing_messages(given_message=exit_message, type_of_print='cli', type_of_sleep=2)
     return config_content, value_for_running, exit_message
+

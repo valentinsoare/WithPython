@@ -2,10 +2,10 @@ input:
     type: !!str cli
     input_from_file:
             take_from_file: False
-            type_of_file:
-            file:
+            type_of_file: !!str csv
+            file: !!str grades.csv
     classes:
-            number_of_students: !!int 10
+            number_of_students: !!int 3
             number_of_classes: !!int 5
             type_of_classes:
                         - Math
@@ -16,13 +16,13 @@ input:
 output:
     type: !!str cli
     output_to_file:
-            put_to_file: False
+            put_to_file: !!bool False
             type_of_file:
             file:
 logging:
     input_logging:
             if_logging_input: !!bool True
-            file_logging_input: lux.log
+            file_logging_input: !!str lux.log
     output_logging:
             if_logging_output: !!bool False
             file_logging_output:

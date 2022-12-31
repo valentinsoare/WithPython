@@ -4,11 +4,11 @@ import os
 import csv
 import json
 import typing
+import numpy as np
 import pandas as pd
 from pprint import pprint
 from bs4 import BeautifulSoup
 from timeit import timeit
-
 
 
 def to_write_to_file():
@@ -157,8 +157,18 @@ def load_from_url_titanic_survival():
     #print(titanic)
 
     print((titanic.loc[:, 'Survived'] == 'yes').describe())
-    
 
+
+def load_text_with_numpy():
+    loading_text = np.genfromtxt('bank_accounts.csv', delimiter=',', dtype=str)
+
+    print(f"\n|{'-' * 30}|")
+    for i in loading_text:
+        print(f"{'|'}", end='')
+        for j in i:
+            print(f"{j:>8}", end="")
+        print(f"{' ' * 6}|")
+    print(f"|{'-' * 30}|")
 
 
 def main() -> None:
@@ -184,7 +194,9 @@ def main() -> None:
     #reading_from_a_csv()
 
     #cool_way_reading_from_csv()
-    load_from_url_titanic_survival()
+    #load_from_url_titanic_survival()
+    load_text_with_numpy()
+
 
 if __name__ == '__main__':
     main()
