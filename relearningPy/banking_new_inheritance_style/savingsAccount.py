@@ -37,13 +37,14 @@ class SavingsAccount(Account):
 
     def calculate_interest(self):
         self.interest = self.balance * self.interest_rate
-        return self.interest
+        self.deposit(self.interest)
 
     def __str__(self):
         message_to_return = f'owner: {self.owner}\n' \
                             f'balance: {Decimal(self.balance):,}\n' \
                             f'currency: {self.currency}\n' \
                             f'interest_rate: {self.interest_rate}%\n'
+
         if self.interest != Decimal('0.00'):
             message_to_return += f'interest: {Decimal(self.interest):,}'
         else:

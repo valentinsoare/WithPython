@@ -1,9 +1,8 @@
 #!/usr/bin/python
 
 from re import match
-from collections import OrderedDict
 from savingsAccount import SavingsAccount
-
+from checkingAccount import CheckingAccount
 
 
 def check_str_input(given_value, type_of_input: str):
@@ -17,7 +16,7 @@ class Bank:
         self.country: str = country
         self.city: str = city
         self.type_of_bank: str = type_of_bank
-        self._accounts_opened: OrderedDict = OrderedDict()
+        self._accounts_opened: dict = {}
 
     @property
     def bank_name(self):
@@ -55,10 +54,13 @@ class Bank:
         check_str_input(type_of_bank, 'type_of_bank')
         self._type_of_bank = type_of_bank
 
-    def open_account(self, type_of_account, owner, initial_balance, account_currency, interest_rate):
+    def open_account(self, type_of_account, owner, initial_balance, account_currency, interest_rate=None, fee_for_transaction=None):
         if type_of_account == 'savings account':
             return SavingsAccount(owner_of_the_account=owner, account_balance=initial_balance,
                                   currency_for_account=account_currency, interest_rate=interest_rate)
+        elif type_of_account == 'checking account':
+            return CheckingAccount(owner=owner, balance=initial_balance,
+                                   currency=account_currency, transaction_fee=fee_for_transaction)
 
     def __str__(self):
         return f'bank_name: {self.bank_name}\n' \
