@@ -8,7 +8,7 @@ from account import Account
 from typing import List, Dict, Tuple, Union
 
 
-def account_number_generator(accounts, name_of_the_bank: str, country: str, city: str):
+def _account_number_generator(accounts, name_of_the_bank: str, country: str, city: str):
     account_pattern: str = ''
 
     while True:
@@ -94,7 +94,7 @@ class Bank:
         self._accounts = accounts
 
     def create_account(self, owner_of_the_account: str, account_currency: str, given_balance=Decimal('0.00'), account_type='serlfservice'):
-        number_for_the_account = account_number_generator(self.accounts, self.name_of_bank, self.country, self.city)
+        number_for_the_account = _account_number_generator(self.accounts, self.name_of_bank, self.country, self.city)
 
         new_account = Account(account_number=number_for_the_account, account_owner=owner_of_the_account, currency=account_currency,
                               balance=given_balance, type_of_account=account_type, location_account=self.city)
