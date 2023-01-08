@@ -3,6 +3,8 @@
 
 from re import match
 from time import time
+from credit import Credit
+from decimal import Decimal
 from random import randrange
 from numpy.random import randint, seed
 from savingsAccount import SavingsAccount
@@ -16,7 +18,8 @@ class Bank:
         self.city: str = city
         self.type_of_bank: str = type_of_bank
         self._accounts: dict = {}
-        self._accounts_as_objects: set = set()
+        self._accounts_as_objects: dict = {}
+        self._credits_made: dict = {}
 
     @property
     def bank_name(self):
@@ -62,6 +65,10 @@ class Bank:
     def accounts_as_objects(self):
         return self._accounts_as_objects
 
+    @property
+    def credits_made(self):
+        return self._credits_made
+
     def open_account(self, type_of_account, owner, initial_balance, account_currency, interest_rate=None, fee_for_transaction=None):
         while True:
             new_account_nr = _generate_new_account_number(name_of_bank=self._bank_name, country_of_bank=self._country,
@@ -77,7 +84,7 @@ class Bank:
                                                             'initial_balance': initial_balance,
                                                             'account_currency': account_currency,
                                                             'interest_rate': interest_rate}})
-                    self._accounts_as_objects.update({new_account})
+                    self._accounts_as_objects.update({new_account_nr: new_account})
 
                 elif type_of_account == 'checking account':
                     new_account = CheckingAccount(nr_account=new_account_nr, owner=owner, balance=initial_balance,
@@ -88,18 +95,27 @@ class Bank:
                                                             'initial_balance': initial_balance,
                                                             'account_currency': account_currency,
                                                             'transaction_fee': fee_for_transaction}})
-                    self._accounts_as_objects.update({new_account})
+                    self._accounts_as_objects.update({new_account_nr: new_account})
 
                 return new_account
 
-    def number_of_accounts_open(self):
-        return len(self.accounts.keys())
+    def number_of_accounts_open(self, number_account=None, owner_account=None, account_type=None, balance=None,
+                                currency=None, rate=None, fee_for_transaction=None, arguments_number: int = 1):
+
+        value_to_return = self.search_account(account_number=number_account, owner=owner_account, type_of_account=account_type, initial_balance=balance,
+                                              account_currency=currency, interest_rate=rate, transaction_fee=fee_for_transaction, search_arguments_number=arguments_number)
+
+        if value_to_return:
+            return len(value_to_return)
+        else:
+            return len(self.accounts.keys())
 
     def search_account(self, account_number=None, owner=None, type_of_account=None, initial_balance=None,
                        account_currency=None, interest_rate=None, transaction_fee=None, search_arguments_number: int = 1):
 
         search_options: set = {(account_number, 'account_number'), (owner, 'owner'), (type_of_account, "type_of_account"), (initial_balance, "initial_balance"),
                                (account_currency, "account_currency"), (interest_rate, "interest_rate"), (transaction_fee, 'transaction_fee')}
+
         values_found: dict = {}
         items_to_search: dict = self._accounts
 
@@ -113,9 +129,25 @@ class Bank:
                     break
                 else:
                     items_to_search = values_found
-                    values_found.clear()
+                    values_found: dict = {}
 
         return None if len(values_found.keys()) == 0 else values_found
+
+    def credit(self, account_number: str, amount: Decimal, period: Decimal, rate: Decimal):
+        new_credit = Credit(account_for_credit=account_number, credit_amount=amount,
+                            period_of_credit=period, interest_rate=rate)
+
+        profit, per_month, to_be_returned = new_credit.calculate_needed_info()
+
+        self.credits_made.update({len(self.credits_made.keys()): {'account_number': new_credit.account_for_credit,
+                                                                  'credit_amount': new_credit.credit_amount.quantize((Decimal('0.00'))),
+                                                                  'credit_period' : new_credit.period_of_credit.quantize((Decimal('0.00'))),
+                                                                  'credit_interest_rate': new_credit.interest_rate.quantize(Decimal('0.00')),
+                                                                  'bank_profit': profit,
+                                                                  'money_to_be_returned': to_be_returned,
+                                                                  'payment_per_month': per_month}})
+
+        self._accounts_as_objects[account_number].deposit(new_credit.credit_amount)
 
     def __str__(self):
         return f'bank_name: {self.bank_name}\n' \
@@ -138,7 +170,7 @@ def _generate_new_account_number(name_of_bank: str, country_of_bank: str, city_o
             account_number.append(name_of_bank[index].upper())
 
     seed(int(time()))
-    return ''.join([*account_number, city_of_bank[0].upper(), str(randrange(1000000000, 9999999999))])
+    return ''.join([*account_number, city_of_bank[0].upper(), str(randrange(0o0000000000, 9999999999))])
 
 
 def check_str_input(given_value, type_of_input: str):

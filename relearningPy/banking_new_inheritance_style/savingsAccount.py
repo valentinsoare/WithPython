@@ -37,7 +37,7 @@ class SavingsAccount(Account):
         self._interest = amount
 
     def calculate_interest(self):
-        self.interest = (self.balance * self.interest_rate / 100)
+        self.interest = (self.balance * self.interest_rate) / 100
         self.deposit(self.interest)
 
     def __getattr__(self, item):
@@ -49,7 +49,7 @@ class SavingsAccount(Account):
     def __str__(self):
         message_to_return = f'account_number: {self.account_number}\n' \
                             f'owner: {self.owner}\n' \
-                            f'type_of_account: {"savings account"}\n' \
+                            f'type_of_account: {"savings_account"}\n' \
                             f'balance: {Decimal(self.balance):,}\n' \
                             f'currency: {self.currency}\n' \
                             f'interest_rate: {self.interest_rate}%\n'
