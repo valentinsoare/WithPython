@@ -6,10 +6,22 @@ from collections import namedtuple
 
 
 class Account:
-    def __init__(self, owner, balance, currency):
+    def __init__(self, account_number, owner, balance, currency):
+        self.account_number: str = account_number
         self.owner: namedtuple = owner
         self.balance: Decimal = balance
         self.currency: str = currency
+
+    @property
+    def account_number(self):
+        return self._account_number
+
+    @account_number.setter
+    def account_number(self, value_of_account):
+        if not (isinstance(value_of_account, str) or value_of_account.isalnum()):
+            raise ValueError('Account number should contain letters and digits, that is it!')
+
+        self._account_number = value_of_account
 
     @property
     def owner(self):
@@ -63,5 +75,7 @@ class Account:
         self.balance -= amount
 
     def __str__(self):
-        return f'owner: {self.owner}\nbalance: {self.balance:,}\ncurrency: {self.currency}'
+        return f'owner: {self.owner}\n' \
+               f'balance: {self.balance:,}\n' \
+               f'currency: {self.currency}'
 

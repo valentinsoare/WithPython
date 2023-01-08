@@ -5,8 +5,9 @@ from account import Account
 
 
 class CheckingAccount(Account):
-    def __init__(self, owner, balance, currency, transaction_fee):
-        super().__init__(owner, balance, currency)
+    def __init__(self, nr_account, owner, balance, currency, transaction_fee):
+        super().__init__(account_number=nr_account, owner=owner,
+                         balance=balance, currency=currency)
 
         self.transaction_fee: Decimal = transaction_fee
 
@@ -16,7 +17,7 @@ class CheckingAccount(Account):
 
     @transaction_fee.setter
     def transaction_fee(self, amount: Decimal):
-        if not isinstance(amount, Decimal) or amount > self.balance or amount == Decimal('0.00'):
+        if not isinstance(amount, Decimal) or amount == Decimal('0.00'):
             raise ValueError('Transaction fee should not be zero or greater than the balance and a decimal value!')
 
         self._transaction_fee = amount
@@ -34,8 +35,16 @@ class CheckingAccount(Account):
 
         self.balance -= (amount + self.transaction_fee)
 
+    def __getattr__(self, item):
+        if item in {'interest', 'interest_rate', 'calculate_interest'}:
+            raise AttributeError(f'We do not have {item} for checking account!')
+        else:
+            return getattr(self, item)
+
     def __str__(self):
-        message_to_be_returned: str = f'owner: {self.owner}\n' \
+        message_to_be_returned: str = f'account_number: {self.account_number}\n' \
+                                      f'owner: {self.owner}\n' \
+                                      f'type_account: {"checking account"}\n' \
                                       f'balance: {self.balance:,}\n' \
                                       f'currency: {self.currency}\n' \
                                       f'transaction_fee: {self.transaction_fee:,}'
