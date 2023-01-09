@@ -20,6 +20,7 @@ class Bank:
         self._accounts: dict = {}
         self._accounts_as_objects: dict = {}
         self._credits_made: dict = {}
+        self._credits_as_objects: dict = {}
 
     @property
     def bank_name(self):
@@ -69,6 +70,10 @@ class Bank:
     def credits_made(self):
         return self._credits_made
 
+    @property
+    def credits_as_objects(self):
+        return self._credits_as_objects
+
     def open_account(self, type_of_account, owner, initial_balance, account_currency, interest_rate=None, fee_for_transaction=None):
         while True:
             new_account_nr = _generate_new_account_number(name_of_bank=self._bank_name, country_of_bank=self._country,
@@ -99,11 +104,11 @@ class Bank:
 
                 return new_account
 
-    def number_of_accounts_open(self, number_account=None, owner_account=None, account_type=None, balance=None,
-                                currency=None, rate=None, fee_for_transaction=None, arguments_number: int = 1):
+    def number_of_accounts_open(self, number_account=None, owner_account=None, account_type=None,
+                                balance=None, currency=None, rate=None, fee_for_transaction=None):
 
         value_to_return = self.search_account(account_number=number_account, owner=owner_account, type_of_account=account_type, initial_balance=balance,
-                                              account_currency=currency, interest_rate=rate, transaction_fee=fee_for_transaction, search_arguments_number=arguments_number)
+                                              account_currency=currency, interest_rate=rate, transaction_fee=fee_for_transaction)
 
         if value_to_return:
             return len(value_to_return)
@@ -111,25 +116,23 @@ class Bank:
             return len(self.accounts.keys())
 
     def search_account(self, account_number=None, owner=None, type_of_account=None, initial_balance=None,
-                       account_currency=None, interest_rate=None, transaction_fee=None, search_arguments_number: int = 1):
+                       account_currency=None, interest_rate=None, transaction_fee=None):
 
         search_options: set = {(account_number, 'account_number'), (owner, 'owner'), (type_of_account, "type_of_account"), (initial_balance, "initial_balance"),
                                (account_currency, "account_currency"), (interest_rate, "interest_rate"), (transaction_fee, 'transaction_fee')}
 
-        values_found: dict = {}
-        items_to_search: dict = self._accounts
+        arguments_given = {(i, j) for i, j in search_options if i}
+        number_of_arguments_given: int = len(arguments_given)
 
-        for i, j in search_options:
-            if i:
-                for k, l in items_to_search.items():
-                    if l[j] == i:
-                        values_found.update({k: l})
-                search_arguments_number -= 1
-                if search_arguments_number == 0:
-                    break
-                else:
-                    items_to_search = values_found
-                    values_found: dict = {}
+        values_found: dict = {}
+
+        for i, j in self._accounts.items():
+            count: int = 0
+            for k, l in arguments_given:
+                if j[l] == k:
+                    count += 1
+                if number_of_arguments_given == count:
+                    values_found.update({i: j})
 
         return None if len(values_found.keys()) == 0 else values_found
 
@@ -147,6 +150,7 @@ class Bank:
                                                                   'money_to_be_returned': to_be_returned,
                                                                   'payment_per_month': per_month}})
 
+        self._credits_as_objects.update({len(self.credits_as_objects.keys()): new_credit})
         self._accounts_as_objects[account_number].deposit(new_credit.credit_amount)
 
     def __str__(self):

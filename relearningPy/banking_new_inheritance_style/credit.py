@@ -101,3 +101,12 @@ class Credit:
 
         return self.bank_profit.quantize(Decimal('0.00')), self.how_much_per_month.quantize(
             Decimal('0.00')), self.value_to_be_returned.quantize(Decimal('0.00'))
+
+    def __str__(self):
+        return f'account_for_credit: {self.account_for_credit}\n' \
+               f'credit_amount: {self.credit_amount}\n' \
+               f'period_of_credit: {self.period_of_credit}' \
+               f'interest_rate: {self.interest_rate}' \
+               f'bank_profit: {self.bank_profit}' \
+               f'value_to_be_returned: {self.value_to_be_returned}' \
+               f'how_much_per_month: {self.how_much_per_month}'

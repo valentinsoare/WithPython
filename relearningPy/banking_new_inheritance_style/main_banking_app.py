@@ -1,10 +1,13 @@
 #!/usr/bin/python
 
+
 from bank import Bank
 from decimal import Decimal
 
 
+
 def main():
+
     reiff = Bank(bank_name='reiffeisen', country='Romania', city='Bucharest', type_of_bank='commercial')
 
     valentin_account = reiff.open_account(type_of_account='savings account', owner='Valentin, Soare',
@@ -33,14 +36,24 @@ def main():
     valentin_account.calculate_interest()
     #print(f"{valentin_account}")
 
-    count_accounts = reiff.number_of_accounts_open(account_type='checking_account', arguments_number=1)
+    count_accounts = reiff.number_of_accounts_open(account_type='checking_account')
+    print(count_accounts)
 
-    print(andreea_account)
-    reiff.credit(account_number=andreea_account.account_number, amount=Decimal('10_000'),
-                 period=Decimal('24'), rate=Decimal('3'))
 
-    andreea_account.calculate_interest()
-    print(andreea_account)
+    #print(f"\n * Account without credit:\n{andreea_account}")
+    #reiff.credit(account_number=andreea_account.account_number, amount=Decimal('10_000'),
+    #             period=Decimal('24'), rate=Decimal('3'))
+
+    #andreea_account.calculate_interest()
+    #print(f"\n * After credit was made + savings interest:\n{andreea_account}")
+
+    #print(f"\n * Credit info:")
+    #for i, j in reiff.credits_made.items():
+    #    if andreea_account.account_number in j.values():
+    #        for key, value in j.items():
+    #            print(f"{key}: {value}")
+
+
 
 
 if __name__ == '__main__':
