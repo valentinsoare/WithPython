@@ -1,15 +1,18 @@
 #!/usr/bin/python
 
+
 from decimal import Decimal
 from employee import Employee
 
 
 class HourlyEmployee(Employee):
-    def __init__(self, first_name, last_name, social_security, hours_worked, wage_per_hour):
-        super().__init__(first_name, last_name, social_security)
+    def __init__(self, first_name, last_name, cnp, hours_worked, wage_per_hour):
+        super().__init__(first_name, last_name, cnp)
 
         self.hours_worked: Decimal = hours_worked
         self.wage_per_hour: Decimal = wage_per_hour
+        self._attributes = {'first_name': self.first_name, 'last_name': self.last_name,
+                            'cnp': self.cnp, 'hours_worked': self.hours_worked, 'wage_per_hour': self.wage_per_hour}
 
     @property
     def hours_worked(self):
@@ -34,8 +37,19 @@ class HourlyEmployee(Employee):
         self._wage_per_hour = wage_per_hour
 
     def earnings(self):
-        return self.hours_worked * self.wage_per_hour
+        return Decimal((self.hours_worked * self.wage_per_hour))
+
+    def __iter__(self):
+        return iter(self._attributes.items())
+
+    def __len__(self):
+        return len(self._attributes)
+
+    def __bool__(self):
+        return True if self.hours_worked >= Decimal('20.00') else False
 
     def __repr__(self):
-        return f'HourlyEmployee: {Employee.first_name}, {Employee.last_name}; ' \
-               f'{Employee.social_security}; {self.earnings()}'
+        return f'HourlyEmployee: {Employee.__repr__(self)}; Weekly earnings: {self.earnings():,} ron'
+
+    def __str__(self):
+        return f'{self.__repr__()}'

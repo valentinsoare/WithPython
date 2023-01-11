@@ -22,7 +22,7 @@ class SavingsAccount(Account):
         if not isinstance(amount, Decimal) or amount <= Decimal('0.00'):
             raise ValueError('Interest rate for a savings account should be a float/int value greater than zero!')
 
-        self._interest_rate = amount
+        self._interest_rate = amount.quantize(Decimal('0.00'))
 
     @property
     def interest(self):
@@ -33,7 +33,7 @@ class SavingsAccount(Account):
         if not isinstance(amount, Decimal) or amount <= Decimal('0.00'):
             raise ValueError('Interest should be a decimal and greater than zero!')
 
-        self._interest = amount
+        self._interest = amount.quantize(Decimal('0.00'))
 
     def calculate_interest(self):
         self.interest = (self.balance * self.interest_rate) / 100

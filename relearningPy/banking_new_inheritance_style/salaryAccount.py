@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+
 from decimal import Decimal
 from account import Account
 
@@ -31,12 +32,12 @@ class SalaryAccount(Account):
 
     @property
     def commission_amount(self):
-        return self.commission_amount
+        return self._commission_amount
 
     @commission_amount.setter
     def commission_amount(self, amount):
         check_decimal_values(amount, 'Commission amount')
-        self._commission_amount = amount
+        self._commission_amount = amount.quantize(Decimal("0.00"))
 
     @property
     def credit_card_withdraw_fees(self):
@@ -45,7 +46,7 @@ class SalaryAccount(Account):
     @credit_card_withdraw_fees.setter
     def credit_card_withdraw_fees(self, amount):
         check_decimal_values(amount, 'Credit card withdraw fees')
-        self._credit_card_withdraw_fees = amount
+        self._credit_card_withdraw_fees = amount.quantize(Decimal('0.00'))
 
     @property
     def annual_maintenance_fees(self):
@@ -54,7 +55,7 @@ class SalaryAccount(Account):
     @annual_maintenance_fees.setter
     def annual_maintenance_fees(self, amount):
         check_decimal_values(amount, 'Annual maintenance fees')
-        self._annual_maintenance_fees = amount
+        self._annual_maintenance_fees = amount.quantize(Decimal('0.00'))
 
     @property
     def transaction_fees(self):
@@ -63,7 +64,7 @@ class SalaryAccount(Account):
     @transaction_fees.setter
     def transaction_fees(self, amount):
         check_decimal_values(amount, 'Transaction fees')
-        self._transaction_fees = amount
+        self._transaction_fees = amount.quantize(Decimal('0.00'))
 
     def withdraw(self, amount: Decimal):
         if not isinstance(amount, Decimal) or amount <= Decimal('0.00') or amount + self.transaction_fees > self.balance:
@@ -79,9 +80,9 @@ class SalaryAccount(Account):
 
         calculated: Decimal = (amount - self.transaction_fees)
 
-        if len(self._registered_salary_for_three_months) == 6:
+        if len(self._registered_salary_for_three_months) == 3:
             self._registered_salary_for_three_months.append(calculated)
-            self._registered_salary_for_three_months.pop()
+            self._registered_salary_for_three_months.pop(0)
         else:
             self._registered_salary_for_three_months.append(calculated)
 
@@ -99,11 +100,36 @@ class SalaryAccount(Account):
 
         return overdraft_accepted
 
+    def trial_period(self):
+        return self.__bool__()
+
+    def __bool__(self):
+        return True if len(self._registered_salary_for_three_months) != 3 else False
+
+    def __iter__(self):
+        dict_with_properties = {'account_number': self.account_number, 'owner': self.owner, 'balance': self.balance,
+                                'currency': self.type_of_commissions, 'commission_amount': self.commission_amount,
+                                'credit_card_withdraw_fees': self.credit_card_withdraw_fees, 'annual_maintenance_fees': self.annual_maintenance_fees,
+                                'transaction_fees': self.transaction_fees, 'registered_salary_for_three_months': self.registered_salary_for_three_months()}
+        return iter(dict_with_properties.items())
+
     def __getattr__(self, item):
         if item in {'transaction_fee', 'interest_rate', 'interest', 'calculate_interest'}:
             raise NotImplementedError
         else:
             return getattr(self, item)
+
+    def __str__(self):
+        return f'account_number: {self.account_number}\n' \
+               f'owner: {self.owner}\n' \
+               f'balance: {self.balance}\n' \
+               f'currency: {self.currency}\n' \
+               f'type_of_commissions: {self.type_of_commissions}\n' \
+               f'commission_amount: {self.commission_amount}\n' \
+               f'credit_card_withdraw_fees: {self.credit_card_withdraw_fees}\n' \
+               f'annual_maintenance_fees: {self.annual_maintenance_fees}\n' \
+               f'transaction_fees: {self.transaction_fees}\n' \
+               f'registered_salary_for_three_months: {self.registered_salary_for_three_months()}\n'
 
 
 def check_decimal_values(given_value_amount, type_of_variable):

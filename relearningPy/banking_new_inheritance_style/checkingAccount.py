@@ -20,7 +20,7 @@ class CheckingAccount(Account):
         if not isinstance(amount, Decimal) or amount == Decimal('0.00'):
             raise ValueError('Transaction fee should not be zero or greater than the balance and a decimal value!')
 
-        self._transaction_fee = amount
+        self._transaction_fee = amount.quantize(Decimal('0.00'))
 
     def deposit(self, amount: Decimal):
         if not isinstance(amount, Decimal) or amount <= Decimal('0.00'):

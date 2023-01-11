@@ -7,6 +7,7 @@ from credit import Credit
 from decimal import Decimal
 from random import randrange
 from numpy.random import randint, seed
+from salaryAccount import SalaryAccount
 from savingsAccount import SavingsAccount
 from checkingAccount import CheckingAccount
 
@@ -74,7 +75,9 @@ class Bank:
     def credits_as_objects(self):
         return self._credits_as_objects
 
-    def open_account(self, type_of_account, owner, initial_balance, account_currency, interest_rate=None, fee_for_transaction=None):
+    def open_account(self, type_of_account, owner, initial_balance, account_currency, interest_rate=None, fee_for_transaction_checking=None,
+                     transaction_fees_salary=None, commissions_type_salary=None, commissions_amount_salary=None, card_withdraw_fees=None,
+                     annual_fees=None):
         while True:
             new_account_nr = _generate_new_account_number(name_of_bank=self._bank_name, country_of_bank=self._country, city_of_bank=self._city)
 
@@ -92,13 +95,29 @@ class Bank:
 
                 elif type_of_account == 'checking account':
                     new_account = CheckingAccount(nr_account=new_account_nr, owner=owner, balance=initial_balance,
-                                                  currency=account_currency, transaction_fee=fee_for_transaction)
+                                                  currency=account_currency, transaction_fee=fee_for_transaction_checking)
                     self._accounts.update({new_account_nr: {'account_number': new_account_nr,
                                                             'owner': owner,
                                                             'type_of_account': 'checking_account',
                                                             'initial_balance': initial_balance,
                                                             'account_currency': account_currency,
-                                                            'transaction_fee': fee_for_transaction}})
+                                                            'transaction_fee': fee_for_transaction_checking}})
+                    self._accounts_as_objects.update({new_account_nr: new_account})
+                elif type_of_account == 'salary account':
+                    new_account = SalaryAccount(account_number=new_account_nr, owner=owner, balance=initial_balance,
+                                                currency=account_currency, transaction_fees=transaction_fees_salary,
+                                                type_of_commissions=commissions_type_salary, commission_amount=commissions_amount_salary,
+                                                credit_card_withdraw_fees=card_withdraw_fees, annual_maintenance_fees=annual_fees)
+                    self._accounts.update({new_account_nr: {'account_number': new_account_nr,
+                                                            'owner': owner,
+                                                            'type_of_account': 'salary_account',
+                                                            'initial_balance': initial_balance,
+                                                            'account_currency': account_currency,
+                                                            'transaction_fees': transaction_fees_salary,
+                                                            'type_of_commissions': commissions_type_salary,
+                                                            'commissions_amount': commissions_amount_salary,
+                                                            'card_withdraw_fees': card_withdraw_fees,
+                                                            'annual_maintenance_fees': annual_fees}})
                     self._accounts_as_objects.update({new_account_nr: new_account})
 
                 return new_account

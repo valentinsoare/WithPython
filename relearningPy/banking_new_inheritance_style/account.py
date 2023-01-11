@@ -50,7 +50,7 @@ class Account:
         if not isinstance(balance_amount, Decimal) or balance_amount < Decimal('0.00'):
             raise ValueError('Account value needs to be a decimal value greater or equal to zero!')
 
-        self._balance = balance_amount
+        self._balance = balance_amount.quantize(Decimal('0.00'))
 
     @property
     def currency(self):

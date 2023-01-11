@@ -3,10 +3,12 @@
 
 import math
 import dataclasses
+import time
 from typing import Union, ClassVar
 from decimal import Decimal
 from account import Account
 from collections import namedtuple
+from enum import Enum
 
 
 class Point:
@@ -271,6 +273,22 @@ def creating_another_frozen_class():
 
     #my_home.street = 'nebunie mare'
 
+def printing_red():
+    print(f'\033[1;31m red is my color \033[0m')
+
+
+def printing_blue():
+    print(f'\033[1;32m blue is my collor \033[0m')
+
+
+def creating_enum_class():
+    class Color(Enum):
+        printing_red = 1
+        printing_blue = 2
+
+    print(Color['printing_red'].value)
+    print(Color(2).name)
+
 
 def main() -> None:
     #play_with_accounts()
@@ -311,7 +329,8 @@ def main() -> None:
 
     #creating_immutable_type()
 
-    creating_another_frozen_class()
+    #creating_another_frozen_class()
+    creating_enum_class()
 
 
 if __name__ == '__main__':
