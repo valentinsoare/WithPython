@@ -76,8 +76,7 @@ class Bank:
 
     def open_account(self, type_of_account, owner, initial_balance, account_currency, interest_rate=None, fee_for_transaction=None):
         while True:
-            new_account_nr = _generate_new_account_number(name_of_bank=self._bank_name, country_of_bank=self._country,
-                                                          city_of_bank=self._city)
+            new_account_nr = _generate_new_account_number(name_of_bank=self._bank_name, country_of_bank=self._country, city_of_bank=self._city)
 
             if new_account_nr not in self.accounts.keys():
                 if type_of_account == 'savings account':
@@ -104,8 +103,22 @@ class Bank:
 
                 return new_account
 
-    def number_of_accounts_open(self, number_account=None, owner_account=None, account_type=None,
-                                balance=None, currency=None, rate=None, fee_for_transaction=None):
+    def search_credits_by_owner(self, number_account=None, owner_account=None, account_type=None, balance_initial=None,
+                                currency_on_account=None, fee_transaction=None, interest_rate_on_account=None):
+
+        credits_to_returned: dict = {}
+        value_to_search_by = self.search_account(account_number=number_account, owner=owner_account, type_of_account=account_type,
+                                                 initial_balance=balance_initial, account_currency=currency_on_account,
+                                                 interest_rate=interest_rate_on_account, transaction_fee=fee_transaction)
+        if not value_to_search_by:
+            return None
+
+        for i in value_to_search_by.keys():
+            credits_to_returned.update({k: l for k, l in self.credits_made.items() if i == l['account_number']})
+
+        return credits_to_returned
+
+    def number_of_accounts_open(self, number_account=None, owner_account=None, account_type=None, balance=None, currency=None, rate=None, fee_for_transaction=None):
 
         value_to_return = self.search_account(account_number=number_account, owner=owner_account, type_of_account=account_type, initial_balance=balance,
                                               account_currency=currency, interest_rate=rate, transaction_fee=fee_for_transaction)
@@ -123,7 +136,6 @@ class Bank:
 
         arguments_given = {(i, j) for i, j in search_options if i}
         number_of_arguments_given: int = len(arguments_given)
-
         values_found: dict = {}
 
         for i, j in self._accounts.items():
@@ -134,7 +146,7 @@ class Bank:
                 if number_of_arguments_given == count:
                     values_found.update({i: j})
 
-        return None if len(values_found.keys()) == 0 else values_found
+        return None if not len(values_found.keys()) else values_found
 
     def credit(self, account_number: str, amount: Decimal, period: Decimal, rate: Decimal):
         new_credit = Credit(account_for_credit=account_number, credit_amount=amount,
@@ -174,9 +186,9 @@ def _generate_new_account_number(name_of_bank: str, country_of_bank: str, city_o
             account_number.append(name_of_bank[index].upper())
 
     seed(int(time()))
-    return ''.join([*account_number, city_of_bank[0].upper(), str(randrange(0o0000000000, 9999999999))])
+    return ''.join([*account_number, city_of_bank[0].upper(), str(randrange(100000000, 999999999))])
 
 
 def check_str_input(given_value, type_of_input: str):
-    if not isinstance(given_value, str) or given_value == '' or match(r'\s+', given_value):
+    if not (given_value and isinstance(given_value, str)) or match(r'\s+', given_value):
         raise ValueError(f'{type_of_input.capitalize()} input should be a string containing alpha characters.')

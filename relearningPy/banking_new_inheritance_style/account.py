@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+
 from re import match, split
 from decimal import Decimal
 from collections import namedtuple
@@ -18,7 +19,7 @@ class Account:
 
     @account_number.setter
     def account_number(self, value_of_account):
-        if not (isinstance(value_of_account, str) or value_of_account.isalnum()):
+        if not (isinstance(value_of_account, str) and value_of_account.isalnum()):
             raise ValueError('Account number should contain letters and digits, that is it!')
 
         self._account_number = value_of_account
@@ -57,22 +58,24 @@ class Account:
 
     @currency.setter
     def currency(self, currency):
-        if not isinstance(currency, str) or currency == '' or match(r'\s+', currency):
+        if not (currency and isinstance(currency, str)) or match(r'\s+', currency):
             raise ValueError('Currency should be a string containing alphas characters!')
 
         self._currency = currency
 
     def deposit(self, amount: Decimal):
-        if not isinstance(amount, Decimal) or amount <= Decimal('0.00'):
+        if not (amount and isinstance(amount, Decimal)) or amount <= Decimal('0.00'):
             raise ValueError('Deposit amount should be a decimal value greater than zero!')
 
         self.balance += amount
+        return self.balance
 
     def withdraw(self, amount: Decimal):
-        if not isinstance(amount, Decimal) or amount > self.balance:
+        if not (amount and isinstance(amount, Decimal)) or amount > self.balance:
             raise ValueError('Withdraw amount should be a decimal value and not greater than the balance!')
 
         self.balance -= amount
+        return self.balance
 
     def __str__(self):
         return f'owner: {self.owner}\n' \

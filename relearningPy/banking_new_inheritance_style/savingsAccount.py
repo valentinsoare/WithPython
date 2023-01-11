@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-
 from decimal import Decimal
 from account import Account
 
@@ -41,8 +40,9 @@ class SavingsAccount(Account):
         self.deposit(self.interest)
 
     def __getattr__(self, item):
-        if item == 'transaction_fee':
-            raise AttributeError(f'We do not have {item} for saving accounts!')
+        if item in {'transaction_fee', 'type_of_commissions', 'commission_amount', 'credit_card_withdraw_fees',
+                    'annual_maintenance_fees', 'transaction_fees'}:
+            raise NotImplementedError
         else:
             return getattr(self, item)
 

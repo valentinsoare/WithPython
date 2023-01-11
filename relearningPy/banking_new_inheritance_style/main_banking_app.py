@@ -1,9 +1,7 @@
 #!/usr/bin/python
 
-
 from bank import Bank
 from decimal import Decimal
-
 
 
 def main():
@@ -21,37 +19,41 @@ def main():
     gabi_account = reiff.open_account(type_of_account='checking account', owner='Gabriela, Manea',
                                       initial_balance=Decimal('400_000'), account_currency='pounds',
                                       fee_for_transaction=Decimal('50.00'))
-
     andreea_account = reiff.open_account(type_of_account='savings account', owner='Andreea, Popescu',
-                                         initial_balance=Decimal('500_000'), account_currency='ron',
+                                         initial_balance=Decimal('500_000'), account_currency='euro',
                                          interest_rate=Decimal('1'))
-
     valentin_account_1 = reiff.open_account(type_of_account='checking account', owner='Valentin, Soare',
                                             initial_balance=Decimal('1_000_000'), account_currency='pounds',
                                             fee_for_transaction=Decimal('1_000_000'))
+    stelian_account = reiff.open_account(type_of_account='checking account', owner='Stelian, Soare',
+                                         initial_balance=Decimal('0.00'), account_currency='pounds',
+                                         fee_for_transaction=Decimal('5'))
 
     valentin_account.deposit(Decimal('35.50'))
-    #print(f"{valentin_account}\n{'-' * 50}")
-
     valentin_account.calculate_interest()
-    #print(f"{valentin_account}")
-
     count_accounts = reiff.number_of_accounts_open(account_type='checking_account')
-    print(count_accounts)
 
+    reiff.credit(account_number=andreea_account.account_number, amount=Decimal('10_000'), period=Decimal('24'), rate=Decimal('3'))
+    reiff.credit(account_number=valentin_account.account_number, amount=Decimal('45_000'), period=Decimal('36'),
+                 rate=Decimal('10.3'))
+    reiff.credit(account_number=valentin_account_1.account_number, amount=Decimal('100_000'), period=Decimal('72'),
+                 rate=Decimal('2.17'))
+    reiff.credit(account_number=valentin_account.account_number, amount=Decimal('450_000'), period=Decimal('362'),
+                 rate=Decimal('9.3'))
+    reiff.credit(account_number=tudorina_account.account_number, amount=Decimal('1_450_000'), period=Decimal('12'),
+                 rate=Decimal('1.2'))
+    reiff.credit(account_number=gabi_account.account_number, amount=Decimal('10_000'), period=Decimal('6'),
+                 rate=Decimal('23.44'))
 
-    #print(f"\n * Account without credit:\n{andreea_account}")
-    #reiff.credit(account_number=andreea_account.account_number, amount=Decimal('10_000'),
-    #             period=Decimal('24'), rate=Decimal('3'))
+    ax = reiff.search_account(account_currency='pounds')
 
-    #andreea_account.calculate_interest()
-    #print(f"\n * After credit was made + savings interest:\n{andreea_account}")
+    ay = reiff.number_of_accounts_open(currency='pounds')
 
-    #print(f"\n * Credit info:")
-    #for i, j in reiff.credits_made.items():
-    #    if andreea_account.account_number in j.values():
-    #        for key, value in j.items():
-    #            print(f"{key}: {value}")
+    andreea_account.deposit(Decimal('10_000'))
+    andreea_account.deposit(Decimal('10_000'))
+
+    az = reiff.search_account(owner='Valentin, Soare')
+
 
 
 

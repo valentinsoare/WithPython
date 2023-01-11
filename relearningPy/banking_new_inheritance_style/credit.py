@@ -105,8 +105,8 @@ class Credit:
     def __str__(self):
         return f'account_for_credit: {self.account_for_credit}\n' \
                f'credit_amount: {self.credit_amount}\n' \
-               f'period_of_credit: {self.period_of_credit}' \
-               f'interest_rate: {self.interest_rate}' \
-               f'bank_profit: {self.bank_profit}' \
-               f'value_to_be_returned: {self.value_to_be_returned}' \
+               f'period_of_credit: {self.period_of_credit}\n' \
+               f'interest_rate: {self.interest_rate}\n' \
+               f'bank_profit: {self.bank_profit}\n' \
+               f'value_to_be_returned: {self.value_to_be_returned}\n' \
                f'how_much_per_month: {self.how_much_per_month}'

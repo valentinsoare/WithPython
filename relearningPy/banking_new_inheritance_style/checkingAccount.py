@@ -27,6 +27,7 @@ class CheckingAccount(Account):
             raise ValueError('Deposit value should be a decimal greater than zero!')
 
         self.balance += (amount - self.transaction_fee)
+        return self.balance
 
     def withdraw(self, amount: Decimal):
         if not isinstance(amount, Decimal) or amount + self.transaction_fee > self.balance or amount <= Decimal('0.00'):
@@ -34,10 +35,12 @@ class CheckingAccount(Account):
                              'than the balance or the sum to be withdraw equal or less than zero!')
 
         self.balance -= (amount + self.transaction_fee)
+        return self.balance
 
     def __getattr__(self, item):
-        if item in {'interest', 'interest_rate', 'calculate_interest'}:
-            raise AttributeError(f'We do not have {item} for checking account!')
+        if item in {'interest', 'interest_rate', 'calculate_interest', 'type_of_commissions', 'commission_amount',
+                    'credit_card_withdraw_fees', 'annual_maintenance_fees', 'transaction_fees'}:
+            raise NotImplementedError
         else:
             return getattr(self, item)
 
