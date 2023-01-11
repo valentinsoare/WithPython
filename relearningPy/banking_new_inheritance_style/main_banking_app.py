@@ -64,11 +64,6 @@ def main():
 
     #gigel_account.overdraft(Decimal('3.00'))
 
-    for i, j in gigel_account:
-        print(j)
-
-    print(gigel_account.trial_period())
-
 
 
 

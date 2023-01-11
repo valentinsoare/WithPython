@@ -46,10 +46,7 @@ class CheckingAccount(Account):
 
     def __str__(self):
         message_to_be_returned: str = f'account_number: {self.account_number}\n' \
-                                      f'owner: {self.owner}\n' \
-                                      f'type_account: {"checking_account"}\n' \
-                                      f'balance: {self.balance:,}\n' \
-                                      f'currency: {self.currency}\n' \
-                                      f'transaction_fee: {self.transaction_fee:,}'
+                                      f'{Account.__str__(self)}\n' \
+                                      f'transaction_fee: {self.transaction_fee:,}\n'
 
         return message_to_be_returned

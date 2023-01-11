@@ -121,9 +121,7 @@ class SalaryAccount(Account):
 
     def __str__(self):
         return f'account_number: {self.account_number}\n' \
-               f'owner: {self.owner}\n' \
-               f'balance: {self.balance}\n' \
-               f'currency: {self.currency}\n' \
+               f'{Account.__str__(self)}\n' \
                f'type_of_commissions: {self.type_of_commissions}\n' \
                f'commission_amount: {self.commission_amount}\n' \
                f'credit_card_withdraw_fees: {self.credit_card_withdraw_fees}\n' \

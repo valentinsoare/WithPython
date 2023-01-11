@@ -48,10 +48,7 @@ class SavingsAccount(Account):
 
     def __str__(self):
         message_to_return = f'account_number: {self.account_number}\n' \
-                            f'owner: {self.owner}\n' \
-                            f'type_of_account: {"savings_account"}\n' \
-                            f'balance: {Decimal(self.balance):,}\n' \
-                            f'currency: {self.currency}\n' \
+                            f'{Account.__str__(self)}\n' \
                             f'interest_rate: {self.interest_rate}%\n'
 
         if self.interest != Decimal('0.00'):
