@@ -200,6 +200,9 @@ def check_values():
     print(ax)
 
 
+    azz = 'ceva'
+    azz.capitalize()
+
 def main():
     #integers_and_ordereddict()
     #another_function()
