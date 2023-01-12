@@ -1,10 +1,7 @@
 #!/usr/bin/python
 
-import numpy as np
 from os import system
-from time import sleep
-from time import sleep
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Tuple
 from . import printing_phase as printing_stage
 from . import header_load_settings_and_validate as loading_stage
 

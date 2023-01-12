@@ -62,9 +62,9 @@ def main():
     gigel_account.deposit(Decimal('6_000'))
     print(f'\n{gigel_account}\n')
 
-    #gigel_account.overdraft(Decimal('3.00'))
+    gigel_account.overdraft(Decimal('12.00'))
 
-
+    print(gigel_account.balance)
 
 
 if __name__ == '__main__':

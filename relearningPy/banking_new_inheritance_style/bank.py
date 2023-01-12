@@ -29,8 +29,8 @@ class Bank:
 
     @bank_name.setter
     def bank_name(self, bank_name):
-        check_str_input(bank_name, 'name of the bank')
-        self._bank_name = bank_name
+        check_str_input(bank_name, 'Name of the bank')
+        self._bank_name = bank_name.capitalize()
 
     @property
     def country(self):
@@ -38,8 +38,8 @@ class Bank:
 
     @country.setter
     def country(self, country):
-        check_str_input(country, 'country')
-        self._country = country
+        check_str_input(country, 'Country')
+        self._country = country.capitalize()
 
     @property
     def city(self):
@@ -47,8 +47,8 @@ class Bank:
 
     @city.setter
     def city(self, city):
-        check_str_input(city, 'city')
-        self._city = city
+        check_str_input(city, 'City')
+        self._city = city.capitalize()
 
     @property
     def type_of_bank(self):
@@ -56,7 +56,7 @@ class Bank:
 
     @type_of_bank.setter
     def type_of_bank(self, type_of_bank):
-        check_str_input(type_of_bank, 'type_of_bank')
+        check_str_input(type_of_bank, 'Type_of_bank')
         self._type_of_bank = type_of_bank
 
     @property
@@ -137,6 +137,10 @@ class Bank:
 
         return credits_to_returned
 
+    #def search_credits_by_values(self, amount=None, period=None, rate=None, bank_profit=None, value_to_be_returned=None, per_month=None):
+
+
+
     def number_of_accounts_open(self, number_account=None, owner_account=None, account_type=None, balance=None, currency=None, rate=None, fee_for_transaction=None):
 
         value_to_return = self.search_account(account_number=number_account, owner=owner_account, type_of_account=account_type, initial_balance=balance,
@@ -210,4 +214,4 @@ def _generate_new_account_number(name_of_bank: str, country_of_bank: str, city_o
 
 def check_str_input(given_value, type_of_input: str):
     if not (given_value and isinstance(given_value, str)) or match(r'\s+', given_value):
-        raise ValueError(f'{type_of_input.capitalize()} input should be a string containing alpha characters.')
+        raise ValueError(f'{type_of_input} input should be a string containing alpha characters.')
