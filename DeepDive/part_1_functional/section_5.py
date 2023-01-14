@@ -1,7 +1,10 @@
 #!/usr/bin/python
 
+from re import split
 from functools import partial
 import operator
+import keyword
+
 
 def funct_with_false(first_param=None, second_param=None, third_param=None, if_print=0):
     given_set_with_parameters: set = {first_param, second_param, third_param}
@@ -68,13 +71,78 @@ def with_sets_dict():
     d = {**d_1, **d_2, **d_3}
     print(d)
 
+    ax = {'10', '20'}
+    ay = {'30', '50'}
+    print(f"Executing: {ax.union(ay)}")
 
 def amount(exec_operator, number_2):
-    given_list = [100, 402, 101, 78, 88, 99, 62]
+    given_list: set = {100, 402, 101, 78, 88, 99, 62}
+    to_return: set = set()
 
     for i in given_list:
         if exec_operator(i, number_2):
-            yield i
+            to_return.add(i)
+
+    return to_return
+
+#-----------------------------------------------
+
+def compare(what_to_execute=None):
+    dict_to_work_with: dict = {}
+    operators = {'>': operator.gt,
+                 '<': operator.lt,
+                 '>=': operator.ge,
+                 '<=': operator.le,
+                 '==': operator.eq}
+    credits_bank = {100, 402, 101, 78, 88, 99, 62}
+    period_of_credits = {12, 48, 32, 82, 42, 92, 62}
+    first_map = {'amount': credits_bank, 'period': period_of_credits}
+    order_of_operands: list = []
+
+    given_list_with_arguments: list = what_to_execute.split()
+    command_to_execute: str = ''
+    count: int = 0
+    counting: int = 0
+
+    for i in given_list_with_arguments:
+        if i not in ['and', 'or']:
+            command_to_execute += i + ' '
+            counting += 1
+        else:
+            order_of_operands.append(i)
+
+        if counting == 3:
+            what_to_search, operator_value, value_to_compare = command_to_execute.split()
+
+            if not (what_to_search and operator_value and value_to_compare) or what_to_search not in first_map \
+                    or operator_value not in operators:
+                raise ValueError('You need to use a variable instance for comparison, a valid operator and an integer!')
+
+            try:
+                value_to_compare = float(value_to_compare)
+            except ValueError:
+                raise ValueError(f'Value to compare should be an integer or float!')
+
+            dict_to_work_with[count] = set()
+            for j in first_map[what_to_search]:
+                if operators[operator_value](j, value_to_compare):
+                    dict_to_work_with[count].add(j)
+
+            command_to_execute: str = ''
+            counting = 0
+            count += 1
+
+        if count == 1:
+            if i == 'and' and not len(dict_to_work_with[count - 1]):
+                return None
+            elif i == 'or' and len(dict_to_work_with[count - 1]):
+                return dict_to_work_with[count - 1]
+        elif count == 2:
+            if not (len(dict_to_work_with[0]) and len(dict_to_work_with[1])):
+                return None
+
+    return dict_to_work_with
+
 
 def main():
     #funct_with_false(first_param='lux', second_param='nebunie', third_param='opulenta')
@@ -91,8 +159,12 @@ def main():
     word = '<= 100'
     a, b = word.split()
 
-    for i in amount(operator.le, 100):
-        print(i)
+    #ax = amount(operator.le, int(b))
+    #print(ax)
+
+    az: dict = compare(what_to_execute='amount > 100 and period > 20 and amount > 20')
+    print(az)
+
 
 if __name__ == '__main__':
     main()

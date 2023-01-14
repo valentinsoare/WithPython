@@ -124,12 +124,6 @@ _
 /relearningPy/scrambling_words/load_settings.yml,3/e/3e0e439407be91a47263aaac2ba767a1ab8e8e6e
 T
 $relearningPy/grade_book/book.logging,1/6/1605b1a96bc2488bc33c7061848d671a28784177
-Y
-)relearningPy/grade_book/book_settings.yml,1/e/1e23b601902a071f2aab202f31e485c58bf30cce
-o
-?relearningPy/grade_book/app_components/work_on_files_content.py,c/9/c9a6a261d6177259f09900fa850fc19a096d4068
-h
-8relearningPy/grade_book/app_components/printing_phase.py,7/e/7e5a4715723a909001d069c13f314d54ed5f1827
 I
 fromBeginning/chapter9.py,e/5/e5f60fe815bde5c9726bd43e1ab1be29dd8eedd0
 H
@@ -142,10 +136,6 @@ Z
 *relearningPy/banking_old/investmentFund.py,c/a/ca4acb15a02a7a8576f38cee3a6b25d62588ac77
 W
 'DeepDive/part_1_functional/section_3.py,f/4/f44d0ae2a10ab9b1928e011fed1d7cea41e91de9
-{
-KrelearningPy/grade_book/app_components/header_load_settings_and_validate.py,3/e/3e84d1df07d85e58c8dda4ae3f215145b33540ad
-Y
-)relearningPy/grade_book/main_gradebook.py,7/8/785a6157ba60ebf4616addc0a489e9a85d91d457
 T
 $relearningPy/banking_old/main_app.py,7/4/7488a7257011dd8db9d56456b3cd398ae186d804
 P
@@ -154,8 +144,6 @@ S
 #relearningPy/banking_old/account.py,7/f/7fae832d0fd920d13d59cf4848deac3c62cb5b7c
 R
 "relearningPy/banking_old/credit.py,5/b/5b37b900d661fc119faeba6691352a5bfdd71550
-d
-4relearningPy/banking_new_inheritance_style/credit.py,e/e/eedf325e76e504d572cbf5e1fb5c4c1092cf4348
 q
 ArelearningPy/banking_new_inheritance_style/fixedDepositAccount.py,2/0/2029c91911f1cc27614b3e24710ca52ec536e8e3
 p
