@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 
+import operator
 from re import match
 from time import time
 from credit import Credit
@@ -10,6 +11,7 @@ from numpy.random import randint, seed
 from salaryAccount import SalaryAccount
 from savingsAccount import SavingsAccount
 from checkingAccount import CheckingAccount
+
 
 
 class Bank:
@@ -137,8 +139,8 @@ class Bank:
 
         return credits_to_returned
 
-    #def search_credits_by_values(self, amount=None, period=None, rate=None, bank_profit=None, value_to_be_returned=None, per_month=None):
-
+    #def search_credits_by_values(self, amount=None, period=None, rate=None,
+                                 #bank_profit=None, value_to_be_returned=None, per_month=None):
 
 
     def number_of_accounts_open(self, number_account=None, owner_account=None, account_type=None, balance=None, currency=None, rate=None, fee_for_transaction=None):
@@ -169,7 +171,7 @@ class Bank:
                 if number_of_arguments_given == count:
                     values_found.update({i: j})
 
-        return None if not len(values_found.keys()) else values_found
+        return None if not values_found else values_found
 
     def credit(self, account_number: str, amount: Decimal, period: Decimal, rate: Decimal):
         new_credit = Credit(account_for_credit=account_number, credit_amount=amount,
@@ -187,6 +189,38 @@ class Bank:
 
         self._credits_as_objects.update({len(self.credits_as_objects.keys()): new_credit})
         self._accounts_as_objects[account_number].deposit(new_credit.credit_amount)
+
+    def search_credits(self, credit_amount=None, period_of_credit=None, interest_rate=None, bank_profit=None
+                       , value_to_be_returned=None, how_much_per_month=None):
+        credits_found: dict = {}
+        comparison_operators = {'>': operator.gt,
+                                '<': operator.lt,
+                                '>=': operator.ge,
+                                '<=': operator.le,
+                                '==': operator.eq,
+                                '!=': operator.ne}
+
+        arguments_to_search: set = {(credit_amount, 'credit_amount'), (period_of_credit, 'credit_period',),
+                                    (interest_rate, 'credit_interest_rate'), (bank_profit, 'bank_profit'),
+                                    (value_to_be_returned, 'money_to_be_returned'), (how_much_per_month, 'payment_per_month')}
+
+        arguments_we_have: set = {(i, j) for i, j in arguments_to_search if i}
+        number_of_arguments_given = len(arguments_we_have)
+
+        for i, j in self.credits_made.items():
+            count: int = 0
+            for k, l in arguments_we_have:
+                operator_to_use, amount_to_compare = k.split()
+                #if comparison_operators[operator_to_use](getattr(j, l), Decimal(amount_to_compare)):
+                #    count += 1
+
+                if comparison_operators[operator_to_use](j[l], Decimal(amount_to_compare)):
+                    count += 1
+
+                if count == number_of_arguments_given:
+                    credits_found.update({i: j})
+
+        return None if not credits_found else credits_found
 
     def __str__(self):
         return f'bank_name: {self.bank_name}\n' \

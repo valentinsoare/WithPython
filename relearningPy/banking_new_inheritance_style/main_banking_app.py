@@ -60,11 +60,13 @@ def main():
     gigel_account.deposit(Decimal('7_000'))
     gigel_account.deposit(Decimal('4_000'))
     gigel_account.deposit(Decimal('6_000'))
-    print(f'\n{gigel_account}\n')
+    #print(f'\n{gigel_account}\n')
 
     gigel_account.overdraft(Decimal('12.00'))
 
-    print(gigel_account.balance)
+    #print(gigel_account.balance)
+
+    print(reiff.search_credits(period_of_credit='< 25', interest_rate='== 3'))
 
 
 if __name__ == '__main__':
