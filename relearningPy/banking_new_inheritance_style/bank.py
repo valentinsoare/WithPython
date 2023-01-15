@@ -7,15 +7,15 @@ from time import time
 from credit import Credit
 from decimal import Decimal
 from random import randrange
+from creditCard import CreditCard
 from numpy.random import randint, seed
 from salaryAccount import SalaryAccount
 from savingsAccount import SavingsAccount
 from checkingAccount import CheckingAccount
 
 
-
 class Bank:
-    def __init__(self, bank_name, country, city, type_of_bank):
+    def __init__(self, *, bank_name, country, city, type_of_bank):
         self.bank_name: str = bank_name
         self.country: str = country
         self.city: str = city
@@ -24,6 +24,8 @@ class Bank:
         self._accounts_as_objects: dict = {}
         self._credits_made: dict = {}
         self._credits_as_objects: dict = {}
+        self._credit_cards: dict = {}
+        self._credit_cards_as_objects: dict = {}
 
     @property
     def bank_name(self):
@@ -31,7 +33,7 @@ class Bank:
 
     @bank_name.setter
     def bank_name(self, bank_name):
-        check_str_input(bank_name, 'Name of the bank')
+        check_str_input(given_value=bank_name, type_of_input='Name of the bank')
         self._bank_name = bank_name.capitalize()
 
     @property
@@ -40,7 +42,7 @@ class Bank:
 
     @country.setter
     def country(self, country):
-        check_str_input(country, 'Country')
+        check_str_input(given_value=country, type_of_input='Country')
         self._country = country.capitalize()
 
     @property
@@ -49,7 +51,7 @@ class Bank:
 
     @city.setter
     def city(self, city):
-        check_str_input(city, 'City')
+        check_str_input(given_value=city, type_of_input='City')
         self._city = city.capitalize()
 
     @property
@@ -58,7 +60,7 @@ class Bank:
 
     @type_of_bank.setter
     def type_of_bank(self, type_of_bank):
-        check_str_input(type_of_bank, 'Type_of_bank')
+        check_str_input(given_value=type_of_bank, type_of_input='Type_of_bank')
         self._type_of_bank = type_of_bank
 
     @property
@@ -77,7 +79,15 @@ class Bank:
     def credits_as_objects(self):
         return self._credits_as_objects
 
-    def open_account(self, type_of_account, owner, initial_balance, account_currency, interest_rate=None, fee_for_transaction_checking=None,
+    @property
+    def credit_cards(self):
+        return self._credit_cards
+
+    @property
+    def credit_cards_as_objects(self):
+        return self._credit_cards_as_objects
+
+    def open_account(self, *, type_of_account, owner, initial_balance, account_currency, interest_rate=None, fee_for_transaction_checking=None,
                      transaction_fees_salary=None, commissions_type_salary=None, commissions_amount_salary=None, card_withdraw_fees=None,
                      annual_fees=None):
         while True:
@@ -124,7 +134,7 @@ class Bank:
 
                 return new_account
 
-    def search_credits_by_owner(self, number_account=None, owner_account=None, account_type=None, balance_initial=None,
+    def search_credits_by_owner(self, *, number_account=None, owner_account=None, account_type=None, balance_initial=None,
                                 currency_on_account=None, fee_transaction=None, interest_rate_on_account=None):
 
         credits_to_returned: dict = {}
@@ -139,11 +149,7 @@ class Bank:
 
         return credits_to_returned
 
-    #def search_credits_by_values(self, amount=None, period=None, rate=None,
-                                 #bank_profit=None, value_to_be_returned=None, per_month=None):
-
-
-    def number_of_accounts_open(self, number_account=None, owner_account=None, account_type=None, balance=None, currency=None, rate=None, fee_for_transaction=None):
+    def number_of_accounts_open(self, *, number_account=None, owner_account=None, account_type=None, balance=None, currency=None, rate=None, fee_for_transaction=None):
 
         value_to_return = self.search_account(account_number=number_account, owner=owner_account, type_of_account=account_type, initial_balance=balance,
                                               account_currency=currency, interest_rate=rate, transaction_fee=fee_for_transaction)
@@ -153,7 +159,7 @@ class Bank:
         else:
             return len(self.accounts.keys())
 
-    def search_account(self, account_number=None, owner=None, type_of_account=None, initial_balance=None,
+    def search_account(self, *, account_number=None, owner=None, type_of_account=None, initial_balance=None,
                        account_currency=None, interest_rate=None, transaction_fee=None):
 
         search_options: set = {(account_number, 'account_number'), (owner, 'owner'), (type_of_account, "type_of_account"), (initial_balance, "initial_balance"),
@@ -173,7 +179,7 @@ class Bank:
 
         return None if not values_found else values_found
 
-    def credit(self, account_number: str, amount: Decimal, period: Decimal, rate: Decimal):
+    def credit(self, *, account_number: str, amount: Decimal, period: Decimal, rate: Decimal):
         new_credit = Credit(account_for_credit=account_number, credit_amount=amount,
                             period_of_credit=period, interest_rate=rate)
 
@@ -188,23 +194,43 @@ class Bank:
                                                                   'payment_per_month': per_month}})
 
         self._credits_as_objects.update({len(self.credits_as_objects.keys()): new_credit})
-        self._accounts_as_objects[account_number].deposit(new_credit.credit_amount)
+        self._accounts_as_objects[account_number].deposit(amount=new_credit.credit_amount)
+        return new_credit
 
-    def search_credits(self, credit_amount=None, period_of_credit=None, interest_rate=None, bank_profit=None
-                       , value_to_be_returned=None, how_much_per_month=None):
+    def create_credit_card(self, account_number, owner, balance, currency, credit_card_withdraw_fees, annual_maintenance_fees, card_type,
+                           type_of_commissions, commission_amount, transaction_fees):
+        new_credit_card = CreditCard(account_number=account_number,
+                                     owner=owner,
+                                     balance=balance,
+                                     currency=currency,
+                                     credit_card_withdraw_fees=credit_card_withdraw_fees,
+                                     annual_maintenance_fees=annual_maintenance_fees,
+                                     type_of_card=card_type,
+                                     type_of_commissions=type_of_commissions,
+                                     commission_amount=commission_amount,
+                                     transaction_fees=transaction_fees)
+        self._credit_cards.update({account_number: {len(self._credit_cards): {'account_number': account_number, 'owner': owner,
+                                                                              'balance': balance, 'currency': currency,
+                                                                              'credit_card_withdraw_fees': credit_card_withdraw_fees,
+                                                                              'annual_maintenance_fees': annual_maintenance_fees,
+                                                                              'type_of_card': card_type,
+                                                                              'type_of_commissions': type_of_commissions,
+                                                                              'commission_amount': commission_amount,
+                                                                              'transaction_fees': transaction_fees}}})
+        self._credit_cards_as_objects.update({new_credit_card.account_number: {len(self._credit_cards_as_objects): new_credit_card}})
+        return new_credit_card
+
+    def search_credits(self, *, credit_amount=None, period_of_credit=None, interest_rate=None, bank_profit=None,
+                       value_to_be_returned=None, how_much_per_month=None):
         credits_found: dict = {}
-        comparison_operators = {'>': operator.gt,
-                                '<': operator.lt,
-                                '>=': operator.ge,
-                                '<=': operator.le,
-                                '==': operator.eq,
-                                '!=': operator.ne}
+        comparison_operators = {'>': operator.gt, '<': operator.lt, '>=': operator.ge,
+                                '<=': operator.le, '==': operator.eq, '!=': operator.ne}
 
         arguments_to_search: set = {(credit_amount, 'credit_amount'), (period_of_credit, 'credit_period',),
                                     (interest_rate, 'credit_interest_rate'), (bank_profit, 'bank_profit'),
                                     (value_to_be_returned, 'money_to_be_returned'), (how_much_per_month, 'payment_per_month')}
 
-        arguments_we_have: set = {(i, j) for i, j in arguments_to_search if i}
+        arguments_we_have: set = set((i, j) for i, j in arguments_to_search if i)
         number_of_arguments_given = len(arguments_we_have)
 
         for i, j in self.credits_made.items():
@@ -213,7 +239,6 @@ class Bank:
                 operator_to_use, amount_to_compare = k.split()
                 #if comparison_operators[operator_to_use](getattr(j, l), Decimal(amount_to_compare)):
                 #    count += 1
-
                 if comparison_operators[operator_to_use](j[l], Decimal(amount_to_compare)):
                     count += 1
 
@@ -229,7 +254,7 @@ class Bank:
                f'type_of_bank: {self.type_of_bank}'
 
 
-def _generate_new_account_number(name_of_bank: str, country_of_bank: str, city_of_bank: str):
+def _generate_new_account_number(*, name_of_bank: str, country_of_bank: str, city_of_bank: str):
     account_number: list = [country_of_bank.upper()[0:2], '01']
 
     if len(name_of_bank) <= 3:
@@ -246,6 +271,6 @@ def _generate_new_account_number(name_of_bank: str, country_of_bank: str, city_o
     return ''.join([*account_number, city_of_bank[0].upper(), str(randrange(100000000, 999999999))])
 
 
-def check_str_input(given_value, type_of_input: str):
+def check_str_input(*, given_value, type_of_input: str):
     if not (given_value and isinstance(given_value, str)) or match(r'\s+', given_value):
         raise ValueError(f'{type_of_input} input should be a string containing alpha characters.')

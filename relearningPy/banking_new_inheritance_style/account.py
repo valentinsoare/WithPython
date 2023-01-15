@@ -7,7 +7,7 @@ from collections import namedtuple
 
 
 class Account:
-    def __init__(self, account_number, owner, balance, currency):
+    def __init__(self, *, account_number, owner, balance, currency):
         self.account_number: str = account_number
         self.owner: namedtuple = owner
         self.balance: Decimal = balance
@@ -63,14 +63,14 @@ class Account:
 
         self._currency = currency
 
-    def deposit(self, amount: Decimal):
+    def deposit(self, *, amount: Decimal):
         if not (amount and isinstance(amount, Decimal)) or amount <= Decimal('0.00'):
             raise ValueError('Deposit amount should be a decimal value greater than zero!')
 
         self.balance += amount
         return self.balance
 
-    def withdraw(self, amount: Decimal):
+    def withdraw(self, *, amount: Decimal):
         if not (amount and isinstance(amount, Decimal)) or amount > self.balance:
             raise ValueError('Withdraw amount should be a decimal value and not greater than the balance!')
 

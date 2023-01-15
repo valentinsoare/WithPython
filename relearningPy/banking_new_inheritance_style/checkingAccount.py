@@ -5,7 +5,7 @@ from account import Account
 
 
 class CheckingAccount(Account):
-    def __init__(self, nr_account, owner, balance, currency, transaction_fee):
+    def __init__(self, *, nr_account, owner, balance, currency, transaction_fee):
         super().__init__(account_number=nr_account, owner=owner,
                          balance=balance, currency=currency)
 
@@ -22,14 +22,14 @@ class CheckingAccount(Account):
 
         self._transaction_fee = amount.quantize(Decimal('0.00'))
 
-    def deposit(self, amount: Decimal):
+    def deposit(self, *, amount: Decimal):
         if not isinstance(amount, Decimal) or amount <= Decimal('0.00'):
             raise ValueError('Deposit value should be a decimal greater than zero!')
 
         self.balance += (amount - self.transaction_fee)
         return self.balance
 
-    def withdraw(self, amount: Decimal):
+    def withdraw(self, *, amount: Decimal):
         if not isinstance(amount, Decimal) or amount + self.transaction_fee > self.balance or amount <= Decimal('0.00'):
             raise ValueError('Withdraw value should be a decimal and withdraw valu + transaction fee should  not be greater '
                              'than the balance or the sum to be withdraw equal or less than zero!')

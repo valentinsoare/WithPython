@@ -5,7 +5,7 @@ from account import Account
 
 
 class SavingsAccount(Account):
-    def __init__(self, nr_of_the_account, owner_of_the_account, account_balance, currency_for_account, interest_rate):
+    def __init__(self, *, nr_of_the_account, owner_of_the_account, account_balance, currency_for_account, interest_rate):
 
         super().__init__(account_number=nr_of_the_account, owner=owner_of_the_account,
                          balance=account_balance, currency=currency_for_account)
@@ -37,7 +37,7 @@ class SavingsAccount(Account):
 
     def calculate_interest(self):
         self.interest = (self.balance * self.interest_rate) / 100
-        self.deposit(self.interest)
+        self.deposit(amount=self.interest)
 
     def __getattr__(self, item):
         if item in {'transaction_fee', 'type_of_commissions', 'commission_amount', 'credit_card_withdraw_fees',
