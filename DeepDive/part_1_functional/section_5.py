@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+import time
 from re import split
 from functools import partial
 import operator
@@ -144,6 +144,44 @@ def compare(what_to_execute=None):
     return dict_to_work_with
 
 
+def extended_unpacking():
+    given_list = ['10', '20', 'lux si opulenta']
+    mancare = {12: 'cartofi', 22: 'maine_prajita'}
+    given_list = dict((i, j) for i, j in enumerate(given_list))
+
+    combined_them = {**given_list, **mancare}
+    print(combined_them)
+
+
+def calling_function(*args, variable):
+    print(f"{list(args)} and {variable}")
+
+
+def printing_variables(*, first_name, last_name):
+    print(f'{first_name} and {last_name}')
+
+
+def exec_function(*args, **kwargs):
+    for i in range(len(args)):
+        if (i + 1) % 2 == 0:
+            kwargs.update({args[i - 1]: args[i]})
+
+    print(kwargs)
+
+
+def time_it(fn, *args, how_many_times=1, **kwargs):
+
+    i = 0
+    start = time.perf_counter()
+
+    while i < how_many_times:
+        fn(*args, **kwargs)
+        i += 1
+    end = time.perf_counter()
+
+    return (end - start) / how_many_times
+
+
 def main():
     #funct_with_false(first_param='lux', second_param='nebunie', third_param='opulenta')
 
@@ -156,14 +194,26 @@ def main():
     #with_sets_dict()
 
     #for_testing(partial(operator.le, 300)))
-    word = '<= 100'
-    a, b = word.split()
+    #word = '<= 100'
+    #a, b = word.split()
 
     #ax = amount(operator.le, int(b))
     #print(ax)
 
-    az: dict = compare(what_to_execute='amount > 100 and period > 20 and amount > 20')
-    print(az)
+    #az: dict = compare(what_to_execute='amount > 100 and period > 20 and amount > 20')
+    #print(az)
+
+    #extended_unpacking()
+
+    #calling_function(1, 2, 3, 4, 5, variable=100)
+    #calling_function_v2(variable=101)
+
+    #printing_variables(first_name='valentin', last_name='soare')
+
+    #exec_function(4, 'lux', a='opulenta', b='ce facem ?')
+
+    #ax = time_it(print, 'Lux', 'Si Opulenta',  end=' # ', flush=True, how_many_times=5)
+    #print(f"\n{ax}")
 
 
 if __name__ == '__main__':
