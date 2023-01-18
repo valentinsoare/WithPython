@@ -6,10 +6,10 @@ from decimal import Decimal
 
 class Credit:
     def __init__(self, account_for_credit, credit_amount, period_of_credit, interest_rate):
-        self.account_for_credit = account_for_credit
-        self.credit_amount = credit_amount
-        self.period_of_credit = period_of_credit
-        self.interest_rate = interest_rate
+        self.account_for_credit: str = account_for_credit
+        self.credit_amount: Decimal = credit_amount
+        self.period_of_credit: Decimal = period_of_credit
+        self.interest_rate: Decimal = interest_rate
         self._bank_profit = None
         self._value_to_be_returned = None
         self._how_much_per_month = None
@@ -19,14 +19,14 @@ class Credit:
         return self._account_for_credit
 
     @account_for_credit.setter
-    def account_for_credit(self, account_number):
+    def account_for_credit(self, account_number: str):
         if not (isinstance(account_number, str) or account_number.isalnum()) or account_number == '' or match(r'\s+', account_number):
             raise ValueError('Account number should be a string with alpha numerical characters!')
 
         self._account_for_credit = account_number
 
     @property
-    def credit_amount(self):
+    def credit_amount(self) -> Decimal:
         return self._credit_amount
 
     @credit_amount.setter
@@ -37,18 +37,18 @@ class Credit:
         self._credit_amount = credit_amount
 
     @property
-    def period_of_credit(self):
+    def period_of_credit(self) -> Decimal:
         return self._period_of_credit
 
     @period_of_credit.setter
-    def period_of_credit(self, how_many_months):
+    def period_of_credit(self, how_many_months: Decimal):
         if not isinstance(how_many_months, Decimal) or how_many_months <= 0:
             raise ValueError('Period of credit should be a decimal value and greater than zero!')
 
         self._period_of_credit = how_many_months
 
     @property
-    def interest_rate(self):
+    def interest_rate(self) -> Decimal:
         return self._interest_rate
 
     @interest_rate.setter
@@ -60,7 +60,7 @@ class Credit:
         self._interest_rate = interest_amount
 
     @property
-    def bank_profit(self):
+    def bank_profit(self) -> Decimal:
         return self._bank_profit
 
     @bank_profit.setter
@@ -71,7 +71,7 @@ class Credit:
         self._bank_profit = amount
 
     @property
-    def value_to_be_returned(self):
+    def value_to_be_returned(self) -> Decimal:
         return self._value_to_be_returned
 
     @value_to_be_returned.setter
@@ -82,7 +82,7 @@ class Credit:
         self._value_to_be_returned = amount
 
     @property
-    def how_much_per_month(self):
+    def how_much_per_month(self) -> Decimal:
         return self._how_much_per_month
 
     @how_much_per_month.setter
@@ -92,7 +92,7 @@ class Credit:
 
         self._how_much_per_month = amount
 
-    def calculate_needed_info(self):
+    def calculate_needed_info(self) -> tuple:
         profit_for_credit = (self.credit_amount * self.interest_rate * self.period_of_credit) / 100
         self.bank_profit = profit_for_credit
 

@@ -14,22 +14,22 @@ class Account:
         self.currency: str = currency
 
     @property
-    def account_number(self):
+    def account_number(self) -> str:
         return self._account_number
 
     @account_number.setter
-    def account_number(self, value_of_account):
+    def account_number(self, value_of_account: str):
         if not (isinstance(value_of_account, str) and value_of_account.isalnum()):
             raise ValueError('Account number should contain letters and digits, that is it!')
 
         self._account_number = value_of_account
 
     @property
-    def owner(self):
+    def owner(self) -> str:
         return self._owner
 
     @owner.setter
-    def owner(self, owner_name):
+    def owner(self, owner_name: str):
         split_owner_name = split(r',\s?', owner_name)
         
         if not isinstance(owner_name, str) or len(split_owner_name) != 2 or (len(split_owner_name[0]) or len(split_owner_name[1])) == 0 or \
@@ -42,35 +42,35 @@ class Account:
         self._owner = f'{account_owner.first_name}, {account_owner.last_name}'
 
     @property
-    def balance(self):
+    def balance(self) -> Decimal:
         return self._balance
 
     @balance.setter
-    def balance(self, balance_amount):
+    def balance(self, balance_amount: Decimal):
         if not isinstance(balance_amount, Decimal) or balance_amount < Decimal('0.00'):
             raise ValueError('Account value needs to be a decimal value greater or equal to zero!')
 
         self._balance = balance_amount.quantize(Decimal('0.00'))
 
     @property
-    def currency(self):
+    def currency(self) -> str:
         return self._currency
 
     @currency.setter
-    def currency(self, currency):
+    def currency(self, currency: str):
         if not (currency and isinstance(currency, str)) or match(r'\s+', currency):
             raise ValueError('Currency should be a string containing alphas characters!')
 
         self._currency = currency
 
-    def deposit(self, *, amount: Decimal):
+    def deposit(self, *, amount: Decimal) -> Decimal:
         if not (amount and isinstance(amount, Decimal)) or amount <= Decimal('0.00'):
             raise ValueError('Deposit amount should be a decimal value greater than zero!')
 
         self.balance += amount
         return self.balance
 
-    def withdraw(self, *, amount: Decimal):
+    def withdraw(self, *, amount: Decimal) -> Decimal:
         if not (amount and isinstance(amount, Decimal)) or amount > self.balance:
             raise ValueError('Withdraw amount should be a decimal value and not greater than the balance!')
 

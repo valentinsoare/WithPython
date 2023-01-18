@@ -12,7 +12,7 @@ class CheckingAccount(Account):
         self.transaction_fee: Decimal = transaction_fee
 
     @property
-    def transaction_fee(self):
+    def transaction_fee(self) -> Decimal:
         return self._transaction_fee
 
     @transaction_fee.setter
@@ -29,7 +29,7 @@ class CheckingAccount(Account):
         self.balance += (amount - self.transaction_fee)
         return self.balance
 
-    def withdraw(self, *, amount: Decimal):
+    def withdraw(self, *, amount: Decimal) -> Decimal:
         if not isinstance(amount, Decimal) or amount + self.transaction_fee > self.balance or amount <= Decimal('0.00'):
             raise ValueError('Withdraw value should be a decimal and withdraw valu + transaction fee should  not be greater '
                              'than the balance or the sum to be withdraw equal or less than zero!')
@@ -44,7 +44,7 @@ class CheckingAccount(Account):
         else:
             return getattr(self, item)
 
-    def __str__(self):
+    def __str__(self) -> str:
         message_to_be_returned: str = f'account_number: {self.account_number}\n' \
                                       f'{Account.__str__(self)}\n' \
                                       f'transaction_fee: {self.transaction_fee:,}\n'

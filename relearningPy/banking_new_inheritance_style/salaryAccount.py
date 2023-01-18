@@ -10,16 +10,16 @@ class SalaryAccount(Account):
                  commission_amount, credit_card_withdraw_fees, annual_maintenance_fees, transaction_fees, to_create_credit_card=False):
         super().__init__(account_number=account_number, owner=owner, balance=balance, currency=currency)
 
-        self.type_of_commissions = type_of_commissions
-        self.commission_amount = commission_amount
-        self.credit_card_withdraw_fees = credit_card_withdraw_fees
-        self.annual_maintenance_fees = annual_maintenance_fees
-        self.transaction_fees = transaction_fees
-        self.to_create_credit_card = to_create_credit_card
+        self.type_of_commissions: str = type_of_commissions
+        self.commission_amount: Decimal = commission_amount
+        self.credit_card_withdraw_fees: Decimal = credit_card_withdraw_fees
+        self.annual_maintenance_fees: Decimal = annual_maintenance_fees
+        self.transaction_fees: Decimal = transaction_fees
+        self.to_create_credit_card: bool = to_create_credit_card
         self._registered_salary_for_three_months: list = []
 
     @property
-    def type_of_commissions(self):
+    def type_of_commissions(self) -> str:
         return self._type_of_commissions
 
     @type_of_commissions.setter
@@ -32,7 +32,7 @@ class SalaryAccount(Account):
         self._type_of_commissions = type_of_commissions
 
     @property
-    def commission_amount(self):
+    def commission_amount(self) -> Decimal:
         return self._commission_amount
 
     @commission_amount.setter
@@ -41,7 +41,7 @@ class SalaryAccount(Account):
         self._commission_amount = amount.quantize(Decimal("0.00"))
 
     @property
-    def credit_card_withdraw_fees(self):
+    def credit_card_withdraw_fees(self) -> Decimal:
         return self._credit_card_withdraw_fees
 
     @credit_card_withdraw_fees.setter
@@ -50,7 +50,7 @@ class SalaryAccount(Account):
         self._credit_card_withdraw_fees = amount.quantize(Decimal('0.00'))
 
     @property
-    def annual_maintenance_fees(self):
+    def annual_maintenance_fees(self) -> Decimal:
         return self._annual_maintenance_fees
 
     @annual_maintenance_fees.setter
@@ -59,7 +59,7 @@ class SalaryAccount(Account):
         self._annual_maintenance_fees = amount.quantize(Decimal('0.00'))
 
     @property
-    def transaction_fees(self):
+    def transaction_fees(self) -> Decimal:
         return self._transaction_fees
 
     @transaction_fees.setter
@@ -68,7 +68,7 @@ class SalaryAccount(Account):
         self._transaction_fees = amount.quantize(Decimal('0.00'))
 
     @property
-    def to_create_credit_card(self):
+    def to_create_credit_card(self) -> bool:
         return self._to_create_credit_card
 
     @to_create_credit_card.setter
@@ -78,7 +78,7 @@ class SalaryAccount(Account):
 
         self._to_create_credit_card = value
 
-    def withdraw(self, *, amount: Decimal):
+    def withdraw(self, *, amount: Decimal) -> Decimal:
         if not isinstance(amount, Decimal) or amount <= Decimal('0.00') or amount + self.transaction_fees > self.balance:
             raise ValueError('Withdraw value should be a decimal greater or equal to '
                              'zero and not bigger than the current balance!')
@@ -100,10 +100,10 @@ class SalaryAccount(Account):
 
         self.balance += calculated
     
-    def registered_salary_for_three_months(self):
+    def registered_salary_for_three_months(self) -> list:
         return self._registered_salary_for_three_months
 
-    def overdraft(self, *, amount):
+    def overdraft(self, *, amount) -> Decimal:
         if not isinstance(amount, Decimal) or amount <= Decimal('0.00'):
             raise ValueError('Overdraft should be a decimal value greater than zero!')
 
@@ -112,13 +112,13 @@ class SalaryAccount(Account):
 
         return overdraft_accepted
 
-    def trial_period(self):
+    def trial_period(self) -> bool:
         return self.__bool__()
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         return True if len(self._registered_salary_for_three_months) != 3 else False
 
-    def __iter__(self):
+    def __iter__(self) -> iter:
         dict_with_properties = {'account_number': self.account_number, 'owner': self.owner, 'balance': self.balance,
                                 'currency': self.type_of_commissions, 'commission_amount': self.commission_amount,
                                 'credit_card_withdraw_fees': self.credit_card_withdraw_fees, 'annual_maintenance_fees': self.annual_maintenance_fees,

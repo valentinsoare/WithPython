@@ -14,7 +14,7 @@ class SavingsAccount(Account):
         self._interest: Decimal = Decimal('0.00')
 
     @property
-    def interest_rate(self):
+    def interest_rate(self) -> Decimal:
         return self._interest_rate
 
     @interest_rate.setter
@@ -25,7 +25,7 @@ class SavingsAccount(Account):
         self._interest_rate = amount.quantize(Decimal('0.00'))
 
     @property
-    def interest(self):
+    def interest(self) -> Decimal:
         return self._interest
 
     @interest.setter
@@ -46,7 +46,7 @@ class SavingsAccount(Account):
         else:
             return getattr(self, item)
 
-    def __str__(self):
+    def __str__(self) -> str:
         message_to_return = f'account_number: {self.account_number}\n' \
                             f'{Account.__str__(self)}\n' \
                             f'interest_rate: {self.interest_rate}%\n'

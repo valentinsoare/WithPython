@@ -1,5 +1,7 @@
 #!/usr/bin/python
+import random
 
+from re import match
 from bank import Bank
 from decimal import Decimal
 
@@ -58,8 +60,8 @@ def main():
     reiff.create_credit_card(account_number=gigel_account.account_number, owner=gigel_account.owner, balance=gigel_account.balance,
                              currency=gigel_account.currency, credit_card_withdraw_fees=gigel_account.credit_card_withdraw_fees,
                              annual_maintenance_fees=gigel_account.annual_maintenance_fees, card_type='gold', type_of_commissions='monthly',
-                             commission_amount=Decimal('10'), transaction_fees=Decimal('3.5'))
-
+                             commission_amount=Decimal('10'), transaction_fees=Decimal('3.5'), serial_number='2573-7672-8728-7827',
+                             expiration_date='01/21', cvv='776', address='Lucretiu Patrascanu, Nr. 9, Bl. Y2, Ap. 21')
 
 
     gigel_account.deposit(amount=Decimal('5_000'))
@@ -76,7 +78,17 @@ def main():
 
     ax = reiff.number_of_accounts_open(currency='pounds')
 
-    print(reiff.credit_cards)
+    #print(reiff.credit_cards)
+
+    #print(reiff.credits_made)
+
+    #print(reiff.number_of_credits(credit_amount='< 50000'))
+
+    ax = reiff.number_of_credits(period_of_credit='< 20')
+
+    #serial = '01/23'
+    #azz = match(r'(0[1-9]/\d{2})|(1[0-2]/\d{2})', serial)
+    #print(azz.group())
 
 
 if __name__ == '__main__':
