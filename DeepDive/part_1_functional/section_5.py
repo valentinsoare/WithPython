@@ -1,10 +1,12 @@
 #!/usr/bin/python
+import random
 import time
 from re import split
 from functools import partial
 import operator
 import keyword
-
+from datetime import datetime
+from os import getlogin
 
 def funct_with_false(first_param=None, second_param=None, third_param=None, if_print=0):
     given_set_with_parameters: set = {first_param, second_param, third_param}
@@ -182,6 +184,26 @@ def time_it(fn, *args, how_many_times=1, **kwargs):
     return (end - start) / how_many_times
 
 
+def log_to_file(message, date_time=None):
+    date_time = date_time or datetime.utcnow()
+
+    with open('to_write_to', mode='a', encoding='utf-8') as file_to_write_to:
+        print(f"{date_time} - {getlogin()}: {message}", file=file_to_write_to)
+
+
+def printing_a_message():
+    message_to_be_printed = 'lux si opulenta boss, sa fi bine sa nu fie rau!!'
+    j = 0
+    count = 5
+
+    while j < count:
+        for i in message_to_be_printed.split(sep=', '):
+            words = i.split()
+            random.shuffle(words)
+            log_to_file((' '.join(words)))
+        j += 1
+
+
 def main():
     #funct_with_false(first_param='lux', second_param='nebunie', third_param='opulenta')
 
@@ -214,6 +236,8 @@ def main():
 
     #ax = time_it(print, 'Lux', 'Si Opulenta',  end=' # ', flush=True, how_many_times=5)
     #print(f"\n{ax}")
+
+    printing_a_message()
 
 
 if __name__ == '__main__':
