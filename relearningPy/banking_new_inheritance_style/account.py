@@ -7,11 +7,12 @@ from collections import namedtuple
 
 
 class Account:
-    def __init__(self, *, account_number, owner, balance, currency):
+    def __init__(self, *, account_number, owner, balance, currency, owner_address):
         self.account_number: str = account_number
         self.owner: namedtuple = owner
         self.balance: Decimal = balance
         self.currency: str = currency
+        self.owner_address: str = owner_address
 
     @property
     def account_number(self) -> str:
@@ -62,6 +63,20 @@ class Account:
             raise ValueError('Currency should be a string containing alphas characters!')
 
         self._currency = currency
+
+    @property
+    def owner_address(self) -> str:
+        return self._owner_address
+
+    @owner_address.setter
+    def owner_address(self, owner_address: str) :
+        if not (owner_address and isinstance(owner_address, str)) or len(split(r',\s*', owner_address)) < 2:
+            raise ValueError('Owner address should be a string with a street '
+                             'name and number at least separatet by a comma!')
+
+        self._owner_address = owner_address
+
+
 
     def deposit(self, *, amount: Decimal) -> Decimal:
         if not (amount and isinstance(amount, Decimal)) or amount <= Decimal('0.00'):
