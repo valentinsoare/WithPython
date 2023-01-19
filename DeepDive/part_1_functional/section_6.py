@@ -239,6 +239,22 @@ def main():
 
     #------------------------------------
 
+    given_list = [4, 10, 2, 4, 12, 44, 23, 10, 101]
+
+    def simulate_reduce(fn, given_iterable, initializer=None):
+        it = iter(given_iterable)
+
+        if initializer:
+            final_value = initializer
+        else:
+            final_value = next(it)
+
+        for i in it:
+            final_value = fn(final_value, i)
+
+        return final_value
+
+    print(f'\nAlternative way: {simulate_reduce(lambda i, j: i + j, given_list)}\nClassic way: {sum(given_list)}')
 
 
 if __name__ == '__main__':
