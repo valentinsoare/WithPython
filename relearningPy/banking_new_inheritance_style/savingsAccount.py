@@ -5,10 +5,10 @@ from account import Account
 
 
 class SavingsAccount(Account):
-    def __init__(self, *, nr_of_the_account, owner_of_the_account, account_balance, currency_for_account, interest_rate):
+    def __init__(self, *, nr_of_the_account, owner_of_the_account, account_balance, currency_for_account, interest_rate, owner_address):
 
         super().__init__(account_number=nr_of_the_account, owner=owner_of_the_account,
-                         balance=account_balance, currency=currency_for_account)
+                         balance=account_balance, currency=currency_for_account, owner_address=owner_address)
 
         self.interest_rate: Decimal = interest_rate
         self._interest: Decimal = Decimal('0.00')

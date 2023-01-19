@@ -5,6 +5,8 @@ import random
 import decimal
 import fractions
 from re import match
+import numpy as np
+import functools
 
 
 def first_one(first_argument: str, second_argument: float) -> str:
@@ -74,12 +76,12 @@ def main():
     #help(first_one)
     ##ax = first_one()
 
-    #executing(first_name='Tudorina', last_name='Soare', age='56')
+    executing(first_name='Tudorina', last_name='Soare', age='56')
 
-    #sexy_things()
+    sexy_things()
 
-    #decimal.getcontext().prec = 4
-    #result = apply_function('10', lambda i: i ** decimal.Decimal('0.5'))
+    decimal.getcontext().prec = 4
+    result = apply_function('10', lambda i: i ** decimal.Decimal('0.5'))
     #print(result)
 
     #print(f"Average: {calc_average(10, 40, 22, 30, 18, 19):.2f}")
@@ -87,11 +89,11 @@ def main():
     #az = sort_a_dict({'lux': 10, 'nebunie': 25, 'opulenta': 4}, by_element='key')
     #print(az)
 
-    #at = another_version_of_sort_a_dict({'lux': 10, 'nebunie': 25, 'opulenta': 4}, by_element='value')
+    t = another_version_of_sort_a_dict({'lux': 10, 'nebunie': 25, 'opulenta': 4}, by_element='value')
     #print(at)
 
     at = randomized_an_iterable_with_sorted([1, 4, 10, 77, 9, 7, 56, 101])
-    print(at)
+    #print(at)
 
     #---------------------------------
     #print(dir(another_version_of_sort_a_dict))
@@ -109,9 +111,134 @@ def main():
 
     #print(inspect.getcomments(another_version_of_sort_a_dict))
 
-    #ax = inspect.signature(another_version_of_sort_a_dict)
+    ax = inspect.signature(another_version_of_sort_a_dict)
     #print(ax.parameters)
     #------------------------------------
+
+    #print(another_version_of_sort_a_dict.__defaults__)
+    #print(another_version_of_sort_a_dict.__kwdefaults__)
+    #print(another_version_of_sort_a_dict.__code__)
+    #print(another_version_of_sort_a_dict.__code__.co_varnames)
+    #print(another_version_of_sort_a_dict.__code__.co_argcount)
+
+    #------------------------------------
+
+    #print(inspect.getsource(another_version_of_sort_a_dict))
+
+    az = inspect.signature(another_version_of_sort_a_dict)
+    #print(az.parameters)
+    #------------------------------------
+
+    #print(callable(iter))
+
+    #-------------------------------------
+
+    def sqrt(given_number):
+        return given_number**1/2
+
+    processed_numbers = list(map(sqrt, np.random.randint(12, 244, 12)))
+    #print(processed_numbers)
+
+    def combined_values(value_1, value_2):
+        return value_1[0], [value_1[1].capitalize(), value_2.upper()]
+
+    dict_1 = {'RO': 'Romania', 'UK': 'United Kingdom', 'FR': 'France', 'DE': 'Germany'}
+    list_1 = ['lei', 'pounds', 'euros', 'euros']
+
+    given_values = dict(map(combined_values, tuple(dict_1.items()), list_1))
+    #print(given_values)
+
+    combined_them = list((*dict_1.values(), *list_1))
+    #print(combined_them)
+
+    #--------------------------------------------
+
+    def is_even(given_number):
+        return given_number % 2 == 0
+
+    even_numbers = filter(is_even, np.random.randint(1, 999, 20))
+    #print(list(even_numbers))
+
+    #-------------------------------------------
+
+    l1 = 'python'
+    l2 = range(101)
+
+    find_indexes = zip(l2, l1)
+    #print(list(find_indexes))
+
+    #-------------------------------
+
+    aax = [i**2 for i in range(10) if i**2 < 25]
+    #print(aax)
+
+    #--------------------------------
+
+    #for index, value in zip(range(100), np.random.randint(1, 99, 20)):     # same thing like enumerate
+    #    print(f'{index}: {value}')
+
+    #--------------------------------
+    ax = list((i**2 for i in np.random.randint(1, 10, 5) if i % 2 != 0))
+
+    ay = [i**2 for i in np.random.randint(1, 10, 5) if i % 2 != 0]
+
+    #print(ax)
+    #=--------------------------------
+    def maximum(nr_1, nr_2):
+        to_return = nr_1
+        if to_return < nr_2:
+            return nr_2
+
+        return to_return
+
+    def find_max(zz):
+        max_value = zz[0]
+
+        for i in range(1, len(zz)):
+            max_value = maximum(max_value, zz[i])
+
+        return max_value
+
+    print(find_max([4, 10, 2, 22, 34, 12, 10]))
+
+    #--------------------------------------------------
+
+    given_list = [4, 10, 22, 101, 98, 67, 23, 56, 142]
+    add = lambda x, y: x + y
+
+    sum_of_elements = given_list[0]
+
+    for i in range(1, len(given_list)):
+        sum_of_elements = add(sum_of_elements, given_list[i])
+
+    print(f"Classic: {sum(given_list)} and Alternative: {sum_of_elements}")
+
+    #---------------------------------------------------
+
+    final_result = functools.reduce(lambda x, y: x if x < y else y, given_list)
+    print(final_result)
+
+    #print(any(given_list))
+
+    #----------------------------------------
+
+    our_list = [0, 4, None, None]
+
+    our_result = functools.reduce(lambda i, j: bool(i) or bool(j), our_list)
+    print(our_result)    # simulating any
+
+    #----------------------------------
+
+    given_list = np.random.randint(1, 10, 10)
+
+    calc_product = functools.reduce(lambda i, j: i * j, given_list)
+    print(calc_product)
+
+    fact_new_way = functools.reduce(lambda k, l: k * l, range(1, 6))
+    print(fact_new_way)
+
+    #------------------------------------
+
 
 
 if __name__ == '__main__':

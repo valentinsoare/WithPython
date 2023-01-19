@@ -5,9 +5,9 @@ from account import Account
 
 
 class CheckingAccount(Account):
-    def __init__(self, *, nr_account, owner, balance, currency, transaction_fee):
+    def __init__(self, *, nr_account, owner, balance, currency, transaction_fee, owner_address):
         super().__init__(account_number=nr_account, owner=owner,
-                         balance=balance, currency=currency)
+                         balance=balance, currency=currency, owner_address=owner_address)
 
         self.transaction_fee: Decimal = transaction_fee
 

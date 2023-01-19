@@ -99,8 +99,8 @@ class Credit:
         self.value_to_be_returned = self.bank_profit + self.credit_amount
         self.how_much_per_month = Decimal((self.value_to_be_returned / self.period_of_credit)).quantize(Decimal('0.00'))
 
-        return self.bank_profit.quantize(Decimal('0.00')), self.how_much_per_month.quantize(
-            Decimal('0.00')), self.value_to_be_returned.quantize(Decimal('0.00'))
+        return self.bank_profit.quantize(Decimal('0.00')), self.how_much_per_month.quantize(Decimal('0.00')),\
+            self.value_to_be_returned.quantize(Decimal('0.00'))
 
     def __str__(self):
         return f'account_for_credit: {self.account_for_credit}\n' \

@@ -1,21 +1,21 @@
 #!/usr/bin/python
 
-
 from decimal import Decimal
 from account import Account
 
 
 class SalaryAccount(Account):
-    def __init__(self, *, account_number, owner, balance, currency, type_of_commissions,
-                 commission_amount, credit_card_withdraw_fees, annual_maintenance_fees, transaction_fees, to_create_credit_card=False):
-        super().__init__(account_number=account_number, owner=owner, balance=balance, currency=currency)
+    def __init__(self, *, account_number, owner, balance, currency, owner_address, type_of_commissions,
+                 commission_amount, credit_card_withdraw_fees, annual_maintenance_fees,
+                 transaction_fees):
+        super().__init__(account_number=account_number, owner=owner, balance=balance,
+                         currency=currency, owner_address=owner_address)
 
         self.type_of_commissions: str = type_of_commissions
         self.commission_amount: Decimal = commission_amount
         self.credit_card_withdraw_fees: Decimal = credit_card_withdraw_fees
         self.annual_maintenance_fees: Decimal = annual_maintenance_fees
         self.transaction_fees: Decimal = transaction_fees
-        self.to_create_credit_card: bool = to_create_credit_card
         self._registered_salary_for_three_months: list = []
 
     @property
@@ -24,8 +24,7 @@ class SalaryAccount(Account):
 
     @type_of_commissions.setter
     def type_of_commissions(self, type_of_commissions):
-        if not (isinstance(type_of_commissions, str) and type_of_commissions.isalpha()) or \
-                type_of_commissions not in ['weekly', 'daily', 'monthly', 'annually', 'no']:
+        if not isinstance(type_of_commissions, str) or type_of_commissions not in ['weekly', 'daily', 'monthly', 'annually', 'no']:
             raise ValueError('Commissions type should be a str and one of '
                              'the following type: daily, weekly, monthly or annually!')
 
@@ -66,17 +65,6 @@ class SalaryAccount(Account):
     def transaction_fees(self, amount):
         check_decimal_values(given_value_amount=amount, type_of_variable='Transaction fees')
         self._transaction_fees = amount.quantize(Decimal('0.00'))
-
-    @property
-    def to_create_credit_card(self) -> bool:
-        return self._to_create_credit_card
-
-    @to_create_credit_card.setter
-    def to_create_credit_card(self, value):
-        if not isinstance(value, bool):
-            raise ValueError('We need a string on to create credit card and one of the following values, yes/no!')
-
-        self._to_create_credit_card = value
 
     def withdraw(self, *, amount: Decimal) -> Decimal:
         if not isinstance(amount, Decimal) or amount <= Decimal('0.00') or amount + self.transaction_fees > self.balance:

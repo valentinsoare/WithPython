@@ -16,6 +16,9 @@ from checkingAccount import CheckingAccount
 
 
 class Bank:
+    _COMPARISON_OPERATORS = {'>': operator.gt, '<': operator.lt, '>=': operator.ge,
+                             '<=': operator.le, '==': operator.eq, '!=': operator.ne}
+
     def __init__(self, *, bank_name, country, city, type_of_bank):
         self.bank_name: str = bank_name
         self.country: str = country
@@ -89,9 +92,9 @@ class Bank:
         return self._credit_cards_as_objects
 
     #TODO: create account books in order to store all the info, csv file. To write and to read from those csv into pandas!
-    def open_account(self, *, type_of_account: str, owner: str, initial_balance: Decimal, account_currency: str, interest_rate: Decimal = None,
-                     fee_for_transaction_checking: Decimal = None, transaction_fees_salary: Decimal = None, commissions_type_salary: str = None,
-                     commissions_amount_salary: Decimal = None, card_withdraw_fees: Decimal = None, annual_fees=None) -> Union[SavingsAccount, CheckingAccount, SalaryAccount]:
+    def open_account(self, *, type_of_account: str, owner: str, initial_balance: Decimal, account_currency: str, owner_address: str, interest_rate: Decimal = Decimal('0.00'),
+                     fee_for_transaction_checking: Decimal = Decimal('0.00'), transaction_fees_salary: Decimal = Decimal('0.00'), commissions_type_salary: str = 'monthly',
+                     commissions_amount_salary: Decimal = Decimal('0.00'), card_withdraw_fees: Decimal = Decimal('0.00'), annual_fees = Decimal('0.00')) -> Union[SavingsAccount, CheckingAccount, SalaryAccount]:
 
         while True:
             new_account_nr = _generate_new_account_number(name_of_bank=self._bank_name, country_of_bank=self._country, city_of_bank=self._city)
@@ -99,30 +102,33 @@ class Bank:
             if new_account_nr not in self.accounts.keys():
                 if type_of_account == 'savings account':
                     new_account = SavingsAccount(nr_of_the_account=new_account_nr, owner_of_the_account=owner, account_balance=initial_balance,
-                                                 currency_for_account=account_currency, interest_rate=interest_rate)
+                                                 currency_for_account=account_currency, interest_rate=interest_rate, owner_address=owner_address)
                     self._accounts.update({new_account_nr: {'account_number': new_account_nr,
                                                             'owner': owner,
                                                             'type_of_account': 'savings_account',
                                                             'initial_balance': initial_balance,
                                                             'account_currency': account_currency,
-                                                            'interest_rate': interest_rate}})
+                                                            'interest_rate': interest_rate,
+                                                            'owner_address': owner_address}})
                     self._accounts_as_objects.update({new_account_nr: new_account})
 
                 elif type_of_account == 'checking account':
                     new_account = CheckingAccount(nr_account=new_account_nr, owner=owner, balance=initial_balance,
-                                                  currency=account_currency, transaction_fee=fee_for_transaction_checking)
+                                                  currency=account_currency, transaction_fee=fee_for_transaction_checking,
+                                                  owner_address=owner_address)
                     self._accounts.update({new_account_nr: {'account_number': new_account_nr,
                                                             'owner': owner,
                                                             'type_of_account': 'checking_account',
                                                             'initial_balance': initial_balance,
                                                             'account_currency': account_currency,
-                                                            'transaction_fee': fee_for_transaction_checking}})
+                                                            'transaction_fee': fee_for_transaction_checking,
+                                                            'owner_address': owner_address}})
                     self._accounts_as_objects.update({new_account_nr: new_account})
                 elif type_of_account == 'salary account':
                     new_account = SalaryAccount(account_number=new_account_nr, owner=owner, balance=initial_balance,
                                                 currency=account_currency, transaction_fees=transaction_fees_salary,
                                                 type_of_commissions=commissions_type_salary, commission_amount=commissions_amount_salary,
-                                                credit_card_withdraw_fees=card_withdraw_fees, annual_maintenance_fees=annual_fees)
+                                                credit_card_withdraw_fees=card_withdraw_fees, annual_maintenance_fees=annual_fees, owner_address=owner_address)
                     self._accounts.update({new_account_nr: {'account_number': new_account_nr,
                                                             'owner': owner,
                                                             'type_of_account': 'salary_account',
@@ -132,18 +138,19 @@ class Bank:
                                                             'type_of_commissions': commissions_type_salary,
                                                             'commissions_amount': commissions_amount_salary,
                                                             'card_withdraw_fees': card_withdraw_fees,
-                                                            'annual_maintenance_fees': annual_fees}})
+                                                            'annual_maintenance_fees': annual_fees,
+                                                            'owner_address': owner_address}})
                     self._accounts_as_objects.update({new_account_nr: new_account})
 
                 return new_account
 
-    def search_credits_by_owner(self, *, number_account: str = None, owner_account: str = None, account_type: str = None, balance_initial: Decimal = None,
-                                currency_on_account: str = None, fee_transaction: Decimal = None, interest_rate_on_account: Decimal = None) -> Union[dict, None]:
+    def search_credits_by_owner(self, *, number_account: str = None, owner_account: str = None, account_type: str = None,
+                                currency_on_account: str = None) -> Union[dict, None]:
 
         credits_to_returned: dict = {}
         value_to_search_by = self.search_account(account_number=number_account, owner=owner_account, type_of_account=account_type,
-                                                 initial_balance=balance_initial, account_currency=currency_on_account,
-                                                 interest_rate=interest_rate_on_account, transaction_fee=fee_transaction)
+                                                 account_currency=currency_on_account)
+
         if not value_to_search_by:
             return None
 
@@ -152,19 +159,17 @@ class Bank:
 
         return credits_to_returned
 
-    def number_of_accounts_open(self, *, number_account=None, owner_account=None, account_type=None,
-                                balance=None, currency=None, rate=None, fee_for_transaction=None) -> int:
+    def number_of_accounts_open(self, *, number_account=None, owner_account=None, account_type=None, currency=None) -> int:
 
-        value_to_return = self.search_account(account_number=number_account, owner=owner_account, type_of_account=account_type, initial_balance=balance,
-                                              account_currency=currency, interest_rate=rate, transaction_fee=fee_for_transaction)
+        value_to_return = self.search_account(account_number=number_account, owner=owner_account, type_of_account=account_type,
+                                              account_currency=currency)
 
         return int(not value_to_return) or len(value_to_return)
 
-    def search_account(self, *, account_number=None, owner=None, type_of_account=None, initial_balance=None,
-                       account_currency=None, interest_rate=None, transaction_fee=None) -> Union[dict, None]:
+    def search_account(self, *, account_number=None, owner=None, type_of_account=None, account_currency=None) -> Union[dict, None]:
 
-        search_options: set = {(account_number, 'account_number'), (owner, 'owner'), (type_of_account, "type_of_account"), (initial_balance, "initial_balance"),
-                               (account_currency, "account_currency"), (interest_rate, "interest_rate"), (transaction_fee, 'transaction_fee')}
+        search_options: set = {(account_number, 'account_number'), (owner, 'owner'), (type_of_account, "type_of_account"),
+                               (account_currency, "account_currency")}
 
         arguments_given: set = {(i, j) for i, j in search_options if i}
         number_of_arguments_given: int = len(arguments_given)
@@ -173,12 +178,33 @@ class Bank:
         for i, j in self._accounts.items():
             count: int = 0
             for k, l in arguments_given:
-                if j[l] == k:
+                if l in j and j[l] == k:
                     count += 1
                 if number_of_arguments_given == count:
                     values_found.update({i: j})
 
         return None if not values_found else values_found
+
+    def search_account_numerical_values(self, *, initial_balance=None, interest_rate=None, transaction_fee=None) -> Union[dict, None]:
+
+        search_options: set = {(initial_balance, "initial_balance"), (interest_rate, "interest_rate"), (transaction_fee, 'transaction_fee')}
+
+        parse_args_given = {(i, j) for i, j in search_options if i}
+        nr_args = len(parse_args_given)
+        found_values: dict = {}
+
+        for i, j in self.accounts.items():
+            count: int = 0
+            for k, l in parse_args_given:
+                operator_to_use, compare_amount = k.split()
+
+                if l in j and self._COMPARISON_OPERATORS[operator_to_use](j[l], Decimal(compare_amount)):
+                    count += 1
+
+                if count == nr_args:
+                    found_values.update({i: j})
+
+        return None if not found_values else found_values
 
     def credit(self, *, account_number: str, amount: Decimal, period: Decimal, rate: Decimal) -> Credit:
         new_credit = Credit(account_for_credit=account_number, credit_amount=amount,
@@ -215,7 +241,7 @@ class Bank:
                                      expiration_date=expiration_date,
                                      cvv=kwargs['cvv'],
                                      address=kwargs['address'])
-        self._credit_cards.update({account_number: {len(self._credit_cards): {'account_number': account_number, 'owner': owner,
+        self._credit_cards.update({account_number: {(len(self._credit_cards) + 1): {'account_number': account_number, 'owner': owner,
                                                                               'balance': balance, 'currency': currency,
                                                                               'credit_card_withdraw_fees': credit_card_withdraw_fees,
                                                                               'annual_maintenance_fees': annual_maintenance_fees,
@@ -227,14 +253,12 @@ class Bank:
                                                                               'expiration_date': expiration_date,
                                                                               'cvv': kwargs['cvv'],
                                                                               'address': kwargs['address']}}})
-        self._credit_cards_as_objects.update({new_credit_card.account_number: {len(self._credit_cards_as_objects): new_credit_card}})
+        self._credit_cards_as_objects.update({new_credit_card.account_number: {(len(self._credit_cards_as_objects) + 1): new_credit_card}})
         return new_credit_card
 
     def search_credits(self, *, credit_amount=None, period_of_credit=None, interest_rate=None, bank_profit=None,
                        value_to_be_returned=None, how_much_per_month=None) -> Union[None, dict]:
         credits_found: dict = {}
-        comparison_operators = {'>': operator.gt, '<': operator.lt, '>=': operator.ge,
-                                '<=': operator.le, '==': operator.eq, '!=': operator.ne}
 
         arguments_to_search: set = {(credit_amount, 'credit_amount'), (period_of_credit, 'credit_period',),
                                     (interest_rate, 'credit_interest_rate'), (bank_profit, 'bank_profit'),
@@ -248,7 +272,7 @@ class Bank:
             for k, l in arguments_we_have:
                 operator_to_use, amount_to_compare = k.split()
 
-                if comparison_operators[operator_to_use](j[l], Decimal(amount_to_compare)):
+                if self._COMPARISON_OPERATORS[operator_to_use](j[l], Decimal(amount_to_compare)):
                     count += 1
 
                 if count == number_of_arguments_given:
@@ -287,7 +311,6 @@ def _generate_new_account_number(*, name_of_bank: str, country_of_bank: str, cit
 
     seed(int(time()))
     return ''.join([*account_number, city_of_bank[0].upper(), str(randrange(100000000, 999999999))])
-
 
 def check_str_input(*, given_value: str, type_of_input: str) -> None:
     if not (given_value and isinstance(given_value, str)) or match(r'\s+', given_value):

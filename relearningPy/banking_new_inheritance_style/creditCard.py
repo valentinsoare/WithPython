@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from re import match, split
+from re import match
 from decimal import Decimal
 from salaryAccount import SalaryAccount
 
@@ -24,7 +24,7 @@ class CreditCard(SalaryAccount):
 
     @type_of_card.setter
     def type_of_card(self, card_type: str):
-        if not (card_type and isinstance(card_type, str)) or card_type not in {'regular', 'silver', 'gold', 'platinum'}:
+        if not (card_type and isinstance(card_type, str)) or card_type not in {'maestro', 'visa', 'mastercard'}:
             raise ValueError('Card type should be a str and one of the following: regular, silver, gold or platinum!')
 
         self._type_of_card = card_type
@@ -68,9 +68,6 @@ class CreditCard(SalaryAccount):
 
     @address.setter
     def address(self, address: str):
-        if not isinstance(address, str) or len(split(r',\s*', address)) < 2:
-            raise ValueError('Address should contain at least a street name and number, separated by a comma!')
-
         self._address = address
 
     def card_withdraw(self, amount: Decimal):
