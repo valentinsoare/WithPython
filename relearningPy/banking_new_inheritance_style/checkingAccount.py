@@ -5,8 +5,8 @@ from account import Account
 
 
 class CheckingAccount(Account):
-    def __init__(self, *, nr_account, owner, balance, currency, transaction_fee, owner_address):
-        super().__init__(account_number=nr_account, owner=owner,
+    def __init__(self, *, account_number, owner, balance, currency, transaction_fee, owner_address):
+        super().__init__(account_number=account_number, owner=owner,
                          balance=balance, currency=currency, owner_address=owner_address)
 
         self.transaction_fee: Decimal = transaction_fee
@@ -31,8 +31,8 @@ class CheckingAccount(Account):
 
     def withdraw(self, *, amount: Decimal) -> Decimal:
         if not isinstance(amount, Decimal) or amount + self.transaction_fee > self.balance or amount <= Decimal('0.00'):
-            raise ValueError('Withdraw value should be a decimal and withdraw valu + transaction fee should  not be greater '
-                             'than the balance or the sum to be withdraw equal or less than zero!')
+            raise ValueError('Withdraw value should be a decimal and withdraw valu + transaction fee should  '
+                             'not be greater  than the balance or the sum to be withdraw equal or less than zero!')
 
         self.balance -= (amount + self.transaction_fee)
         return self.balance
@@ -47,6 +47,7 @@ class CheckingAccount(Account):
     def __str__(self) -> str:
         message_to_be_returned: str = f'account_number: {self.account_number}\n' \
                                       f'{Account.__str__(self)}\n' \
-                                      f'transaction_fee: {self.transaction_fee:,}\n'
+                                      f'transaction_fee: {self.transaction_fee:,}\n' \
+                                      f'type_of_account: checking_account'
 
         return message_to_be_returned

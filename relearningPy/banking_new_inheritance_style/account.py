@@ -76,8 +76,6 @@ class Account:
 
         self._owner_address = owner_address
 
-
-
     def deposit(self, *, amount: Decimal) -> Decimal:
         if not (amount and isinstance(amount, Decimal)) or amount <= Decimal('0.00'):
             raise ValueError('Deposit amount should be a decimal value greater than zero!')
@@ -95,5 +93,7 @@ class Account:
     def __str__(self):
         return f'owner: {self.owner}\n' \
                f'balance: {self.balance:,}\n' \
-               f'currency: {self.currency}'
+               f'currency: {self.currency}\n' \
+               f'owner_address: {self.owner_address}'
+
 

@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+
 from bank import Bank
 from decimal import Decimal
 
@@ -7,10 +8,11 @@ from decimal import Decimal
 def main():
     reiff = Bank(bank_name='reiffeisen', country='Romania', city='Bucharest', type_of_bank='commercial')
 
-    reiff.open_account(type_of_account='salary account', owner='Valentin, Soare', initial_balance=Decimal('50_000'),
-                       account_currency='euros', owner_address='Lucretu Patrascanu, Nr. 9', commissions_type_salary='daily')
+    vs = reiff.open_salary_account(owner='Valentin, Soare', balance=Decimal('10_000'), currency='euro', transaction_salary_fees=Decimal('10.00'),
+                                   type_of_commission='monthly', commission_amount=Decimal('5.00'), credit_card_withdraw_fees=Decimal('0.00'),
+                                   annual_maintenance_fees=Decimal('20.00'), owner_address='Lucreitu Patrascanu, Nr. 9, Bl. Y2, Ap. 21, Bucuresti, Sector 3')
+    print(vs)
 
-    print(reiff.accounts)
 
 
 if __name__ == '__main__':

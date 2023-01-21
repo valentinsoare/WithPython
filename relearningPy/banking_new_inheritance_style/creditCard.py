@@ -7,10 +7,10 @@ from salaryAccount import SalaryAccount
 
 class CreditCard(SalaryAccount):
     def __init__(self, account_number, owner, balance, currency, credit_card_withdraw_fees, annual_maintenance_fees,
-                 type_of_commissions, commission_amount, transaction_fees, type_of_card, serial_number, expiration_date, **kwargs):
+                 type_of_commission, commission_amount, transaction_salary_fees, type_of_card, serial_number, expiration_date, **kwargs):
         super().__init__(account_number=account_number, owner=owner, balance=balance, currency=currency,
                          credit_card_withdraw_fees=credit_card_withdraw_fees, annual_maintenance_fees=annual_maintenance_fees,
-                         type_of_commissions=type_of_commissions, commission_amount=commission_amount, transaction_fees=transaction_fees)
+                         type_of_commission=type_of_commission, commission_amount=commission_amount, transaction_salary_fees=transaction_salary_fees)
 
         self.type_of_card: str = type_of_card
         self.serial_number: str = serial_number
