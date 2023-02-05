@@ -46,7 +46,7 @@ class SavingsAccount(Account):
         else:
             return getattr(self, item)
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         message_to_return = f'account_number: {self.account_number}\n' \
                             f'{Account.__str__(self)}\n' \
                             f'interest_rate: {self.interest_rate}%\n' \
@@ -59,4 +59,5 @@ class SavingsAccount(Account):
 
         return message_to_return
 
-
+    def __str__(self):
+        return self.__repr__()

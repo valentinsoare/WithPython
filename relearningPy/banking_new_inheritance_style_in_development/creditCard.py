@@ -86,11 +86,14 @@ class CreditCard(SalaryAccount):
 
         self.balance += (amount - self.transaction_fees)
 
-    def __str__(self):
+    def __repr__(self):
         return f'account_number: {self.account_number}\n' \
                f'owner: {self.owner}\n' \
                f'balance: {self.balance}\n' \
                f'currency: {self.currency}\n' \
                f'credit_card_withdraw_fees: {self.credit_card_withdraw_fees}\n' \
                f'annual_maintenance_fees: {self.annual_maintenance_fees}\n' \
-               f'type_of_card: {self.type_of_card}\n'
+               f'type_of_card: {self.type_of_card}'
+
+    def __str__(self):
+        return self.__repr__()

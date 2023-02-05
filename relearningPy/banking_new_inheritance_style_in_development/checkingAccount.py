@@ -44,10 +44,11 @@ class CheckingAccount(Account):
         else:
             return getattr(self, item)
 
-    def __str__(self) -> str:
-        message_to_be_returned: str = f'account_number: {self.account_number}\n' \
-                                      f'{Account.__str__(self)}\n' \
-                                      f'transaction_fee: {self.transaction_fee:,}\n' \
-                                      f'type_of_account: checking_account'
+    def __repr__(self):
+        return f'account_number: {self.account_number}\n' \
+                                  f'{Account.__str__(self)}\n' \
+                                  f'transaction_fee: {self.transaction_fee:,}\n' \
+                                  f'type_of_account: checking_account'
 
-        return message_to_be_returned
+    def __str__(self) -> str:
+        return self.__repr__()

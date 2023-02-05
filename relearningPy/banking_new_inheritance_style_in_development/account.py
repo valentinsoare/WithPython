@@ -90,10 +90,13 @@ class Account:
         self.balance -= amount
         return self.balance
 
-    def __str__(self):
+    def __repr__(self):
         return f'owner: {self.owner}\n' \
                f'balance: {self.balance:,}\n' \
                f'currency: {self.currency}\n' \
                f'owner_address: {self.owner_address}'
+
+    def __str__(self):
+        return self.__repr__()
 
 
