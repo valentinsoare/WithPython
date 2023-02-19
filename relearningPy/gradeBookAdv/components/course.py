@@ -17,7 +17,7 @@ class Course:
         return self._name_of_course
 
     @name_of_course.setter
-    def name_of_course(self, name_of_course):
+    def name_of_course(self, name_of_course) -> None:
         self._name_of_course = _check_if_str(name_of_course)
 
     @property
@@ -25,7 +25,7 @@ class Course:
         return self._min_grade
 
     @min_grade.setter
-    def min_grade(self, min_grade: int = 1):
+    def min_grade(self, min_grade: int = 1) -> None:
         self._min_grade = _check_if_numeric(min_grade)
 
     @property
@@ -33,7 +33,7 @@ class Course:
         return self._max_grade
 
     @max_grade.setter
-    def max_grade(self, max_grade: int = 10):
+    def max_grade(self, max_grade: int = 10) -> None:
         self._max_grade = _check_if_numeric(max_grade)
 
     @property
@@ -41,7 +41,7 @@ class Course:
         return self._teacher_name
 
     @teacher_name.setter
-    def teacher_name(self, teacher_name):
+    def teacher_name(self, teacher_name) -> None:
         self._teacher_name = _for_name_checking(teacher_name)
 
     def __repr__(self):

@@ -11,7 +11,7 @@ from components.variousCheckings import _print_banner, _ask_how_many_students, _
 
 
 class Controller:
-    def __init__(self, students_class_name, number_of_students, class_master):
+    def __init__(self, students_class_name, number_of_students, class_master) -> None:
         self.students_class_name: str = _check_if_str(students_class_name)
         self.number_of_students: int = _check_if_integer(number_of_students, return_tuple=False)
         self.class_master: str = _for_name_checking(class_master)
@@ -25,7 +25,7 @@ class Controller:
         print(f"DONE", end="", flush=True)
         sleep(2)
 
-    def implement_option_1(self):
+    def implement_option_1(self) -> None:
         """Register student"""
         students_to_be_added: Union[dict, int] = -1
 
@@ -106,12 +106,12 @@ class Controller:
         print(f"{' ' * 8}\033[1;32m{'-' * line_sep}\033[0m", flush=True)
         print(f"{' ' * 10}\033[1m * Select:\033[0m", end=" ", flush=True)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"class_name: {self.students_class_name}," \
                f"number_of_students: {self.number_of_students}," \
                f"class_master: {self.class_master},"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.__repr__()}'
 
 

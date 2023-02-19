@@ -4,7 +4,7 @@
 from time import sleep
 from typing import Union
 from collections import namedtuple
-from .variousCheckings import _check_if_numeric, _for_name_checking, _check_address
+from .variousCheckings import _check_if_numeric, _for_name_checking, _check_address, _check_if_bool
 
 
 class Student:
@@ -21,7 +21,7 @@ class Student:
         return self._name
 
     @name.setter
-    def name(self, name: str):
+    def name(self, name: str) -> None:
         self._name = _for_name_checking(name)
 
     @property
@@ -29,7 +29,7 @@ class Student:
         return self._age
 
     @age.setter
-    def age(self, age: Union[int, float]):
+    def age(self, age: Union[int, float]) -> None:
         self._age = _check_if_numeric(age)
 
     @property
@@ -37,7 +37,7 @@ class Student:
         return self._address
 
     @address.setter
-    def address(self, address: str):
+    def address(self, address: str) -> None:
         self._address = _check_address(address)
 
     @property
@@ -45,24 +45,21 @@ class Student:
         return self._id
 
     @id.setter
-    def id(self, id_number):
+    def id(self, id_number) -> None:
         self._id = id_number
 
     @property
-    def employed(self):
+    def employed(self) -> str:
         return self._employed
 
     @employed.setter
-    def employed(self, employed):
-        if not isinstance(employed, bool):
-            print(f"\n{' ' * 3} \033[31mPOL1009 - Employed value should be a boolean!\033[0m\n")
-            sleep(2)
-        self._employed = employed
+    def employed(self, employed) -> None:
+        self._employed = _check_if_bool(employed)
 
     @property
-    def grades_per_student(self):
+    def grades_per_student(self) -> dict:
         return self._grades_per_student
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self._name
 

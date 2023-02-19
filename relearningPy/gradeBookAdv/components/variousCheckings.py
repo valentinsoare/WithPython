@@ -65,8 +65,8 @@ def _working_on_grades_from_add(*args) -> tuple:
 
 
 def _check_address(address: str) -> namedtuple:
-    print_message = """POL1008 - Address should be a string containing at least the name of the street and number
-                                 separated by a comma and space or just a comma!"""
+    print_message = """POL1008 - Address should be a string containing at least the name of the street and number \
+separated by a comma and space or just a comma!"""
     split_address: list = []
 
     for i in split(r',\s*', address):
@@ -76,7 +76,7 @@ def _check_address(address: str) -> namedtuple:
             split_address.append(i.capitalize())
 
     if not isinstance(address, str) or len(split_address) < 2:
-        print(f"\n{' ' * 3} \033[31mPOL1008 - {print_message}\033[0m\n")
+        print(f"\n{' ' * 3} \033[31m{print_message}\033[0m\n")
         sleep(2)
         return 'POL1008'
 
@@ -171,27 +171,38 @@ def _ask_for_students_details(number_of_students_to_add: int, name_of_class: str
     while i < len(list_of_parameters) and count_student < number_of_students_to_add:
         system('clear')
         _print_banner(grade_book_class=_check_if_str(name_of_class))
-        print(f"""{' ' * 8}{f'[Option 1 Selected] Registering {number_of_students_to_add - count_student}'
-                            f' students left (q to quit/b to back to menu)...'}\n""", flush=True)
 
-        print(f"{' ' * 10}{i + 1}. {list_of_parameters[i][0].capitalize()} (q to quit/b to back):", end=" ", flush=True)
-        value_from_user: str = _check_input_quit_or_back(input())
+        print(f"""{' ' * 8} [Option 1 Selected] Registering {number_of_students_to_add - count_student} students left...
+         (q to quit/b to main menu/u for one step back)\n""", flush=True)
+
+        print(f"{' ' * 10}{i}. {list_of_parameters[i][0].capitalize()}:", end=" ", flush=True)
+        value_from_user: str = _back_to_previous_entry(_check_input_quit_or_back(_check_if_str(input())))
 
         if value_from_user == 'b':
             return -1
+        elif value_from_user == 'u':
+            if len(students_added[count_student]) != 0:
+                students_added[count_student].popitem()
 
-        after_checking = list_of_parameters[i][1](value_from_user)
-
-        if ('POL' or 'ERR') in str(after_checking):
-            continue
-
-        students_added[count_student].update({list_of_parameters[i][0]: after_checking})
-
-        if i == 5:
-            i = 0
-            count_student += 1
+                if i == 0 and not students_added[0].values():
+                    return -1
+                i -= 1
+            else:
+                count_student -= 1
+                i = len(students_added[count_student]) - 1
         else:
-            i += 1
+            after_checking = list_of_parameters[i][1](value_from_user)
+
+            if ('POL' or 'ERR') in str(after_checking):
+                continue
+
+            students_added[count_student].update({list_of_parameters[i][0]: after_checking})
+
+            if i == 5:
+                i = 0
+                count_student += 1
+            else:
+                i += 1
 
     return students_added
 
@@ -202,9 +213,19 @@ def _check_input_quit_or_back(given_value: str) -> Union[str, int]:
         sleep(2)
         exit(1)
     elif given_value.lower() == 'b':
-        number_of_students_to_add = 'b'
         print(f"\n{' ' * 8} \033[1;32m Going back to previous menu...\033[0m", flush=True)
         sleep(2)
-        return number_of_students_to_add
-    else:
-        return given_value
+
+    return given_value
+
+
+def _back_to_previous_entry(given_input: str) -> str:
+    if given_input.lower() == 'q':
+        print(f"\n{' ' * 8} \033[1;32m Exiting...\033[0m\n", flush=True)
+        sleep(2)
+        exit(1)
+    elif given_input.lower() == 'u':
+        print(f"\n{' ' * 8} \033[1;32m Going one step back...\033[0m", flush=True)
+        sleep(2)
+
+    return given_input

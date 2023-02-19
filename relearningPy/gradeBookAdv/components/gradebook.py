@@ -45,7 +45,7 @@ class GradeBook:
         return self._students_class_name
 
     @students_class_name.setter
-    def students_class_name(self, students_class_name):
+    def students_class_name(self, students_class_name) -> None:
         self._students_class_name = _check_if_str(students_class_name)
 
     @property
@@ -53,7 +53,7 @@ class GradeBook:
         return self._number_of_students
 
     @number_of_students.setter
-    def number_of_students(self, number_of_students):
+    def number_of_students(self, number_of_students) -> None:
         self._number_of_students = _check_if_numeric(number_of_students)
 
     @property
@@ -61,7 +61,7 @@ class GradeBook:
         return self._class_master
 
     @class_master.setter
-    def class_master(self, class_master):
+    def class_master(self, class_master) -> None:
         self._class_master = _for_name_checking(class_master)
 
     @property
@@ -76,7 +76,7 @@ class GradeBook:
     def courses(self) -> dict:
         return self._courses
 
-    def _check_exists(self, _student, class_to_use):
+    def _check_exists(self, _student, class_to_use) -> None:
         if _student.name not in self._grades:
             self._grades.update({_student.name: {class_to_use.name_of_course: {}}})
         else:
@@ -270,10 +270,10 @@ class GradeBook:
 
         return result
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'class_name: {self.students_class_name}, ' \
                f'number_of_students: {self.number_of_students}, ' \
                f'class_master: {self.class_master}'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.__repr__()}'
