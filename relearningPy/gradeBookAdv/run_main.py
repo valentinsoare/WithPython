@@ -1,13 +1,11 @@
 #!/usr/bin/python
 
-
 from time import sleep
 from typing import Union
-from components.course import Course
-from components.student import Student
 from components.gradebook import GradeBook
+from components.progressbar import ProgressBar
 from components.variousCheckings import _print_banner, _ask_how_many_students, _ask_for_students_details, \
-    _check_if_str, _for_name_checking, _check_if_integer
+     _check_if_str, _for_name_checking, _check_if_integer, _intro_to_app
 
 
 class Controller:
@@ -20,12 +18,7 @@ class Controller:
                                         number_of_students=self.number_of_students,
                                         class_master=self.class_master)
 
-        print(f"\n * Creating {students_class_name} grade book....", end="", flush=True)
-        sleep(3)
-        print(f"DONE", end="", flush=True)
-        sleep(2)
-
-    def implement_option_1(self) -> None:
+    def implement_option_1(self) -> Union[None, int]:
         """Register student"""
         students_to_be_added: Union[dict, int] = -1
 
@@ -36,6 +29,7 @@ class Controller:
             else:
                 students_to_be_added: Union[dict, int] = _ask_for_students_details(number_of_students_to_add,
                                                                                    name_of_class=self.students_class_name)
+
 
     @staticmethod
     def implement_option_2():
@@ -115,8 +109,25 @@ class Controller:
         return f'{self.__repr__()}'
 
 
+def _load_progress_bar(given_message: str, vars_to_load: dict) -> Controller:
+    print('\033[?25l')
+    progress = ProgressBar(description=given_message, end='DONE!', timeout=0.1)
+    progress.start()
+
+    grade_book = Controller(*vars_to_load.values())
+    for _ in range(20):
+        sleep(0.25)
+
+    progress.stop()
+
+    print('\033[?25h', end="")
+    return grade_book
+
+
 def main():
-    grade_book = Controller(students_class_name='12-B', number_of_students=32, class_master='Tudorina, Soare')
+    vars_to_load_initial_grade_book: dict = _intro_to_app()
+    grade_book = _load_progress_bar(given_message=f"* Creating {list(vars_to_load_initial_grade_book.values())[0]} grade book",
+                                    vars_to_load=vars_to_load_initial_grade_book)
     grade_book.run_menu()
 
 

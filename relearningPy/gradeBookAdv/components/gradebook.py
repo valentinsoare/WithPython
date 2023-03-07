@@ -1,4 +1,4 @@
-#!/usr/bin/python
+# gradebook.py
 
 from re import split
 from time import sleep

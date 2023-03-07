@@ -1,0 +1,24 @@
+---
+# wiki_yahoo_scraper.yaml
+
+queues:
+  - name: 'SymbolQueue'
+    description: 'Contains symbol to be scraped from Yahoo Finance'
+
+workers:
+#   - name: 'WikiWorker'
+#     description: 'This scraps raw wiki page and pulls out symbols'
+#     location: workers.WikiWorker
+#     class: WikiWorker
+#     input_values:
+#       - 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
+#     output_queues:
+#       - SymbolQueue
+
+  - name: 'YahooFinanceWorker'
+    description: 'Pulls price data for a specific stock synbol from yahoo finance.'
+    location: workers.yahoo_FinanceReader
+    class: 'YahooFinancePriceScheduler'
+    instances: 4
+    input_queue: 'SymbolQueue'
+...

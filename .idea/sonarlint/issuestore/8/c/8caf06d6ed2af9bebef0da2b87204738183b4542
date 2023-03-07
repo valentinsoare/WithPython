@@ -1,0 +1,63 @@
+
+>python:S1481ì"%Remove the unused local variable "i".(°±ë‹
+rpython:S3776"TRefactor this function to reduce its Cognitive Complexity from 23 to the 15 allowed.(µš•üÿÿÿÿ
+rpython:S3776³"TRefactor this function to reduce its Cognitive Complexity from 23 to the 15 allowed.(éÍõøÿÿÿÿ
+>python:S1481ö"%Remove the unused local variable "i".(« İî
+0python:S1700³"Rename field "fib"( «¾ÿÿÿÿÿ
+Cpython:S1481î"%Remove the unused local variable "i".(´ˆ³Ğüÿÿÿÿ
+<python:S125ú"Remove this commented out code.(ÊÖ¡°ùÿÿÿÿ
+7python:S125‡"Remove this commented out code.(…æöÛ
+>python:S1481•"%Remove the unused local variable "i".(†Íƒú
+7python:S125â"Remove this commented out code.(ÚÂ˜í
+Gpython:S1481".Remove the unused local variable "given_dict".(ìÅë
+<python:S125ò"Remove this commented out code.( ëÓ×øÿÿÿÿ
+<python:S125÷"Remove this commented out code.(Ê‹‘¾øÿÿÿÿ
+7python:S125ü"Remove this commented out code.(×Ä«¥
+7python:S125ÿ"Remove this commented out code.(ÄÚ‡
+7python:S125†"Remove this commented out code.(µ™¡Ó
+7python:S125Œ"Remove this commented out code.(î‰»Ñ
+<python:S125"Remove this commented out code.(—«óäıÿÿÿÿ
+<python:S125“"Remove this commented out code.(ÚêÅöúÿÿÿÿ
+7python:S125˜"Remove this commented out code.(ˆœäë
+7python:S125›"Remove this commented out code.(’çœ…
+7python:S125 "Remove this commented out code.(’¯²§
+7python:S125¦"Remove this commented out code.(à·ûŸ
+7python:S125¨"Remove this commented out code.(ø©–ä
+<python:S125«"Remove this commented out code.(¸ç­Šøÿÿÿÿ
+<python:S125¯"Remove this commented out code.(õå­ÿÿÿÿÿ
+7python:S125´"Remove this commented out code.(«ºÌì
+<python:S125·"Remove this commented out code.(§¯İˆùÿÿÿÿ
+6python:S125¼"Remove this commented out code.(é‘³
+7python:S125È"Remove this commented out code.(Ö¾÷Ñ
+7python:S125Ë"Remove this commented out code.(„¹óÏ
+7python:S125×"Remove this commented out code.(ùéå¾
+6python:S125Ù"Remove this commented out code.(Şº‰F
+<python:S125ß"Remove this commented out code.(Áù”úÿÿÿÿ
+7python:S125æ"Remove this commented out code.(œ‘¹æ
+<python:S125è"Remove this commented out code.(ıÈº‚ÿÿÿÿÿ
+7python:S125î"Remove this commented out code.(°§¯¨
+<python:S125ö"Remove this commented out code.(·Œ¦²ÿÿÿÿÿ
+<python:S125ù"Remove this commented out code.(ğ´‘Èıÿÿÿÿ
+<python:S125ş"Remove this commented out code.(ÀíÎ…ıÿÿÿÿ
+<python:S125‚"Remove this commented out code.(Ü•ßÓşÿÿÿÿ
+7python:S125…"Remove this commented out code.(ƒÂ¬
+7python:S125‰"Remove this commented out code.(åùÜò
+7python:S125"Remove this commented out code.(åùÜò
+7python:S125‘"Remove this commented out code.(åùÜò
+7python:S125•"Remove this commented out code.(ú˜®í
+<python:S125š"Remove this commented out code.(å¤”Îùÿÿÿÿ
+7python:S125¨"Remove this commented out code.(Î¨‘
+7python:S125­"Remove this commented out code.(î›šÖ
+7python:S125³"Remove this commented out code.(Îû¡·
+<python:S125¹"Remove this commented out code.(ìÙÿÿÿÿÿ
+<python:S125Â"Remove this commented out code.(ëÊ¹©şÿÿÿÿ
+<python:S125Í"Remove this commented out code.(ƒ÷¥ˆùÿÿÿÿ
+<python:S125Õ"Remove this commented out code.(Ë½ÚÆûÿÿÿÿ
+7python:S125Ü"Remove this commented out code.(‡®÷Ã
+<python:S125ä"Remove this commented out code.(³•ì†ùÿÿÿÿ
+7python:S125ì"Remove this commented out code.(ŒÍÉ¦
+<python:S125û"Remove this commented out code.(¤ÆÔÿÿÿÿÿ
+7python:S125"Remove this commented out code.(ôìÊû
+<python:S125‰"Remove this commented out code.(ËÎ˜‰ùÿÿÿÿ
+<python:S125‹"Remove this commented out code.(¹‚‚Üıÿÿÿÿ
+<python:S125’"Remove this commented out code.(±ØÉƒüÿÿÿÿ

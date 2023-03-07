@@ -1,0 +1,9 @@
+
+Mpython:S1172"0Remove the unused function parameter "elements".(ç¿ðÆøÿÿÿÿ
+Ppython:S1172"3Remove the unused function parameter "qty_numbers".(ç¿ðÆøÿÿÿÿ
+=python:S1481"%Remove the unused local variable "M".(ìäßå
+Bpython:S1481"%Remove the unused local variable "N".(¸çÊ¡ÿÿÿÿÿ
+Ipython:S1172O",Remove the unused function parameter "args".( ò£Êýÿÿÿÿ
+Ppython:S1172O"3Remove the unused function parameter "input_value".( ò£Êýÿÿÿÿ
+Bpython:S1481U"%Remove the unused local variable "i".(ÒÁ´¨ùÿÿÿÿ
+6python:S125d"Remove this commented out code.(¿Î‚¤

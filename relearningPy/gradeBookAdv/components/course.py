@@ -1,4 +1,4 @@
-#!/usr/bin/python
+# course.py
 
 from typing import Union
 from collections import namedtuple

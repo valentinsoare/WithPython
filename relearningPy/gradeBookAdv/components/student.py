@@ -1,7 +1,5 @@
-#!/usr/bin/python
+# student.py
 
-
-from time import sleep
 from typing import Union
 from collections import namedtuple
 from .variousCheckings import _check_if_numeric, _for_name_checking, _check_address, _check_if_bool
@@ -62,4 +60,3 @@ class Student:
 
     def __repr__(self) -> str:
         return self._name
-

@@ -1,0 +1,39 @@
+
+Opython:S1172"7Remove the unused function parameter "second_argument".(ÂŞ•
+Npython:S1172"6Remove the unused function parameter "first_argument".(ÂŞ•
+Opython:S1172"2Remove the unused function parameter "first_name".( ‚×Ùıÿÿÿÿ
+Kpython:S1172".Remove the unused function parameter "kwargs".(¹Ÿßàıÿÿÿÿ
+Npython:S1172"1Remove the unused function parameter "last_name".( ‚×Ùıÿÿÿÿ
+>python:S1481"&Remove the unused local variable "ax".(äÇ–½
+Fpython:S1481$".Remove the unused local variable "parsing_v2".(¿–ÖÔ
+Fpython:S1481".Remove the unused local variable "given_dict".(Ü•Ö‘
+;python:S125"Remove this commented out code.(é¼Ú†úÿÿÿÿ
+Qpython:S1135@"4Complete the task associated to this "TODO" comment.(¤ÈÀ–úÿÿÿÿ
+Qpython:S1135F"4Complete the task associated to this "TODO" comment.(˜êîãøÿÿÿÿ
+hpython:S1854ò"ORemove this assignment to local variable 'given_list'; the value is never used.(’¦Ô
+Gpython:S1481ã".Remove the unused local variable "our_result".(“ÊÁŸ
+Ipython:S1481Ú"0Remove the unused local variable "final_result".(²ßø£
+>python:S1481_"&Remove the unused local variable "at".(ºÕÑŞ
+Ipython:S1481í"0Remove the unused local variable "fact_new_way".(öì¤
+Ipython:S1481ê"0Remove the unused local variable "calc_product".(ğ³µ
+Ipython:S1481Ÿ"0Remove the unused local variable "even_numbers".(ŞÏ¸İ
+Gpython:S1481T"*Remove the unused local variable "result".(Á¬èúÿÿÿÿ
+Ppython:S1481ƒ"2Remove the unused local variable "factorial_calc".(ªó¨‘üÿÿÿÿ
+Jpython:S1481—"1Remove the unused local variable "combined_them".(­²†
+?python:S1481€"&Remove the unused local variable "az".(ëÄĞ
+@python:S1481¬"'Remove the unused local variable "aax".(´š—
+Npython:S1481§"0Remove the unused local variable "find_indexes".(ûıñğøÿÿÿÿ
+Spython:S1481‹"5Remove the unused local variable "processed_numbers".(„ÈĞúÿÿÿÿ
+Dpython:S1481·"&Remove the unused local variable "ay".(ÀñãÏıÿÿÿÿ
+=python:S1481\"%Remove the unused local variable "t".(Õ©×
+Hpython:S1481”"0Remove the unused local variable "given_values".(¿ú®&
+>python:S1481r"&Remove the unused local variable "ax".(¦õÉ…
+Dpython:S1481µ"&Remove the unused local variable "ax".(«£Êùÿÿÿÿ
+5python:S125L"Remove this commented out code.(ıµûW
+;python:S125Y"Remove this commented out code.(¼€«¦úÿÿÿÿ
+6python:S125e"Remove this commented out code.(ŠÄÚæ
+;python:S125i"Remove this commented out code.(º¸¨şûÿÿÿÿ
+6python:S125v"Remove this commented out code.(åğÑÜ
+<python:S125±"Remove this commented out code.(Ô§À­ıÿÿÿÿ
+Apython:S5603Â"(Remove this unused function declaration.(¹ê‡ğ
+Apython:S5603ô"(Remove this unused function declaration.(ÉÄ¬ù

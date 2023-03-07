@@ -1,19 +1,28 @@
-#!/usr/bin/python
+# variousChecking.py
 
-from re import split
 from os import system
 from time import sleep
 from typing import Union
+from re import split, match
 from collections import namedtuple
 
 
 def _check_if_str(given_value) -> str:
-    if not isinstance(given_value, str):
-        to_return = 'POL1005'
-        print(f"\n{' ' * 3} \033[31mPOL1005 - {given_value} value should be a string!\033[0m\n", flush=True)
-        sleep(2)
+    flag_to_use: bool = False
+    to_return: Union[str, float] = ''
+
+    if given_value == '' or match(r'\s+', given_value):
+        flag_to_use = True
     else:
-        to_return = given_value
+        try:
+            to_return = float(given_value)
+        except ValueError:
+            to_return = given_value
+
+    if isinstance(to_return, float) or flag_to_use:
+        to_return = 'POL1005'
+        print(f"\n{' ' * 3} \033[31mPOL1005 - Given value value should be a string!\033[0m\n", flush=True)
+        sleep(2)
 
     return to_return
 
@@ -31,9 +40,9 @@ def _check_if_numeric(given_value: Union[float, str, int]) -> Union[str, float]:
 
 
 def _for_name_checking(given_name) -> str:
-    first_last: list = list(map(lambda i: i.capitalize(), split(r',\s*|\s+', _check_if_str(given_name))))
+    first_last: list = list(map(lambda i: i.capitalize(), split(r',\s*|\s+', given_name)))
 
-    if len(first_last) != 2:
+    if given_name == '' or match(r'\s+', given_name) or len(first_last) != 2:
         print(f"\n{' ' * 3} \033[31mPOL1007 - Name should be a string with first name and last name "
               f"separated by a comma and a space, or just a comma!\033[0m\n")
         sleep(2)
@@ -89,9 +98,14 @@ separated by a comma and space or just a comma!"""
     return current_address
 
 
-def _print_banner(grade_book_class: str) -> int:
+def _print_banner(grade_book_class: str, short_print: bool = False) -> int:
     system('clear')
-    name_of_book: str = f"{grade_book_class} {'Grade book'}"
+
+    if short_print:
+        name_of_book: str = f"{grade_book_class}"
+    else:
+        name_of_book: str = f"{grade_book_class} {'Grade book'}"
+
     length_of_name: int = len(name_of_book)
     white_space: int = ((6 * length_of_name) // 2 - (length_of_name // 2))
 
@@ -113,7 +127,7 @@ def _check_if_integer(given_value: str, return_tuple: bool = True) -> Union[tupl
             to_exit = True
         else:
             to_return = 'POL1010'
-            print(f"\n{' ' * 3} \033[31mPOL1010 - Given value {given_value} should be a string - "
+            print(f"\n{' ' * 3} \033[31mPOL1010 - Given value should be a string - "
                   f"but numeric value, only an integer!\033[0m\n", flush=True)
             sleep(2)
             to_exit = False
@@ -170,13 +184,13 @@ def _ask_for_students_details(number_of_students_to_add: int, name_of_class: str
 
     while i < len(list_of_parameters) and count_student < number_of_students_to_add:
         system('clear')
-        _print_banner(grade_book_class=_check_if_str(name_of_class))
+        _print_banner(grade_book_class=name_of_class)
 
         print(f"""{' ' * 8} [Option 1 Selected] Registering {number_of_students_to_add - count_student} students left...
          (q to quit/b to main menu/u for one step back)\n""", flush=True)
 
         print(f"{' ' * 10}{i}. {list_of_parameters[i][0].capitalize()}:", end=" ", flush=True)
-        value_from_user: str = _back_to_previous_entry(_check_input_quit_or_back(_check_if_str(input())))
+        value_from_user: str = _back_to_previous_entry(_check_input_quit_or_back((input())))
 
         if value_from_user == 'b':
             return -1
@@ -188,6 +202,8 @@ def _ask_for_students_details(number_of_students_to_add: int, name_of_class: str
                     return -1
                 i -= 1
             else:
+                if count_student == 0:
+                    return -1
                 count_student -= 1
                 i = len(students_added[count_student]) - 1
         else:
@@ -229,3 +245,58 @@ def _back_to_previous_entry(given_input: str) -> str:
         sleep(2)
 
     return given_input
+
+
+def _load_grade_book_prerequisites() -> dict:
+    questions_for_intro: list = [('The name of the class', _check_if_str),
+                                 ('How many students', _check_if_integer),
+                                 ('Class headmaster', _for_name_checking)]
+
+    i: int = 0
+    answers_prerequisites: dict = {}
+    length_of_list_questions: int = len(questions_for_intro)
+
+    while i < length_of_list_questions:
+        system('clear')
+        _print_banner(grade_book_class='Loading....', short_print=True)
+        print(f"{' ' * 12}[ Loading prerequisites (q to quit/u for one step back) ]")
+        print(f"\n{' ' * 10}{i + 1}. {questions_for_intro[i][0]}:", end=" ", flush=True)
+        answer: str = _back_to_previous_entry(input())
+
+        if i == 1:
+            after_checking: int = questions_for_intro[i][1](answer, return_tuple=False)
+        else:
+            after_checking: str = questions_for_intro[i][1](answer)
+
+        if after_checking == 'u':
+            if len(answers_prerequisites.values()) == 0:
+                print(f"\n{' ' * 8} \033[1;32m There are no more answers available - exiting...\033[0m\n", flush=True)
+                sleep(2)
+                exit(1)
+            answers_prerequisites.popitem()
+            i -= 1
+        else:
+            if 'POL' in str(after_checking):
+                continue
+            answers_prerequisites.update({questions_for_intro[i][0]: after_checking})
+
+            i += 1
+
+    return answers_prerequisites
+
+
+def _printing_content(line_separator_length: int):
+    message_to_print = """In order to start the application and create the 
+            initial grade book we will need the following:
+        class name, number of students and class headmaster!"""
+    print(f"{' ' * 10}{message_to_print}", flush=True)
+    print(f"{' ' * 8}\033[1;32m{'-' * line_separator_length}\033[0m", flush=True)
+    sleep(3)
+
+
+def _intro_to_app() -> dict:
+    length_of_line_sep = _print_banner(grade_book_class='Loading..', short_print=True)
+    _printing_content(length_of_line_sep)
+    values_to_start_grade_book: dict = _load_grade_book_prerequisites()
+
+    return values_to_start_grade_book

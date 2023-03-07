@@ -86,8 +86,6 @@ M
 relearningPy/countingWords.py,d/4/d4f620353138c8124488b4837285c868e82b44de
 Y
 )relearningPy/binaryToDecimalProcessing.py,5/9/594502b7d62cc384466d2e77c5c3310daf3a68c3
-I
-fromBeginning/chapter6.py,0/1/0161f5a678ca80ca70193ce6bfb6707e7c567d02
 a
 1relearningPy/analyzingCrapsButWithDictNotLists.py,e/3/e383aba4fe7882791ea8987febab6ee0e7ab677d
 Q
@@ -98,8 +96,6 @@ C
 wordsCheckAmount.py,9/7/97a09e830fd1558d214917b8e1946208f72b926f
 L
 relearningPy/checkerboard.py,0/1/011565dd729103aae821055885d062204976c383
-P
- relearningPy/random_sentences.py,e/7/e729f6971e9eb089bf7da7f25c6b5a81a76899bf
 c
 3relearningPy/reverse_a_sentence_with_punctuation.py,b/e/be56f4d54ed0684217a71248a4ba479ed150fc95
 _
@@ -140,8 +136,6 @@ S
 #relearningPy/banking_old/account.py,7/f/7fae832d0fd920d13d59cf4848deac3c62cb5b7c
 R
 "relearningPy/banking_old/credit.py,5/b/5b37b900d661fc119faeba6691352a5bfdd71550
-J
-fromBeginning/chapter10.py,2/0/20158346acd88aebbf4c7b116bd865b0491bd44b
 l
 <relearningPy/polymorphic_employee_payroll_system/employee.py,0/d/0dd6a858c40a081492010d8c475b2fb0da3904c1
 t
@@ -160,5 +154,33 @@ h
 8relearningPy/grade_book/app_components/printing_phase.py,7/e/7e5a4715723a909001d069c13f314d54ed5f1827
 {
 KrelearningPy/grade_book/app_components/header_load_settings_and_validate.py,3/e/3e84d1df07d85e58c8dda4ae3f215145b33540ad
+o
+?udemy_deepdive_fred_baptiste/part_1_functional/file_to_logg.txt,6/b/6bb31ebad0ad58898ce870426c45e9d23d4e4f93
 k
 ;udemy_deepdive_fred_baptiste/part_1_functional/section_6.py,9/2/924cd638e24ea3681b6d3bac0f4eb3ea950075ec
+s
+Cudemy_deepdive_fred_baptiste/part_1_functional/section7_continue.py,6/2/621f56f6e1e043767c1ac7feab977912a81f9bfb
+k
+;udemy_deepdive_fred_baptiste/part_1_functional/section_7.py,8/c/8caf06d6ed2af9bebef0da2b87204738183b4542
+{
+KrelearningPy/banking_new_inheritance_style_in_development/savingsAccount.py,9/d/9d47595e4f25c0698dc0c7b2414c223c906adccb
+z
+JrelearningPy/banking_new_inheritance_style_in_development/salaryAccount.py,7/1/71ba6d14efe0fe2c957f08c20d8cbe18cac1bbf5
+}
+MrelearningPy/banking_new_inheritance_style_in_development/main_banking_app.py,4/7/477db3d6cbba2a224d11bd8e03b19970f35faa17
+I
+fromBeginning/chapter6.py,0/1/0161f5a678ca80ca70193ce6bfb6707e7c567d02
+P
+ relearningPy/random_sentences.py,e/7/e729f6971e9eb089bf7da7f25c6b5a81a76899bf
+N
+fromBeginning/forHackerRank.py,3/c/3c7f4d2d49ed8bfee94e0c193c7811ec204ac608
+k
+;udemy_deepdive_fred_baptiste/part_1_functional/section_8.py,5/0/5057fe8697348fd6b04d5d31b749d54f2d90b61c
+k
+;udemy_concurent_and_parallel_programing/workers/__init__.py,2/2/222fe0b154d13c02397b57bca973e89465a95c12
+t
+DrelearningPy/banking_new_inheritance_style_in_development/account.py,4/0/400f3bf5fb653916226ab2df9b6e1c721a281f4e
+|
+LrelearningPy/banking_new_inheritance_style_in_development/checkingAccount.py,e/9/e9ba540f96322a5b7132b83a78e647f1262a7e19
+q
+ArelearningPy/banking_new_inheritance_style_in_development/bank.py,b/6/b6baa494d6bc46cb90e6b5ec36051a650fc6fb7a
