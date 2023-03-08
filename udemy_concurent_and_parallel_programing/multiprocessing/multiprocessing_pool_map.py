@@ -21,5 +21,4 @@ with Pool(number_of_cpus_to_use) as mp_pool:
     result = mp_pool.map(square, comparison_list)
 
 print(result)
-
 print(f"Execution_time: {round(time() - start_time, 1)}")
